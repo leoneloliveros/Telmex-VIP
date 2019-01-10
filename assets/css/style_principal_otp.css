@@ -1,0 +1,140 @@
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 3px 16px;
+    width: 100%;
+    border: 1px solid #ccc;
+    text-align: left;
+    outline: none;
+    font-size: 12px;
+    transition: 0.0s;
+    border-bottom: 1px solid #fff;
+    padding-left: 25px;
+}
+
+.active, .accordion:hover {
+    background-color: #1f4c6f !important;
+    color: #fff;
+}
+
+.panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
+    border: 1px solid #cccccc;
+    padding-bottom: 20px;
+}
+
+.rigth {
+    float: right;
+    padding-right: 10px;
+}
+
+.bg {
+    background-color: transparent;
+    border: 1px solid #eeeeee;
+    padding: 10px;
+    padding-left: 25px;
+    width: 100%;
+    
+}
+
+.container_accordeon {
+    background-color: transparent;
+    padding: 30px;
+    border: 2px solid #cccccc;
+    border-radius: 15px;
+    transition: 10s;
+}
+
+.sub-title-acord {
+    background-color: #1f4c6f73;
+    color:#fff;
+    margin: 0;
+    font-size: 14px;
+    margin-top: 20px;
+    padding-left: 20px;
+}
+.in_time, .out_time, .today, .all{
+    background: #06a006;
+    padding: 8px 0px;
+    width: 30px;
+    border-radius: 50%;
+}
+.out_time{
+    background: #bf2222;
+}
+.today{
+    background: #fda953;
+}
+.all {
+    background: #767676;
+}
+.h4_for{
+    float: right;
+    margin-right: 25%;
+        
+}
+.h4_for span {
+
+    width: 50px;
+    margin-right:5px;
+    display: inline-block;
+}
+.span_all{
+    color: #000;
+}
+.span_in_time{
+    color: #008000;
+}
+.span_out_time{
+    color: #ff0000;
+}
+.span_today{
+    color: #ffa509;
+}
+.span_all, .span_in_time, .span_out_time, .span_today{
+    text-align:center;
+    font-size: 13px;
+    background: #fafaff;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+
+}
+
+.con_semaf {
+    background: #1f4c6f;
+    padding: 13px;
+    border: 1px solid #ccc;
+    color:  #fff;
+}
+
+.fontsize10 {
+    background:#fff;
+    text-align:center;
+    padding: 3px 5px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    margin-right: 4px;
+    color: #1f4c6f;
+}
+
+.fontsize10 :hover {
+    
+    color: #000;
+    
+}
+
+.btn_red {
+    background-color:#ff959599;
+}
+
+.btn_orange {
+    background-color:#ffa5005e;
+}
+
+.btn_green {
+    background-color:#c7f3be78;
+}
