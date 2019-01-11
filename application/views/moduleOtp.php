@@ -15,10 +15,15 @@
 		<h4> <small> Última actualización: </small> <strong>
 		<?php 
 			date_default_timezone_set("America/Bogota");
-			$f_update = new DateTime($last_time->fecha_last_update);
-			if ($f_update->format('Y-m-d') == date('Y-m-d')) {
-				$last_time->fecha_last_update = "HOY a las  " . $f_update->format('H:i:s');
+			if ($last_time->fecha_last_update) {
+				$f_update = new DateTime($last_time->fecha_last_update);
+				if ($f_update->format('Y-m-d') == date('Y-m-d')) {
+					$last_time->fecha_last_update = "HOY a las  " . $f_update->format('H:i:s');
+				}
+			}else{
+				$last_time->fecha_last_update = "Sin fecha";
 			}
+			
 		?>
 		<?= $last_time->fecha_last_update ?></strong></h4>
 	</div>
