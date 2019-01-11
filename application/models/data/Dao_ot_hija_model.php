@@ -1224,10 +1224,7 @@ class Dao_ot_hija_model extends CI_Model {
     // Retorna fecha/hora ultimo excel cargado
     public function get_last_time_import() {
         $query = $this->db->query("
-                SELECT
-                MAX(fecha_insercion_zolid) AS last_time
-                FROM
-                ot_hija;
+                SELECT max(fecha) AS fecha,  max(fecha_last_update) AS fecha_last_update FROM uploads;
             ");
         return $query->row();
     }

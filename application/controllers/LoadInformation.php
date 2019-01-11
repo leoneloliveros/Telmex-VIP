@@ -49,6 +49,10 @@ class LoadInformation extends CI_Controller {
         $response = new Response(EMessages::SUCCESS);
         try {
             //Se procesa el archivo de comentarios...
+            // Solo para insertar la ultima hora de actualizacion
+            $this->Dao_log_model->insert_last_update($f_actual_hora, $user_session, $pesoKb);
+
+
             set_time_limit(-1);
             ini_set('memory_limit', '1500M');
             require_once APPPATH . 'models/bin/PHPExcel-1.8.1/Classes/PHPExcel/Settings.php';
@@ -71,9 +75,6 @@ class LoadInformation extends CI_Controller {
                 $row++;
             }
             $highestRowSheet1 = $row;
-
-            // Solo para insertar la ultima hora de actualizacion
-            $this->Dao_log_model->insert_last_update($f_actual_hora, $user_session, $pesoKb);
 
             $lines = [
                 "sheet1" => $highestRowSheet1,
@@ -373,10 +374,16 @@ class LoadInformation extends CI_Controller {
                     $row++;
                 }
 
-                
+                /***********FUNCIONES QUE SE EJECUTAN AL TERMINAR DE CARGAR LA ULTIMA LINEA CON DATOS DEL EXCEL***********/
                 if (($limit - $row) >= 2) {
                     $response->setCode(2);
+                    
                     $this->insertar_cierre_ots();
+                    // Si no hay cambios ni inserciones se deja
+                    if ($inserts > 0 || $actualizados > 0) {
+                        $this->Dao_log_model->insertNuevaFecha();
+                    }
+
                 }
 
                 $response->setData([
@@ -522,7 +529,7 @@ class LoadInformation extends CI_Controller {
 
     // crear ots manualmente
     public function create_ot() {
-        $fActual = date('Y-m-d H:i:s');
+        $fActual = date('Y-m-d');
 
         $id_otp     = $this->input->post('id_otp');
         $tipo_otp   = $this->input->post('tipo_otp');

@@ -78,5 +78,20 @@ class Dao_log_model extends CI_Model {
         $this->db->set("peso", $peso);
         $this->db->insert('uploads');
     }
+ 
+    // Inseta en tabla uploads la fecha de ultima actualizacion si en el excel vienen nuevas o actualizadas
+    public function insertNuevaFecha(){
+        $query = $this->db->query("
+            SELECT id_uploads, fecha FROM uploads ORDER BY id_uploads DESC LIMIT 1;
+        ");
+        $this->db->set("fecha_last_update", $query->row()->fecha);
+        $this->db->where('id_uploads', $query->row()->id_uploads);
+        $this->db->update('uploads');
+        if ($this->db->affected_rows() > 0) {
+            return $this->db->affected_rows();
+        } else {
+            return 0;
+        }
 
+    }
 }
