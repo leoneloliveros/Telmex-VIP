@@ -30,6 +30,11 @@ $(function() {
             $('#btnUpdOt').on('click', formulario.validarFormulario);
             // evento del check para mpls fomr origen form destino
             $('#formModal').on('change', 'input#checking', formulario.toggle_origen_destino);
+
+            $('#btnTodayDateCalculate').on('click', function(){
+                $('#lb_fecha_cierreKo').val(get_hoy);
+                formulario.calcularLineaBase();
+            });
             $('#lb_fecha_cierreKo').on('change', formulario.calcularLineaBase);
         },
 
@@ -109,7 +114,7 @@ $(function() {
                 $('#id_ot_modal_edit_oth').text(registro.id_orden_trabajo_hija);
                 // ocultar select se servicio y mostrar modal
                 $('.ins_servicio').hide();
-                formulario.calcularLineaBase();
+                // formulario.calcularLineaBase();
                 $('#modalEditTicket').modal('show');
                 // llear el select
                 formulario.fillSelect(registro.k_id_tipo, registro.k_id_estado_ot, registro.i_orden);
@@ -417,11 +422,11 @@ $(function() {
             const numDiaSem = veinte.getDay();
             if (numDiaSem == 6) {
                 return helper.formatDate(helper.sumar_o_restar_dias_a_fecha(helper.formatDate(veinte), -1));
-            } else if(helper.validar_domingo_festivo(fecha_base)){
+            } else if(helper.validar_domingo_festivo(helper.formatDate(veinte))){
                 // calcular siguiente fecha habil
-                return formulario.calcular_nueva_fecha(fecha_base, 1)
+                return formulario.calcular_nueva_fecha(helper.formatDate(veinte), 1)
             } else {
-                return fecha_base;
+                return helper.formatDate(veinte);
             }
         },
     };

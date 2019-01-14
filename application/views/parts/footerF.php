@@ -5,6 +5,7 @@
     <p class="margenDelFooter">©1998-2018 ZTE Corporation - ZTE Colombia. All rights reserved</p>
 </div>
 <script>
+    const get_hoy = "<?php echo date('Y-m-d'); ?>";
     var baseurl = "<?php echo URL::base(); ?>";
     const meses_anual = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
     var formato_fecha = new Date();

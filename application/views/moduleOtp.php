@@ -1,17 +1,17 @@
 <h1 id="como_vamos">¿Cómo vamos?</h1>
 <div class="container_accordeon">
 	<div class="fechasCargueUpdate" style="padding:1em;">
-		<h4> <small> Último cargue: </small> <strong>
+		<h4> <small> Último cargue: </small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>
 			<?php 
 				date_default_timezone_set("America/Bogota");
 				$f_cargue = new DateTime($last_time->fecha);
 				// print_r($f_cargue->format('Y-m-d'));
-				// print_r($last_time->last_time);
+				// print_r($last_time->fecha);
 				if ($f_cargue->format('Y-m-d') == date('Y-m-d')) {
-					$last_time->last_time = "HOY a las  " . $f_cargue->format('H:i:s');
+					$last_time->fecha = "HOY a las  " . $f_cargue->format('H:i:s');
 				}
 			?>
-			<?= $last_time->last_time ?></strong></h4>
+			<?= $last_time->fecha ?></strong></h4>
 		<h4> <small> Última actualización: </small> <strong>
 		<?php 
 			date_default_timezone_set("America/Bogota");
