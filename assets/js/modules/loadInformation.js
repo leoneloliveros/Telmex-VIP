@@ -44,7 +44,9 @@ var vista = {
                             $(input).parent('form').find('p').html('Procesando archivo, por favor no cierre la ventana.');
                         });
                     } else {
-                        swal("Error", response.message, "error");
+                        swal("Error", response.message, "error").then(function(){
+                            location.reload(true);
+                        });
                     }
                 })
                 .errorExtension(function (file) {

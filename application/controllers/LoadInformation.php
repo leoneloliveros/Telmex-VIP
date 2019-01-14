@@ -16,24 +16,37 @@ class LoadInformation extends CI_Controller {
     }
 
     public function uploadfile() {
-        $request = $this->request;
-        $storage = new Storage();
-        //Se activa la asignación de un prefijo para nuestro archivo...
-        $storage->setPrefix(true);
-        //Seteamos las extenciones válidas...
-        $storage->setValidExtensions("xlsx", "xls");
-        //Subimos el archivo...
-        $storage->process($request);
-        //Obtenemos el log de los archivos subidos...
-        $files    = $storage->getFiles();
-        $response = null;
-        if (count($files) > 0) {
-            $project  = $files[0];
-            $response = new Response(EMessages::SUCCESS, "Se ha subido el archivo correctamente", $project);
-        } else {
-            $response = new Response(EMessages::ERROR_ACTION, "No se pudo subir el archivo.");
-        }
+        // $tam_max = 10; //PARA PRUEBAS
+        $tam_max = 6500000;
+        // $tam_max = 6414336;
+        $MBexcel = $_FILES['file']['size'];
+        if ($MBexcel > $tam_max) {
+            $MBexcel /= 1000000; 
+            // echo("El tamaño del archivo es de ".$MBexcel."MB, y el maximo es de 6.41MB");
+            // echo("El tamaño del archivo es de $_FILES['file']['size'], y el maximo es de 6,11MB");
+            $response = new Response(EMessages::ERROR, "El tamaño del archivo que intenta subir es de <b>".$MBexcel."MB</b>, y el tamaño máximo permitido es de <b>6.41MB</b>");
+            $this->json($response);
+        }else{
+            // echo("El tamaño del archivo ESTA BIEN ");
+            $request = $this->request;
+            $storage = new Storage();
+            //Se activa la asignación de un prefijo para nuestro archivo...
+            $storage->setPrefix(true);
+            //Seteamos las extenciones válidas...
+            $storage->setValidExtensions("xlsx", "xls");
+            //Subimos el archivo...
+            $storage->process($request);
+            //Obtenemos el log de los archivos subidos...
+            $files    = $storage->getFiles();
+            $response = null;
+            if (count($files) > 0) {
+                $project  = $files[0];
+                $response = new Response(EMessages::SUCCESS, "Se ha subido el archivo correctamente", $project);
+            } else {
+                $response = new Response(EMessages::ERROR_ACTION, "No se pudo subir el archivo.");
+            }
         $this->json($response);
+        }
     }
 
     public function countLinesFile() {

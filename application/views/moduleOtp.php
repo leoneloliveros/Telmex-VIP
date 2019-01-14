@@ -7,6 +7,7 @@
 				$f_cargue = new DateTime($last_time->fecha);
 				// print_r($f_cargue->format('Y-m-d'));
 				// print_r($last_time->fecha);
+
 				if ($f_cargue->format('Y-m-d') == date('Y-m-d')) {
 					$last_time->fecha = "HOY a las  " . $f_cargue->format('H:i:s');
 				}
