@@ -6,7 +6,7 @@ $(function() {
             gral.events();
 
         },
-        clientesSinCorreo : true,
+
         //Eventos de la ventana.
         events: function() {
             //funciones para guardar los codigos de resolucion
@@ -1562,9 +1562,8 @@ $(function() {
                     if (data["id_hitos"] == null) {
                         $(row).css("background-color", "#ff000087");
                     }
-                    if (data["n_nombre_cliente"] == "BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A" || data["n_nombre_cliente"] == "BANCO DAVIVIENDA S.A" || data["n_nombre_cliente"] == "SERVIBANCA S.A."/* || data["n_nombre_cliente"] == "ADCAP Colombia SA Comisionistas de Bolsda"*/) {
+                    if (data["n_nombre_cliente"] == "BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A" || data["n_nombre_cliente"] == "BANCO DAVIVIENDA S.A" || data["n_nombre_cliente"] == "SERVIBANCA S.A." || data["n_nombre_cliente"] == "ADCAP Colombia SA Comisionistas de Bolsda") {
                         $(row).css("background-color", "#ffff00b8");
-                        clientesSinCorreo = false;
                     }
                 },
             }
@@ -1587,6 +1586,7 @@ $(function() {
             if (eventos.ya_se_envio) {
 
                 var tableSelected = eventos.table_selected.rows().data();
+                var clientesSinCorreo = true;
                 var ids_otp = [];
                 var flag = true;
                 tableSelected.each(function(otp) {
@@ -1594,8 +1594,11 @@ $(function() {
                     if (otp.id_hitos === null) {
                         flag = false;
                     }
+                    if (otp["n_nombre_cliente"] == "BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A" || otp["n_nombre_cliente"] == "BANCO DAVIVIENDA S.A" || otp["n_nombre_cliente"] == "SERVIBANCA S.A." /*|| otp["n_nombre_cliente"] == "ADCAP Colombia SA Comisionistas de Bolsda"*/) {
+                        clientesSinCorreo = false;
+                    }
                 });
-
+                 
                 if (flag && clientesSinCorreo) {
                     $.post(baseurl + '/OtPadre/c_sendReportUpdate',
                             {
