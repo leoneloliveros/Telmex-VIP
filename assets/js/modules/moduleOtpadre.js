@@ -6,7 +6,7 @@ $(function() {
             gral.events();
 
         },
-
+        clientesSinCorreo : true,
         //Eventos de la ventana.
         events: function() {
             //funciones para guardar los codigos de resolucion
@@ -1562,6 +1562,10 @@ $(function() {
                     if (data["id_hitos"] == null) {
                         $(row).css("background-color", "#ff000087");
                     }
+                    if (data["n_nombre_cliente"] == "BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A" || data["n_nombre_cliente"] == "BANCO DAVIVIENDA S.A" || data["n_nombre_cliente"] == "SERVIBANCA S.A."/* || data["n_nombre_cliente"] == "ADCAP Colombia SA Comisionistas de Bolsda"*/) {
+                        $(row).css("background-color", "#ffff00b8");
+                        clientesSinCorreo = false;
+                    }
                 },
             }
         },
@@ -1592,7 +1596,7 @@ $(function() {
                     }
                 });
 
-                if (flag) {
+                if (flag && clientesSinCorreo) {
                     $.post(baseurl + '/OtPadre/c_sendReportUpdate',
                             {
                                 ids_otp: ids_otp,
@@ -1619,10 +1623,10 @@ $(function() {
                                 });
                                 $('#mdl_cierre').modal('toggle');
                             });
-                } else {
+                } else{
                     swal(
                             'Recuerde!',
-                            'No se puede enviar el email sin haber diligenciado los hitos de los registros marcados en rojo',
+                            'No se puede enviar el email sin haber diligenciado los hitos de los registros marcados en rojo, tampoco se puede enviar correo de los registros en amarillo',
                             'warning'
                             );
                 }
