@@ -5053,7 +5053,7 @@ $(function() {
 						        <div class="col-md-9 selectContainer">
 						            <div class="input-group">
 						                <span class="input-group-addon"><i class="glyphicon glyphicon-edit" ></i></span>
-						                <input name="pr_servicio_actual" id="pr_servicio_actual" class="form-control" type="number" >
+						                <input name="pr_servicio_actual" id="pr_servicio_actual" class="form-control" type="text" >
 						            </div>
 						        </div>
 						    </div>
@@ -7363,7 +7363,7 @@ $(function() {
 						        <div class="col-md-9 selectContainer">
 						            <div class="input-group">
 						                <span class="input-group-addon"><i class="glyphicon glyphicon-edit" ></i></span>
-						                <input name="pr_servicio_actual" id="pr_servicio_actual" class="form-control" type="number" >
+						                <input name="pr_servicio_actual" id="pr_servicio_actual" class="form-control" type="text" >
 						            </div>
 						        </div>
 						    </div>
@@ -8064,7 +8064,7 @@ $(function() {
 						        <div class="col-md-9 selectContainer">
 						            <div class="input-group">
 						                <span class="input-group-addon"><i class="glyphicon glyphicon-edit" ></i></span>
-						                <input name="pr_servicio_actual" id="pr_servicio_actual" class="form-control" type="number" >
+						                <input name="pr_servicio_actual" id="pr_servicio_actual" class="form-control" type="text" >
 						            </div>
 						        </div>
 						    </div>
@@ -8682,7 +8682,7 @@ $(function() {
 						        <div class="ol-md-9 selectContainer">
 						            <div class="input-group">
 						                <span class="input-group-addon"><i class="glyphicon glyphicon-edit" ></i></span>
-						                <input name="pr_servicio_actual" id="pr_servicio_actual" class="form-control" type="number" >
+						                <input name="pr_servicio_actual" id="pr_servicio_actual" class="form-control" type="text" >
 						            </div>
 						        </div>
 						    </div>
@@ -9447,7 +9447,7 @@ $(function() {
 						        <div class="col-md-9 selectContainer">
 						            <div class="input-group">
 						                <span class="input-group-addon"><i class="glyphicon glyphicon-sort-by-order" ></i></span>
-						                <input name="pr_servicio_actual" id="pr_servicio_actual" class="form-control" type="number" >
+						                <input name="pr_servicio_actual" id="pr_servicio_actual" class="form-control" type="text" >
 						            </div>
 						        </div>
 						    </div>
