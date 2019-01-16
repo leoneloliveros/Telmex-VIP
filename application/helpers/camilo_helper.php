@@ -340,7 +340,7 @@ if (!function_exists('validarEnProduccion')) {
         $CI = & get_instance();
         $CI->load->database();
         if ($CI->db->hostname == 'zte-coldb.cwtksnwikcx3.us-west-2.rds.amazonaws.com') {
-            $version = '2.38';
+            $version = '2.39';
         } else {
             $version = time();
         }
