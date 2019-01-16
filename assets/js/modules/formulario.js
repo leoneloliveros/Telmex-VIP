@@ -305,7 +305,7 @@ $(function() {
                     if (continuar.value) {
                         //valida si la opcion no tiene reporte reinicio(correo) y la dijire a otro controlador,
                         //el cual solo actualiza la oth y no envia correo
-                        if (val_estado > 23) {
+                        if (val_estado ==30 || val_estado ==31) {
 
                             $('#formModal').attr('action', baseurl + '/Templates/c_updateStatusOtEspeciales');
                             $('#btnUpdOt').attr('disabled', false);

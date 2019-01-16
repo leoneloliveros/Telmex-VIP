@@ -963,6 +963,9 @@ class Templates extends CI_Controller {
            case '23':
              $template = $this->cambio_de_equipo($array_template);
              break;
+            case '24':
+                $template = $this->pl_ethernet($array_template);
+                break;
         }
 
         $this->load->helper('camilo');
@@ -1684,6 +1687,14 @@ class Templates extends CI_Controller {
             $argumentos['campo8']['no'] = $this->no($p['campo8']);
 
             break;
+
+            case ($s==24):
+                $argumentos = array(
+                    '' => , 
+
+
+                );
+                break;
 
         }
 
