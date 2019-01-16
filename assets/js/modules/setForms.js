@@ -2745,6 +2745,7 @@ $(function() {
                 /*formulario Internet*/
                 case '1': // internet dedicado empresarial
                 case '2': // internet dedicado 
+                case '24': // PL_ETHERNET /// ******************* VERIFICAR ***************** 
                     form += setForm.formProduct_internet(arg.otp);
                     break;
                     /*formulario MPLS*/
@@ -2790,11 +2791,11 @@ $(function() {
                 case '11': // Adición Marquillas Aeropuerto el Dorado Opain
 
                     break;
-                case '24': // CASO ESPECIAL PRODUCCTO PRIVATE LINE
+                case '30': // CASO ESPECIAL PRODUCCTO PRIVATE LINE
                 form += setForm.formProduct_private_line(arg.otp);
                 	break;
 
-                case '25': // CASO ESPECIAL PRODUCCTO LAN ADMINISTRADA
+                case '31': // CASO ESPECIAL PRODUCCTO LAN ADMINISTRADA
                 form += setForm.formProduct_lan_administrada(arg.otp);
                 	break;
             }

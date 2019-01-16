@@ -179,52 +179,7 @@ $(function() {
                 formulario.get_eingenieer(); // lenar los selects con los ingenieros actuales
                 formulario.llenarInfoIngeniero(); // llena la informacion en los input de los inge seleccionados
             }
-            // switch (servicio_seleccionado) {
-            //     case "0":
-            //         $('#btnUpdOt').attr('disabled', true);
-            //         break
-            //     case "1":
-            //         $('#formModal').attr('action', 'Templates/c_updateStatusOt/1');
-            //         $('#btnUpdOt').attr('disabled', false);
-            //         $("#nombre").attr("required", true);
-            //         break;
-            //     case "2":
-            //         $('#formModal').attr('action', 'Templates/c_updateStatusOt/2');
-            //         $('#btnUpdOt').attr('disabled', false);
-            //         break;
-            //     case "3":
-            //         $('#formModal').attr('action', 'Templates/c_updateStatusOt/3');
-            //         $('#btnUpdOt').attr('disabled', false);
-            //         break;
-            //     case "4":
-            //         $('#formModal').attr('action', 'Templates/c_updateStatusOt/4');
-            //         $('#btnUpdOt').attr('disabled', false);
-            //         break;
-            //     case "5":
-            //         $('#formModal').attr('action', 'Templates/c_updateStatusOt/5');
-            //         $('#btnUpdOt').attr('disabled', false);
-            //         break;
-            //     case "6":
-            //         $('#formModal').attr('action', 'Templates/c_updateStatusOt/6');
-            //         $('#btnUpdOt').attr('disabled', false);
-            //         break;
-            //     case "7":
-            //         $('#formModal').attr('action', 'Templates/c_updateStatusOt/7');
-            //         $('#btnUpdOt').attr('disabled', false);
-            //         break;
-            //     case "8":
-            //         $('#formModal').attr('action', 'Templates/c_updateStatusOt/8');
-            //         $('#btnUpdOt').attr('disabled', false);
-            //         break;
-            //     case "9":
-            //         $('#formModal').attr('action', 'Templates/c_updateStatusOt/9');
-            //         $('#btnUpdOt').attr('disabled', false);
-            //         break;
-            //     case "10":
-            //         $('#formModal').attr('action', 'Templates/c_updateStatusOt/10');
-            //         $('#btnUpdOt').attr('disabled', false);
-            //         break;
-            // }
+           
         },
         //limpia el modal cada vez que se cierra
         clearModal: function() {
@@ -298,7 +253,7 @@ $(function() {
 
                 swal({
                     title: "Desea Guardar?",
-                    html: (val_estado <= 23) ? `La información se enviará al correo <br> <b>${email_user}</b>` : '',
+                    html: (val_estado <= 30) ? `La información se enviará al correo <br> <b>${email_user}</b>` : '',
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
