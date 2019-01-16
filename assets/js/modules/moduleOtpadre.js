@@ -1562,6 +1562,9 @@ $(function() {
                     if (data["id_hitos"] == null) {
                         $(row).css("background-color", "#ff000087");
                     }
+                    if (data["n_nombre_cliente"] == "BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A" || data["n_nombre_cliente"] == "BANCO DAVIVIENDA S.A" || data["n_nombre_cliente"] == "SERVIBANCA S.A." /*|| data["n_nombre_cliente"] == "ADCAP Colombia SA Comisionistas de Bolsda"*/) {
+                        $(row).css("background-color", "#ffff00b8");
+                    }
                 },
             }
         },
@@ -1583,6 +1586,7 @@ $(function() {
             if (eventos.ya_se_envio) {
 
                 var tableSelected = eventos.table_selected.rows().data();
+                var clientesSinCorreo = true;
                 var ids_otp = [];
                 var flag = true;
                 tableSelected.each(function(otp) {
@@ -1590,9 +1594,13 @@ $(function() {
                     if (otp.id_hitos === null) {
                         flag = false;
                     }
+                    if (otp["n_nombre_cliente"] == "BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A" || otp["n_nombre_cliente"] == "BANCO DAVIVIENDA S.A" || otp["n_nombre_cliente"] == "SERVIBANCA S.A." /*|| otp["n_nombre_cliente"] == "ADCAP Colombia SA Comisionistas de Bolsda"*/) {
+                        clientesSinCorreo = false;
+                    }
                 });
-
-                if (flag) {
+                 
+                if (flag && clientesSinCorreo) {
+                    helper.alertLoading('Enviando Email...','Por favor espere c:');
                     $.post(baseurl + '/OtPadre/c_sendReportUpdate',
                             {
                                 ids_otp: ids_otp,
@@ -1602,9 +1610,8 @@ $(function() {
                                 observaciones: $('#observacionesHitos').val()
                             },
                             function(data) {
-
+                                swal.close();
                                 var obj = JSON.parse(data);
-
                                 swal({
                                     title: (obj.success) ? 'OK' : 'Error',
                                     html: (obj.success) ? 'Correo enviado' : 'Error',
@@ -1619,10 +1626,10 @@ $(function() {
                                 });
                                 $('#mdl_cierre').modal('toggle');
                             });
-                } else {
+                } else{
                     swal(
                             'Recuerde!',
-                            'No se puede enviar el email sin haber diligenciado los hitos de los registros marcados en rojo',
+                            'No se puede enviar el email sin haber diligenciado los hitos de los registros marcados en rojo, tampoco se puede enviar correo de los registros en amarillo',
                             'warning'
                             );
                 }

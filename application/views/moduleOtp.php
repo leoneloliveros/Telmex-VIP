@@ -1,7 +1,7 @@
 <h1 id="como_vamos">¿Cómo vamos?</h1>
 <div class="container_accordeon">
 	<div class="fechasCargueUpdate" style="padding:1em;">
-		<h4> <small> Último cargue: </small> <strong>
+		<h4> <small> Último cargue: </small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>
 			<?php 
 				date_default_timezone_set("America/Bogota");
 				$f_cargue = new DateTime($last_time->fecha);

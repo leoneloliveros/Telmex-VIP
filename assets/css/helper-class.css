@@ -15,6 +15,8 @@ and open the template in the editor.
     background: #fbfbfb;
 }
 
+
+
 .d-inline-table{
     display: inline-table;
 }
@@ -341,6 +343,11 @@ and open the template in the editor.
 .display-block{
     display: block;
 }
+
+.d-flex{
+    display: flex;
+}
+
 .w-100{
     width: 100%;
 }
