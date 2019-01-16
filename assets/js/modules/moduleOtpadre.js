@@ -1600,6 +1600,7 @@ $(function() {
                 });
                  
                 if (flag && clientesSinCorreo) {
+                    helper.alertLoading('Enviando Email...','Por favor espere c:');
                     $.post(baseurl + '/OtPadre/c_sendReportUpdate',
                             {
                                 ids_otp: ids_otp,
@@ -1609,9 +1610,8 @@ $(function() {
                                 observaciones: $('#observacionesHitos').val()
                             },
                             function(data) {
-
+                                swal.close();
                                 var obj = JSON.parse(data);
-
                                 swal({
                                     title: (obj.success) ? 'OK' : 'Error',
                                     html: (obj.success) ? 'Correo enviado' : 'Error',
