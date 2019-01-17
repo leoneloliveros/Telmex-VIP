@@ -901,15 +901,12 @@ $(function() {
             var trParent = aLinkLog.parents('tr');
             var tabla = aLinkLog.parents('table').attr('id');
             var record;
-            // console.log(tabla);
             switch (tabla) {
                 case 'table_otPadreList':
                     record = vista.table_otPadreList.row(trParent).data();
-                    // console.log(record);
                     break;
                 case 'table_otPadreListHoy':
                     record = hoy.table_otPadreListHoy.row(trParent).data();
-                    // console.log(record);
                     break;
                 case 'table_otPadreListVencidas':
                     record = vencidas.table_otPadreListVencidas.row(trParent).data();
@@ -922,7 +919,6 @@ $(function() {
                     break;
                 case 'table_reporte_actualizacion':
                     record = reporte_act.table_reporte_actualizacion.row(trParent).data();
-                    console.log(record);    
                     break;
             }
 
@@ -1424,8 +1420,6 @@ $(function() {
                             }
 
                             $.each(obj, function(i, item) {
-                                // console.log(i+"= ",item);
-                                
                                 $('#' + i).val(item);
                             });
                         }
