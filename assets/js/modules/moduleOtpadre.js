@@ -257,7 +257,7 @@ $(function() {
     };
     gral.init();
 
-
+//table_otPadreList
     vista = {
         init: function() {
             vista.events();
@@ -901,12 +901,15 @@ $(function() {
             var trParent = aLinkLog.parents('tr');
             var tabla = aLinkLog.parents('table').attr('id');
             var record;
+            // console.log(tabla);
             switch (tabla) {
                 case 'table_otPadreList':
                     record = vista.table_otPadreList.row(trParent).data();
+                    // console.log(record);
                     break;
                 case 'table_otPadreListHoy':
                     record = hoy.table_otPadreListHoy.row(trParent).data();
+                    // console.log(record);
                     break;
                 case 'table_otPadreListVencidas':
                     record = vencidas.table_otPadreListVencidas.row(trParent).data();
@@ -919,6 +922,7 @@ $(function() {
                     break;
                 case 'table_reporte_actualizacion':
                     record = reporte_act.table_reporte_actualizacion.row(trParent).data();
+                    console.log(record);    
                     break;
             }
 
@@ -1360,9 +1364,13 @@ $(function() {
         showModalHitosOthp: function(data) {
             // resetea el formulario y lo deja vacio
             document.getElementById("formModalHitosOTP").reset();
+            // console.log(data);
+            
             $.post(baseurl + '/OtPadre/c_getHitosOtp',
                     {
+                        //WE, ESTO ENVIA EN ID DE LA OT PADRE, PARA ESO SIRVE EL POST EN EL CONTROLADOR
                         idOtp: data.k_id_ot_padre
+                        // idOtp: "nel"
                     },
                     function(data) {
                         var obj = JSON.parse(data);
@@ -1410,9 +1418,14 @@ $(function() {
                                 case "VISITA ENTREGA UM TERCEROS":
                                     $("#act_veut").css("background-color", "#4bd605");
                                     break;
+                                case "EMPALMES":
+                                    $("#act_empalmes").css("background-color", "#4bd605");
+                                    break;
                             }
 
                             $.each(obj, function(i, item) {
+                                // console.log(i+"= ",item);
+                                
                                 $('#' + i).val(item);
                             });
                         }
@@ -1433,7 +1446,8 @@ $(function() {
                     vacios++;
                 }
             });
-
+            // console.log($("#formModalHitosOTP").serializeArray());
+            
             if (vacios == 0) {
                 $.post(baseurl + '/OtPadre/c_saveHitosOtp',
                         {

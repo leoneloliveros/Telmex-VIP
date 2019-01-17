@@ -341,13 +341,11 @@ class Dao_ot_padre_model extends CI_Model {
                 f_compromiso_ac, estado_ac, observaciones_ac,
                 f_compromiso_sit, estado_sit, observaciones_sit,
                 f_compromiso_veoc, estado_veoc, observaciones_veoc,
+                f_compromiso_empalmes, estado_empalmes, observaciones_empalmes,
                 f_compromiso_crc, estado_crc, observaciones_crc,
                 f_compromiso_veut, estado_veut, observaciones_veut,
                 actividad_actual, tipo_voc, tipo_veoc
-            FROM
-            hitos
-            WHERE
-            id_ot_padre = $idOtp
+            FROM hitos WHERE id_ot_padre = $idOtp
         ");
 
         return $query->row();
@@ -361,7 +359,7 @@ class Dao_ot_padre_model extends CI_Model {
         $exist = $this->db->query("
             SELECT id_hitos FROM hitos WHERE id_ot_padre = $idOtp
         ");
-
+        // print_r($formulario);
         if ($exist->num_rows() <= 0) {
             $query = "INSERT INTO hitos (id_ot_padre,
                             f_compromiso_ko,
@@ -382,6 +380,9 @@ class Dao_ot_padre_model extends CI_Model {
                             f_compromiso_veoc,
                             estado_veoc,
                             observaciones_veoc,
+                            f_compromiso_empalmes, 
+                            estado_empalmes, 
+                            observaciones_empalmes,
                             f_compromiso_crc,
                             estado_crc,
                             observaciones_crc,
@@ -417,6 +418,9 @@ class Dao_ot_padre_model extends CI_Model {
                             '" . $formulario[24]['value'] . "',
                             '" . $formulario[25]['value'] . "',
                             '" . $formulario[26]['value'] . "',
+                            '" . $formulario[27]['value'] . "',
+                            '" . $formulario[28]['value'] . "',
+                            '" . $formulario[29]['value'] . "',
                             '" . $formulario[0]['value'] . "',
                             '" . $formulario[4]['value'] . "',
                             '" . $formulario[17]['value'] . "')";
@@ -441,12 +445,15 @@ class Dao_ot_padre_model extends CI_Model {
                 f_compromiso_veoc =' " . $formulario[18]['value'] . "',
                 estado_veoc = '" . $formulario[19]['value'] . "',
                 observaciones_veoc = '" . $formulario[20]['value'] . "',
-                f_compromiso_crc = '" . $formulario[21]['value'] . "',
-                estado_crc = '" . $formulario[22]['value'] . "',
-                observaciones_crc = '" . $formulario[23]['value'] . "',
-                f_compromiso_veut = '" . $formulario[24]['value'] . "',
-                estado_veut = '" . $formulario[25]['value'] . "',
-                observaciones_veut = '" . $formulario[26]['value'] . "',
+                f_compromiso_empalmes = '" . $formulario[21]['value'] . "',
+                estado_empalmes = '" . $formulario[22]['value'] . "',
+                observaciones_empalmes = '" . $formulario[23]['value'] . "',
+                f_compromiso_crc = '" . $formulario[24]['value'] . "',
+                estado_crc = '" . $formulario[25]['value'] . "',
+                observaciones_crc = '" . $formulario[26]['value'] . "',
+                f_compromiso_veut = '" . $formulario[27]['value'] . "',
+                estado_veut = '" . $formulario[28]['value'] . "',
+                observaciones_veut = '" . $formulario[29]['value'] . "',
                 actividad_actual = '" . $formulario[0]['value'] . "',
                 tipo_voc = '" . $formulario[4]['value'] . "',
                 tipo_veoc = '" . $formulario[17]['value'] . "'

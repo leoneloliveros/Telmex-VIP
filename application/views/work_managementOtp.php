@@ -363,6 +363,7 @@
                             <option value="APROBACION COTIZACION">APROBACION COTIZACION</option>
                             <option value="SOLICITUD INFORMACIÓN TECNICA">SOLICITUD INFORMACIÓN TECNICA</option>
                             <option value="VISITA EJECUCION OBRA CIVIL">VISITA EJECUCION OBRA CIVIL</option>
+                            <option value="EMPALMES">EMPALMES</option>
                             <option value="CONFIGURACION RED CLARO">CONFIGURACION RED CLARO</option>
                             <option value="VISITA ENTREGA UM TERCEROS">VISITA ENTREGA UM TERCEROS</option>
                         </select>
@@ -607,7 +608,35 @@
                                 <td>
                                     <ul class="timeline timeline-jhon">
                                         <li class="timeline-item">
-                                            <div class="timeline-badge" id="act_crc">7</div>
+                                            <div class="timeline-badge" id="act_empalmes">7</div>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>EMPALMES</td>
+                                <td>
+                                    <input type="date" name="f_compromiso" id="f_compromiso_empalmes" class="form-control fechas_hitos">
+                                </td>
+                                <td>
+                                    <select name="estado" id="estado_empalmes" class="form-control">
+                                        <option value="" >SELECCIONE...</option>
+                                        <option value="EJECUTADA" >EJECUTADA</option>
+                                        <option value="ENVIADA" >ENVIADA</option>
+                                        <option value="APROBADA" >APROBADA</option>
+                                        <option value="CONFIGURADO" >CONFIGURADO</option>
+                                        <option value="PENDIENTE" >PENDIENTE</option>
+                                        <option value="CERRADA" >CERRADA</option>
+                                        <option value="NO APLICA" >NO APLICA</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <textarea name="observaciones" id="observaciones_empalmes" rows="2"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <ul class="timeline timeline-jhon">
+                                        <li class="timeline-item">
+                                            <div class="timeline-badge" id="act_crc">8</div>
                                         </li>
                                     </ul>
                                 </td>
@@ -635,7 +664,7 @@
                                 <td>
                                     <ul class="timeline timeline-jhon">
                                         <li class="timeline-item">
-                                            <div class="timeline-badge" id="act_veut">8</div>
+                                            <div class="timeline-badge" id="act_veut">9</div>
                                         </li>
                                     </ul>
                                 </td>
