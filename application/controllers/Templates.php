@@ -54,24 +54,24 @@ class Templates extends CI_Controller {
     }
 
     //esta funcion actualiza el estado de las oth que no envian correo, solo tienen plantilla de producto
-    public function c_updateStatusOtEspeciales(){
+    public function c_updateStatusOtEspeciales() {
         $pt = $this->input->post();
         // 1. formulario linea base guardar en bd tabla linea_base (otp)
         $this->guardar_linea_base($this->input->post());
         // 2. guardar formulario producto
         $plantila_txt = $this->guardar_producto_more_txt($this->input->post());
-        $ismail = 0;
+        $ismail       = 0;
         // 4. Actualizar ot_hija en tabla ot_hija
         $this->actualizar_oth($pt, $ismail, $plantila_txt);
         // 5. actualizar ot_padre
         $this->actualizar_otp($pt['nro_ot_onyx']);
         // $this->session->set_flashdata('msj', $msj);
         // header('Location: ' . URL::base() . '/managementOtp');
-        
+
         // $this->actualizar_compromiso_oths($this->input->post());
     }
 
-    public function c_updateStatusOt($servicio = null) {
+    public function c_updateStatusOt($servicio = null) {;
         $pt       = $this->input->post();
         $servicio = $pt['num_servicio'];
 
@@ -96,7 +96,7 @@ class Templates extends CI_Controller {
                 $msj = 'error';
                 $this->session->set_flashdata('msj', $msj);
                 header('Location: ' . URL::base() . '/managementOtp');
-            }
+            // }
         } else {
             // actualizar el estado
             $this->actualizar_oth($pt);
@@ -110,6 +110,7 @@ class Templates extends CI_Controller {
         /*formulario Internet*/
         case '1': // internet dedicado empresarial
         case '2': // internet dedicado
+        case '24': // PL_ETHERNET ********** VERIFICAR ***************
             $data_pr = array(
                 'id_ot_padre'              => $pt['nro_ot_onyx'],
                 'ciudad'                   => $pt['pr_ciudad'],
@@ -214,7 +215,7 @@ class Templates extends CI_Controller {
                 'celular_2_des'                => $pt['pr_celular_2_des'],
                 'correo_2_des'                 => $pt['pr_correo_2_des'],
                 'observaciones_1_des'          => $pt['pr_observaciones_1_des'],
-                'id_ot_padre_ori'              => $pt['nro_ot_onyx']
+                'id_ot_padre_ori'              => $pt['nro_ot_onyx'],
             );
 
             if ($pt['is_origen'] == '1') {
@@ -258,7 +259,7 @@ class Templates extends CI_Controller {
                 $data_pr['correo_2_ori']                 = $pt['pr_correo_2_ori'];
                 $data_pr['observaciones_1_ori']          = $pt['pr_observaciones_1_ori'];
                 $data_pr['id_ot_padre_des']              = $pt['pr_id_ot_padre_des'];
-                
+
             }
 
             $this->Dao_producto_model->insert_pr_mpls($data_pr);
@@ -516,9 +517,9 @@ class Templates extends CI_Controller {
             break;
         /*PBX_ADMINISTRADA*/
         case '17': // SOLUCIONES ADMINISTRATIVAS - COMUNICACIONES UNIFICADAS PBX ADMINISTRADA
-            $cantidad = implode(', ', $pt['pr_cantidad']);
+            $cantidad   = implode(', ', $pt['pr_cantidad']);
             $referencia = implode(', ', $pt['pr_referencia']);
-            $data_pr = array(
+            $data_pr    = array(
                 'id_ot_padre'          => $pt['nro_ot_onyx'],
                 'ciudad'               => $pt['pr_ciudad'],
                 'direccion'            => $pt['pr_direccion'],
@@ -563,11 +564,11 @@ class Templates extends CI_Controller {
                 'grabacion_voz'        => $pt['pr_grabacion_voz'],
                 'lan_administrada'     => $pt['pr_lan_administrada'],
                 'cantidad'             => $cantidad,
-                'referencia'           => $referencia
+                'referencia'           => $referencia,
             );
 
-             $this->Dao_producto_model->insert_pr_pbx_administrada($data_pr);
-             $txt = $this->plantilla_txt_pr_pbx_administrada($data_pr);
+            $this->Dao_producto_model->insert_pr_pbx_administrada($data_pr);
+            $txt = $this->plantilla_txt_pr_pbx_administrada($data_pr);
             break;
         /*TELEFONIA FIJA*/
         case '18': // Instalación Servicio Telefonia Fija PBX Distribuida Linea E1
@@ -726,106 +727,105 @@ class Templates extends CI_Controller {
             break;
 
         //PRIVATE LINE
-        case "24":
+        case "30":
 
             $data_pr = array(
-           'id_ot_padre_ori'              => $pt['nro_ot_onyx'],
-           'transmision_entrega_des'      => $pt['pr_transmision_entrega_des'],  
-           'cantidad_macs_des'            => $pt['pr_cantidad_macs_des'],  
-           'id_ot_padre_des'              => $pt['nro_ot_onyx'],  
-           'ciudad_des'                   => $pt['pr_ciudad_des'],  
-           'direccion_des'                => $pt['pr_direccion_des'],  
-           'tipo_predio_des'              => $pt['pr_tipo_predio_des'],  
-           'nit_cliente_des'              => $pt['pr_nit_cliente_des'],  
-           'alias_lugar_des'              => $pt['pr_alias_lugar_des'],  
-           'otp_asociada_des'             => $pt['pr_otp_asociada_des'],  
-           'ancho_banda_des'              => $pt['pr_ancho_banda_des'],  
-           'tipo_instalacion_des'         => $pt['pr_tipo_instalacion_des'],  
-           'servicio_actual_des'          => $pt['pr_servicio_actual_des'],  
-           'requiere_um_des'              => $pt['pr_requiere_um_des'],  
-           'proveedor_des'                => $pt['pr_proveedor_des'],  
-           'medio_des'                    => $pt['pr_medio_des'],  
-           'factibilidad_bw_des'          => $pt['pr_factibilidad_bw_des'],  
-           'tipo_conector_des'            => $pt['pr_tipo_conector_des'],  
-           'sds_destino_des'              => $pt['pr_sds_destino_des'],  
-           'interfaz_entrega_cliente_des' => $pt['pr_interfaz_entrega_cliente_des'],  
-           'requiere_voc_des'             => $pt['pr_requiere_voc_des'],  
-           'programacion_voc_des'         => $pt['pr_programacion_voc_des'],  
-           'requiere_rfc_des'             => $pt['pr_requiere_rfc_des'],  
-           'conversor_medio_des'          => $pt['pr_conversor_medio_des'],  
-           'equipos_adicionales_des'      => $pt['pr_equipos_adicionales_des'],  
-           'consumibles_des'              => $pt['pr_consumibles_des'],  
-           'carta_valorizada_des'         => $pt['pr_carta_valorizada_des'],  
-           'nombre_1_des'                 => $pt['pr_nombre_1_des'],  
-           'telefono_1_des'               => $pt['pr_telefono_1_des'],  
-           'celular_1_des'                => $pt['pr_celular_1_des'],  
-           'correo_1_des'                 => $pt['pr_correo_1_des'],  
-           'nombre_2_des'                 => $pt['pr_nombre_2_des'],
-           'telefono_2_des'               => $pt['pr_telefono_2_des'],  
-           'celular_2_des'                => $pt['pr_celular_2_des'],  
-           'correo_2_des'                 => $pt['pr_correo_2_des'],  
-           'observaciones_des'            => $pt['pr_observaciones_des'],
-           'tipo_private_des'             => $pt['pr_tipo_private_des']
-           
-           );
-           
-           
-            if ($pt['is_origen'] == '1') {  
-            
-               $data_pr['id_ot_padre_ori']              = $pt['pr_id_ot_padre_ori'];
-               $data_pr['ciudad_ori']                   = $pt['pr_ciudad_ori'];
-               $data_pr['direccion_ori']                = $pt['pr_direccion_ori'];
-               $data_pr['tipo_predio_ori']              = $pt['pr_tipo_predio_ori'];
-               $data_pr['nit_cliente_ori']              = $pt['pr_nit_cliente_ori'];
-               $data_pr['alias_lugar_ori']              = $pt['pr_alias_lugar_ori'];
-               $data_pr['otp_asociada_ori']             = $pt['pr_otp_asociada_ori'];
-               $data_pr['tipo_private_ori']             = $pt['pr_tipo_private_ori'];
-               $data_pr['ancho_banda_ori']              = $pt['pr_ancho_banda_ori'];
-               $data_pr['tipo_instalacion_ori']         = $pt['pr_tipo_instalacion_ori'];
-               $data_pr['servicio_actual_ori']          = $pt['pr_servicio_actual_ori'];
-               $data_pr['requiere_um_ori']              = $pt['pr_requiere_um_ori'];
-               $data_pr['proveedor_ori']                = $pt['pr_proveedor_ori'];
-               $data_pr['medio_ori']                    = $pt['pr_medio_ori'];
-               $data_pr['factibilidad_bw_ori']          = $pt['pr_factibilidad_bw_ori'];
-               $data_pr['tipo_conector_ori']            = $pt['pr_tipo_conector_ori'];
-               $data_pr['sds_destino_ori']              = $pt['pr_sds_destino_ori'];
-               $data_pr['interfaz_entrega_cliente_ori'] = $pt['pr_interfaz_entrega_cliente_ori'];
-               $data_pr['requiere_voc_ori']             = $pt['pr_requiere_voc_ori'];
-               $data_pr['programacion_voc_ori']         = $pt['pr_programacion_voc_ori'];
-               $data_pr['requiere_rfc_ori']             = $pt['pr_requiere_rfc_ori'];
-               $data_pr['conversor_medio_ori']          = $pt['pr_conversor_medio_ori'];
-               $data_pr['equipos_adicionales_ori']      = $pt['pr_equipos_adicionales_ori'];
-               $data_pr['consumibles_ori']              = $pt['pr_consumibles_ori'];
-               $data_pr['carta_valorizada_ori']         = $pt['pr_carta_valorizada_ori'];
-               $data_pr['nombre_1_ori']                 = $pt['pr_nombre_1_ori'];
-               $data_pr['telefono_1_ori']               = $pt['pr_telefono_1_ori'];
-               $data_pr['celular_1_ori']                = $pt['pr_celular_1_ori'];
-               $data_pr['correo_1_ori']                 = $pt['pr_correo_1_ori'];
-               $data_pr['nombre_2_ori']                 = $pt['pr_nombre_2_ori'];
-               $data_pr['telefono_2_ori']               = $pt['pr_telefono_2_ori'];
-               $data_pr['celular_2_ori']                = $pt['pr_celular_2_ori'];
-               $data_pr['correo_2_ori']                 = $pt['pr_correo_2_ori'];
-               $data_pr['observaciones_ori']            = $pt['pr_observaciones_ori'];
-               $data_pr['transmision_entrega_ori']      = $pt['pr_transmision_entrega_ori'];
-               $data_pr['cantidad_macs_ori']            = $pt['pr_cantidad_macs_ori'];
-               }  
+                'id_ot_padre_ori'              => $pt['nro_ot_onyx'],
+                'transmision_entrega_des'      => $pt['pr_transmision_entrega_des'],
+                'cantidad_macs_des'            => $pt['pr_cantidad_macs_des'],
+                'id_ot_padre_des'              => $pt['nro_ot_onyx'],
+                'ciudad_des'                   => $pt['pr_ciudad_des'],
+                'direccion_des'                => $pt['pr_direccion_des'],
+                'tipo_predio_des'              => $pt['pr_tipo_predio_des'],
+                'nit_cliente_des'              => $pt['pr_nit_cliente_des'],
+                'alias_lugar_des'              => $pt['pr_alias_lugar_des'],
+                'otp_asociada_des'             => $pt['pr_otp_asociada_des'],
+                'ancho_banda_des'              => $pt['pr_ancho_banda_des'],
+                'tipo_instalacion_des'         => $pt['pr_tipo_instalacion_des'],
+                'servicio_actual_des'          => $pt['pr_servicio_actual_des'],
+                'requiere_um_des'              => $pt['pr_requiere_um_des'],
+                'proveedor_des'                => $pt['pr_proveedor_des'],
+                'medio_des'                    => $pt['pr_medio_des'],
+                'factibilidad_bw_des'          => $pt['pr_factibilidad_bw_des'],
+                'tipo_conector_des'            => $pt['pr_tipo_conector_des'],
+                'sds_destino_des'              => $pt['pr_sds_destino_des'],
+                'interfaz_entrega_cliente_des' => $pt['pr_interfaz_entrega_cliente_des'],
+                'requiere_voc_des'             => $pt['pr_requiere_voc_des'],
+                'programacion_voc_des'         => $pt['pr_programacion_voc_des'],
+                'requiere_rfc_des'             => $pt['pr_requiere_rfc_des'],
+                'conversor_medio_des'          => $pt['pr_conversor_medio_des'],
+                'equipos_adicionales_des'      => $pt['pr_equipos_adicionales_des'],
+                'consumibles_des'              => $pt['pr_consumibles_des'],
+                'carta_valorizada_des'         => $pt['pr_carta_valorizada_des'],
+                'nombre_1_des'                 => $pt['pr_nombre_1_des'],
+                'telefono_1_des'               => $pt['pr_telefono_1_des'],
+                'celular_1_des'                => $pt['pr_celular_1_des'],
+                'correo_1_des'                 => $pt['pr_correo_1_des'],
+                'nombre_2_des'                 => $pt['pr_nombre_2_des'],
+                'telefono_2_des'               => $pt['pr_telefono_2_des'],
+                'celular_2_des'                => $pt['pr_celular_2_des'],
+                'correo_2_des'                 => $pt['pr_correo_2_des'],
+                'observaciones_des'            => $pt['pr_observaciones_des'],
+                'tipo_private_des'             => $pt['pr_tipo_private_des'],
+
+            );
+
+            if ($pt['is_origen'] == '1') {
+
+                $data_pr['id_ot_padre_ori']              = $pt['pr_id_ot_padre_ori'];
+                $data_pr['ciudad_ori']                   = $pt['pr_ciudad_ori'];
+                $data_pr['direccion_ori']                = $pt['pr_direccion_ori'];
+                $data_pr['tipo_predio_ori']              = $pt['pr_tipo_predio_ori'];
+                $data_pr['nit_cliente_ori']              = $pt['pr_nit_cliente_ori'];
+                $data_pr['alias_lugar_ori']              = $pt['pr_alias_lugar_ori'];
+                $data_pr['otp_asociada_ori']             = $pt['pr_otp_asociada_ori'];
+                $data_pr['tipo_private_ori']             = $pt['pr_tipo_private_ori'];
+                $data_pr['ancho_banda_ori']              = $pt['pr_ancho_banda_ori'];
+                $data_pr['tipo_instalacion_ori']         = $pt['pr_tipo_instalacion_ori'];
+                $data_pr['servicio_actual_ori']          = $pt['pr_servicio_actual_ori'];
+                $data_pr['requiere_um_ori']              = $pt['pr_requiere_um_ori'];
+                $data_pr['proveedor_ori']                = $pt['pr_proveedor_ori'];
+                $data_pr['medio_ori']                    = $pt['pr_medio_ori'];
+                $data_pr['factibilidad_bw_ori']          = $pt['pr_factibilidad_bw_ori'];
+                $data_pr['tipo_conector_ori']            = $pt['pr_tipo_conector_ori'];
+                $data_pr['sds_destino_ori']              = $pt['pr_sds_destino_ori'];
+                $data_pr['interfaz_entrega_cliente_ori'] = $pt['pr_interfaz_entrega_cliente_ori'];
+                $data_pr['requiere_voc_ori']             = $pt['pr_requiere_voc_ori'];
+                $data_pr['programacion_voc_ori']         = $pt['pr_programacion_voc_ori'];
+                $data_pr['requiere_rfc_ori']             = $pt['pr_requiere_rfc_ori'];
+                $data_pr['conversor_medio_ori']          = $pt['pr_conversor_medio_ori'];
+                $data_pr['equipos_adicionales_ori']      = $pt['pr_equipos_adicionales_ori'];
+                $data_pr['consumibles_ori']              = $pt['pr_consumibles_ori'];
+                $data_pr['carta_valorizada_ori']         = $pt['pr_carta_valorizada_ori'];
+                $data_pr['nombre_1_ori']                 = $pt['pr_nombre_1_ori'];
+                $data_pr['telefono_1_ori']               = $pt['pr_telefono_1_ori'];
+                $data_pr['celular_1_ori']                = $pt['pr_celular_1_ori'];
+                $data_pr['correo_1_ori']                 = $pt['pr_correo_1_ori'];
+                $data_pr['nombre_2_ori']                 = $pt['pr_nombre_2_ori'];
+                $data_pr['telefono_2_ori']               = $pt['pr_telefono_2_ori'];
+                $data_pr['celular_2_ori']                = $pt['pr_celular_2_ori'];
+                $data_pr['correo_2_ori']                 = $pt['pr_correo_2_ori'];
+                $data_pr['observaciones_ori']            = $pt['pr_observaciones_ori'];
+                $data_pr['transmision_entrega_ori']      = $pt['pr_transmision_entrega_ori'];
+                $data_pr['cantidad_macs_ori']            = $pt['pr_cantidad_macs_ori'];
+            }
 
             $this->Dao_producto_model->insert_pr_private_line($data_pr);
             $txt = $this->plantilla_txt_pr_private_line($pt, $pt['is_origen']);
 
-             break;
+            break;
 
-        //LAN ADMINISTRADA    
-        case "25":
+        //LAN ADMINISTRADA
+        case "31":
 
             $data_pr = array(
-                'id_ot_padre'        => $pt['nro_ot_onyx'],
+                'id_ot_padre'         => $pt['nro_ot_onyx'],
                 'ciudad'              => $pt['pr_ciudad'],
                 'direccion'           => $pt['pr_direccion'],
                 'tipo_predio'         => $pt['pr_tipo_predio'],
                 'nit_cliente'         => $pt['pr_nit_cliente'],
                 'alias_lugar'         => $pt['pr_alias_lugar'],
-                'id_ot_padre'         => $pt['pr_id_ot_padre'],  
+                'id_ot_padre'         => $pt['pr_id_ot_padre'],
                 'otp_asociada'        => $pt['pr_otp_asociada'],
                 'topologia'           => $pt['pr_topologia'],
                 'servicio_actual'     => $pt['pr_servicio_actual'],
@@ -846,16 +846,13 @@ class Templates extends CI_Controller {
                 'celular_2'           => $pt['pr_requiere_rfc'],
                 'correo_2'            => $pt['pr_requiere_rfc'],
                 'observaciones'       => $pt['pr_requiere_rfc'],
-                'tipo_protocolo'      => $pt['pr_requiere_rfc']
+                'tipo_protocolo'      => $pt['pr_requiere_rfc'],
             );
 
             $this->Dao_producto_model->insert_pr_lan_administrada($data_pr);
             $txt = $this->plantilla_txt_pr_lan_administrada($pt);
 
-
             break;
-            
-
 
         }
         // actualizar el finalizo de ot padre
@@ -878,7 +875,7 @@ class Templates extends CI_Controller {
             'fecha_ejecucion_obra_civil' => $pt['lb_fecha_ejecucion_obra_civil'],
             'fecha_equipos'              => $pt['lb_fecha_equipos'],
             'fecha_empalmes'             => $pt['lb_fecha_empalmes'],
-            'fecha_entrega_servicio'     => $pt['lb_fecha_entrega_servicio']
+            'fecha_entrega_servicio'     => $pt['lb_fecha_entrega_servicio'],
 
         );
 
@@ -892,99 +889,102 @@ class Templates extends CI_Controller {
         $array_template = $this->fill_formulary($servicio, $pt);
         // crear el template
         switch ($servicio) {
-           case '1':
-             $template = $this->internet_dedicado_empresarial($array_template);
-             break;
-           case '2':
-             $template = $this->internet_dedicado($array_template);
-             break;
-           case '3':
-             $template = $this->mpls_avanzado_intranet($array_template);
-             break;
-           case '4':
-             $template = $this->mpls_avanzado_intranet_varios_puntos($array_template);
-             break;
-           case '5':
-             $template = $this->mpls_avanzado_intranet_con_backup_de_ultima_milla_nds2($array_template);
-             break;
-           case '6':
-             $template = $this->mpls_avanzado_intranet_con_backup_de_ultima_milla_y_router_nds1($array_template);
-             break;
-           case '7':
-             $template = $this->avanzado_extranet($array_template);
-             break;
-           case '8':
-             $template = $this->backend_mpls($array_template);
-             break;
-           case '9':
-             $template = $this->mpls_avanzado_componente_datacenter_claro($array_template);
-             break;
-           case '10':
-             $template = $this->mpls_transaccional_3g($array_template);
-             break;
-             /*FORMATOS NUEVOS*/
+        case '1':
+            $template = $this->internet_dedicado_empresarial($array_template);
+            break;
+        case '2':
+            $template = $this->internet_dedicado($array_template);
+            break;
+        case '3':
+            $template = $this->mpls_avanzado_intranet($array_template);
+            break;
+        case '4':
+            $template = $this->mpls_avanzado_intranet_varios_puntos($array_template);
+            break;
+        case '5':
+            $template = $this->mpls_avanzado_intranet_con_backup_de_ultima_milla_nds2($array_template);
+            break;
+        case '6':
+            $template = $this->mpls_avanzado_intranet_con_backup_de_ultima_milla_y_router_nds1($array_template);
+            break;
+        case '7':
+            $template = $this->avanzado_extranet($array_template);
+            break;
+        case '8':
+            $template = $this->backend_mpls($array_template);
+            break;
+        case '9':
+            $template = $this->mpls_avanzado_componente_datacenter_claro($array_template);
+            break;
+        case '10':
+            $template = $this->mpls_transaccional_3g($array_template);
+            break;
+        /*FORMATOS NUEVOS*/
 
-           case '11':
-             $template = $this->adicion_marquillas_aeropuerto_el_dorado_opain($array_template);
-             break;
-           case '12':
-             $template = $this->cambio_de_equipos_servicio($array_template);
-             break;
-           case '13':
-             $template = $this->cambio_de_servicio_telefonia_fija_publica_linea_basica_a_linea_e1($array_template);
-             break;
-           case '14':
-             $template = $this->cambio_de_servicio_telefonia_fija_pública_linea_sip_a_pbx_distribuida_linea_sip($array_template);
-             break;
-           case '15':
-             $template = $this->traslado_externo_servicio($array_template);
-             break;
-           case '16':
-             $template = $this->traslado_interno_servicio($array_template);
-             break;
-           case '17':
-             $template = $this->soluciones_administrativas_comunicaciones_unificadas_pbx_administrada($array_template);
-             break;
-           case '18':
-             $template = $this->instalacion_servicio_telefonia_fija_pbx_distribuida_linea_e1($array_template);
-             break;
-           case '19':
-             $template = $this->instalacion_servicio_telefonia_fija_pbx_distribuida_linea_sip($array_template);
-             break;
-           case '20':
-             $template = $this->instalación_servicio_telefonia_fija_pbx_distribuida_linea_sip_con_gateway_de_voz($array_template);
-             break;
-           case '21':
-             $template = $this->instalación_telefonia_publica_basica_internet_dedicado($array_template);
-             break;
-           case '22':
-             $template = $this->cambio_de_ultima_milla($array_template);
-             break;
-           case '23':
-             $template = $this->cambio_de_equipo($array_template);
-             break;
+        case '11':
+            $template = $this->adicion_marquillas_aeropuerto_el_dorado_opain($array_template);
+            break;
+        case '12':
+            $template = $this->cambio_de_equipos_servicio($array_template);
+            break;
+        case '13':
+            $template = $this->cambio_de_servicio_telefonia_fija_publica_linea_basica_a_linea_e1($array_template);
+            break;
+        case '14':
+            $template = $this->cambio_de_servicio_telefonia_fija_pública_linea_sip_a_pbx_distribuida_linea_sip($array_template);
+            break;
+        case '15':
+            $template = $this->traslado_externo_servicio($array_template);
+            break;
+        case '16':
+            $template = $this->traslado_interno_servicio($array_template);
+            break;
+        case '17':
+            $template = $this->soluciones_administrativas_comunicaciones_unificadas_pbx_administrada($array_template);
+            break;
+        case '18':
+            $template = $this->instalacion_servicio_telefonia_fija_pbx_distribuida_linea_e1($array_template);
+            break;
+        case '19':
+            $template = $this->instalacion_servicio_telefonia_fija_pbx_distribuida_linea_sip($array_template);
+            break;
+        case '20':
+            $template = $this->instalación_servicio_telefonia_fija_pbx_distribuida_linea_sip_con_gateway_de_voz($array_template);
+            break;
+        case '21':
+            $template = $this->instalación_telefonia_publica_basica_internet_dedicado($array_template);
+            break;
+        case '22':
+            $template = $this->cambio_de_ultima_milla($array_template);
+            break;
+        case '23':
+            $template = $this->cambio_de_equipo($array_template);
+            break;
+        case '24':
+            $template = $this->pl_ethernet($array_template);
+            break;
         }
 
         $this->load->helper('camilo');
 
-        $asunto = "Notificación de Servicio de la orden " . $pt['nro_ot_onyx'] . "-" . $pt['id_orden_trabajo_hija'];
-        $se_envio = $this->Dao_email_model->h_enviarCorreo($template, Auth::user()->n_mail_user , $asunto);
+        $asunto   = "Notificación de Servicio de la orden " . $pt['nro_ot_onyx'] . "-" . $pt['id_orden_trabajo_hija'];
+        $se_envio = $this->Dao_email_model->h_enviarCorreo($template, Auth::user()->n_mail_user, $asunto);
 
         return $se_envio['success'];
 
     }
     // guardar el servicio en tabla log_correo
-    private function guardar_servicio($pt , $servicio) {
+    private function guardar_servicio($pt, $servicio) {
         date_default_timezone_set("America/Bogota");
-        $fActual       = date('Y-m-d');
-        $dataLogMail = $this->fill_data_service($pt , $servicio);
+        $fActual     = date('Y-m-d');
+        $dataLogMail = $this->fill_data_service($pt, $servicio);
         // datos llenos manualmente
-        $dataLogMail['k_id_ot_padre']  = $pt['nro_ot_onyx'];
-        $dataLogMail['id_orden_trabajo_hija']  = $pt['id_orden_trabajo_hija'];
-        $dataLogMail['clase']          = 'cierre_ko';
-        $dataLogMail['destinatarios']  = Auth::user()->k_id_user;
-        $dataLogMail['usuario_sesion'] = Auth::user()->k_id_user;
-        $dataLogMail['fecha']          = $fActual;
+        $dataLogMail['k_id_ot_padre']         = $pt['nro_ot_onyx'];
+        $dataLogMail['id_orden_trabajo_hija'] = $pt['id_orden_trabajo_hija'];
+        $dataLogMail['clase']                 = 'cierre_ko';
+        $dataLogMail['destinatarios']         = Auth::user()->k_id_user;
+        $dataLogMail['usuario_sesion']        = Auth::user()->k_id_user;
+        $dataLogMail['fecha']                 = $fActual;
 
         $this->Dao_log_correo_model->insert_data($dataLogMail);
     }
@@ -995,8 +995,8 @@ class Templates extends CI_Controller {
         $fActual  = date('Y-m-d H:i:s');
         $fActual2 = date('Y-m-d');
         // si es ko y es parea cambiar a estado cerrada  le aumento 1 a la cantidad de correos enviados de esa ot hija
-        
-        $cant_mails  = ($is_ko_3) ? $pt['c_email'] + 1 : $pt['c_email'];
+
+        $cant_mails = ($is_ko_3) ? $pt['c_email'] + 1 : $pt['c_email'];
 
         $text_estado = $this->Dao_estado_ot_model->getNameStatusById($pt['k_id_estado_ot']);
 
@@ -1021,7 +1021,6 @@ class Templates extends CI_Controller {
 
         $res = $this->Dao_ot_hija_model->m_updateStatusOt($data, $dataLog);
 
-
         $msj = 'ok';
         if ($is_ko_3 || $is_ko_3 === 0) {
             $this->session->set_tempdata('textarea', $textArea, 120);
@@ -1033,17 +1032,15 @@ class Templates extends CI_Controller {
         }
     }
 
-
     // Actualizar campos de ot_padre
-    private function actualizar_otp($otp){
+    private function actualizar_otp($otp) {
         date_default_timezone_set("America/Bogota");
-         
+
         $data = array(
-              'ultimo_envio_reporte' => date('Y-m-d')
-          );
+            'ultimo_envio_reporte' => date('Y-m-d'),
+        );
         $this->Dao_ot_padre_model->update_ot_padre($data, $otp);
     }
-
 
     //Actualiza el estato (hay que enviarle el post)
     private function update_status($pt, $is_mail = false) {
@@ -1310,18 +1307,18 @@ class Templates extends CI_Controller {
         case ($s == 13): //Cambio de Servicio Telefonia Fija Pública Linea Basica a Linea E1
             $argumentos = array(
 
-                'campo1'  => $p['nombre'],// nombre
-                'campo2'  => $p['nombre_cliente'],// nombre cliente
-                'campo3'  => $p['servicio'],// servicio
-                'campo4'  => $p['campo4'],// Dirección Destino
-                'campo5'  => $p['campo5'],// Cantidad de Líneas Telefónicas Básicas
-                'campo6'  => $p['campo6'],// cantidadCiudad 
-                'campo7'  => $p['campo7'],// NOmbre ciudades
-                'campo8'  => $p['campo8'],// Cantidad DID
-                'campo9'  => $fActual,// inicio al Proceso de Cambio  de Servicio   
-                'campo10' => $p['campo10'],// Fecha de Entrega de su servicio
-                'campo11' => $p['ingeniero1'],// INGENIERO IMPLEMENTACIÓN
-                'campo12' => $p['ingeniero1_tel'],// TELEFONOS DE CONTACTO
+                'campo1'  => $p['nombre'], // nombre
+                'campo2'  => $p['nombre_cliente'], // nombre cliente
+                'campo3'  => $p['servicio'], // servicio
+                'campo4'  => $p['campo4'], // Dirección Destino
+                'campo5'  => $p['campo5'], // Cantidad de Líneas Telefónicas Básicas
+                'campo6'  => $p['campo6'], // cantidadCiudad
+                'campo7'  => $p['campo7'], // NOmbre ciudades
+                'campo8'  => $p['campo8'], // Cantidad DID
+                'campo9'  => $fActual, // inicio al Proceso de Cambio  de Servicio
+                'campo10' => $p['campo10'], // Fecha de Entrega de su servicio
+                'campo11' => $p['ingeniero1'], // INGENIERO IMPLEMENTACIÓN
+                'campo12' => $p['ingeniero1_tel'], // TELEFONOS DE CONTACTO
                 'campo13' => $p['ingeniero1_email'], // EMAIL
 
                 /*======================================================
@@ -1347,13 +1344,13 @@ class Templates extends CI_Controller {
 
             $list_ciudades = $this->set_cities();
             foreach ($list_ciudades as $key => $ciudad) {
-                if (in_array($ciudad , $p['campo6'])) {
+                if (in_array($ciudad, $p['campo6'])) {
                     $argumentos['campo6'][$ciudad] = 'X';
                 } else {
                     $argumentos['campo6'][$ciudad] = '';
                 }
             }
-   
+
             break;
         case ($s == 15): // Traslado Externo Servicio
             $argumentos = array(
@@ -1407,22 +1404,22 @@ class Templates extends CI_Controller {
                 'campo19' => $p['ingeniero1_tel'], // TELEFONOS DE CONTACTO
                 'campo20' => $p['ingeniero1_email'], // EMAIL
             );
-                $argumentos['campo5']['si'] = $this->si($p['campo5']);
-                $argumentos['campo5']['no'] = $this->no($p['campo5']);
-                $argumentos['campo9']['si'] = $this->si($p['campo9']);
-                $argumentos['campo9']['no'] = $this->no($p['campo9']);
-                $argumentos['campo10']['si'] = $this->si($p['campo10']);
-                $argumentos['campo10']['no'] = $this->no($p['campo10']);
-                $argumentos['campo11']['si'] = $this->si($p['campo11']);
-                $argumentos['campo11']['no'] = $this->no($p['campo11']);
-                $argumentos['campo12']['si'] = $this->si($p['campo12']);
-                $argumentos['campo12']['no'] = $this->no($p['campo12']);
-                $argumentos['campo13']['si'] = $this->si($p['campo13']);
-                $argumentos['campo13']['no'] = $this->no($p['campo13']);
-                $argumentos['campo14']['si'] = $this->si($p['campo14']);
-                $argumentos['campo14']['no'] = $this->no($p['campo14']);
-                $argumentos['campo15']['si'] = $this->si($p['campo15']);
-                $argumentos['campo15']['no'] = $this->no($p['campo15']);
+            $argumentos['campo5']['si']  = $this->si($p['campo5']);
+            $argumentos['campo5']['no']  = $this->no($p['campo5']);
+            $argumentos['campo9']['si']  = $this->si($p['campo9']);
+            $argumentos['campo9']['no']  = $this->no($p['campo9']);
+            $argumentos['campo10']['si'] = $this->si($p['campo10']);
+            $argumentos['campo10']['no'] = $this->no($p['campo10']);
+            $argumentos['campo11']['si'] = $this->si($p['campo11']);
+            $argumentos['campo11']['no'] = $this->no($p['campo11']);
+            $argumentos['campo12']['si'] = $this->si($p['campo12']);
+            $argumentos['campo12']['no'] = $this->no($p['campo12']);
+            $argumentos['campo13']['si'] = $this->si($p['campo13']);
+            $argumentos['campo13']['no'] = $this->no($p['campo13']);
+            $argumentos['campo14']['si'] = $this->si($p['campo14']);
+            $argumentos['campo14']['no'] = $this->no($p['campo14']);
+            $argumentos['campo15']['si'] = $this->si($p['campo15']);
+            $argumentos['campo15']['no'] = $this->no($p['campo15']);
             break;
 
         case ($s == 17): // SOLUCIONES ADMINISTRATIVAS - COMUNICACIONES UNIFICADAS PBX ADMINISTRADA
@@ -1483,36 +1480,36 @@ class Templates extends CI_Controller {
                 'campo41' => $p['campo41'], //  Fecha de Entrega de su servicio
             );
 
-                $argumentos['campo11']['si'] = $this->si($p['campo11']);
-                $argumentos['campo11']['no'] = $this->no($p['campo11']);
-                $argumentos['campo13']['si'] = $this->si($p['campo13']);
-                $argumentos['campo13']['no'] = $this->no($p['campo13']);
-                $argumentos['campo16']['si'] = $this->si($p['campo16']);
-                $argumentos['campo16']['no'] = $this->no($p['campo16']);
-                $argumentos['campo20']['si'] = $this->si($p['campo20']);
-                $argumentos['campo20']['no'] = $this->no($p['campo20']);
-                $argumentos['campo22']['si'] = $this->si($p['campo22']);
-                $argumentos['campo22']['no'] = $this->no($p['campo22']);
-                $argumentos['campo23']['si'] = $this->si($p['campo23']);
-                $argumentos['campo23']['no'] = $this->no($p['campo23']);
-                $argumentos['campo25']['si'] = $this->si($p['campo25']);
-                $argumentos['campo25']['no'] = $this->no($p['campo25']);
-                $argumentos['campo26']['si'] = $this->si($p['campo26']);
-                $argumentos['campo26']['no'] = $this->no($p['campo26']);
-                $argumentos['campo29']['si'] = $this->si($p['campo29']);
-                $argumentos['campo29']['no'] = $this->no($p['campo29']);
-                $argumentos['campo30']['si'] = $this->si($p['campo30']);
-                $argumentos['campo30']['no'] = $this->no($p['campo30']);
-                $argumentos['campo32']['si'] = $this->si($p['campo32']);
-                $argumentos['campo32']['no'] = $this->no($p['campo32']);
+            $argumentos['campo11']['si'] = $this->si($p['campo11']);
+            $argumentos['campo11']['no'] = $this->no($p['campo11']);
+            $argumentos['campo13']['si'] = $this->si($p['campo13']);
+            $argumentos['campo13']['no'] = $this->no($p['campo13']);
+            $argumentos['campo16']['si'] = $this->si($p['campo16']);
+            $argumentos['campo16']['no'] = $this->no($p['campo16']);
+            $argumentos['campo20']['si'] = $this->si($p['campo20']);
+            $argumentos['campo20']['no'] = $this->no($p['campo20']);
+            $argumentos['campo22']['si'] = $this->si($p['campo22']);
+            $argumentos['campo22']['no'] = $this->no($p['campo22']);
+            $argumentos['campo23']['si'] = $this->si($p['campo23']);
+            $argumentos['campo23']['no'] = $this->no($p['campo23']);
+            $argumentos['campo25']['si'] = $this->si($p['campo25']);
+            $argumentos['campo25']['no'] = $this->no($p['campo25']);
+            $argumentos['campo26']['si'] = $this->si($p['campo26']);
+            $argumentos['campo26']['no'] = $this->no($p['campo26']);
+            $argumentos['campo29']['si'] = $this->si($p['campo29']);
+            $argumentos['campo29']['no'] = $this->no($p['campo29']);
+            $argumentos['campo30']['si'] = $this->si($p['campo30']);
+            $argumentos['campo30']['no'] = $this->no($p['campo30']);
+            $argumentos['campo32']['si'] = $this->si($p['campo32']);
+            $argumentos['campo32']['no'] = $this->no($p['campo32']);
 
-                if ($p['campo35'] == 'MPLS') {
-                    $argumentos['campo35']['mpls'] = 'X';
-                    $argumentos['campo35']['internet'] = '';
-                } else {
-                    $argumentos['campo35']['mpls'] = '';
-                    $argumentos['campo35']['internet'] = 'X';
-                }
+            if ($p['campo35'] == 'MPLS') {
+                $argumentos['campo35']['mpls']     = 'X';
+                $argumentos['campo35']['internet'] = '';
+            } else {
+                $argumentos['campo35']['mpls']     = '';
+                $argumentos['campo35']['internet'] = 'X';
+            }
 
             break;
 
@@ -1531,10 +1528,9 @@ class Templates extends CI_Controller {
                 'campo11' => $p['ingeniero1_email'], //EMAIL
             );
 
-
             $list_ciudades = $this->set_cities();
             foreach ($list_ciudades as $key => $ciudad) {
-                if (in_array($ciudad , $p['campo6'])) {
+                if (in_array($ciudad, $p['campo6'])) {
                     $argumentos['campo6'][$ciudad] = 'X';
                 } else {
                     $argumentos['campo6'][$ciudad] = '';
@@ -1557,7 +1553,7 @@ class Templates extends CI_Controller {
             );
             $list_ciudades = $this->set_cities();
             foreach ($list_ciudades as $key => $ciudad) {
-                if (in_array($ciudad , $p['campo6'])) {
+                if (in_array($ciudad, $p['campo6'])) {
                     $argumentos['campo6'][$ciudad] = 'X';
                 } else {
                     $argumentos['campo6'][$ciudad] = '';
@@ -1566,21 +1562,21 @@ class Templates extends CI_Controller {
             break;
         case ($s == 20): // Instalación Servicio Telefonia Fija PBX Distribuida Linea SIP con Gateway de Voz
             $argumentos = array(
-                'campo1' => $p['nombre'], // nombre
-                'campo2' => $p['nombre_cliente'], // nombre cliente
-                'campo3' => $p['servicio'], // servicio
-                'campo4' => $p['campo4'], // Dirección Destino
-                'campo5' => $p['campo5'], // Cantidad de DID
-                'campo6' => $p['campo6'], // ciudades
-                'campo7' => $fActual, // inicio al Proceso de instalación del Servicio
-                'campo8' => $p['campo8'], // Fecha de Entrega de su servicio 
-                'campo9' => $p['ingeniero1'], // INGENIERO IMPLEMENTACIÓN
-                'campo10' => $p['ingeniero1_tel'], // TELEFONOS DE CONTACTO 
-                'campo11' => $p['ingeniero1_email'] // EMAIL
+                'campo1'  => $p['nombre'], // nombre
+                'campo2'  => $p['nombre_cliente'], // nombre cliente
+                'campo3'  => $p['servicio'], // servicio
+                'campo4'  => $p['campo4'], // Dirección Destino
+                'campo5'  => $p['campo5'], // Cantidad de DID
+                'campo6'  => $p['campo6'], // ciudades
+                'campo7'  => $fActual, // inicio al Proceso de instalación del Servicio
+                'campo8'  => $p['campo8'], // Fecha de Entrega de su servicio
+                'campo9'  => $p['ingeniero1'], // INGENIERO IMPLEMENTACIÓN
+                'campo10' => $p['ingeniero1_tel'], // TELEFONOS DE CONTACTO
+                'campo11' => $p['ingeniero1_email'], // EMAIL
             );
             $list_ciudades = $this->set_cities();
             foreach ($list_ciudades as $key => $ciudad) {
-                if (in_array($ciudad , $p['campo6'])) {
+                if (in_array($ciudad, $p['campo6'])) {
                     $argumentos['campo6'][$ciudad] = 'X';
                 } else {
                     $argumentos['campo6'][$ciudad] = '';
@@ -1590,32 +1586,32 @@ class Templates extends CI_Controller {
 
         case ($s == 21): // Instalación Telefonía Publica Básica - Internet Dedicado
             $argumentos = array(
-                'campo1' => $p['nombre'], //nombre
-                'campo2' => $p['nombre_cliente'], //nombre cliente
-                'campo3' => $p['campo3'], //Dirección Destino
-                'campo4' => $p['campo4'], //Cantidad de Líneas Telefónicas Básicas
-                'campo5' => $p['campo5'], //OTP Internet Dedicado
-                'campo6' => $p['campo6'], //OTP Telefonia
-                'campo7' => $p['campo7'], //Ancho de Banda Internet
-                'campo8' => $p['campo8'], //Interfaz de Entrega
-                'campo9' => $p['campo9'], //Interfaz de Entrega
-                'campo10' => $fActual, //inicio al Proceso de instalación de los Servicios 
+                'campo1'  => $p['nombre'], //nombre
+                'campo2'  => $p['nombre_cliente'], //nombre cliente
+                'campo3'  => $p['campo3'], //Dirección Destino
+                'campo4'  => $p['campo4'], //Cantidad de Líneas Telefónicas Básicas
+                'campo5'  => $p['campo5'], //OTP Internet Dedicado
+                'campo6'  => $p['campo6'], //OTP Telefonia
+                'campo7'  => $p['campo7'], //Ancho de Banda Internet
+                'campo8'  => $p['campo8'], //Interfaz de Entrega
+                'campo9'  => $p['campo9'], //Interfaz de Entrega
+                'campo10' => $fActual, //inicio al Proceso de instalación de los Servicios
                 'campo11' => $p['campo11'], //Fecha de Entrega de los servicio
                 'campo12' => $p['ingeniero1'], //INGENIERO IMPLEMENTACIÓN
                 'campo13' => $p['ingeniero1_tel'], //TELEFONOS DE CONTACTO
-                'campo14' => $p['ingeniero1_email'] //EMAIL
+                'campo14' => $p['ingeniero1_email'], //EMAIL
 
             );
             break;
         case ($s == 22): //Cambio de Última Milla
             $argumentos = array(
-                'campo0' => $p['nro_ot_onyx'] , //otp
-                'campo1' => $p['nombre'] , //nombre
-                'campo2' => $p['nombre_cliente'] , //nombre cliente
-                'campo3' => $p['servicio'] , //servicio
-                'campo4' => $p['campo4'] , //Dirección Sede
-                'campo5' => $p['campo5'] , //BW Actual
-                'campo6' => $p['campo6'] , //BW Nuevo
+                'campo0'  => $p['nro_ot_onyx'], //otp
+                'campo1'  => $p['nombre'], //nombre
+                'campo2'  => $p['nombre_cliente'], //nombre cliente
+                'campo3'  => $p['servicio'], //servicio
+                'campo4'  => $p['campo4'], //Dirección Sede
+                'campo5'  => $p['campo5'], //BW Actual
+                'campo6'  => $p['campo6'], //BW Nuevo
                 // 'campo7' => $p['campo7'] , //Requiere Cambio de equipo (si)
                 // 'campo7' => $p['campo7'] , //Requiere Cambio de equipo (no)
                 // 'campo8' => $p['campo8'] , //Requiere Cambio de Última Milla (si)
@@ -1623,23 +1619,20 @@ class Templates extends CI_Controller {
                 // 'campo9' => $p['campo9'] , //Existen otros Servicios a Modificar (si)
                 // 'campo9' => $p['campo9'] , //Existen otros Servicios a Modificar (no)
 
-
-                'campo10' => $p['campo10'] , //OTP
-                'campo11' => $p['campo11'] , //ID Servicio
-                'campo12' => $p['campo12'] , //Dirección Sede
-
+                'campo10' => $p['campo10'], //OTP
+                'campo11' => $p['campo11'], //ID Servicio
+                'campo12' => $p['campo12'], //Dirección Sede
 
                 // 'campo13' => $p['campo13'] , //Requiere Cambio de Equipos (si)
-                'campo13' => $p['campo13'] , //Requiere Cambio de Equipos (no)
-                // 'campo14' => $p['campo14'] , //Requiere Cambio de UM (si) 
-                'campo14' => $p['campo14'] , //Requiere Cambio de UM (no)
+                'campo13' => $p['campo13'], //Requiere Cambio de Equipos (no)
+                // 'campo14' => $p['campo14'] , //Requiere Cambio de UM (si)
+                'campo14' => $p['campo14'], //Requiere Cambio de UM (no)
 
-
-                'campo15' => $fActual , //inicio al Proceso de Ampliación del  Servicio
-                'campo16' => $p['campo16'] , //Fecha de Entrega de la Ampliación de su Servicio
-                'campo17' => $p['ingeniero1'] , //INGENIERO IMPLEMENTACIÓN
-                'campo18' => $p['ingeniero1_tel'] , //TELEFONOS DE CONTACTO
-                'campo19' => $p['ingeniero1_email'] , //EMAIL
+                'campo15' => $fActual, //inicio al Proceso de Ampliación del  Servicio
+                'campo16' => $p['campo16'], //Fecha de Entrega de la Ampliación de su Servicio
+                'campo17' => $p['ingeniero1'], //INGENIERO IMPLEMENTACIÓN
+                'campo18' => $p['ingeniero1_tel'], //TELEFONOS DE CONTACTO
+                'campo19' => $p['ingeniero1_email'], //EMAIL
             );
 
             $argumentos['campo7']['si'] = $this->si($p['campo7']);
@@ -1653,20 +1646,20 @@ class Templates extends CI_Controller {
 
         case ($s == 23): // Cambio de Equipo
             $argumentos = array(
-                'campo0' => $p['nro_ot_onyx'], //otp
-                'campo1' => $p['nombre'], //nombre
-                'campo2' => $p['nombre_cliente'], //nombre cliente
-                'campo3' => $p['servicio'], //servicio
-                'campo4' => $p['campo4'], //Dirección Sede
-                'campo5' => $p['campo5'], //BW Actual
-                'campo6' => $p['campo6'], //BW Nuevo
+                'campo0'  => $p['nro_ot_onyx'], //otp
+                'campo1'  => $p['nombre'], //nombre
+                'campo2'  => $p['nombre_cliente'], //nombre cliente
+                'campo3'  => $p['servicio'], //servicio
+                'campo4'  => $p['campo4'], //Dirección Sede
+                'campo5'  => $p['campo5'], //BW Actual
+                'campo6'  => $p['campo6'], //BW Nuevo
                 // 'campo7' => $p['campo7'], //Requiere Cambio de equipo (si)
                 // 'campo7' => $p['campo7'], //Requiere Cambio de equipo (no)
                 // 'campo8' => $p['campo8'], //Existen otros Servicios a Modificar(si)
-                // 'campo8' => $p['campo8'], //Existen otros Servicios a Modificar(no) 
+                // 'campo8' => $p['campo8'], //Existen otros Servicios a Modificar(no)
 
-                'campo9' => $p['campo9'], //otp
-                'campo10' => $p['campo10'], //ID Servicio 
+                'campo9'  => $p['campo9'], //otp
+                'campo10' => $p['campo10'], //ID Servicio
                 'campo11' => $p['campo11'], //Dirección Sede
                 'campo12' => $p['campo12'], //Requiere Cambio de Equipos (si)
                 // 'campo12' => $p['campo12'], //Requiere Cambio de Equipos (no)
@@ -1675,7 +1668,7 @@ class Templates extends CI_Controller {
                 'campo14' => $p['campo14'], //Fecha de Entrega de la Ampliación de su Servicio
                 'campo15' => $p['ingeniero1'], //INGENIERO IMPLEMENTACIÓN
                 'campo16' => $p['ingeniero1_tel'], //TELEFONOS DE CONTACTO
-                'campo17' => $p['ingeniero1_email'] //EMAIL
+                'campo17' => $p['ingeniero1_email'], //EMAIL
             );
 
             $argumentos['campo7']['si'] = $this->si($p['campo7']);
@@ -1685,14 +1678,29 @@ class Templates extends CI_Controller {
 
             break;
 
+        case ($s == 24):
+            $argumentos = array(
+                'nombre'           => $p['nombre'],
+                'nombre_cliente'   => $p['nombre_cliente'],
+                'servicio'         => $p['servicio'],
+                'fecha'            => $p['fecha'],
+                'campo4'           => $p['campo4'],
+                'campo5'           => $p['campo5'],
+                'campo6'           => $p['campo6'],
+                'campo7'           => $p['campo7'], //ancho de banda
+                'ingeniero1'       => $p['ingeniero1'],
+                'ingeniero1_tel'   => $p['ingeniero1_tel'],
+                'ingeniero1_email' => $p['ingeniero1_email'],
+            );
+            break;
+
         }
 
         return $argumentos;
     }
 
-
     // se arma el arreglo para guardar en base de datos el formulario de servicio
-    private function fill_data_service($p, $s){
+    private function fill_data_service($p, $s) {
         $fActual = date('Y-m-d');
 
         switch (true) {
@@ -1816,18 +1824,18 @@ class Templates extends CI_Controller {
         case ($s == 13): //Cambio de Servicio Telefonia Fija Pública Linea Basica a Linea E1
             $argumentos = array(
 
-                'campo1'  => $p['nombre'],// nombre
-                'campo2'  => $p['nombre_cliente'],// nombre cliente
-                'campo3'  => $p['servicio'],// servicio
-                'campo4'  => $p['campo4'],// Dirección Destino
-                'campo5'  => $p['campo5'],// Cantidad de Líneas Telefónicas Básicas
-                'campo6'  => $p['campo6'],// cantidadCiudad 
-                'campo7'  => $p['campo7'],// NOmbre ciudades
-                'campo8'  => $p['campo8'],// Cantidad DID
-                'campo9'  => $fActual,// inicio al Proceso de Cambio  de Servicio   
-                'campo10' => $p['campo10'],// Fecha de Entrega de su servicio
-                'campo11' => $p['ingeniero1'],// INGENIERO IMPLEMENTACIÓN
-                'campo12' => $p['ingeniero1_tel'],// TELEFONOS DE CONTACTO
+                'campo1'  => $p['nombre'], // nombre
+                'campo2'  => $p['nombre_cliente'], // nombre cliente
+                'campo3'  => $p['servicio'], // servicio
+                'campo4'  => $p['campo4'], // Dirección Destino
+                'campo5'  => $p['campo5'], // Cantidad de Líneas Telefónicas Básicas
+                'campo6'  => $p['campo6'], // cantidadCiudad
+                'campo7'  => $p['campo7'], // NOmbre ciudades
+                'campo8'  => $p['campo8'], // Cantidad DID
+                'campo9'  => $fActual, // inicio al Proceso de Cambio  de Servicio
+                'campo10' => $p['campo10'], // Fecha de Entrega de su servicio
+                'campo11' => $p['ingeniero1'], // INGENIERO IMPLEMENTACIÓN
+                'campo12' => $p['ingeniero1_tel'], // TELEFONOS DE CONTACTO
                 'campo13' => $p['ingeniero1_email'], // EMAIL
 
                 /*======================================================
@@ -1837,7 +1845,7 @@ class Templates extends CI_Controller {
             break;
         case ($s == 14): // Cambio de Servicio Telefonia Fija Pública Linea SIP a PBX Distribuida Linea SIP
 
-            $ciudades = implode(", ", $p['campo6']);
+            $ciudades   = implode(", ", $p['campo6']);
             $argumentos = array(
                 'campo1'  => $p['nombre'], // nombre
                 'campo2'  => $p['nombre_cliente'], // nombre cliente
@@ -1944,7 +1952,7 @@ class Templates extends CI_Controller {
             break;
 
         case ($s == 18): // Instalación Servicio Telefonia Fija PBX Distribuida Linea E1
-            $ciudades = implode(', ' , $p['campo6']);
+            $ciudades = implode(', ', $p['campo6']);
 
             $argumentos = array(
                 'campo1'  => $p['nombre'], // nombre
@@ -1962,7 +1970,7 @@ class Templates extends CI_Controller {
             break;
 
         case ($s == 19): // Instalación Servicio Telefonia Fija PBX Distribuida Linea SIP
-            $ciudades = implode(', ' , $p['campo6']);
+            $ciudades   = implode(', ', $p['campo6']);
             $argumentos = array(
                 'campo1'  => $p['nombre'], // nombre
                 'campo2'  => $p['nombre_cliente'], // nombre cliente
@@ -1979,92 +1987,90 @@ class Templates extends CI_Controller {
             break;
 
         case ($s == 20): // Instalación Servicio Telefonia Fija PBX Distribuida Linea SIP con Gateway de Voz
-            $ciudades = implode(', ' , $p['campo6']);
+            $ciudades   = implode(', ', $p['campo6']);
             $argumentos = array(
-                'campo1' => $p['nombre'], // nombre
-                'campo2' => $p['nombre_cliente'], // nombre cliente
-                'campo3' => $p['servicio'], // servicio
-                'campo4' => $p['campo4'], // Dirección Destino
-                'campo5' => $p['campo5'], // Cantidad de DID
-                'campo6' => $ciudades, // ciudades
-                'campo7' => $fActual, // inicio al Proceso de instalación del Servicio
-                'campo8' => $p['campo8'], // Fecha de Entrega de su servicio 
-                'campo9' => $p['ingeniero1'], // INGENIERO IMPLEMENTACIÓN
-                'campo10' => $p['ingeniero1_tel'], // TELEFONOS DE CONTACTO 
-                'campo11' => $p['ingeniero1_email'] // EMAIL
+                'campo1'  => $p['nombre'], // nombre
+                'campo2'  => $p['nombre_cliente'], // nombre cliente
+                'campo3'  => $p['servicio'], // servicio
+                'campo4'  => $p['campo4'], // Dirección Destino
+                'campo5'  => $p['campo5'], // Cantidad de DID
+                'campo6'  => $ciudades, // ciudades
+                'campo7'  => $fActual, // inicio al Proceso de instalación del Servicio
+                'campo8'  => $p['campo8'], // Fecha de Entrega de su servicio
+                'campo9'  => $p['ingeniero1'], // INGENIERO IMPLEMENTACIÓN
+                'campo10' => $p['ingeniero1_tel'], // TELEFONOS DE CONTACTO
+                'campo11' => $p['ingeniero1_email'], // EMAIL
             );
             break;
 
         case ($s == 21): // Instalación Telefonía Publica Básica - Internet Dedicado
             $argumentos = array(
-                'campo1' => $p['nombre'], //nombre
-                'campo2' => $p['nombre_cliente'], //nombre cliente
-                'campo3' => $p['campo3'], //Dirección Destino
-                'campo4' => $p['campo4'], //Cantidad de Líneas Telefónicas Básicas
-                'campo5' => $p['campo5'], //OTP Internet Dedicado
-                'campo6' => $p['campo6'], //OTP Telefonia
-                'campo7' => $p['campo7'], //Ancho de Banda Internet
-                'campo8' => $p['campo8'], //Interfaz de Entrega
-                'campo9' => $p['campo9'], //Interfaz de Entrega
-                'campo10' => $fActual, //inicio al Proceso de instalación de los Servicios 
+                'campo1'  => $p['nombre'], //nombre
+                'campo2'  => $p['nombre_cliente'], //nombre cliente
+                'campo3'  => $p['campo3'], //Dirección Destino
+                'campo4'  => $p['campo4'], //Cantidad de Líneas Telefónicas Básicas
+                'campo5'  => $p['campo5'], //OTP Internet Dedicado
+                'campo6'  => $p['campo6'], //OTP Telefonia
+                'campo7'  => $p['campo7'], //Ancho de Banda Internet
+                'campo8'  => $p['campo8'], //Interfaz de Entrega
+                'campo9'  => $p['campo9'], //Interfaz de Entrega
+                'campo10' => $fActual, //inicio al Proceso de instalación de los Servicios
                 'campo11' => $p['campo11'], //Fecha de Entrega de los servicio
                 'campo12' => $p['ingeniero1'], //INGENIERO IMPLEMENTACIÓN
                 'campo13' => $p['ingeniero1_tel'], //TELEFONOS DE CONTACTO
-                'campo14' => $p['ingeniero1_email'] //EMAIL
+                'campo14' => $p['ingeniero1_email'], //EMAIL
 
             );
             break;
         case ($s == 22): //Cambio de Última Milla
-            $otps = implode(', ', $p['campo10']);
-            $ids_serv = implode(', ', $p['campo11']);
-            $dirs = implode(', ', $p['campo12']);
+            $otps      = implode(', ', $p['campo10']);
+            $ids_serv  = implode(', ', $p['campo11']);
+            $dirs      = implode(', ', $p['campo12']);
             $r_equipos = implode(', ', $p['campo13']);
-            $r_um = implode(', ', $p['campo14']);
-
+            $r_um      = implode(', ', $p['campo14']);
 
             $argumentos = array(
-                'campo1' => $p['nombre'] , //nombre
-                'campo2' => $p['nombre_cliente'] , //nombre cliente
-                'campo3' => $p['servicio'] , //servicio
-                'campo4' => $p['campo4'] , //Dirección Sede
-                'campo5' => $p['campo5'] , //BW Actual
-                'campo6' => $p['campo6'] , //BW Nuevo
-                'campo7' => $p['campo7'] , //Requiere Cambio de equipo (si, no)
-                'campo8' => $p['campo8'] , //Requiere Cambio de Última Milla (si, no)
-                'campo9' => $p['campo9'] , //Existen otros Servicios a Modificar (si, no)
+                'campo1'  => $p['nombre'], //nombre
+                'campo2'  => $p['nombre_cliente'], //nombre cliente
+                'campo3'  => $p['servicio'], //servicio
+                'campo4'  => $p['campo4'], //Dirección Sede
+                'campo5'  => $p['campo5'], //BW Actual
+                'campo6'  => $p['campo6'], //BW Nuevo
+                'campo7'  => $p['campo7'], //Requiere Cambio de equipo (si, no)
+                'campo8'  => $p['campo8'], //Requiere Cambio de Última Milla (si, no)
+                'campo9'  => $p['campo9'], //Existen otros Servicios a Modificar (si, no)
                 'campo10' => $otps, //OTP
                 'campo11' => $ids_serv, //ID Servicio
                 'campo12' => $dirs, //Dirección Sede
                 'campo13' => $r_equipos, //Requiere Cambio de Equipos (no)
-                'campo14' => $r_um , //Requiere Cambio de UM (no)
-                'campo15' => $fActual , //inicio al Proceso de Ampliación del  Servicio
-                'campo16' => $p['campo16'] , //Fecha de Entrega de la Ampliación de su Servicio
-                'campo17' => $p['ingeniero1'] , //INGENIERO IMPLEMENTACIÓN
-                'campo18' => $p['ingeniero1_tel'] , //TELEFONOS DE CONTACTO
-                'campo19' => $p['ingeniero1_email'] , //EMAIL
+                'campo14' => $r_um, //Requiere Cambio de UM (no)
+                'campo15' => $fActual, //inicio al Proceso de Ampliación del  Servicio
+                'campo16' => $p['campo16'], //Fecha de Entrega de la Ampliación de su Servicio
+                'campo17' => $p['ingeniero1'], //INGENIERO IMPLEMENTACIÓN
+                'campo18' => $p['ingeniero1_tel'], //TELEFONOS DE CONTACTO
+                'campo19' => $p['ingeniero1_email'], //EMAIL
             );
 
             break;
 
         case ($s == 23): // Cambio de Equipo
-            $otps = implode(', ', $p['campo9']);
-            $ids_serv = implode(', ', $p['campo10']);
-            $dirs = implode(', ', $p['campo11']);
+            $otps      = implode(', ', $p['campo9']);
+            $ids_serv  = implode(', ', $p['campo10']);
+            $dirs      = implode(', ', $p['campo11']);
             $r_equipos = implode(', ', $p['campo12']);
 
-
             $argumentos = array(
-                'campo1' => $p['nombre'], //nombre
-                'campo2' => $p['nombre_cliente'], //nombre cliente
-                'campo3' => $p['servicio'], //servicio
-                'campo4' => $p['campo4'], //Dirección Sede
-                'campo5' => $p['campo5'], //BW Actual
-                'campo6' => $p['campo6'], //BW Nuevo
-                'campo7' => $p['campo7'], //Requiere Cambio de equipo (si, no)
-                'campo8' => $p['campo8'], //Existen otros Servicios a Modificar(si, no)
+                'campo1'  => $p['nombre'], //nombre
+                'campo2'  => $p['nombre_cliente'], //nombre cliente
+                'campo3'  => $p['servicio'], //servicio
+                'campo4'  => $p['campo4'], //Dirección Sede
+                'campo5'  => $p['campo5'], //BW Actual
+                'campo6'  => $p['campo6'], //BW Nuevo
+                'campo7'  => $p['campo7'], //Requiere Cambio de equipo (si, no)
+                'campo8'  => $p['campo8'], //Existen otros Servicios a Modificar(si, no)
 
-                'campo9' => $otps, //otp
-                'campo10' => $ids_serv, //ID Servicio 
+                'campo9'  => $otps, //otp
+                'campo10' => $ids_serv, //ID Servicio
                 'campo11' => $dirs, //Dirección Sede
                 'campo12' => $r_equipos, //Requiere Cambio de Equipos (si)
 
@@ -2072,7 +2078,7 @@ class Templates extends CI_Controller {
                 'campo14' => $p['campo14'], //Fecha de Entrega de la Ampliación de su Servicio
                 'campo15' => $p['ingeniero1'], //INGENIERO IMPLEMENTACIÓN
                 'campo16' => $p['ingeniero1_tel'], //TELEFONOS DE CONTACTO
-                'campo17' => $p['ingeniero1_email'] //EMAIL
+                'campo17' => $p['ingeniero1_email'], //EMAIL
             );
 
             break;
@@ -2094,13 +2100,13 @@ class Templates extends CI_Controller {
     }
 
     // setear arreglo de ciudades
-    private function set_cities(){
-        $data = ['Bogota','Yopal','Neiva','Montería','Manizales','Sogamoso','Tunja','Cali','Medellín','Valledupar','Ibagué','Flandes','Villavicencio','Buenaventura','Barranquilla','Sincelejo','Cúcuta','Rivera','Facatativá','Pasto','Cartagena','Pereira','Bucaramanga','Aipe','Girardot','Popayán','Santa_Marta','Armenia','Duitama','Lebrija',];
+    private function set_cities() {
+        $data = ['Bogota', 'Yopal', 'Neiva', 'Montería', 'Manizales', 'Sogamoso', 'Tunja', 'Cali', 'Medellín', 'Valledupar', 'Ibagué', 'Flandes', 'Villavicencio', 'Buenaventura', 'Barranquilla', 'Sincelejo', 'Cúcuta', 'Rivera', 'Facatativá', 'Pasto', 'Cartagena', 'Pereira', 'Bucaramanga', 'Aipe', 'Girardot', 'Popayán', 'Santa_Marta', 'Armenia', 'Duitama', 'Lebrija'];
         return $data;
-        
+
     }
 
-    private function si($valor){
+    private function si($valor) {
         if ($valor == 'SI') {
             return 'X';
         } else {
@@ -2108,7 +2114,7 @@ class Templates extends CI_Controller {
         }
     }
 
-    private function no($valor){
+    private function no($valor) {
         if ($valor == 'NO') {
             return 'X';
         } else {
@@ -2171,8 +2177,8 @@ class Templates extends CI_Controller {
     }
 
     // pintar el text area
-    public function view_textarea(){
-        $this->load->view('txt');  
+    public function view_textarea() {
+        $this->load->view('txt');
     }
 
     // retorna plantilla tyexto producto internet
@@ -2195,7 +2201,7 @@ class Templates extends CI_Controller {
 
         **********************************************   INFORMACIÓN  ULTIMA MILLA    ******************************************
         ¿ESTA OT REQUIERE INSTALACION DE  UM? :.............' . $data_pr['pr_requiere_um'] . '
-        PROVEEDOR :.........................................' . $data_pr['pr_proveedor']  . '
+        PROVEEDOR :.........................................' . $data_pr['pr_proveedor'] . '
         MEDIO :.............................................' . $data_pr['pr_medio'] . '
         RESPUESTA FACTIBILIDAD BW > =100 MEGAS :............' . $data_pr['pr_factibilidad_bw'] . '
         TIPO DE CONECTOR :..................................' . $data_pr['pr_tipo_conector'] . '
@@ -2206,7 +2212,7 @@ class Templates extends CI_Controller {
         PROGRAMACIÓN DE VOC :...............................' . $data_pr['pr_programacion_voc'] . '
 
         *****************************************  REQUERIMIENTOS PARA ENTREGA DEL SERVICIO  ************************************
-        REQUIERE RFC........................................' . $data_pr['pr_requiere_rfc'] . '       
+        REQUIERE RFC........................................' . $data_pr['pr_requiere_rfc'] . '
         Conversor Medio :...................................' . $data_pr['pr_conversor_medio'] . '
         Referencia Router :.................................' . $data_pr['pr_referencia_router'] . '
         Modulos o Tarjetas :................................' . $data_pr['pr_modulos_tarjetas'] . '
@@ -2223,11 +2229,11 @@ class Templates extends CI_Controller {
         CORREO ELECTRONICO :................................' . $data_pr['pr_correo_1'] . '
 
         ************************************************  DATOS CONTACTO TÉCNICO   **********************************************
-        NOMBRE :............................................' . $data_pr['pr_nombre_2'] . ' 
-        TELEFONO :..........................................' . $data_pr['pr_telefono_2'] . ' 
-        CELULAR :...........................................' . $data_pr['pr_celular_2'] . ' 
+        NOMBRE :............................................' . $data_pr['pr_nombre_2'] . '
+        TELEFONO :..........................................' . $data_pr['pr_telefono_2'] . '
+        CELULAR :...........................................' . $data_pr['pr_celular_2'] . '
         CORREO ELECTRONICO :................................' . $data_pr['pr_correo_2'] . '
-        OBSERVACIONES :.....................................' . $data_pr['pr_observaciones'] . ' 
+        OBSERVACIONES :.....................................' . $data_pr['pr_observaciones'] . '
 
         ***************************************************  KIKOFF TECNICO     *************************************************
         Ancho de banda Exclusivo NAP :......................' . $data_pr['pr_ancho_banda_nap'] . '
@@ -2246,7 +2252,7 @@ class Templates extends CI_Controller {
         ';
     }
 
-    // retorna plantilla tyexto para mpls de destino 
+    // retorna plantilla tyexto para mpls de destino
     private function plantilla_txt_pr_mpls($data_pr, $flag) {
         $cadena = '';
         $cadena .= '
@@ -2274,7 +2280,7 @@ class Templates extends CI_Controller {
         MEDIO                                                         ' . $data_pr['pr_medio_des'] . '
         RESPUESTA FACTIBILIDAD BW >100 MEGAS :                        ' . $data_pr['pr_factibilidad_bw_des'] . '
         TIPO DE CONECTOR *** (Aplica para FO Claro) :                 ' . $data_pr['pr_tipo_conector_des'] . '
-        ACCESO (Solo Aplica para Canales > 100 MEGAS  
+        ACCESO (Solo Aplica para Canales > 100 MEGAS
             SDS DESTINO :                                             ' . $data_pr['pr_sds_destino_des'] . '
         INTERFACE DE ENTREGA AL CLIENTE :                             ' . $data_pr['pr_interfaz_entrega_cliente_des'] . '
         REQUIERE VOC :                                                ' . $data_pr['pr_requiere_voc_des'] . '
@@ -2282,7 +2288,7 @@ class Templates extends CI_Controller {
 
         *******************************************    REQUERIMIENTOS PARA ENTREGA DEL SERVICIO  ************************************
         REQUIERE RFC                                                  ' . $data_pr['pr_requiere_rfc_des'] . '
-        EQUIPOS   (VER LISTA COMPLETA):       
+        EQUIPOS   (VER LISTA COMPLETA):
             Conversor Medio :                                         ' . $data_pr['pr_conversor_medio_des'] . '
             Referencia Router :                                       ' . $data_pr['pr_referencia_router_des'] . '
             Modulos o Tarjetas:                                       ' . $data_pr['pr_modulos_tarjetas_des'] . '
@@ -2339,7 +2345,7 @@ class Templates extends CI_Controller {
 
         *******************************************    REQUERIMIENTOS PARA ENTREGA DEL SERVICIO  ************************************
         REQUIERE RFC                                                  ' . $data_pr['pr_requiere_rfc_ori'] . '
-        EQUIPOS   (VER LISTA COMPLETA):       
+        EQUIPOS   (VER LISTA COMPLETA):
             Conversor Medio :                                         ' . $data_pr['pr_conversor_medio_ori'] . '
             Referencia Router :                                       ' . $data_pr['pr_referencia_router_ori'] . '
             Modulos o Tarjetas:                                       ' . $data_pr['pr_modulos_tarjetas_ori'] . '
@@ -2370,7 +2376,7 @@ class Templates extends CI_Controller {
     // retorna plantilla tyexto formulario de novedades
     private function plantilla_txt_pr_novedades($data_pr) {
         return '
-        NOVEDADES 
+        NOVEDADES
 
         ****************************************************     DATOS BÁSICOS     **********************************************
         CIUDAD:                                                       ' . $data_pr['pr_ciudad'] . '
@@ -2389,7 +2395,7 @@ class Templates extends CI_Controller {
         PROVEEDOR:                                                    ' . $data_pr['pr_proveedor'] . '
         MEDIO:                                                        ' . $data_pr['pr_medio'] . '
         RESPUESTA FACTIBILIDAD BW >100 MEGAS:                         ' . $data_pr['pr_factibilidad_bw'] . '
-        ACCESO (Solo Aplica para Canales > 100 MEGAS   =======    
+        ACCESO (Solo Aplica para Canales > 100 MEGAS   =======
             SDS DESTINO (Unifilar):                                   ' . $data_pr['pr_sds_destino'] . '
             OLT (GPON):                                               ' . $data_pr['pr_olt'] . '
         INTERFACE DE ENTREGA AL CLIENTE:                              ' . $data_pr['pr_interfaz_entrega_cliente'] . '
@@ -2400,7 +2406,7 @@ class Templates extends CI_Controller {
         *******************************************    REQUERIMIENTOS PARA ENTREGA DEL SERVICIO  ************************************
         REQUIERE VENTANA DE MTTO :                                     ' . $data_pr['pr_requiere_ventana_mtto'] . '
         REQUIERE RFC                                                   ' . $data_pr['pr_requiere_rfc'] . '
-        EQUIPOS   (VER LISTA COMPLETA):       
+        EQUIPOS   (VER LISTA COMPLETA):
             Conversor Medio :                                          ' . $data_pr['pr_conversor_medio'] . '
             Referencia Router :                                        ' . $data_pr['pr_referencia_router'] . '
             Modulos o Tarjetas:                                        ' . $data_pr['pr_modulos_tarjetas'] . '
@@ -2597,7 +2603,7 @@ class Templates extends CI_Controller {
     // retorna plantilla tyexto  formulario traslado externo
     private function plantilla_txt_pr_traslado_externo($data_pr) {
         return '
-        TRASLADO EXTERNO 
+        TRASLADO EXTERNO
 
         ****************************************     DATOS BÁSICOS DE INSTALACION      *****************************************
         CIUDAD:                                                       ' . $data_pr['pr_ciudad'] . '
@@ -2622,7 +2628,7 @@ class Templates extends CI_Controller {
         PROVEEDOR:                                                    ' . $data_pr['pr_proveedor'] . '
         MEDIO:                                                        ' . $data_pr['pr_medio'] . '
         RESPUESTA FACTIBILIDAD BW >100 MEGAS:                         ' . $data_pr['pr_factibilidad_bw'] . '
-        ACCESO (Solo Aplica para Canales > 100 MEGAS   =======    
+        ACCESO (Solo Aplica para Canales > 100 MEGAS   =======
             SDS DESTINO (Unifilar):                                   ' . $data_pr['pr_sds_destino'] . '
             OLT (GPON):                                               ' . $data_pr['pr_olt'] . '
         INTERFACE DE ENTREGA AL CLIENTE:                              ' . $data_pr['pr_interfaz_entrega_cliente'] . '
@@ -2633,7 +2639,7 @@ class Templates extends CI_Controller {
         *******************************************    REQUERIMIENTOS PARA ENTREGA DEL SERVICIO  ************************************
         REQUIERE VENTANA DE MTTO:                                      ' . $data_pr['pr_requiere_ventana_mtto'] . '
         REQUIERE RFC                                                   ' . $data_pr['pr_requiere_rfc'] . '
-        EQUIPOS   (VER LISTA COMPLETA):       
+        EQUIPOS   (VER LISTA COMPLETA):
             Conversor Medio :                                          ' . $data_pr['pr_conversor_medio'] . '
             Referencia Router :                                        ' . $data_pr['pr_referencia_router'] . '
             Modulos o Tarjetas:                                        ' . $data_pr['pr_modulos_tarjetas'] . '
@@ -2663,7 +2669,7 @@ class Templates extends CI_Controller {
     // retorna plantilla tyexto formulario traslado interno
     private function plantilla_txt_pr_traslado_interno($data_pr) {
         return '
-        TRASLADO INTERNO 
+        TRASLADO INTERNO
 
 
         *************************************************     DATOS BÁSICOS    ****************************************************
@@ -2675,7 +2681,7 @@ class Templates extends CI_Controller {
         CANTIDAD DE SERVICIOS A TRASLADAR:                            ' . $data_pr['pr_cant_servicios_trasladar'] . '
         CODIGOS DE SERVICIO  A TRASLADAR :                            ' . $data_pr['pr_cod_servicios_trasladar'] . '
         TIPO DE TRASLADO INTERNO:                                     ' . $data_pr['pr_tipo_traslado'] . '
-        TIPO DE SERVICIO:                                             ' . $data_pr['pr_tipo_servicio'] . '        
+        TIPO DE SERVICIO:                                             ' . $data_pr['pr_tipo_servicio'] . '
         ANCHO DE BANDA :                                              ' . $data_pr['pr_ancho_banda'] . '
         TIPO DE ACTIVIDAD                                             ' . $data_pr['pr_tipo_actividad'] . '
         ID SERVICIO PRINCIPAL (Aplica para UM Existente):             ' . $data_pr['pr_servicio_actual'] . '
@@ -2685,7 +2691,7 @@ class Templates extends CI_Controller {
         PROVEEDOR:                                                    ' . $data_pr['pr_proveedor'] . '
         MEDIO:                                                        ' . $data_pr['pr_medio'] . '
         RESPUESTA FACTIBILIDAD BW >100 MEGAS:                         ' . $data_pr['pr_factibilidad_bw'] . '
-        ACCESO (Solo Aplica para Canales > 100 MEGAS   =======   
+        ACCESO (Solo Aplica para Canales > 100 MEGAS   =======
             SDS DESTINO (Unifilar):                                   ' . $data_pr['pr_sds_destino'] . '
             OLT (GPON):                                               ' . $data_pr['pr_olt'] . '
         INTERFACE DE ENTREGA AL CLIENTE:                              ' . $data_pr['pr_interfaz_entrega_cliente'] . '
@@ -2695,7 +2701,7 @@ class Templates extends CI_Controller {
         *******************************************    REQUERIMIENTOS PARA ENTREGA DEL SERVICIO  ************************************
         REQUIERE VENTANA DE MTTO :                                    ' . $data_pr['pr_requiere_ventana_mtto'] . '
         REQUIERE RFC                                                  ' . $data_pr['pr_requiere_rfc'] . '
-        EQUIPOS   (VER LISTA COMPLETA):       
+        EQUIPOS   (VER LISTA COMPLETA):
             Conversor Medio :                                         ' . $data_pr['pr_conversor_medio'] . '
             Referencia Router :                                       ' . $data_pr['pr_referencia_router'] . '
             Modulos o Tarjetas:                                       ' . $data_pr['pr_modulos_tarjetas'] . '
@@ -2719,7 +2725,7 @@ class Templates extends CI_Controller {
         CORREO ELECTRONICO :                                           ' . $data_pr['pr_correo_2'] . '
         OBSERVACIONES:                                                 ' . $data_pr['pr_observaciones'] . '
 
-        
+
 
         ';
     }
@@ -2727,7 +2733,7 @@ class Templates extends CI_Controller {
     // retorna plantilla tyexto formulario de PBX Administrada
     private function plantilla_txt_pr_pbx_administrada($data_pr) {
         return '
-        PBX ADMINISTRADA 
+        PBX ADMINISTRADA
 
         ****************************************************     DATOS BÁSICOS     **********************************************
         CIUDAD:                                                       ' . $data_pr['ciudad'] . '
@@ -2747,10 +2753,10 @@ class Templates extends CI_Controller {
         MEDIO:                                                        ' . $data_pr['medio'] . '
         REQUIERE VOC :                                                ' . $data_pr['requiere_voc'] . '
         PROGRAMACIÓN DE VOC :                                         ' . $data_pr['programacion_voc'] . '
-        
+
         *******************************************    REQUERIMIENTOS PARA ENTREGA DEL SERVICIO  ************************************
         REQUIERE RFC                                                  ' . $data_pr['requiere_rfc'] . '
-        EQUIPOS   (VER LISTA COMPLETA):       
+        EQUIPOS   (VER LISTA COMPLETA):
             Conversor Medio :                                         ' . $data_pr['conversor_medio'] . '
             Referencia Router :                                       ' . $data_pr['referencia_router'] . '
             Modulos o Tarjetas:                                       ' . $data_pr['modulos_tarjetas'] . '
@@ -2759,11 +2765,11 @@ class Templates extends CI_Controller {
 
 
         ********* Teléfonos *********
-    
-            
-        referencias:                                                  ' . $data_pr['referencia'] . '    
-        Cantidad:                                                     ' . $data_pr['cantidad'] . '    
-        Fuentes de Teléfonos:                                         ' . $data_pr['fuentes_telefonos'] . '    
+
+
+        referencias:                                                  ' . $data_pr['referencia'] . '
+        Cantidad:                                                     ' . $data_pr['cantidad'] . '
+        Fuentes de Teléfonos:                                         ' . $data_pr['fuentes_telefonos'] . '
         Diademas:                                                     ' . $data_pr['diademas'] . '
         Arañas de Conferencia:                                        ' . $data_pr['araña_conferencia'] . '
         Botoneras:                                                    ' . $data_pr['botoneras'] . '
@@ -2792,7 +2798,7 @@ class Templates extends CI_Controller {
         CANTIDAD DE BUZONES VOZ:                                      ' . $data_pr['cantidad_buzones_voz'] . '
         INCLUYE GRABACIÓN DE VOZ:                                     ' . $data_pr['grabacion_voz'] . '
         INCLUYE LAN ADMINISTRADA:                                     ' . $data_pr['lan_administrada'] . '
-                                  
+
 
         ';
     }
@@ -2800,10 +2806,10 @@ class Templates extends CI_Controller {
     // retorna plantilla tyexto formulario de telefonia fija
     private function plantilla_txt_pr_telefonia_fija($data_pr) {
         return '
-        TELEFONIA FIJA  
+        TELEFONIA FIJA
 
         ****************************************************     DATOS BÁSICOS DE INSTALACION    **********************************************
-       
+
         CIUDAD:                                                       ' . $data_pr['pr_ciudad'] . '
         DIRECCIÓN:                                                    ' . $data_pr['pr_direccion'] . '
         TIPO PREDIO:                                                  ' . $data_pr['pr_tipo_predio'] . '
@@ -2815,7 +2821,7 @@ class Templates extends CI_Controller {
         ANCHO DE BANDA :                                              ' . $data_pr['pr_ancho_banda'] . '
         TIPO DE INSTALACION:                                          ' . $data_pr['pr_tipo_instalacion'] . '
         ID SERVICIO ACTUAL (Aplica para UM Existente):                ' . $data_pr['pr_servicio_actual'] . '
-       
+
         *******************************************  INFORMACIÓN  ULTIMA MILLA   ***********************************************
         ¿ESTA OT REQUIERE INSTALACION DE  UM?:                        ' . $data_pr['pr_requiere_um'] . '
         PROVEEDOR:                                                    ' . $data_pr['pr_proveedor'] . '
@@ -2824,10 +2830,10 @@ class Templates extends CI_Controller {
         INTERFACE DE ENTREGA AL CLIENTE:                              ' . $data_pr['pr_interfaz_entrega_cliente'] . '
         REQUIERE VOC :                                                ' . $data_pr['pr_requiere_voc'] . '
         PROGRAMACIÓN DE VOC :                                         ' . $data_pr['pr_programacion_voc'] . '
-        
+
         *******************************************    REQUERIMIENTOS PARA ENTREGA DEL SERVICIO  ************************************
         REQUIERE RFC                                                  ' . $data_pr['pr_requiere_rfc'] . '
-        EQUIPOS   (VER LISTA COMPLETA):       
+        EQUIPOS   (VER LISTA COMPLETA):
             Conversor Medio :                                         ' . $data_pr['pr_conversor_medio'] . '
             Referencia Router :                                       ' . $data_pr['pr_referencia_router'] . '
             Modulos o Tarjetas:                                       ' . $data_pr['pr_modulos_tarjetas'] . '
@@ -3038,7 +3044,7 @@ class Templates extends CI_Controller {
         ID SERVICIO ACTUAL (Aplica para UM Existente):......' . $data_pr['pr_servicio_actual'] . '
 
         *****************************************  REQUERIMIENTOS PARA ENTREGA DEL SERVICIO  ***********************************
-        REQUIERE RFC........................................' . $data_pr['pr_requiere_rfc'] . '       
+        REQUIERE RFC........................................' . $data_pr['pr_requiere_rfc'] . '
         Conversor Medio :...................................' . $data_pr['pr_conversor_medio'] . '
         Referencia Router :.................................' . $data_pr['pr_referencia_router'] . '
         Modulos o Tarjetas :................................' . $data_pr['pr_modulos_tarjetas'] . '
@@ -3055,11 +3061,11 @@ class Templates extends CI_Controller {
         CORREO ELECTRONICO :................................' . $data_pr['pr_correo_1'] . '
 
         ************************************************  DATOS CONTACTO TÉCNICO   **********************************************
-        NOMBRE :............................................' . $data_pr['pr_nombre_2'] . ' 
-        TELEFONO :..........................................' . $data_pr['pr_telefono_2'] . ' 
-        CELULAR :...........................................' . $data_pr['pr_celular_2'] . ' 
+        NOMBRE :............................................' . $data_pr['pr_nombre_2'] . '
+        TELEFONO :..........................................' . $data_pr['pr_telefono_2'] . '
+        CELULAR :...........................................' . $data_pr['pr_celular_2'] . '
         CORREO ELECTRONICO :................................' . $data_pr['pr_correo_2'] . '
-        OBSERVACIONES :.....................................' . $data_pr['pr_observaciones'] . ' 
+        OBSERVACIONES :.....................................' . $data_pr['pr_observaciones'] . '
 
         ***************************************************  KIKOFF TECNICO     *************************************************
         TIPO PROTOCOLO (STP, RSTP, VTP, DTP) :..............' . $data_pr['pr_tipo_protocolo'] . '
@@ -3085,7 +3091,7 @@ class Templates extends CI_Controller {
         ANCHO DE BANDA :                                              ' . $data_pr['pr_ancho_banda_des'] . '
         TIPO DE INSTALACIÓN :                                         ' . $data_pr['pr_tipo_instalacion_des'] . '
         ID SERVICIO ACTUAL :                                          ' . $data_pr['pr_servicio_actual_des'] . '
-        
+
 
         ***************  INFORMACIÓN  ULTIMA MILLA DESTINO  **************
         ¿ESTA OT REQUIERE INSTALACION DE  UM? :                       ' . $data_pr['pr_requiere_um_des'] . '
@@ -3093,7 +3099,7 @@ class Templates extends CI_Controller {
         MEDIO                                                         ' . $data_pr['pr_medio_des'] . '
         RESPUESTA FACTIBILIDAD BW >100 MEGAS :                        ' . $data_pr['pr_factibilidad_bw_des'] . '
         TIPO DE CONECTOR * (Aplica para FO Claro) :                   ' . $data_pr['pr_tipo_conector_des'] . '
-        ACCESO (Solo Aplica para Canales > 100 MEGAS  
+        ACCESO (Solo Aplica para Canales > 100 MEGAS
             SDS DESTINO :                                             ' . $data_pr['pr_sds_destino_des'] . '
         INTERFACE DE ENTREGA AL CLIENTE :                             ' . $data_pr['pr_interfaz_entrega_cliente_des'] . '
         REQUIERE VOC :                                                ' . $data_pr['pr_requiere_voc_des'] . '
@@ -3101,9 +3107,9 @@ class Templates extends CI_Controller {
 
         ***************    REQUERIMIENTOS PARA ENTREGA DEL SERVICIO  ************
         REQUIERE RFC                                                  ' . $data_pr['pr_requiere_rfc_des'] . '
-        EQUIPOS   (VER LISTA COMPLETA):       
+        EQUIPOS   (VER LISTA COMPLETA):
             Conversor Medio :                                         ' . $data_pr['pr_conversor_medio_des'] . '
-            Equipos Adicionales :                                     ' . $data_pr['pr_equipos_adicionales_des'] . '            
+            Equipos Adicionales :                                     ' . $data_pr['pr_equipos_adicionales_des'] . '
             Consumibles :                                             ' . $data_pr['pr_consumibles_des'] . '
         REGISTRO DE IMPORTACIÓN Y CARTA VALORIZADA :                  ' . $data_pr['pr_carta_valorizada_des'] . '
         MODO TRANSMISION ENTREGA CANAL :                              ' . $data_pr['pr_transmision_entrega_des'] . '
@@ -3141,7 +3147,7 @@ class Templates extends CI_Controller {
         ANCHO DE BANDA :                                              ' . $data_pr['pr_ancho_banda_ori'] . '
         TIPO DE INSTALACIÓN :                                         ' . $data_pr['pr_tipo_instalacion_ori'] . '
         ID SERVICIO ACTUAL :                                          ' . $data_pr['pr_servicio_actual_ori'] . '
-        
+
 
         ***************  INFORMACIÓN  ULTIMA MILLA DESTINO  **************
         ¿ESTA OT REQUIERE INSTALACION DE  UM? :                       ' . $data_pr['pr_requiere_um_ori'] . '
@@ -3149,7 +3155,7 @@ class Templates extends CI_Controller {
         MEDIO                                                         ' . $data_pr['pr_medio_ori'] . '
         RESPUESTA FACTIBILIDAD BW >100 MEGAS :                        ' . $data_pr['pr_factibilidad_bw_ori'] . '
         TIPO DE CONECTOR * (Aplica para FO Claro) :                 ' . $data_pr['pr_tipo_conector_ori'] . '
-        ACCESO (Solo Aplica para Canales > 100 MEGAS  
+        ACCESO (Solo Aplica para Canales > 100 MEGAS
             SDS DESTINO :                                             ' . $data_pr['pr_sds_destino_ori'] . '
         INTERFACE DE ENTREGA AL CLIENTE :                             ' . $data_pr['pr_interfaz_entrega_cliente_ori'] . '
         REQUIERE VOC :                                                ' . $data_pr['pr_requiere_voc_ori'] . '
@@ -3157,9 +3163,9 @@ class Templates extends CI_Controller {
 
         ***************    REQUERIMIENTOS PARA ENTREGA DEL SERVICIO  ************
         REQUIERE RFC                                                  ' . $data_pr['pr_requiere_rfc_ori'] . '
-        EQUIPOS   (VER LISTA COMPLETA):       
+        EQUIPOS   (VER LISTA COMPLETA):
             Conversor Medio :                                         ' . $data_pr['pr_conversor_medio_ori'] . '
-            Equipos Adicionales :                                     ' . $data_pr['pr_equipos_adicionales_ori'] . '            
+            Equipos Adicionales :                                     ' . $data_pr['pr_equipos_adicionales_ori'] . '
             Consumibles :                                             ' . $data_pr['pr_consumibles_ori'] . '
         REGISTRO DE IMPORTACIÓN Y CARTA VALORIZADA :                  ' . $data_pr['pr_carta_valorizada_ori'] . '
         MODO TRANSMISION ENTREGA CANAL :                              ' . $data_pr['pr_transmision_entrega_ori'] . '
@@ -8788,7 +8794,6 @@ class Templates extends CI_Controller {
 
     }
 
-    
     public function cambio_de_equipos_servicio($argumentos) {
 
         return '
@@ -9090,7 +9095,6 @@ class Templates extends CI_Controller {
 
     }
 
-    
     public function cambio_de_servicio_telefonia_fija_publica_linea_basica_a_linea_e1($argumentos) {
         return '
         <div dir="ltr"><p class="MsoNormal" style="margin:0in 0in 10pt;text-align:justify;line-height:115%;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;line-height:115%;font-family:Arial,sans-serif">Cordial Saludo Señor(a)</span><span lang="ES-CO"></span></p>
@@ -9799,7 +9803,7 @@ class Templates extends CI_Controller {
         ';
 
     }
-    
+
     public function cambio_de_servicio_telefonia_fija_pública_linea_sip_a_pbx_distribuida_linea_sip($argumentos) {
         return '<div dir="ltr"><p class="MsoNormal" style="margin:0in 0in 10pt;text-align:justify;line-height:115%;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;line-height:115%;font-family:Arial,sans-serif">Cordial Saludo Señor(a)</span><span lang="ES-CO"></span></p>
 
@@ -10540,10 +10544,9 @@ class Templates extends CI_Controller {
 
     }
 
-    
     public function traslado_externo_servicio($argumentos) {
 
-            return ' <div dir="ltr"><p class="MsoNormal" style="margin:0in 0in 10pt;text-align:justify;line-height:115%;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;line-height:115%;font-family:Arial,sans-serif">Cordial Saludo Señor(a)</span><span lang="ES-CO"></span></p>
+        return ' <div dir="ltr"><p class="MsoNormal" style="margin:0in 0in 10pt;text-align:justify;line-height:115%;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;line-height:115%;font-family:Arial,sans-serif">Cordial Saludo Señor(a)</span><span lang="ES-CO"></span></p>
 
                 <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:12pt;font-family:Arial,sans-serif;color:rgb(31,73,125)">&nbsp;</span><span lang="ES-CO"></span></p>
 
@@ -10957,7 +10960,7 @@ class Templates extends CI_Controller {
                 <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX">&nbsp;</span></p></div>';
 
     }
-    
+
     public function traslado_interno_servicio($argumentos) {
 
         return '<div dir="ltr"><p class="MsoNormal" style="margin:0in 0in 10pt;text-align:justify;line-height:115%;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;line-height:115%;font-family:Arial,sans-serif">Cordial Saludo Señor(a)</span><span lang="ES-CO"></span></p>
@@ -11411,7 +11414,7 @@ class Templates extends CI_Controller {
         <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX">&nbsp;</span></p></div>';
 
     }
-    
+
     public function soluciones_administrativas_comunicaciones_unificadas_pbx_administrada($argumentos) {
         return '<div dir="ltr"><p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX">&nbsp;</span></p>
         <p class="MsoNormal" style="margin:0in 0in 10pt;text-align:justify;line-height:115%;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;line-height:115%;font-family:Arial,sans-serif">Cordial Saludo Señor(a)</span></p>
@@ -15379,8 +15382,8 @@ class Templates extends CI_Controller {
     }
     //
     public function cambio_de_ultima_milla($argumentos) {
-        $col_span =  count($argumentos['campo10']) * 2 + 6;
-        $cadena = '';
+        $col_span = count($argumentos['campo10']) * 2 + 6;
+        $cadena   = '';
         $cadena .= '   <div dir="ltr"><p class="MsoNormal" style="margin: 0in 0in 10pt; text-align: justify; line-height: 115%; font-size: 11pt; font-family: Calibri, sans-serif;"><span lang="ES" style="font-size: 12pt; line-height: 115%; font-family: Arial, sans-serif;">Cordial Saludo Señor(a)</span><span lang="ES-CO"></span></p>
 
         <p class="MsoNormal" style="text-align: justify; margin: 0in 0in 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif;"><span lang="ES-MX" style="font-size: 12pt; font-family: Arial, sans-serif; color: rgb(31, 73, 125);">&nbsp;</span><span lang="ES-CO"></span></p>
@@ -15439,7 +15442,7 @@ class Templates extends CI_Controller {
           </td>
          </tr>
          <tr style="height: 14.55pt;">
-          <td width="298" rowspan="'. $col_span .'" valign="top" style="width: 223.35pt; border-right: 1pt solid rgb(192, 0, 0); border-bottom: 1pt solid rgb(192, 0, 0); border-left: 1pt solid rgb(192, 0, 0); border-image: initial; border-top: none; padding: 0in 5.4pt; height: 14.55pt;">
+          <td width="298" rowspan="' . $col_span . '" valign="top" style="width: 223.35pt; border-right: 1pt solid rgb(192, 0, 0); border-bottom: 1pt solid rgb(192, 0, 0); border-left: 1pt solid rgb(192, 0, 0); border-image: initial; border-top: none; padding: 0in 5.4pt; height: 14.55pt;">
           <p class="MsoNormal" align="center" style="margin: 0in 0in 10pt; text-align: center; font-size: 11pt; font-family: Calibri, sans-serif;"><b><i><span lang="ES" style="font-size: 16pt; color: black;">&nbsp;</span></i></b><span lang="ES-CO" style="color: black;"></span></p>
           <p class="MsoNormal" align="center" style="margin: 0in 0in 10pt; text-align: center; font-size: 11pt; font-family: Calibri, sans-serif;"><i><span lang="ES" style="font-size: 14pt; font-family: Arial, sans-serif; color: black;">&nbsp;</span></i><span lang="ES-CO" style="color: black;"></span></p>
           <p class="MsoNormal" style="margin: 0in 0in 10pt; font-size: 11pt; font-family: Calibri, sans-serif;"><i><span lang="ES" style="font-size: 14pt; font-family: Arial, sans-serif; color: black;">AMPLIACIÓN&nbsp;DE
@@ -15513,8 +15516,8 @@ class Templates extends CI_Controller {
           </td>
          </tr>';
 
-        for ($i=0; $i < count($argumentos['campo10']); $i++) { 
-      
+        for ($i = 0; $i < count($argumentos['campo10']); $i++) {
+
             $cadena .= '<tr style="height: 17.75pt;">
 
               <td width="47" rowspan="2" valign="top" style="width: 35.5pt; border-top: none; border-left: none; border-bottom: 1pt solid rgb(192, 0, 0); border-right: 1pt solid rgb(192, 0, 0); background: rgb(217, 217, 217); padding: 0in 5.4pt; height: 17.75pt;">
@@ -15561,9 +15564,9 @@ class Templates extends CI_Controller {
               </td>
              </tr>';
 
-        }   
+        }
 
-         $cadena .= '<tr height="0">
+        $cadena .= '<tr height="0">
           <td width="298" style="border: none;"></td>
           <td width="47" style="border: none;"></td>
           <td width="56" style="border: none;"></td>
@@ -15949,7 +15952,7 @@ class Templates extends CI_Controller {
 
          <tr style="height:14.75pt">
 
-          <td width="277" rowspan="'. $col_span .'" valign="top" style="width:208pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.75pt">
+          <td width="277" rowspan="' . $col_span . '" valign="top" style="width:208pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.75pt">
           <p class="MsoNormal" align="center" style="margin:0in 0in 10pt;text-align:center;line-height:115%;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES" style="font-size:16pt;line-height:115%;color:black">&nbsp;</span></i></b><span lang="ES-CO"></span></p>
           <p class="MsoNormal" align="center" style="margin:0in 0in 10pt;text-align:center;line-height:115%;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES" style="font-size:14pt;line-height:115%;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
           <p class="MsoNormal" style="margin:0in 0in 10pt;line-height:115%;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES" style="font-size:14pt;line-height:115%;font-family:Arial,sans-serif">AMPLIACIÓN
@@ -16016,8 +16019,7 @@ class Templates extends CI_Controller {
           </td>
          </tr>';
 
-
-        for ($i=0; $i < count($argumentos['campo9']); $i++) { 
+        for ($i = 0; $i < count($argumentos['campo9']); $i++) {
 
             $cadena .= '<tr style="height:0.25in">
               <td width="43" rowspan="2" valign="top" style="width:32.6pt;border-top:none;border-bottom: 1pt solid rgb(192,0,0);border-left:none;border-right:1pt solid rgb(192,0,0);background:rgb(217,217,217);padding:0in 5.4pt;height:0.25in;">
@@ -16056,7 +16058,7 @@ class Templates extends CI_Controller {
              </tr>';
         }
 
-         $cadena .= '<tr>
+        $cadena .= '<tr>
           <td width="277" style="width:207.75pt;padding:0in"></td>
           <td width="43" style="width:32.25pt;padding:0in"></td>
           <td width="57" style="width:42.75pt;padding:0in"></td>
@@ -16368,23 +16370,33 @@ class Templates extends CI_Controller {
     }
 
     //
-    public function prueba(){
+    public function prueba() {
         print_r($this->pl_ethernet());
     }
 
-    //
-    public function pl_ethernet(){
+    //nombre**
+// nombre_cliente**
+// servicio **
+// fecha
+// campo4
+// campo5
+// campo6
+// campo7
+// ingeniero1
+// ingeniero1_tel
+// ingeniero1_email
+    public function pl_ethernet($argumentos) {
         return '<div dir="ltr">
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></p>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></p>
                 <p class="MsoNormal" style="box-sizing:border-box;margin-bottom:10pt;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:justify;line-height:13.8px;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;line-height:18.4px;font-family:Arial,sans-serif;outline:0px">Cordial<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span><span style="box-sizing:border-box;outline:0px">Saludo Señor(a)<span style="box-sizing:border-box;outline:0px"></span></span></span></p>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p>
-                <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">xxxxxxxxxxxxxxxxxxxxxxxxxx<span style="box-sizing:border-box;outline:0px"></span></span></span></p>
+                <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px"> '. $argumentos['nombre'] .'<span style="box-sizing:border-box;outline:0px"></span></span></span></p><br><br><h3><b>'.$argumentos['nombre_cliente'].'</b></h3>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"></p>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p>
-                <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px">A continuación se remite&nbsp; el reporte de Inicio de Actividades para<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span><span style="box-sizing:border-box;font-weight:700;outline:0px">xxxxxxxxxxxxxxxxxxxxxxxxxx</span>. con el cual se da inicio al proceso de Instalación del Servicio&nbsp;<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span><span style="box-sizing:border-box;font-weight:700;outline:0px">xxxxxxxxxxxxxxxxxxxxxxxxxx</span><span style="box-sizing:border-box;outline:0px"></span></span></p>
+                <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px">A continuación se remite&nbsp; el reporte de Inicio de Actividades para<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span><span style="box-sizing:border-box;font-weight:700;outline:0px">'.$argumentos['nombre_cliente'].'</span>. con el cual se da inicio al proceso de Instalación del Servicio&nbsp;<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span><span style="box-sizing:border-box;font-weight:700;outline:0px">'.$argumentos['servicio'].'</span><span style="box-sizing:border-box;outline:0px"></span></span></p>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px">Este documento&nbsp; contiene las definiciones del servicio a instalar y los datos de contacto del Ingeniero encargado de la implementación de su servicio. Es de suma importancia que sea revisado y nos retroalimente la información que le solicitamos en el mismo. Si tiene alguna duda o inquietud no dude en contactarnos.&nbsp; Si no está de acuerdo con alguna información contenida en este documento es importante que nos haga llegar sus inquietudes ya que el servicio contratado será entregado de acuerdo a la información que describimos a continuación.<span style="box-sizing:border-box;outline:0px"></span></span></p>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p>
@@ -16394,9 +16406,9 @@ class Templates extends CI_Controller {
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px">CARACTERISTICAS TÉCNICAS DEL SERVICIO CONTRATADO<span style="box-sizing:border-box;outline:0px"></span></span></span></p>
                 <p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;color:white;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p>
-                <table class="m_731751854839756828gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="762" style="box-sizing:border-box;border-spacing:0px;border-collapse:collapse;font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;color:rgb(46,49,51);font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;width:571.65pt;outline:0px"><tbody style="box-sizing:border-box;outline:0px"><tr style="box-sizing:border-box;height:29.05pt;outline:0px"><td width="309" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:232.1pt;border:1pt solid rgb(192,0,0);height:29.05pt;background:rgb(192,0,0);outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px">ENTREGABLE<span style="box-sizing:border-box;outline:0px"></span></span></span></p><div class="MsoNormal" align="center" style="box-sizing:border-box;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px"><hr size="2" width="100%" align="center" style="box-sizing:content-box;height:0px;margin-top:20px;margin-bottom:20px;border-right-width:0px;border-bottom-width:0px;border-left-width:0px;border-top-style:solid;border-top-color:rgb(238,238,238);outline:0px"></span></span></div></td><td width="453" colspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:339.55pt;border-style:solid solid solid none;border-top-color:rgb(192,0,0);border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-top-width:1pt;border-right-width:1pt;border-bottom-width:1pt;height:29.05pt;background:rgb(192,0,0);outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px">DISEÑO ORIGINAL<span style="box-sizing:border-box;outline:0px"></span></span></span></p><div class="MsoNormal" align="center" style="box-sizing:border-box;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px"><hr size="2" width="100%" align="center" style="box-sizing:content-box;height:0px;margin-top:20px;margin-bottom:20px;border-right-width:0px;border-bottom-width:0px;border-left-width:0px;border-top-style:solid;border-top-color:rgb(238,238,238);outline:0px"></span></span></div></td></tr><tr style="box-sizing:border-box;height:16.45pt;outline:0px"><td width="309" rowspan="8" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:232.1pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:16.45pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;margin-bottom:10pt;min-height:14px;text-align:center;line-height:13.8px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:16pt;line-height:24.5333px;color:black;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></span></p><p class="MsoNormal" align="center" style="box-sizing:border-box;margin-bottom:10pt;min-height:14px;text-align:center;line-height:13.8px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;line-height:18.4px;font-family:Arial,sans-serif;outline:0px">PL ETHERNET<span style="box-sizing:border-box;color:black;outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></span></i></span></p></td><td width="453" colspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:339.55pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:16.45pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;line-height:14.4px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">DESCRIPCIÓN DE LA SOLUCIÓN:</span></i></span><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px"><span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span></span></span><span lang="ES" style="box-sizing:border-box;font-size:9pt;line-height:14.4px;font-family:Arial,sans-serif;outline:0px">Enlace de 2. No controla direccionamiento IP</span><span style="box-sizing:border-box;font-weight:700;outline:0px"><span style="box-sizing:border-box;color:black;outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr><tr style="box-sizing:border-box;height:8.05pt;outline:0px"><td width="155" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:116pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:8.05pt;background:rgb(217,217,217);outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">Dirección Destino<span style="box-sizing:border-box;outline:0px"></span></span></i></span></p></td><td width="298" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:223.55pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:8.05pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;color:black;outline:0px">xxxxxxxxx<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr><tr style="box-sizing:border-box;height:8pt;outline:0px"><td width="155" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:116pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:8pt;background:rgb(217,217,217);outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">Ancho de Banda<span style="box-sizing:border-box;outline:0px"></span></span></i></span></p></td><td width="298" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:223.55pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:8pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">10 Mbps<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr><tr style="box-sizing:border-box;height:16.45pt;outline:0px"><td width="155" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:116pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:16.45pt;background:rgb(217,217,217);outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">Interfaz de Entrega<span style="box-sizing:border-box;outline:0px"></span></span></i></span></p></td><td width="298" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:223.55pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:16.45pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">Ethernet<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr><tr style="box-sizing:border-box;height:16.4pt;outline:0px"><td width="155" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:116pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:16.4pt;background:rgb(217,217,217);outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">Disponibilidad<span style="box-sizing:border-box;outline:0px"></span></span></i></span></p></td><td width="298" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:223.55pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:16.4pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">99.7 % &nbsp;<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr><tr style="box-sizing:border-box;height:16.45pt;outline:0px"><td width="155" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:116pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:16.45pt;background:rgb(217,217,217);outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">Equipos a Instalar<span style="box-sizing:border-box;outline:0px"></span></span></i></span></p></td><td width="298" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:223.55pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:16.45pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">Conversor de Medio<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr><tr style="box-sizing:border-box;height:8.05pt;outline:0px"><td width="155" rowspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:116pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:8.05pt;background:rgb(217,217,217);outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">Dirección Origen<span style="box-sizing:border-box;outline:0px"></span></span></i></span></p></td><td width="298" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:223.55pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:8.05pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">Nuevo: no<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr><tr style="box-sizing:border-box;height:8pt;outline:0px"><td width="298" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:223.55pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:8pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"></td></tr></tbody></table>
+                <table class="m_731751854839756828gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="762" style="box-sizing:border-box;border-spacing:0px;border-collapse:collapse;font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;color:rgb(46,49,51);font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;width:571.65pt;outline:0px"><tbody style="box-sizing:border-box;outline:0px"><tr style="box-sizing:border-box;height:29.05pt;outline:0px"><td width="309" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:232.1pt;border:1pt solid rgb(192,0,0);height:29.05pt;background:rgb(192,0,0);outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px">ENTREGABLE<span style="box-sizing:border-box;outline:0px"></span></span></span></p><div class="MsoNormal" align="center" style="box-sizing:border-box;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px"><hr size="2" width="100%" align="center" style="box-sizing:content-box;height:0px;margin-top:20px;margin-bottom:20px;border-right-width:0px;border-bottom-width:0px;border-left-width:0px;border-top-style:solid;border-top-color:rgb(238,238,238);outline:0px"></span></span></div></td><td width="453" colspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:339.55pt;border-style:solid solid solid none;border-top-color:rgb(192,0,0);border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-top-width:1pt;border-right-width:1pt;border-bottom-width:1pt;height:29.05pt;background:rgb(192,0,0);outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px">DISEÑO ORIGINAL<span style="box-sizing:border-box;outline:0px"></span></span></span></p><div class="MsoNormal" align="center" style="box-sizing:border-box;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px"><hr size="2" width="100%" align="center" style="box-sizing:content-box;height:0px;margin-top:20px;margin-bottom:20px;border-right-width:0px;border-bottom-width:0px;border-left-width:0px;border-top-style:solid;border-top-color:rgb(238,238,238);outline:0px"></span></span></div></td></tr><tr style="box-sizing:border-box;height:16.45pt;outline:0px"><td width="309" rowspan="8" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:232.1pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:16.45pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;margin-bottom:10pt;min-height:14px;text-align:center;line-height:13.8px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:16pt;line-height:24.5333px;color:black;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></span></p><p class="MsoNormal" align="center" style="box-sizing:border-box;margin-bottom:10pt;min-height:14px;text-align:center;line-height:13.8px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;line-height:18.4px;font-family:Arial,sans-serif;outline:0px">PL ETHERNET<span style="box-sizing:border-box;color:black;outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></span></i></span></p></td><td width="453" colspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:339.55pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:16.45pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;line-height:14.4px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">DESCRIPCIÓN DE LA SOLUCIÓN:</span></i></span><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px"><span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span></span></span><span lang="ES" style="box-sizing:border-box;font-size:9pt;line-height:14.4px;font-family:Arial,sans-serif;outline:0px">Enlace de 2. No controla direccionamiento IP</span><span style="box-sizing:border-box;font-weight:700;outline:0px"><span style="box-sizing:border-box;color:black;outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr><tr style="box-sizing:border-box;height:8.05pt;outline:0px"><td width="155" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:116pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:8.05pt;background:rgb(217,217,217);outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">Dirección Destino<span style="box-sizing:border-box;outline:0px"></span></span></i></span></p></td><td width="298" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:223.55pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:8.05pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;color:black;outline:0px">'.$argumentos['campo4'].'<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr><tr style="box-sizing:border-box;height:8pt;outline:0px"><td width="155" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:116pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:8pt;background:rgb(217,217,217);outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">Ancho de Banda<span style="box-sizing:border-box;outline:0px"></span></span></i></span></p></td><td width="298" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:223.55pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:8pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">'.$argumentos['campo7'].'<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr><tr style="box-sizing:border-box;height:16.45pt;outline:0px"><td width="155" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:116pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:16.45pt;background:rgb(217,217,217);outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">Interfaz de Entrega<span style="box-sizing:border-box;outline:0px"></span></span></i></span></p></td><td width="298" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:223.55pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:16.45pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">'.$argumentos['campo6'].'<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr><tr style="box-sizing:border-box;height:16.4pt;outline:0px"><td width="155" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:116pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:16.4pt;background:rgb(217,217,217);outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">Disponibilidad<span style="box-sizing:border-box;outline:0px"></span></span></i></span></p></td><td width="298" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:223.55pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:16.4pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">99.7 % &nbsp;<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr><tr style="box-sizing:border-box;height:16.45pt;outline:0px"><td width="155" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:116pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:16.45pt;background:rgb(217,217,217);outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">Equipos a Instalar<span style="box-sizing:border-box;outline:0px"></span></span></i></span></p></td><td width="298" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:223.55pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:16.45pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">'.$argumentos['campo5'].'<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr><tr style="box-sizing:border-box;height:8.05pt;outline:0px"><td width="155" rowspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:116pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:8.05pt;background:rgb(217,217,217);outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px">Dirección Origen<span style="box-sizing:border-box;outline:0px"></span></span></i></span></p></td><td width="298" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:223.55pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:8.05pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;color:black;outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr><tr style="box-sizing:border-box;height:8pt;outline:0px"><td width="298" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:223.55pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:8pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"></td></tr></tbody></table>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p>
-                <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px">A partir del<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span><span style="box-sizing:border-box;outline:0px">pasado (09/08/2018) &nbsp;se</span><span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span>dio inicio al Proceso de instalación del Servicio<span style="box-sizing:border-box;color:rgb(31,73,125);outline:0px">.<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span></span>A continuación se detalla la secuencia de actividades para llevar a cabo la instalación del servicio.<span style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></span></p>
+                <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px">A partir del<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span><span style="box-sizing:border-box;outline:0px">pasado ('. $argumentos['fecha'] .') &nbsp;se</span><span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span>dio inicio al Proceso de instalación del Servicio<span style="box-sizing:border-box;color:rgb(31,73,125);outline:0px">.<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span></span>A continuación se detalla la secuencia de actividades para llevar a cabo la instalación del servicio.<span style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></span></p>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span style="box-sizing:border-box;outline:0px"><img border="0" width="711" height="433" id="m_731751854839756828gmail-Imagen_x0020_14" src="https://ci3.googleusercontent.com/proxy/6abXfnsk8a3oFvWZUo1jJnq3lj4L45lthFfQwMPs-rifibJeXt5sPXdG8cvuZ_s-IhdxvnPgqauSn2OEtI0eNgNOmrjuVidDTQ9IN9bsFRnMhd5yikqXtggUFgOoVkrPkNMTKQAeYB_InHp22j4RuNtEeXONnUOLFg6UvMaUnvUWR6uO-UenKcXJNCVQOOVFR3FZkEbm1t2m0bL9fD26x5bq_k3GmeKrFcbdW1E-5GO-J7uLCxLs9fmvYh7eM9JimiqEFBa0nqOpG2zCWf9HmG36hZknORzUoEy16MCsUDAYmq21z49dDjzujURWNT8nyTvG7OBB5QYg2GDKxmDt9CJeYA=s0-d-e1-ft#http://200.196.255.16/Mapi/inlinepic/services.jssm?CT=0&amp;PT=0&amp;ID=003300025edf05d6292093ac00002&amp;N=image002.png&amp;U=null&amp;S=40741&amp;I=1&amp;T=2&amp;D=image002.png%4001D3C131.CCEB3040&amp;UNO=6183001010&amp;Token=00012afa00025edf5c06de03sVgU%234m6sQeAak8xdUcSLU1qA" alt="cid:image002.png@01D2F99E.22FEF950" style="box-sizing:border-box;vertical-align:middle;outline:0px" class="CToWUd a6T" tabindex="0"><div class="a6S" dir="ltr" style="opacity: 0.01; left: 663px; top: 1678.33px;"><div id=":yy" class="T-I J-J5-Ji aQv T-I-ax7 L3 a5q" role="button" tabindex="0" aria-label="Descargar el archivo adjunto " data-tooltip-class="a1V" data-tooltip="Descargar"><div class="aSK J-J5-Ji aYr"></div></div></div></span><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></p>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p>
@@ -16413,7 +16425,7 @@ class Templates extends CI_Controller {
                         <tr style="box-sizing:border-box;height:14.65pt;outline:0px"><td width="434" rowspan="4" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:325.65pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:14.65pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span style="box-sizing:border-box;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-family:Arial,sans-serif;outline:0px">Documentación Necesaria para la realización de las visitas en su sede.<span style="box-sizing:border-box;outline:0px"></span></span></i></p></td><td width="208" colspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:155.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:14.65pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Parafiscales<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="95" valign="top" style="box-sizing:border-box;padding:0cm;width:70.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:14.65pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p></td></tr>
                         <tr style="box-sizing:border-box;height:14.6pt;outline:0px"><td width="208" colspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:155.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:14.6pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Certificación Alturas<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="95" valign="top" style="box-sizing:border-box;padding:0cm;width:70.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:14.6pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p></td></tr><tr style="box-sizing:border-box;height:14.6pt;outline:0px"><td width="208" colspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:155.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:14.6pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Cursos Especiales<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="95" valign="top" style="box-sizing:border-box;padding:0cm;width:70.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:14.6pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p></td></tr><tr style="box-sizing:border-box;height:14.6pt;outline:0px"><td width="208" colspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:155.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:14.6pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">EPP<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="95" valign="top" style="box-sizing:border-box;padding:0cm;width:70.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:14.6pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p></td></tr><tr style="box-sizing:border-box;height:7.15pt;outline:0px"><td width="434" rowspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:325.65pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:7.15pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-family:Arial,sans-serif;outline:0px">Para la Visita &nbsp;1 y 2 Cotización de obra civil y Ejecución de Obra Civil requiere:<span style="box-sizing:border-box;outline:0px"></span></span></i></p></td><td width="208" colspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:155.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:7.15pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Acompañamiento de Personal de Mantenimiento<span style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span></span>de su sede<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="95" valign="top" style="box-sizing:border-box;padding:0cm;width:70.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:7.15pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p></td></tr><tr style="box-sizing:border-box;height:7.1pt;outline:0px"><td width="208" colspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:155.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:7.1pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Horario Especial<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="95" valign="top" style="box-sizing:border-box;padding:0cm;width:70.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:7.1pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p></td></tr><tr style="box-sizing:border-box;height:9pt;outline:0px"><td width="434" rowspan="3" style="box-sizing:border-box;padding:0cm;width:325.65pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:9pt;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-family:Arial,sans-serif;outline:0px">Confirme la existencia de las siguientes condiciones:<span style="box-sizing:border-box;outline:0px"></span></span></i></p></td><td width="208" colspan="2" rowspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:155.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:9pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Rack<span style="box-sizing:border-box;outline:0px"></span></span></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-family:Arial,sans-serif;outline:0px">(Requiere Bandeja para la instalación de los equipos)<span style="box-sizing:border-box;outline:0px"></span></span></i></span></p></td><td width="95" valign="top" style="box-sizing:border-box;padding:0cm;width:70.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:9pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p></td></tr><tr style="box-sizing:border-box;height:9pt;outline:0px"><td width="95" valign="top" style="box-sizing:border-box;padding:0cm;width:70.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:9pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p></td></tr><tr style="box-sizing:border-box;height:18pt;outline:0px"><td width="208" colspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:155.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:18pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Tomas reguladas<span style="box-sizing:border-box;outline:0px"></span></span></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">(V n-t &lt; 1 V)<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="95" valign="top" style="box-sizing:border-box;padding:0cm;width:70.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:18pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p></td></tr><tr style="box-sizing:border-box;outline:0px"><td width="434" style="box-sizing:border-box;padding:0cm;width:325.5pt;outline:0px"></td><td width="151" style="box-sizing:border-box;padding:0cm;width:113.25pt;outline:0px"></td><td width="57" style="box-sizing:border-box;padding:0cm;width:42.75pt;outline:0px"></td><td width="95" style="box-sizing:border-box;padding:0cm;width:71.25pt;outline:0px"></td></tr></tbody></table>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p>
-                <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px">La<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px">Fecha de Entrega de su servicio</i></span><span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span>&nbsp;es<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span><span style="box-sizing:border-box;font-weight:700;outline:0px">11/09/2018</span><span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span>y está sujeta a cambios derivados del cumplimiento de las actividades necesarias para la instalación.&nbsp; *Dado que se adelantaron labores sobre la pasada OT de MPLS es posible disminuir dicho tiempo de implementación.<span style="box-sizing:border-box;outline:0px"></span></span></p>
+                <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px">La<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px">Fecha de Entrega de su servicio</i></span><span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span>&nbsp;es<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span><span style="box-sizing:border-box;font-weight:700;outline:0px">'.$argumentos['fecha'].'</span><span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span>y está sujeta a cambios derivados del cumplimiento de las actividades necesarias para la instalación.&nbsp; *Dado que se adelantaron labores sobre la pasada OT de MPLS es posible disminuir dicho tiempo de implementación.<span style="box-sizing:border-box;outline:0px"></span></span></p>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px">La<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px">Fecha de inicio de Facturación</i></span><span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span>corresponde a la fecha en que Claro entrega el Servicio y es aceptado a satisfacción.<span style="box-sizing:border-box;outline:0px"></span></span></p>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p>
@@ -16428,7 +16440,7 @@ class Templates extends CI_Controller {
                     <tr style="box-sizing:border-box;height:29.05pt;outline:0px">
                         <td width="444" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:332.75pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:29.05pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Atraso en la instalación por Inconvenientes de &nbsp;Acceso al Predio en las Visitas Programadas</span></i></span><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">.<span style="box-sizing:border-box;outline:0px"></span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;color:white;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-size:10pt;outline:0px"><img border="0" width="420" height="110" id="m_731751854839756828gmail-Imagen_x0020_5" src="https://ci3.googleusercontent.com/proxy/7eWXjttd794Ptkmhn8Mz6ZqrRTOcSh8fgBRGnnqcwAD5qH5ySiRrtbb87Kt1M9irbLRL83sLQp4fQpZaUk_-yMWFSxZt9uQZq-BnpAoquzCNeHL7fiVTOxwJLJPVjwMWbHVNCY25tvlfEc4art4oX-8v9XObH3-DZwnzaMJlts0x9KE0ducqkY4iGYl-3DT-Xyo9VtMrZYSUiAqe-mVvZLfZkO3L1cu7uSA8GCo_A8AbhqQuG3z3BZXwVSvGRFNBsK5Prw2wqv8OGLxKlPYB1mWxn3U9obZ0SV_JffKQ25Eln44Xpxn_OPW3_5Cy_G85psSKpUp3_M_i82N07C_imsWe=s0-d-e1-ft#http://200.196.255.16/Mapi/inlinepic/services.jssm?CT=0&amp;PT=0&amp;ID=003300025edf05d6292093ac00004&amp;N=image004.jpg&amp;U=null&amp;S=6793&amp;I=1&amp;T=2&amp;D=image004.jpg%4001D3C131.CCEB3040&amp;UNO=6183001010&amp;Token=00012afa00025edf5c06de03sVgU%234m6sQeAak8xdUcSLU1qA" alt="cid:image004.jpg@01D1E9CC.D23369C0" style="box-sizing:border-box;vertical-align:middle;outline:0px" class="CToWUd"></span><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;color:white;outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></i></p></td><td width="274" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:205.5pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:29.05pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;margin-right:0cm;margin-bottom:6pt;margin-left:18pt;min-height:14px;text-align:justify;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;margin-right:0cm;margin-bottom:6pt;margin-left:18pt;min-height:14px;text-align:justify;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">1.</span></i><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-family:&quot;Times New Roman&quot;,serif;outline:0px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span></span></i><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">Gestión temprana de los permisos de acceso a Zonas Comunes en la sede donde se va a realizar la Instalación.<span style="box-sizing:border-box;outline:0px"></span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;margin-right:0cm;margin-bottom:6pt;margin-left:18pt;min-height:14px;text-align:justify;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">2.</span></i><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-family:&quot;Times New Roman&quot;,serif;outline:0px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span></span></i><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">Confirmación de la documentación que debe portar el personal de Claro para efectuar las actividades.<span style="box-sizing:border-box;outline:0px"></span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;margin-right:0cm;margin-bottom:6pt;margin-left:18pt;min-height:14px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">3.</span><span lang="ES-MX" style="box-sizing:border-box;font-family:&quot;Times New Roman&quot;,serif;outline:0px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span></span><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">Confirmación de horario de trabajos permitidos para Zonas Comunes.</span></i><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></p></td>
                     </tr><tr style="box-sizing:border-box;height:29.05pt;outline:0px"><td width="444" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:332.75pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:29.05pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Atraso en Instalación por falta de Aprobación de los Costos de la Cotización de Obra Civil.<span style="box-sizing:border-box;outline:0px"></span></span></i></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;color:rgb(31,73,125);outline:0px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</span></i><span style="box-sizing:border-box;font-size:10pt;outline:0px"><img border="0" width="251" height="134" id="m_731751854839756828gmail-Imagen_x0020_11" src="https://ci5.googleusercontent.com/proxy/DEuhFv8xOhjJCnyjoDRhkEtVPt_3xxGlDeHCgOaDOTSKSXCsW8QSKn28dNSGWj7IM-BkZdkxsibhhSS1-WRM2Y_QYTwH6KAu_ZPXm97TDQBPbHO2IrXdzV56Bcq95RqH9J53g8G86_OJnUSldNMeqKAqQQNDVeLDlQXH6FZqNfOf2lSYATXz8HoYPgSUjglefS49FRwAoD_Kx74t7nMl6zKgOge6DVpB9G1RUuviB8jhAMaY5hPK0NqmS96AdimjYsgKuxcyOdfluCzqFfJFGWSsPSHdZJpsXkVR75H952tET5OqTkYT3M80lemF7Mrk2ZHC4hhgvfupT7ExNY6U5oqZ=s0-d-e1-ft#http://200.196.255.16/Mapi/inlinepic/services.jssm?CT=0&amp;PT=0&amp;ID=003300025edf05d6292093ac00005&amp;N=image005.jpg&amp;U=null&amp;S=7587&amp;I=1&amp;T=2&amp;D=image005.jpg%4001D3C131.CCEB3040&amp;UNO=6183001010&amp;Token=00012afa00025edf5c06de03sVgU%234m6sQeAak8xdUcSLU1qA" alt="cid:image005.jpg@01D1E9CC.D23369C0" style="box-sizing:border-box;vertical-align:middle;outline:0px" class="CToWUd"></span><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></i></p></td><td width="274" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:205.5pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:29.05pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;margin-bottom:6pt;min-height:14px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p><p class="m_731751854839756828gmail-MsoListParagraph" style="box-sizing:border-box;margin:0px 0cm 6pt 18pt;min-height:14px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">1.</span><span lang="ES-MX" style="box-sizing:border-box;font-family:&quot;Times New Roman&quot;,serif;outline:0px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span></span><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">Pre aprobación de<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span><span style="box-sizing:border-box;font-weight:700;outline:0px">Cotización de Obra Civil</span><span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span>desde la venta o Kickoff.<span style="box-sizing:border-box;outline:0px"></span></span></i></p><p class="m_731751854839756828gmail-MsoListParagraph" style="box-sizing:border-box;margin:0px 0cm 6pt 18pt;min-height:14px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">2.</span><span lang="ES-MX" style="box-sizing:border-box;font-family:&quot;Times New Roman&quot;,serif;outline:0px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span></span><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">Aprobación de los Costos y el Plano enviado máximo 3 días Calendario después de recibida la cotización de Obra Civil<span style="box-sizing:border-box;outline:0px"></span></span></i></p></td></tr><tr style="box-sizing:border-box;height:29.05pt;outline:0px"><td width="444" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:332.75pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:29.05pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Atraso en Instalación por falta de &nbsp;envió de la información técnica de la sede para la configuración del servicio.<span style="box-sizing:border-box;outline:0px"></span></span></i></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-size:10pt;outline:0px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<wbr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img border="0" width="187" height="117" id="m_731751854839756828gmail-Imagen_x0020_3" src="https://ci5.googleusercontent.com/proxy/NXjNAYOzvT7gPbrmMdqJ65No6aVcWx3t8oU2WGjNwGkrytUAE19bQlRLIWnxSSZbGWVXdMyH1lcHB4DCZ5nME24loksL1tNT-jSTtUW61NbUagPXEgaKlfLv4_0DiMqSc_NusfUmsXXigffIU0sYEKgycouS2QrvudcUcvTOmr9YrJScfmkrjpLHk5JFJLFwfbcuzvxo-7fihJLTKWEn1rcFogLqtOXHNdzv2GLS5mpSsnqmM_wPD89Z54sZMcJ0DNgdrM9EeAd__TDc2Oqc2thc1Zj52nlwp_F-e_nAErK2gX0Ee8cHG8zcuWgmO4BOLB1sGXdEKvIhTKID7Fx2mgaF=s0-d-e1-ft#http://200.196.255.16/Mapi/inlinepic/services.jssm?CT=0&amp;PT=0&amp;ID=003300025edf05d6292093ac00006&amp;N=image006.jpg&amp;U=null&amp;S=3751&amp;I=1&amp;T=2&amp;D=image006.jpg%4001D3C131.CCEB3040&amp;UNO=6183001010&amp;Token=00012afa00025edf5c06de03sVgU%234m6sQeAak8xdUcSLU1qA" alt="cid:image006.jpg@01D1E9CC.D23369C0" style="box-sizing:border-box;vertical-align:middle;outline:0px" class="CToWUd"></span><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></i></p></td><td width="274" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:205.5pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:29.05pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;margin-bottom:6pt;min-height:14px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p><p class="m_731751854839756828gmail-MsoListParagraph" style="box-sizing:border-box;margin:0px 0cm 6pt 18pt;min-height:14px;text-align:justify;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">1.</span></i><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-family:&quot;Times New Roman&quot;,serif;outline:0px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span></span></i><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">Respuesta a la información solicitada en este correo máximo 8 días después de la fecha reportada como inicio de actividades.<span style="box-sizing:border-box;outline:0px"></span></span></i></p></td></tr><tr style="box-sizing:border-box;height:29.05pt;outline:0px"><td width="444" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:332.75pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:29.05pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Atraso en la adecuación de la sede con los requisitos mínimos de condiciones eléctricas y ambientales para instalar los equipos.<span style="box-sizing:border-box;outline:0px"></span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;outline:0px"><img border="0" width="369" height="166" id="m_731751854839756828gmail-Imagen_x0020_1" src="https://ci4.googleusercontent.com/proxy/J4Ms06pHnTHvIz6IfsmKNQm6GMYtysnuJxef56uW9n6dBZ5ZoGR981Jhf-gpVbjOk0-k8enokuAm1MlSbEr63hMLKdWYG-dwADja2G5Swf2JLtZbvLMuGS--jYIxeO8eVq1T7KOesBznaFzzPYXiTb4X10q6R6Jt_t6UXpYUFa64bJrjwJRlZEH27cqeoV0_6NbpDFE2cm_1rIG7Gu5PZvVv4Ni3Kg9iAdfVM1GalOymqP2nJqhPnoZ0kd82S5ZxsyQHduosmNUp5XBvlC-ldyiaB9Cn4TuQ3JyzTKiItzwhHfb6vfbn3XQCYkpHNg-bf3LhbCgkNkcwLLif0uX0S0Wy=s0-d-e1-ft#http://200.196.255.16/Mapi/inlinepic/services.jssm?CT=0&amp;PT=0&amp;ID=003300025edf05d6292093ac00007&amp;N=image007.jpg&amp;U=null&amp;S=7738&amp;I=1&amp;T=2&amp;D=image007.jpg%4001D3C131.CCEB3040&amp;UNO=6183001010&amp;Token=00012afa00025edf5c06de03sVgU%234m6sQeAak8xdUcSLU1qA" alt="cid:image007.jpg@01D1E9CC.D23369C0" style="box-sizing:border-box;vertical-align:middle;outline:0px" class="CToWUd a6T" tabindex="0"><div class="a6S" dir="ltr" style="opacity: 0.01; left: 329.188px; top: 3842.33px;"><div id=":z0" class="T-I J-J5-Ji aQv T-I-ax7 L3 a5q" title="Descargar" role="button" tabindex="0" aria-label="Descargar el archivo adjunto " data-tooltip-class="a1V"><div class="aSK J-J5-Ji aYr"></div></div></div></span><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></i></p></td><td width="274" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:205.5pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:29.05pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="m_731751854839756828gmail-MsoListParagraph" style="box-sizing:border-box;margin:0px 0cm 6pt 17.4pt;min-height:14px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p><p class="m_731751854839756828gmail-MsoListParagraph" style="box-sizing:border-box;margin:0px 0cm 6pt 17.4pt;min-height:14px;text-align:justify;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">1.</span></i><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-family:&quot;Times New Roman&quot;,serif;outline:0px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span></span></i><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">Las condiciones de instalación deben estar listas a más tardar el día de la<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span><span style="box-sizing:border-box;font-weight:700;outline:0px">Visita de habilitación de Medio.</span><span style="box-sizing:border-box;outline:0px"></span></span></i></p></td></tr></tbody></table>
-                    <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px">Durante todo el Proceso de Instalación puede contactar a:<span style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p><table class="m_731751854839756828gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="box-sizing:border-box;border-spacing:0px;border-collapse:collapse;font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;color:rgb(46,49,51);font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;width:446.15pt;outline:0px"><tbody style="box-sizing:border-box;outline:0px"><tr style="box-sizing:border-box;height:29.05pt;outline:0px"><td width="330" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:247.7pt;border:1pt solid rgb(192,0,0);height:29.05pt;background:rgb(192,0,0);outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px">INFORMACIÓN CONTACTO<span style="box-sizing:border-box;outline:0px"></span></span></span></p><div class="MsoNormal" align="center" style="box-sizing:border-box;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px"><hr size="2" width="100%" align="center" style="box-sizing:content-box;height:0px;margin-top:20px;margin-bottom:20px;border-right-width:0px;border-bottom-width:0px;border-left-width:0px;border-top-style:solid;border-top-color:rgb(238,238,238);outline:0px"></span></span></div></td><td width="265" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:7cm;border-style:solid solid solid none;border-top-color:rgb(192,0,0);border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-top-width:1pt;border-right-width:1pt;border-bottom-width:1pt;height:29.05pt;background:rgb(192,0,0);outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p><div class="MsoNormal" align="center" style="box-sizing:border-box;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px"><hr size="2" width="100%" align="center" style="box-sizing:content-box;height:0px;margin-top:20px;margin-bottom:20px;border-right-width:0px;border-bottom-width:0px;border-left-width:0px;border-top-style:solid;border-top-color:rgb(238,238,238);outline:0px"></span></span></div><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p></td></tr><tr style="box-sizing:border-box;height:14.3pt;outline:0px"><td width="330" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:247.7pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:14.3pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;outline:0px">INGENIERO IMPLEMENTACIÓN</span></span><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="265" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:7cm;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:14.3pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;margin-bottom:6pt;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;color:black;outline:0px">Jonnthan Rodriguez chapeton<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr><tr style="box-sizing:border-box;height:12.5pt;outline:0px"><td width="330" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:247.7pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:12.5pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;outline:0px">TELEFONOS DE CONTACTO<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="265" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:7cm;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:12.5pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;margin-bottom:6pt;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;color:black;outline:0px">Cel. 3102129423 Tel. 7569858 ext. 2021<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr><tr style="box-sizing:border-box;height:12.5pt;outline:0px"><td width="330" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:247.7pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:12.5pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;outline:0px">EMAIL<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="265" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:7cm;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:12.5pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;margin-bottom:6pt;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px"><a style="box-sizing:border-box;color:rgb(0,0,255);text-decoration-line:underline;background-color:transparent;outline:0px">jonnathan.rodriguez.ext@claro.<wbr>com.co</a><span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr></tbody></table><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p><p class="MsoNormal" style="box-sizing:border-box;margin-bottom:10pt;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:13.8px;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:12pt;line-height:18.4px;font-family:Arial,sans-serif;outline:0px"></span></p></div>';
+                    <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px">Durante todo el Proceso de Instalación puede contactar a:<span style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p><table class="m_731751854839756828gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="box-sizing:border-box;border-spacing:0px;border-collapse:collapse;font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;color:rgb(46,49,51);font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;width:446.15pt;outline:0px"><tbody style="box-sizing:border-box;outline:0px"><tr style="box-sizing:border-box;height:29.05pt;outline:0px"><td width="330" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:247.7pt;border:1pt solid rgb(192,0,0);height:29.05pt;background:rgb(192,0,0);outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px">INFORMACIÓN CONTACTO<span style="box-sizing:border-box;outline:0px"></span></span></span></p><div class="MsoNormal" align="center" style="box-sizing:border-box;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px"><hr size="2" width="100%" align="center" style="box-sizing:content-box;height:0px;margin-top:20px;margin-bottom:20px;border-right-width:0px;border-bottom-width:0px;border-left-width:0px;border-top-style:solid;border-top-color:rgb(238,238,238);outline:0px"></span></span></div></td><td width="265" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:7cm;border-style:solid solid solid none;border-top-color:rgb(192,0,0);border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-top-width:1pt;border-right-width:1pt;border-bottom-width:1pt;height:29.05pt;background:rgb(192,0,0);outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p><div class="MsoNormal" align="center" style="box-sizing:border-box;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px"><hr size="2" width="100%" align="center" style="box-sizing:content-box;height:0px;margin-top:20px;margin-bottom:20px;border-right-width:0px;border-bottom-width:0px;border-left-width:0px;border-top-style:solid;border-top-color:rgb(238,238,238);outline:0px"></span></span></div><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p></td></tr><tr style="box-sizing:border-box;height:14.3pt;outline:0px"><td width="330" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:247.7pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:14.3pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;outline:0px">INGENIERO IMPLEMENTACIÓN</span></span><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="265" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:7cm;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:14.3pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;margin-bottom:6pt;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;color:black;outline:0px">'.$argumentos['ingeniero1'].'<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr><tr style="box-sizing:border-box;height:12.5pt;outline:0px"><td width="330" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:247.7pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:12.5pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;outline:0px">TELEFONOS DE CONTACTO<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="265" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:7cm;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:12.5pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;margin-bottom:6pt;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;color:black;outline:0px">'.$argumentos['ingeniero1_tel'].'<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr><tr style="box-sizing:border-box;height:12.5pt;outline:0px"><td width="330" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:247.7pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:12.5pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;outline:0px">EMAIL<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="265" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:7cm;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:12.5pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;margin-bottom:6pt;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px"><a style="box-sizing:border-box;color:rgb(0,0,255);text-decoration-line:underline;background-color:transparent;outline:0px">'.$argumentos['ingeniero1_email'].'</a><span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr></tbody></table><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p><p class="MsoNormal" style="box-sizing:border-box;margin-bottom:10pt;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:13.8px;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:12pt;line-height:18.4px;font-family:Arial,sans-serif;outline:0px"></span></p></div>';
     }
 
 }

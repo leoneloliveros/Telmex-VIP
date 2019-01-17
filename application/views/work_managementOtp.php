@@ -1416,9 +1416,10 @@
                                                             <option value="21">Instalación Telefonía Publica Básica - Internet Dedicado</option>
                                                             <option value="22">Cambio de Última Milla</option>
                                                             <option value="23">Cambio de Equipo</option>
+                                                            <option value=24>PL ETHERNET</option>
                                                             <optgroup label="SIN REPORTE INICIO">
-                                                                <option value="24">PRIVATE LINE</option>
-                                                                <option value="25">LAN ADMINISTRADA</option>
+                                                                <option value="30">PRIVATE LINE</option>
+                                                                <option value="31">LAN ADMINISTRADA</option>
                                                             </optgroup>
                                                         </select>
 

@@ -12,7 +12,7 @@ $(function() {
         returnFormularyService: function(nombre_cliente = '', direccion_destino = '', servicio_val, servicio_nombre = '', arg) {
             let form = "";
             // primera seccion, la dejo true porque no se si hay plantillas que no necesite la primera seccion
-            if (servicio_val <= 23) {
+            if (servicio_val != 30 || servicio_val != 31) {
                 form += setForm.primeraSeccionServicio(nombre_cliente, servicio_nombre);
             }
 
@@ -87,10 +87,11 @@ $(function() {
                 case '23': // Cambio de Equipo
                     form += setForm.cambio_de_equipo(direccion_destino);
                     break;
-
+                case '24'://  PL ETHERNET
+                    form +=setForm.pl_ethernet(direccion_destino);
             }
 
-            if (servicio_val <= 23) {
+            if (servicio_val != 30 || servicio_val != 31) {
                 form += setForm.ultimaSeccionServicio(servicio_val);
             }
 
@@ -2580,14 +2581,14 @@ $(function() {
 						<fieldset class="col-md-6">
 							<!--*********************  INPUT TEXT  *********************-->
 							<div class="form-group">
-								<label for="campo6" class="col-md-3 control-label">BW Nuevo:</label>
-								<div class="col-md-9 selectContainer">
-									<div class="input-group">
-										<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-										<input type="text" name="campo6" id="campo6" class="form-control">
-									</div>
-								</div>
-							</div>
+						        <label for="pr_ancho_banda" class="col-md-3 control-label">Ancho de banda:</label>
+						        <div class="col-md-8 selectContainer">
+						            <div class="input-group">
+						                <span class="input-group-addon"><i class="glyphicon glyphicon-edit" ></i></span>
+						                <input name="pr_ancho_banda" id="pr_ancho_banda" class="form-control" type="text" >
+						            </div>
+						        </div>
+						    </div>		
 
 							<label for="campo7" class="col-md-6 control-label">Requiere Cambio de equipo:</label>
 				            <div class="radio col-md-6">
@@ -2682,6 +2683,57 @@ $(function() {
 				</div>
             `;
         },
+        //opcion servicio 24
+        pl_ethernet: function(direccion_destino){
+        	return `
+				<div class="widget bg_white m-t-25 d-inline-b cliente">
+				    <fieldset class="col-md-6">
+						<!--*********************  INPUT TEXT  *********************-->
+			            <div class="form-group">
+			                <label for="campo4" class="col-md-3 control-label">Dirección Destino:</label>
+			                <div class="col-md-9 selectContainer">
+			                    <div class="input-group">
+			                        <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></span>
+			                        <input type="text" name="campo4" id="campo4" class="form-control">
+			                    </div>
+			                </div>
+			            </div>
+			            <div class="form-group ">
+					      <label for="campo5" class="col-md-3 control-label">Equipos a Instalar: &nbsp;</label>
+					      <div class="col-md-9 selectContainer">
+					        <div class="input-group">
+					          <span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
+					          <input name="campo5" id="campo5" class="form-control validar_required" type="text">
+					        </div>
+					      </div>
+					    </div>
+
+				    </fieldset>
+				    <fieldset class="col-md-6">
+				    	<div class="form-group interfaz_grafica">
+					      <label for="campo6" class="col-md-3 control-label">Interfaz de Entrega: &nbsp;</label>
+					      <div class="col-md-8 selectContainer">
+					        <div class="input-group">
+					          <span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
+					          <input name="campo6" id="campo6" class="form-control validar_required" type="text">
+					        </div>
+					      </div>
+					    </div>
+
+				    	<!--*********************  INPUT TEXT  *********************-->
+				    	<div class="form-group">
+						        <label for="campo7" class="col-md-3 control-label">Ancho de banda:</label>
+						        <div class="col-md-8 selectContainer">
+						            <div class="input-group">
+						                <span class="input-group-addon"><i class="glyphicon glyphicon-edit" ></i></span>
+						                <input name="campo7" id="campo7" class="form-control" type="text" >
+						            </div>
+						        </div>
+						    </div>
+				    </fieldset>
+				</div>
+			`;	
+        },
 
         /*FIN FORMULARIOS DE SERVICIO*/
         /*****************************************INICIO FORMULARIOS DE PRODUCTO*****************************************/
@@ -2693,6 +2745,7 @@ $(function() {
                 /*formulario Internet*/
                 case '1': // internet dedicado empresarial
                 case '2': // internet dedicado 
+                case '24': // PL_ETHERNET /// ******************* VERIFICAR ***************** 
                     form += setForm.formProduct_internet(arg.otp);
                     break;
                     /*formulario MPLS*/
@@ -2738,11 +2791,11 @@ $(function() {
                 case '11': // Adición Marquillas Aeropuerto el Dorado Opain
 
                     break;
-                case '24': // CASO ESPECIAL PRODUCCTO PRIVATE LINE
+                case '30': // CASO ESPECIAL PRODUCCTO PRIVATE LINE
                 form += setForm.formProduct_private_line(arg.otp);
                 	break;
 
-                case '25': // CASO ESPECIAL PRODUCCTO LAN ADMINISTRADA
+                case '31': // CASO ESPECIAL PRODUCCTO LAN ADMINISTRADA
                 form += setForm.formProduct_lan_administrada(arg.otp);
                 	break;
             }
