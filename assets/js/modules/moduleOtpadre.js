@@ -257,7 +257,7 @@ $(function() {
     };
     gral.init();
 
-
+//table_otPadreList
     vista = {
         init: function() {
             vista.events();
@@ -1360,9 +1360,13 @@ $(function() {
         showModalHitosOthp: function(data) {
             // resetea el formulario y lo deja vacio
             document.getElementById("formModalHitosOTP").reset();
+            // console.log(data);
+            
             $.post(baseurl + '/OtPadre/c_getHitosOtp',
                     {
+                        //WE, ESTO ENVIA EN ID DE LA OT PADRE, PARA ESO SIRVE EL POST EN EL CONTROLADOR
                         idOtp: data.k_id_ot_padre
+                        // idOtp: "nel"
                     },
                     function(data) {
                         var obj = JSON.parse(data);
@@ -1410,6 +1414,9 @@ $(function() {
                                 case "VISITA ENTREGA UM TERCEROS":
                                     $("#act_veut").css("background-color", "#4bd605");
                                     break;
+                                case "EMPALMES":
+                                    $("#act_empalmes").css("background-color", "#4bd605");
+                                    break;
                             }
 
                             $.each(obj, function(i, item) {
@@ -1433,7 +1440,8 @@ $(function() {
                     vacios++;
                 }
             });
-
+            // console.log($("#formModalHitosOTP").serializeArray());
+            
             if (vacios == 0) {
                 $.post(baseurl + '/OtPadre/c_saveHitosOtp',
                         {
