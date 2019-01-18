@@ -96,7 +96,7 @@ class Templates extends CI_Controller {
                 $msj = 'error';
                 $this->session->set_flashdata('msj', $msj);
                 header('Location: ' . URL::base() . '/managementOtp');
-            // }
+            }
         } else {
             // actualizar el estado
             $this->actualizar_oth($pt);
