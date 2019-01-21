@@ -848,6 +848,29 @@ $(function() {
             $('#btnGuardarModalHitos').on('click', eventos.onClickSaveHitosOtp);// ver detalles de correo btn impresora
             $('#table_selected').on('click', 'img.quitar_fila', eventos.quitarFila);
             $('#mdl-enviar-reporte').on('click', eventos.onClickSendReportUpdate);
+            $('#mdl_cierre').on("hidden.bs.modal",function(){
+                $("#formEmail")[0].reset();
+                $("#seniorHitos, #configuracionHitos, #entregaServicioHitos, #observacionesHitos").css({"border-color":"#ccc",
+                 "background-color" : "white"});
+                $("div.borrar").remove();
+                $("div.col-sm-7").addClass("col-sm-10");
+                $("div.col-sm-7").removeClass("col-sm-7");    
+            });
+            // $('#mdl_cierre').on('click','#mdl-cierre-cerrar', function(){
+            //     $("#formEmail")[0].reset();
+            //     $("#seniorHitos, #configuracionHitos, #entregaServicioHitos, #observacionesHitos").css("border-color","#ccc");
+            //     $("div.borrar").remove();
+            //     $("div.col-sm-7").addClass("col-sm-10");
+            //     $("div.col-sm-7").removeClass("col-sm-7");
+            // });
+            // $('#mdl_cierre').on('click','button.close', function(){
+            //     $("#formEmail")[0].reset();
+            //     $("#seniorHitos, #configuracionHitos, #entregaServicioHitos, #observacionesHitos").css("border-color","#ccc");
+            //     $("div.borrar").remove();
+            //     $("div.col-sm-7").addClass("col-sm-10");
+            //     $("div.col-sm-7").removeClass("col-sm-7");
+            // });
+    
 
             // ***********************Inicio del evento del menu sticky******************
             $('.contenedor_sticky').on('click', function() {
@@ -1441,7 +1464,10 @@ $(function() {
                 }
             });
             // console.log($("#formModalHitosOTP").serializeArray());
+
+
             
+
             if (vacios == 0) {
                 $.post(baseurl + '/OtPadre/c_saveHitosOtp',
                         {
@@ -1479,6 +1505,15 @@ $(function() {
 
 
         },
+        clean: function(names) {
+            let unique = {};
+            names.forEach(function(i) {
+                if(!unique[i]) {
+                unique[i] = true;
+                }
+            });
+            return Object.keys(unique);
+        },
         // muestra las otp seleccionadas dependiendo la tabla
         otp_seleccionadas: function() {
             var tabla = $('ul#pestania').find('li.active').attr('tabla');
@@ -1509,11 +1544,77 @@ $(function() {
             var seleccionadas = record.rows({selected: true}).data();// los datos de los elem seleccionados
             if (hay_sel) {
                 eventos.modalSeleccionadas(seleccionadas);
-
+                // console.log(seleccionadas[0].k_id_ot_padre);
+                // console.log("==================");
+                // console.log(seleccionadas);
                 var cuantas = record.rows({selected: true}).count();
-                $('#mdl-title-cierre').html(`<b>${cuantas}</b> ORDENES SELECCIONADAS`);
+                var ids = [];
+                    if (cuantas > 1) {
+                        for (let i = 0; i < cuantas; i++) {
+                            ids.push(seleccionadas[i].k_id_ot_padre);
+                        }
+                    }else{
+                        ids.push(seleccionadas[0].k_id_ot_padre);
+                    }
+                // console.log(ids);
 
+                $('#mdl-title-cierre').html(`<b>${cuantas}</b> ORDENES SELECCIONADAS`);
                 $('#mdl_cierre').modal('show');
+                $.post(baseurl + '/OtPadre/c_getInfoEmailreport',{ idsOtp: ids },
+                function(data){
+                    data = JSON.parse(data);
+                    //creamos los arrays para almacenar toda la info. de la bd 
+                    var seniores = [];
+                    var nomCliente = [];
+                    var f_entregaServicio = [];
+                    var obsr = [];
+                    console.log(data);
+                    
+
+                    var ids =['seniorHitos','configuracionHitos','entregaServicioHitos','observacionesHitos'];
+                    if (data) {
+                        var key = Object.keys(data)
+                        //si tiene datos pero la key es 0 significa que tiene algo en la linea base
+                        if (key == "0") {
+                            $('#entregaServicioHitos').val(data[0].fecha_compromiso);
+                        }else{
+                            //si se selecciona mas de una fila, retorna un numero, de lo contrario, retorna undefined
+                            if (data.length) {
+                                //ESTE EACH LLENA LA INFORMACION A VALIDAR Y LOS PONE EN DISTINTOS ARREGLOS
+                                $.each(data,function(i,item){
+                                    seniores.push(item['senior']);
+                                    nomCliente.push(item['nombre_cliente']);
+                                    f_entregaServicio.push(item['f_entrega_servicio']);
+                                    obsr.push(item['observaciones']);
+                                }); 
+                                //LIMPIA TODOS LOS VALORES QUE SEAN REPETIDOS Y SOLO DEJA UNO DE CADA UNO
+                            
+                                const fseniores = eventos.clean(seniores);
+                                const fnomCliente = eventos.clean(nomCliente);
+                                const ff_entregaServicio = eventos.clean(f_entregaServicio);
+                                const fobsr = eventos.clean(obsr);
+                                //ARMAMOS EL OBJETO PARA ENVIARLO A LA FUCNIÓN DE VALIDACIÓN
+                                const todo = {0: fseniores , 
+                                            1: fnomCliente ,
+                                            2: ff_entregaServicio,
+                                            3: fobsr}
+                                eventos.validarIgualesReporteAct(todo,ids)
+                            }else{
+                                // console.log("hay una seleccion");
+                                $('#seniorHitos').val(data['senior']);
+                                $('#configuracionHitos').val(data['nombre_cliente']);
+                                $('#entregaServicioHitos').val(data['f_entrega_servicio']);
+                                $('#observacionesHitos').val(data['observaciones']);
+                            }
+                        }
+                    }else{
+                        console.log("no hay nada en db");
+                    }
+                        
+                        
+                    
+                    
+                });
 
             } else {
                 const toast = swal.mixin({
@@ -1529,6 +1630,50 @@ $(function() {
             }
 
         },
+        //validará qué campos son iguales y cuales no
+        validarIgualesReporteAct: function(obj,ids){
+            //se crea el arreglo que devolverá las opc. del selectInfo en caso que no todas las selecciones sean iguales
+            console.log(obj);
+            
+          
+            $.each(obj,function(i){
+                //pasa a true si existe un segundo elemento en el array, cosa que no debería pasar si todas son iguales
+                if (obj[i][1] == undefined) {
+                    console.log(ids[i],": todos son iguales ");
+                    $('#'+ids[i]).val(obj[i]); //uso los ids en cierta posicion para poder pintar el que es y no todos a la vez
+                }else{
+                    console.log(ids[i],": no se puede llenar");
+
+                    var input = $('#'+ids[i]); //selecciono el input
+                    input.css({"border-color":"#ffc800","background-color" : "#ffd92030"}); //le doy color al input
+
+                    //extraigo el div padre y el hermano para insertar el select y cambiar el tamaño del input
+                    var divPadre = input.parents("div.form-group");
+                    var divHermano = input.parents("div.col-sm-10");
+
+                    //le cambio el tamaño al input
+                    divHermano.addClass("col-sm-7");
+                    divHermano.removeClass("col-sm-10");
+
+                    //aparezco el select
+                    divPadre.append(`<div class="col-sm-3 borrar">
+                        <select class="form-control select${i}" onchange="eventos.changeInput(this,${ids[i]})")>
+                          <option value="">Seleccione</option>`);
+                         $.each(obj[i],function(ii,valor){ 
+                             $('.select'+i).append("<option value='"+valor+"'>"+valor+"</option>");
+                         });
+                    divPadre.append(`
+                        </select>
+                      </div>`);
+                }
+            })
+        },
+
+        changeInput: function(elemento,vall){
+            var valor = elemento.value;
+            $(vall).val(valor);
+        },
+        
         modalSeleccionadas: function(data) {
             if (eventos.table_selected) {
                 var tabla = eventos.table_selected;
@@ -1591,6 +1736,7 @@ $(function() {
         ya_se_envio: true,
         //Envia el reporte de actualizacion dependiendo de las OTP seleccionadas
         onClickSendReportUpdate: function() {
+            
             if (eventos.ya_se_envio) {
 
                 var tableSelected = eventos.table_selected.rows().data();
@@ -1602,38 +1748,51 @@ $(function() {
                     if (otp.id_hitos === null) {
                         flag = false;
                     }
-                    if (otp["n_nombre_cliente"] == "BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A" || otp["n_nombre_cliente"] == "BANCO DAVIVIENDA S.A" || otp["n_nombre_cliente"] == "SERVIBANCA S.A." /*|| otp["n_nombre_cliente"] == "ADCAP Colombia SA Comisionistas de Bolsda"*/) {
+                    if (otp["n_nombre_cliente"] == "BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A" || otp["n_nombre_cliente"] == "BANCO DAVIVIENDA S.A" || otp["n_nombre_cliente"] == "SERVIBANCA S.A.") {
                         clientesSinCorreo = false;
                     }
                 });
                  
-                if (flag && clientesSinCorreo) {
-                    helper.alertLoading('Enviando Email...','Por favor espere c:');
-                    $.post(baseurl + '/OtPadre/c_sendReportUpdate',
-                            {
-                                ids_otp: ids_otp,
-                                senior: $('#seniorHitos').val(),
-                                configuracion: $('#configuracionHitos').val(),
-                                entregaServicio: $('#entregaServicioHitos').val(),
-                                observaciones: $('#observacionesHitos').val()
-                            },
-                            function(data) {
-                                swal.close();
-                                var obj = JSON.parse(data);
-                                swal({
-                                    title: (obj.success) ? 'OK' : 'Error',
-                                    html: (obj.success) ? 'Correo enviado' : 'Error',
-                                    type: (obj.success) ? 'success' : 'error',
-                                    // confirmButtonColor: '#3085d6',
-                                    // confirmButtonText: 'OK!',
-                                    allowOutsideClick: false // al darle clic fuera se cierra el alert
-                                }).then((respuesta) => {
-                                    if (respuesta.value) {
-                                        location.reload()
-                                    }
-                                });
-                                $('#mdl_cierre').modal('toggle');
-                            });
+                if (flag && clientesSinCorreo){
+                    
+                    $.post(baseurl + '/OtPadre/saveOrUpdateInfoEmailReport',
+                    {
+                        ids_otp: ids_otp,
+                        senior: $('#seniorHitos').val(),
+                        configuracion: $('#configuracionHitos').val(),
+                        entregaServicio: $('#entregaServicioHitos').val(),
+                        observaciones: $('#observacionesHitos').val()
+                    }, function(data) {
+                        console.log(data);
+                        var obj = JSON.parse(data);
+                        console.log(obj);
+                    });
+                    // helper.alertLoading('Enviando Email...','Por favor espere c:');
+                    // $.post(baseurl + '/OtPadre/c_sendReportUpdate',
+                    //         {
+                    //             ids_otp: ids_otp,
+                    //             senior: $('#seniorHitos').val(),
+                    //             configuracion: $('#configuracionHitos').val(),
+                    //             entregaServicio: $('#entregaServicioHitos').val(),
+                    //             observaciones: $('#observacionesHitos').val()
+                    //         },
+                    //         function(data) {
+                    //             swal.close();
+                    //             var obj = JSON.parse(data);
+                    //             swal({
+                    //                 title: (obj.success) ? 'OK' : 'Error',
+                    //                 html: (obj.success) ? 'Correo enviado' : 'Error',
+                    //                 type: (obj.success) ? 'success' : 'error',
+                    //                 // confirmButtonColor: '#3085d6',
+                    //                 // confirmButtonText: 'OK!',
+                    //                 allowOutsideClick: false // al darle clic fuera se cierra el alert
+                    //             }).then((respuesta) => {
+                    //                 if (respuesta.value) {
+                    //                     location.reload()
+                    //                 }
+                    //             });
+                    //             $('#mdl_cierre').modal('toggle');
+                    //         });
                 } else{
                     swal(
                             'Recuerde!',

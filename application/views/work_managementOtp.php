@@ -1673,7 +1673,7 @@
             <div class="modal-body">
                 <table id="table_selected" class="table table-hover table-bordered table-striped dataTable_camilo" width="100%"></table>
 
-                <form class="form-horizontal">
+                <form class="form-horizontal" id="formEmail">
                     <div class="form-group">
                         <label for="seniorHitos" class="col-sm-2 control-label">Señor(a)</label>
                         <div class="col-sm-10">

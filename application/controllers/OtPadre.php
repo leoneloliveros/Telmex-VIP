@@ -488,4 +488,87 @@ class OtPadre extends CI_Controller {
         return $dir;
     }
 
+
+    public function c_getInfoEmailreport()
+    {
+        $idsOtp = $this->input->post("idsOtp");
+        $idss = implode("','", $idsOtp); //los paso de arreglos a un string
+        $exist = $this->Dao_ot_padre_model->getInfoEmailReport($idss);
+        //verifica si existe en la base de datos, si no, extraerá la info de la linea base
+        // echo("<pre>"); print_r($exist); echo("</pre>");
+        if ($exist) {
+            if (isset($idsOtp[1])) {
+                //entra si hay más de una selección
+                echo json_encode($exist);
+            }else{
+                // entra si es solo una seleccion
+                    echo json_encode($exist[0]);
+            }
+            
+        }else{
+
+            $fLineaBase = $this->Dao_ot_padre_model->getFechaLineaBaseEmailReport($idss);
+            if ($fLineaBase) {
+                // echo("<pre>"); print_r($fLineaBase); echo("</pre>");
+                echo json_encode($fLineaBase);
+            }else {
+                // echo("<pre>"); print_r("nel prro >:V"); echo("</pre>");
+                echo json_encode(null);
+            }
+        }
+        
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+    public function saveOrUpdateInfoEmailReport()
+    {
+        $ots = $this->input->post("ids_otp");// ids seleccionadas;
+        
+        $data = array(
+            'senior' => $this->input->post("senior"), 
+            'nombre_cliente'=>  $this->input->post("configuracion"), 
+            'f_entrega_servicio' => $this->input->post("entregaServicio"), 
+            'observaciones' => $this->input->post("observaciones")
+        );
+        
+        //ELIMINA LOS CAMPOS VACÍOS PARA QUE SI UN INPUT SE VA VACÍO, NO LO ACTUALICE A NULL
+        foreach ($data as $key => $value) {
+            if ($data[$key] == "" || $data[$key] == " " || $data[$key] == "  ") {
+                unset($data[$key]);
+            }
+        }
+        
+        $cant_ots = count($ots);
+
+        for ($i=0; $i < $cant_ots; $i++) { 
+
+            $exist = $this->Dao_ot_padre_model->get_email_report_by_otp($ots[$i]);
+            if ($exist) {
+                //actualizar
+                $data['contador_reportes'] = $exist->contador_reportes + 1;
+                $this->Dao_ot_padre_model->updateInfoEmailDB($data,$ots[$i]);
+                
+            } else {
+                //inserta porque no está en db
+                $data['id_ot_padre'] = $ots[$i];
+                $data['contador_reportes'] = 1;
+                $this->Dao_ot_padre_model->saveInfoEmailDB($data);
+                unset($data['id_ot_padre']);
+            }
+        }
+        echo json_encode('ok');
+
+
+    }
+
 }
