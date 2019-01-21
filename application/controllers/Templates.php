@@ -65,10 +65,11 @@ class Templates extends CI_Controller {
         $this->actualizar_oth($pt, $ismail, $plantila_txt);
         // 5. actualizar ot_padre
         $this->actualizar_otp($pt['nro_ot_onyx']);
-         // $this->session->set_flashdata('msj', $msj);
-         // header('Location: ' . URL::base() . '/managementOtp');
 
-         // $this->actualizar_compromiso_oths($this->input->post());
+        //  $this->session->set_flashdata('msj', $msj);
+        //  header('Location: ' . URL::base() . '/managementOtp');
+
+        //  $this->actualizar_compromiso_oths($this->input->post());
     }
 
     public function c_updateStatusOt($servicio = null) {;
