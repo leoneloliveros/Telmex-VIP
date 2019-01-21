@@ -971,7 +971,7 @@ class Templates extends CI_Controller {
         $this->load->helper('camilo');
 
         $asunto   = "Notificación de Servicio de la orden " . $pt['nro_ot_onyx'] . "-" . $pt['id_orden_trabajo_hija'];
-         $se_envio = $this->Dao_email_model->h_enviarCorreo($template, Auth::user()->n_mail_user, $asunto);
+        $se_envio = $this->Dao_email_model->h_enviarCorreo($template, Auth::user()->n_mail_user, $asunto);
 
         return $se_envio['success'];
 
@@ -2085,7 +2085,7 @@ class Templates extends CI_Controller {
             );
 
             break;
-            case ($s == 24): // LP ETHERNET
+            case ($s == 24): // PL ETHERNET
 
             $argumentos = array(
                 'campo1'  => $p['nombre'], //Nombre

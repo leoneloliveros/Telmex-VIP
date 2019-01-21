@@ -345,7 +345,7 @@ $(function() {
             const fecha_ingenieria_detalle = formulario.calcular_nueva_fecha(fecha_aprobacion_coc, 2);
             const fecha_configuracion = formulario.calcular_nueva_fecha(fecha_aprobacion_coc, 3);
             const fecha_ejecucion_obra_civil = formulario.calcular_nueva_fecha(fecha_aprobacion_coc, 5);
-            const fecha_empalmes = formulario.calcular_nueva_fecha(fecha_cierreKO, 18);
+            const fecha_empalmes = formulario.calcular_nueva_fecha(fecha_compromiso, -2);
 
             $('#lb_fecha_compromiso').val(fecha_compromiso);
             $('#lb_fecha_programacion').val(fecha_compromiso);
@@ -362,10 +362,19 @@ $(function() {
         //retorna fecha sumando X dias habiles (la fecha base debe tener el formato yyyy-mm-dd)
         calcular_nueva_fecha: function(fecha_base, dias_h) {
 
-            while (dias_h > 0) {
-                fecha_base = helper.formatDate(helper.sumar_o_restar_dias_a_fecha(fecha_base));
-                if (!helper.validar_domingo_festivo(fecha_base)) {
-                    dias_h--;
+            if (dias_h > 0) {
+                while (dias_h > 0) {
+                    fecha_base = helper.formatDate(helper.sumar_o_restar_dias_a_fecha(fecha_base));
+                    if (!helper.validar_domingo_festivo(fecha_base)) {
+                        dias_h--;
+                    }
+                }
+            } else {
+                while (dias_h < 0){
+                    fecha_base = helper.formatDate(helper.sumar_o_restar_dias_a_fecha(fecha_base, -1));
+                    if (!helper.validar_domingo_festivo(fecha_base)) {
+                        dias_h++;
+                    }                    
                 }
             }
             return fecha_base;
@@ -387,3 +396,4 @@ $(function() {
     };
     formulario.init();
 });
+
