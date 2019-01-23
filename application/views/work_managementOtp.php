@@ -244,6 +244,7 @@
                 <tbody id="tbodyCount"></tbody>
             </table>
         </div>
+        
         <table id="table_reporte_actualizacion" class="table table-hover table-bordered table-striped dataTable_camilo" style="width: 100%;">
             <tfoot>
                 <tr>

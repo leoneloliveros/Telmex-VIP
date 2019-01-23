@@ -1691,8 +1691,6 @@ $(function() {
                         $.each(lineabasearr,function(ii,valor){ 
                             $('.select'+i).append("<option class='lbopt' value='"+valor+"'>"+valor+"</option>");
                         });
-                        console.log(obj[i].length);
-                        console.log(obj[i]);
 
                     if (lineabasearr.length == 1) {
                         //si de todas las selecciones sólo hay una linea base y las demás están vacías, entra acá para pintar la fecha

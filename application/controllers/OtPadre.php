@@ -495,10 +495,7 @@ class OtPadre extends CI_Controller {
 
         //cuenta cuantas filas están seleccionadas
         $seleccionadas = count($idsOtp);
-            // echo("<pre>"); print_r("===================seleccionadas========================"); echo("</pre>");
-            // echo("<pre>"); print_r($seleccionadas); echo("</pre>");
-            // echo("<pre>"); print_r("==========================================="); echo("</pre>");
-            
+
         $exist = $this->Dao_ot_padre_model->getInfoEmailReport($idsOtp);
 
         if ($seleccionadas == 1) {
@@ -506,27 +503,35 @@ class OtPadre extends CI_Controller {
             if ($exist) {
                 echo json_encode($exist);
             }else{
+
+                //si no existe en la tabla de reporte_info, buscará si existe en la linea base
                 $fLineaBase = $this->Dao_ot_padre_model->getFechaLineaBaseEmailReport($idsOtp);
                 if ($fLineaBase) {
                     $answer['fecha_compromiso'] = $fLineaBase->fecha_compromiso;
                     echo json_encode($answer);
                 }else{
+
+                    //si no retorna sin data
                     echo json_encode('sin data');
                 }
             }
         }
         else{
-            $answer = array();
-            for ($i=0; $i < $seleccionadas; $i++) { 
-                //si existe algo en la tabla reporte_info, lo pondrá en el arreglo
-                if($this->Dao_ot_padre_model->getInfoEmailReport($idsOtp[$i])){
-                    array_push($answer,$this->Dao_ot_padre_model->getInfoEmailReport($idsOtp[$i]));
+            //entra si hay más de una seleccion
 
+            $answer = array();
+            //creo el arreglo que devolveré
+
+            for ($i=0; $i < $seleccionadas; $i++) { 
+                if($this->Dao_ot_padre_model->getInfoEmailReport($idsOtp[$i])){
+                    //si existe algo en la tabla reporte_info, lo pondrá en el arreglo
+                    array_push($answer,$this->Dao_ot_padre_model->getInfoEmailReport($idsOtp[$i]));
                 }else if($this->Dao_ot_padre_model->getFechaLineaBaseEmailReport($idsOtp[$i])){
+                    //si no, intentará obtener si existe algo en la linea base
                     $flb['fecha_compromiso'] = $this->Dao_ot_padre_model->getFechaLineaBaseEmailReport($idsOtp[$i])->fecha_compromiso;
                     array_push($answer,$flb);
-
                 }else{
+                    // si no, retornará sin data y seguira iterando
                     array_push($answer,"sin data");
                 }
             }
@@ -547,7 +552,7 @@ class OtPadre extends CI_Controller {
 
 
 
-
+    //funcion que actualiza o ingresa la info. del formulario del reporte de act.
     public function saveOrUpdateInfoEmailReport()
     {
         $ots = $this->input->post("ids_otp");// ids seleccionadas;
@@ -566,11 +571,12 @@ class OtPadre extends CI_Controller {
             }
         }
         
-        $cant_ots = count($ots);
+        $cant_ots = count($ots); //cuenta cuantas selecciones hay
 
         for ($i=0; $i < $cant_ots; $i++) { 
 
             $exist = $this->Dao_ot_padre_model->get_email_report_by_otp($ots[$i]);
+            
             if ($exist) {
                 //actualizar
                 $data['contador_reportes'] = $exist->contador_reportes + 1;
