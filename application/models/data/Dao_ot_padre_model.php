@@ -638,36 +638,25 @@ class Dao_ot_padre_model extends CI_Model {
     }
 
 
-
-    /*==========================================================================================================================*/
-    /*==========================================================================================================================*/
-    /*====SEÑOR CRISTIAN GÛIZA DEJE COMENTARIADAS LAS FUNCIONEEEEEEEEEEEEEEEEES Y BORRE LOS COMENTARIOS DE LO QUE INTENTÓ IMPRIMIR EN PANTALAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=====*/
-    /*==========================================================================================================================*/
-    public function getInfoEmailReport($ids)
+    //consulto si existe algo en la tabla reporte info
+    public function getInfoEmailReport($id)
     {
-        // echo("<pre>"); print_r($id); echo("</pre>");
-        // $query = $this->db->query("SELECT id_ot_padre,senior,nombre_cliente,f_entrega_servicio,observaciones FROM reporte_info WHERE id_ot_padre = '$id'");
-        // echo("<pre>"); print_r($ids); echo("</pre>");
-        $query = $this->db->query("SELECT id_ot_padre,senior,nombre_cliente,f_entrega_servicio,observaciones, contador_reportes FROM reporte_info WHERE id_ot_padre IN('$ids')");
-        // echo("<pre>"); print_r($this->db->last_query()); echo("</pre>");
-        return $query->result();
+        $this->db->where_in('id_ot_padre', $id);
+        $query = $this->db->get('reporte_info');
+        return $query->row();
     }
 
-   
+   //guarda la informacion del form. en la tabla reporte info
     public function saveInfoEmailDB($data)
     {
         $this->db->insert('reporte_info',$data);
-        // echo("<pre>"); print_r("=====================aa"); echo("</pre>");  
-        // echo("<pre>"); print_r($this->db->last_query()); echo("</pre>");  
     }
 
+    //actualiza la inf. de la tabla reporte_info
     public function updateInfoEmailDB($data,$ids)
     {
         $this->db->where('id_ot_padre',$ids);
         $this->db->update('reporte_info',$data);
-        // echo("<pre>"); print_r("===========LAST QUERY DE NO VACIOS========"); echo("</pre>");
-        // echo("<pre>"); print_r($this->db->last_query()); echo("</pre>");
-        
     } 
 
     // trae registro de la tabla reporte_info mediante otp
@@ -679,9 +668,10 @@ class Dao_ot_padre_model extends CI_Model {
 
 
     //extrae la fecha de linea base si no existe en la tabla reporte_info
-    public function getFechaLineaBaseEmailReport($ids)
+    public function getFechaLineaBaseEmailReport($id)
     {
-        $query = $this->db->query("SELECT fecha_compromiso FROM linea_base WHERE id_ot_padre IN ('$ids')");
-        return $query->result_array();
+        $this->db->where_in('id_ot_padre', $id);
+        $query = $this->db->get('linea_base');
+        return $query->row();
     }
 }
