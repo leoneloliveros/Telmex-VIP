@@ -492,30 +492,48 @@ class OtPadre extends CI_Controller {
     public function c_getInfoEmailreport()
     {
         $idsOtp = $this->input->post("idsOtp");
-        $idss = implode("','", $idsOtp); //los paso de arreglos a un string
-        $exist = $this->Dao_ot_padre_model->getInfoEmailReport($idss);
-        //verifica si existe en la base de datos, si no, extraerá la info de la linea base
-        // echo("<pre>"); print_r($exist); echo("</pre>");
-        if ($exist) {
-            if (isset($idsOtp[1])) {
-                //entra si hay más de una selección
+
+        //cuenta cuantas filas están seleccionadas
+        $seleccionadas = count($idsOtp);
+            // echo("<pre>"); print_r("===================seleccionadas========================"); echo("</pre>");
+            // echo("<pre>"); print_r($seleccionadas); echo("</pre>");
+            // echo("<pre>"); print_r("==========================================="); echo("</pre>");
+            
+        $exist = $this->Dao_ot_padre_model->getInfoEmailReport($idsOtp);
+
+        if ($seleccionadas == 1) {
+            //verifica si existe en la base de datos, si no, extraerá la info de la linea base
+            if ($exist) {
                 echo json_encode($exist);
             }else{
-                // entra si es solo una seleccion
-                    echo json_encode($exist[0]);
-            }
-            
-        }else{
-
-            $fLineaBase = $this->Dao_ot_padre_model->getFechaLineaBaseEmailReport($idss);
-            if ($fLineaBase) {
-                // echo("<pre>"); print_r($fLineaBase); echo("</pre>");
-                echo json_encode($fLineaBase);
-            }else {
-                // echo("<pre>"); print_r("nel prro >:V"); echo("</pre>");
-                echo json_encode(null);
+                $fLineaBase = $this->Dao_ot_padre_model->getFechaLineaBaseEmailReport($idsOtp);
+                if ($fLineaBase) {
+                    $answer['fecha_compromiso'] = $fLineaBase->fecha_compromiso;
+                    echo json_encode($answer);
+                }else{
+                    echo json_encode('sin data');
+                }
             }
         }
+        else{
+            $answer = array();
+            for ($i=0; $i < $seleccionadas; $i++) { 
+                //si existe algo en la tabla reporte_info, lo pondrá en el arreglo
+                if($this->Dao_ot_padre_model->getInfoEmailReport($idsOtp[$i])){
+                    array_push($answer,$this->Dao_ot_padre_model->getInfoEmailReport($idsOtp[$i]));
+
+                }else if($this->Dao_ot_padre_model->getFechaLineaBaseEmailReport($idsOtp[$i])){
+                    $flb['fecha_compromiso'] = $this->Dao_ot_padre_model->getFechaLineaBaseEmailReport($idsOtp[$i])->fecha_compromiso;
+                    array_push($answer,$flb);
+
+                }else{
+                    array_push($answer,"sin data");
+                }
+            }
+            echo json_encode($answer);
+        } 
+        
+        
         
     }
     

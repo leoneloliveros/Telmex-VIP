@@ -634,14 +634,14 @@ class Dao_ot_padre_model extends CI_Model {
 
 
 
-    public function getInfoEmailReport($ids)
+    public function getInfoEmailReport($id)
     {
         // echo("<pre>"); print_r($id); echo("</pre>");
         // $query = $this->db->query("SELECT id_ot_padre,senior,nombre_cliente,f_entrega_servicio,observaciones FROM reporte_info WHERE id_ot_padre = '$id'");
-        // echo("<pre>"); print_r($ids); echo("</pre>");
-        $query = $this->db->query("SELECT id_ot_padre,senior,nombre_cliente,f_entrega_servicio,observaciones, contador_reportes FROM reporte_info WHERE id_ot_padre IN('$ids')");
-        // echo("<pre>"); print_r($this->db->last_query()); echo("</pre>");
-        return $query->result();
+        // echo("<pre>"); print_r($id); echo("</pre>");
+        $this->db->where_in('id_ot_padre', $id);
+        $query = $this->db->get('reporte_info');
+        return $query->row();
     }
 
    
@@ -670,9 +670,10 @@ class Dao_ot_padre_model extends CI_Model {
 
 
     //extrae la fecha de linea base si no existe en la tabla reporte_info
-    public function getFechaLineaBaseEmailReport($ids)
+    public function getFechaLineaBaseEmailReport($id)
     {
-        $query = $this->db->query("SELECT fecha_compromiso FROM linea_base WHERE id_ot_padre IN ('$ids')");
-        return $query->result_array();
+        $this->db->where_in('id_ot_padre', $id);
+        $query = $this->db->get('linea_base');
+        return $query->row();
     }
 }

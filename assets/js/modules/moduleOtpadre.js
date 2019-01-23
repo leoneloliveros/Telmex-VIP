@@ -848,29 +848,7 @@ $(function() {
             $('#btnGuardarModalHitos').on('click', eventos.onClickSaveHitosOtp);// ver detalles de correo btn impresora
             $('#table_selected').on('click', 'img.quitar_fila', eventos.quitarFila);
             $('#mdl-enviar-reporte').on('click', eventos.onClickSendReportUpdate);
-            $('#mdl_cierre').on("hidden.bs.modal",function(){
-                $("#formEmail")[0].reset();
-                $("#seniorHitos, #configuracionHitos, #entregaServicioHitos, #observacionesHitos").css({"border-color":"#ccc",
-                 "background-color" : "white"});
-                $("div.borrar").remove();
-                $("div.col-sm-7").addClass("col-sm-10");
-                $("div.col-sm-7").removeClass("col-sm-7");    
-            });
-            // $('#mdl_cierre').on('click','#mdl-cierre-cerrar', function(){
-            //     $("#formEmail")[0].reset();
-            //     $("#seniorHitos, #configuracionHitos, #entregaServicioHitos, #observacionesHitos").css("border-color","#ccc");
-            //     $("div.borrar").remove();
-            //     $("div.col-sm-7").addClass("col-sm-10");
-            //     $("div.col-sm-7").removeClass("col-sm-7");
-            // });
-            // $('#mdl_cierre').on('click','button.close', function(){
-            //     $("#formEmail")[0].reset();
-            //     $("#seniorHitos, #configuracionHitos, #entregaServicioHitos, #observacionesHitos").css("border-color","#ccc");
-            //     $("div.borrar").remove();
-            //     $("div.col-sm-7").addClass("col-sm-10");
-            //     $("div.col-sm-7").removeClass("col-sm-7");
-            // });
-    
+            $('#mdl_cierre').on("hidden.bs.modal",eventos.cleanFormReportUpdate); 
 
             // ***********************Inicio del evento del menu sticky******************
             $('.contenedor_sticky').on('click', function() {
@@ -1563,57 +1541,79 @@ $(function() {
                 $.post(baseurl + '/OtPadre/c_getInfoEmailreport',{ idsOtp: ids },
                 function(data){
                     data = JSON.parse(data);
-                    //creamos los arrays para almacenar toda la info. de la bd 
-                    var seniores = [];
-                    var nomCliente = [];
-                    var f_entregaServicio = [];
-                    var obsr = [];
-                    console.log(data);
-                    
+                    console.log('data:',data);
 
                     var ids =['seniorHitos','configuracionHitos','entregaServicioHitos','observacionesHitos'];
-                    if (data) {
-                        var key = Object.keys(data)
-                        //si tiene datos pero la key es 0 significa que tiene algo en la linea base
-                        if (key == "0") {
-                            $('#entregaServicioHitos').val(data[0].fecha_compromiso);
-                        }else{
-                            //si se selecciona mas de una fila, retorna un numero, de lo contrario, retorna undefined
-                            if (data.length) {
-                                //ESTE EACH LLENA LA INFORMACION A VALIDAR Y LOS PONE EN DISTINTOS ARREGLOS
-                                $.each(data,function(i,item){
-                                    seniores.push(item['senior']);
-                                    nomCliente.push(item['nombre_cliente']);
-                                    f_entregaServicio.push(item['f_entrega_servicio']);
-                                    obsr.push(item['observaciones']);
-                                }); 
-                                //LIMPIA TODOS LOS VALORES QUE SEAN REPETIDOS Y SOLO DEJA UNO DE CADA UNO
-                            
-                                const fseniores = eventos.clean(seniores);
-                                const fnomCliente = eventos.clean(nomCliente);
-                                const ff_entregaServicio = eventos.clean(f_entregaServicio);
-                                const fobsr = eventos.clean(obsr);
-                                //ARMAMOS EL OBJETO PARA ENVIARLO A LA FUCNIÓN DE VALIDACIÓN
-                                const todo = {0: fseniores , 
-                                            1: fnomCliente ,
-                                            2: ff_entregaServicio,
-                                            3: fobsr}
-                                eventos.validarIgualesReporteAct(todo,ids)
+                    if (cuantas == 1) {
+                        //significa que hay una seleccion
+                        if (data != "sin data") {
+                            //si entra aca es porque tiene la fecha de compromiso de linea base o datos en la tabla reporte_info
+                            if(data['fecha_compromiso']) {
+                                //si entra acá es porque la información viene de la linea base
+                                $('#entregaServicioHitos').val(data.fecha_compromiso);
+                                $('#entregaServicioHitos').parents("div.col-sm-10").append(`<b class='vieneDeLineaBase'>Fecha extraída de la fecha de compromiso en línea base</b>`);
                             }else{
-                                // console.log("hay una seleccion");
+                                //si entra acá es porque la info viene de la tabla reporte_indo
                                 $('#seniorHitos').val(data['senior']);
                                 $('#configuracionHitos').val(data['nombre_cliente']);
                                 $('#entregaServicioHitos').val(data['f_entrega_servicio']);
                                 $('#observacionesHitos').val(data['observaciones']);
                             }
-                        }
+                            
+                        }//si no entra a ninguno no hace nada porque no tiene nada de info.
                     }else{
-                        console.log("no hay nada en db");
+                        //entra si hay más de una seleccion
+
+                        //creamos los arrays para almacenar toda la info. de la bd 
+                        const seniores = [];
+                        const nomCliente = [];
+                        const f_entregaServicio = [];
+                        const obsr = [];
+                        const lineabasearr = [];
+
+                        //ESTE EACH LLENA LA INFORMACION A VALIDAR Y LOS PONE EN DISTINTOS ARREGLOS
+                        $.each(data,function(i,item){
+                            if(item['fecha_compromiso']) {
+                                //entra si los datos es igual a la fehca de compromiso de la linea base
+                                lineabasearr.push(item['fecha_compromiso']);
+
+                                f_entregaServicio.push("se debe eliminar"); // este se debe eliminar es para que entre a la condicional para crear el select
+
+                                //si es igual a sin data significa que no existe en base de datos
+                            }else if(item != "sin data"){
+                                //si entra acá significa que son datos de la tabla
+                                //estos ifs validan si algún campo está vacío, porque puede que algún campo no esté lleno, pero exista en la tabla reporte_info, es para que no se vayan en null
+
+                                //crean los arreglos para llenar la informacion del select
+                                if(item['senior'] != null || item['senior'] != undefined){
+                                    seniores.push(item['senior']);
+                                }
+                                if(item['nombre_cliente'] != null || item['nombre_cliente'] != undefined){
+                                    nomCliente.push(item['nombre_cliente']);
+                                }
+                                if(item['f_entrega_servicio'] != null || item['f_entrega_servicio'] != undefined){
+                                    f_entregaServicio.push(item['f_entrega_servicio']);
+                                }
+                                if(item['observaciones'] != null || item['observaciones'] != undefined){
+                                    obsr.push(item['observaciones']);
+                                }
+                            }
+                        });
+                                
+                        //LIMPIA TODOS LOS VALORES QUE SEAN REPETIDOS Y SOLO DEJA UNO DE CADA UNO
+                        const fseniores = eventos.clean(seniores);
+                        const fnomCliente = eventos.clean(nomCliente);
+                        const ff_entregaServicio = eventos.clean(f_entregaServicio);
+                        const fobsr = eventos.clean(obsr);
+                        
+                        //ARMAMOS EL OBJETO PARA ENVIARLO A LA FUCNIÓN DE VALIDACIÓN
+                        const todo = {0: fseniores , 
+                                    1: fnomCliente ,
+                                    2: ff_entregaServicio,
+                                    3: fobsr}
+                        eventos.validarIgualesReporteAct(todo,ids,lineabasearr)
+
                     }
-                        
-                        
-                    
-                    
                 });
 
             } else {
@@ -1631,18 +1631,34 @@ $(function() {
 
         },
         //validará qué campos son iguales y cuales no
-        validarIgualesReporteAct: function(obj,ids){
+        validarIgualesReporteAct: function(obj,ids,lineabasearr){
+
             //se crea el arreglo que devolverá las opc. del selectInfo en caso que no todas las selecciones sean iguales
-            console.log(obj);
-            
-          
             $.each(obj,function(i){
-                //pasa a true si existe un segundo elemento en el array, cosa que no debería pasar si todas son iguales
+                //se hace para poder ingresar algo al arreglo normal de fechas y así entre a crear el select
+                if (lineabasearr.length>1 && ids[i] == 'entregaServicioHitos') {
+                    obj[i].push("msg");
+                }
+                //pasa a true si la posicion 1 del array es undefined en el array, cosa que no debería pasar si todas son iguales
                 if (obj[i][1] == undefined) {
-                    console.log(ids[i],": todos son iguales ");
+                    // console.log(ids[i],": todos son iguales ");
                     $('#'+ids[i]).val(obj[i]); //uso los ids en cierta posicion para poder pintar el que es y no todos a la vez
                 }else{
-                    console.log(ids[i],": no se puede llenar");
+                    
+                    //ya que entró en el false, se debe limpiar los msg enviados anteriormente para que no se pinten en el select
+                    // console.log(ids[i],": no se puede llenar");
+                    if (ids[i] == 'entregaServicioHitos') {
+                        //se eliminan
+                        if (obj[i].includes('se debe eliminar')) {
+                            var eliminar = obj[i].indexOf('se debe eliminar');
+                            obj[i].splice(eliminar,1);
+                        }
+                        if (obj[i].includes('msg')) {
+                            var eliminar2 = obj[i].indexOf('msg');
+                            obj[i].splice(eliminar2,1);
+                        }
+                    }
+                    // console.log(Object.values(obj[i]));
 
                     var input = $('#'+ids[i]); //selecciono el input
                     input.css({"border-color":"#ffc800","background-color" : "#ffd92030"}); //le doy color al input
@@ -1659,12 +1675,31 @@ $(function() {
                     divPadre.append(`<div class="col-sm-3 borrar">
                         <select class="form-control select${i}" onchange="eventos.changeInput(this,${ids[i]})")>
                           <option value="">Seleccione</option>`);
-                         $.each(obj[i],function(ii,valor){ 
-                             $('.select'+i).append("<option value='"+valor+"'>"+valor+"</option>");
-                         });
+                    $.each(obj[i],function(ii,valor){ 
+                        $('.select'+i).append("<option value='"+valor+"'>"+valor+"</option>");
+                    });
                     divPadre.append(`
                         </select>
                       </div>`);
+
+                }
+                //valido si se deben aggregar al select fechas de la linea base
+                if (lineabasearr.length > 0 && ids[i] == 'entregaServicioHitos') {
+
+                    //las agrego
+                    $('.select'+i).append("<optgroup class='lbopt' label='fechas de línea base' >");
+                        $.each(lineabasearr,function(ii,valor){ 
+                            $('.select'+i).append("<option class='lbopt' value='"+valor+"'>"+valor+"</option>");
+                        });
+                        console.log(obj[i].length);
+                        console.log(obj[i]);
+
+                    if (lineabasearr.length == 1) {
+                        //si de todas las selecciones sólo hay una linea base y las demás están vacías, entra acá para pintar la fecha
+                        // console.log(lineabasearr);
+                         $('#'+ids[i]).val(lineabasearr);
+                    }
+                    
                 }
             })
         },
@@ -1767,32 +1802,32 @@ $(function() {
                         var obj = JSON.parse(data);
                         console.log(obj);
                     });
-                    helper.alertLoading('Enviando Email...','Por favor espere c:');
-                    $.post(baseurl + '/OtPadre/c_sendReportUpdate',
-                            {
-                                ids_otp: ids_otp,
-                                senior: $('#seniorHitos').val(),
-                                configuracion: $('#configuracionHitos').val(),
-                                entregaServicio: $('#entregaServicioHitos').val(),
-                                observaciones: $('#observacionesHitos').val()
-                            },
-                            function(data) {
-                                swal.close();
-                                var obj = JSON.parse(data);
-                                swal({
-                                    title: (obj.success) ? 'OK' : 'Error',
-                                    html: (obj.success) ? 'Correo enviado' : 'Error',
-                                    type: (obj.success) ? 'success' : 'error',
-                                    // confirmButtonColor: '#3085d6',
-                                    // confirmButtonText: 'OK!',
-                                    allowOutsideClick: false // al darle clic fuera se cierra el alert
-                                }).then((respuesta) => {
-                                    if (respuesta.value) {
-                                        location.reload()
-                                    }
-                                });
-                                $('#mdl_cierre').modal('toggle');
-                            });
+                    // helper.alertLoading('Enviando Email...','Por favor espere c:');
+                    // $.post(baseurl + '/OtPadre/c_sendReportUpdate',
+                    //         {
+                    //             ids_otp: ids_otp,
+                    //             senior: $('#seniorHitos').val(),
+                    //             configuracion: $('#configuracionHitos').val(),
+                    //             entregaServicio: $('#entregaServicioHitos').val(),
+                    //             observaciones: $('#observacionesHitos').val()
+                    //         },
+                    //         function(data) {
+                    //             swal.close();
+                    //             var obj = JSON.parse(data);
+                    //             swal({
+                    //                 title: (obj.success) ? 'OK' : 'Error',
+                    //                 html: (obj.success) ? 'Correo enviado' : 'Error',
+                    //                 type: (obj.success) ? 'success' : 'error',
+                    //                 // confirmButtonColor: '#3085d6',
+                    //                 // confirmButtonText: 'OK!',
+                    //                 allowOutsideClick: false // al darle clic fuera se cierra el alert
+                    //             }).then((respuesta) => {
+                    //                 if (respuesta.value) {
+                    //                     location.reload()
+                    //                 }
+                    //             });
+                    //             $('#mdl_cierre').modal('toggle');
+                    //         });
                 } else{
                     swal(
                             'Recuerde!',
@@ -1808,6 +1843,16 @@ $(function() {
             }
 
         },
+        //limpia el formulario, colores y selects aparecidos en el reporte de act.
+        cleanFormReportUpdate: function(){
+            $("#formEmail")[0].reset();
+            $("#seniorHitos, #configuracionHitos, #entregaServicioHitos, #observacionesHitos").css({"border-color":"#ccc",
+             "background-color" : "white"});
+            $("div.borrar").remove();
+            $("div.col-sm-7").addClass("col-sm-10");
+            $("div.col-sm-7").removeClass("col-sm-7");
+            $("b.vieneDeLineaBase").remove();
+        }
     };
     eventos.init();
 

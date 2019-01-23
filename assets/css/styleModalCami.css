@@ -83,3 +83,19 @@
 .marg-t-15px {
     margin-top: 15px;
 }
+
+.vieneDeLineaBase{
+    color: #4545d6;
+    font-size: 1.1em;
+    background: #ffd7d787;
+    padding: 5px 0px;
+    border-radius: 11px;
+    display: block;
+    text-align: center;
+    margin-top: 11px;
+}
+
+.lbopt{
+    background: #50ff9e;
+}
+
