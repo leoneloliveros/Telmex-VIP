@@ -480,7 +480,7 @@ class LoadInformation extends CI_Controller {
 
     // inserta registros antiguos de tabla ot hija en cierre ots
     private function insertar_cierre_ots() {
-        // Se usa para eliminar los registros que vienen de dias anteriores a la acual data subida
+        // Se usa para eliminar los registros que vienen de dias anteriores a la actual data subida
         $penultima = $this->Dao_ot_hija_model->getPenultimaFechaCarga()->fecha;
         if ($penultima) {
             // Para pasar las ots pasadas de dias anteriores a la tabla de cierre
@@ -488,7 +488,7 @@ class LoadInformation extends CI_Controller {
             if ($traslado > 0) {
                 // si se trasladaron con exito se eliminan de la tabla ot_hija
                 $delete = $this->Dao_ot_hija_model->delete_oth_by_fecha($penultima);
-                // funcion para eliminar los registro duplicados de la tablka de cierre
+                // funcion para eliminar los registro duplicados de la tabla de cierre
                 $duplicadas_borradas = $this->Dao_cierre_ots_model->delete_duplicates();
                 // funcion para eliminar de cierre las ots que ya estan activas en tabla ot_hija
                 $eliminar_activas = $this->Dao_cierre_ots_model->delete_actives();
