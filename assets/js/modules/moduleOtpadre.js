@@ -1541,7 +1541,7 @@ $(function() {
                 $.post(baseurl + '/OtPadre/c_getInfoEmailreport',{ idsOtp: ids },
                 function(data){
                     data = JSON.parse(data);
-                    console.log('data:',data);
+                    // console.log('data:',data);
 
                     var ids =['seniorHitos','configuracionHitos','entregaServicioHitos','observacionesHitos'];
                     if (cuantas == 1) {
@@ -1800,32 +1800,32 @@ $(function() {
                         var obj = JSON.parse(data);
                         console.log(obj);
                     });
-                    // helper.alertLoading('Enviando Email...','Por favor espere c:');
-                    // $.post(baseurl + '/OtPadre/c_sendReportUpdate',
-                    //         {
-                    //             ids_otp: ids_otp,
-                    //             senior: $('#seniorHitos').val(),
-                    //             configuracion: $('#configuracionHitos').val(),
-                    //             entregaServicio: $('#entregaServicioHitos').val(),
-                    //             observaciones: $('#observacionesHitos').val()
-                    //         },
-                    //         function(data) {
-                    //             swal.close();
-                    //             var obj = JSON.parse(data);
-                    //             swal({
-                    //                 title: (obj.success) ? 'OK' : 'Error',
-                    //                 html: (obj.success) ? 'Correo enviado' : 'Error',
-                    //                 type: (obj.success) ? 'success' : 'error',
-                    //                 // confirmButtonColor: '#3085d6',
-                    //                 // confirmButtonText: 'OK!',
-                    //                 allowOutsideClick: false // al darle clic fuera se cierra el alert
-                    //             }).then((respuesta) => {
-                    //                 if (respuesta.value) {
-                    //                     location.reload()
-                    //                 }
-                    //             });
-                    //             $('#mdl_cierre').modal('toggle');
-                    //         });
+                    helper.alertLoading('Enviando Email...','Por favor espere.');
+                    $.post(baseurl + '/OtPadre/c_sendReportUpdate',
+                            {
+                                ids_otp: ids_otp,
+                                senior: $('#seniorHitos').val(),
+                                configuracion: $('#configuracionHitos').val(),
+                                entregaServicio: $('#entregaServicioHitos').val(),
+                                observaciones: $('#observacionesHitos').val()
+                            },
+                            function(data) {
+                                swal.close();
+                                var obj = JSON.parse(data);
+                                swal({
+                                    title: (obj.success) ? 'OK' : 'Error',
+                                    html: (obj.success) ? 'Correo enviado' : 'Error',
+                                    type: (obj.success) ? 'success' : 'error',
+                                    // confirmButtonColor: '#3085d6',
+                                    // confirmButtonText: 'OK!',
+                                    allowOutsideClick: false // al darle clic fuera se cierra el alert
+                                }).then((respuesta) => {
+                                    if (respuesta.value) {
+                                        location.reload()
+                                    }
+                                });
+                                $('#mdl_cierre').modal('toggle');
+                            });
                 } else{
                     swal(
                             'Recuerde!',
