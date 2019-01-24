@@ -61,6 +61,9 @@ var vista = {
     actualProcess: null,
     sleepTime: 2000,
     selec: 0,
+
+    export: 0,
+
     getLinesFile: function (data, callback) {
         app.post('LoadInformation/countLinesFile', {
             file: data.path
@@ -69,6 +72,7 @@ var vista = {
             var v = app.successResponse(response);
             if (v) {
                 vista.linesFile = (parseInt(response.data.sheet1));
+                vista.export = (parseInt(response.data.export));
                 callback();
             } else {
                 swal("Error", "No hay lineas que procesar en el archivo.", "error");
@@ -102,7 +106,8 @@ var vista = {
         app.post('LoadInformation/processData', {
             file: data.path,
             index: vista.index,
-            limit: vista.limit
+            limit: vista.limit,
+            export: vista.export
         })
                 .complete(function () {
                 })

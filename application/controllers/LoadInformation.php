@@ -91,6 +91,7 @@ class LoadInformation extends CI_Controller {
 
             $lines = [
                 "sheet1" => $highestRowSheet1,
+                "export" => $this->Dao_ot_hija_model->get_actualizado_row() //Last_export
             ];
 
             $response->setData($lines);
@@ -147,6 +148,8 @@ class LoadInformation extends CI_Controller {
                 $errorNoChange = [];
                 $actualizar    = 0;
                 $actualizados  = 0;
+
+                $export = $request->export;
 
                 //fecha Actual
                 date_default_timezone_set("America/Bogota");
@@ -283,6 +286,7 @@ class LoadInformation extends CI_Controller {
                                 array_push($errorUpdate, array($actualizar, $this->getValueCell($sheet, 'AW' . $row)));
                             }
                         }
+                        $col_actualizar = $this->Dao_ot_hija_model->update_ot_hija_mod(array('id_orden_trabajo_hija' => $arrayBD['id_orden_trabajo_hija'], 'actualizado' => $export + 1));
                     }
                     //si no existe lo inserto en la db tabla ot_hija
                     else {
@@ -370,6 +374,7 @@ class LoadInformation extends CI_Controller {
                             'fecha_insercion_zolid'            => $fActual_hora,
                             'estado_mod'                       => 0,
                             'fecha_compromiso'                 => $this->getDatePHPExcel($sheet, 'AO' . $row),
+                            'actualizado'                      => $export + 1,
                         );
 
                         //inserto la fila en la base de datos
@@ -391,7 +396,12 @@ class LoadInformation extends CI_Controller {
                 if (($limit - $row) >= 2) {
                     $response->setCode(2);
                     
-                    $this->insertar_cierre_ots();
+                    // NO BORRAR
+                    // $this->insertar_cierre_ots(); // FUNCION PARA ENVIAR A CIERRE LO DE FECHA ANTERIOR
+
+                    //ENVIAR A CIERRE LO QUE NO ESTE EN EL ULTIMO ARCHIVO SUBIDO
+                    $this->enviar_a_cierre($export);
+
                     // Si no hay cambios ni inserciones se deja
                     if ($inserts > 0 || $actualizados > 0) {
                         $this->Dao_log_model->insertNuevaFecha();
@@ -493,6 +503,21 @@ class LoadInformation extends CI_Controller {
                 // funcion para eliminar de cierre las ots que ya estan activas en tabla ot_hija
                 $eliminar_activas = $this->Dao_cierre_ots_model->delete_actives();
             }
+        }
+    }
+
+
+    // Enviar a cierre todas las actividades que sean menor a la ultima actualizacion
+    public function enviar_a_cierre($export){
+        // Para pasar las ots pasadas de dias anteriores a la tabla de cierre
+        $traslado = $this->Dao_cierre_ots_model->trasladar_oth_by_last_export($export);
+        if ($traslado > 0) {
+            // si se trasladaron con exito se eliminan de la tabla ot_hija
+            $delete = $this->Dao_ot_hija_model->delete_oth_by_last_export($export);
+            // funcion para eliminar los registro duplicados de la tabla de cierre
+            $duplicadas_borradas = $this->Dao_cierre_ots_model->delete_duplicates();
+            // funcion para eliminar de cierre las ots que ya estan activas en tabla ot_hija
+            $eliminar_activas = $this->Dao_cierre_ots_model->delete_actives();
         }
     }
 
