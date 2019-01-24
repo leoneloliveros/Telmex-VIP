@@ -13,7 +13,7 @@ class Dao_reportes_model extends CI_Model {
     
     public function getInfoReportInit()
     {
-        $query = $this->db->query('SELECT lc.k_id_ot_padre,lc.id_orden_trabajo_hija,lc.usuario_sesion,lc.nombre_cliente,lc.servicio,lc.fecha,CONCAT(u.n_name_user," ",u.n_last_name_user) as Nombres FROM log_correo lc INNER JOIN user u ON lc.usuario_sesion = u.k_id_user;');
+        $query = $this->db->query('SELECT lc.k_id_ot_padre,lc.id_orden_trabajo_hija,lc.nombre_cliente,lc.servicio,lc.fecha,CONCAT(u.n_name_user," ",u.n_last_name_user) as Nombres FROM log_correo lc INNER JOIN user u ON lc.usuario_sesion = u.k_id_user;');
         return $query->result();
     }
 }
