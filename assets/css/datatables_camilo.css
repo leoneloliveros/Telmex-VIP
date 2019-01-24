@@ -569,6 +569,9 @@ table.dataTable_camilo .btn_datatable_cami:hover{
 #tableCountReporteActualizacion  tbody td {
     padding: 0px 10px;
 }
-#tableCountReporteActualizacion  tbody {
+#tableCountReporteActualizacion  tbody, #tablereportinit, #tablereportinit thead tr th, #tablereportAct, #tablereportAct thead tr th {
     text-align: center;
+}
+#tablereportinit thead tr th,#tablereportinit tbody tr td, #tablereportAct thead tr th,#tablereportAct tbody tr td {
+    vertical-align: middle;
 }

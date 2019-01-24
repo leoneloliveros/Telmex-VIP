@@ -556,12 +556,16 @@ class OtPadre extends CI_Controller {
     public function saveOrUpdateInfoEmailReport()
     {
         $ots = $this->input->post("ids_otp");// ids seleccionadas;
-        
+        $last_sender = Auth::user()->k_id_user; //captura quién envió el reporte
+
+        $last_f_evio = date('Y-m-d H:i:s'); //obtiene la fecha de envío del reporte
         $data = array(
             'senior' => $this->input->post("senior"), 
             'nombre_cliente'=>  $this->input->post("configuracion"), 
             'f_entrega_servicio' => $this->input->post("entregaServicio"), 
-            'observaciones' => $this->input->post("observaciones")
+            'observaciones' => $this->input->post("observaciones"),
+            'last_sender' => $last_sender,
+            'last_f_envio' => $last_f_evio
         );
         
         //ELIMINA LOS CAMPOS VACÍOS PARA QUE SI UN INPUT SE VA VACÍO, NO LO ACTUALICE A NULL
@@ -576,7 +580,7 @@ class OtPadre extends CI_Controller {
         for ($i=0; $i < $cant_ots; $i++) { 
 
             $exist = $this->Dao_ot_padre_model->get_email_report_by_otp($ots[$i]);
-            
+
             if ($exist) {
                 //actualizar
                 $data['contador_reportes'] = $exist->contador_reportes + 1;
@@ -591,8 +595,8 @@ class OtPadre extends CI_Controller {
             }
         }
         echo json_encode('ok');
-
-
     }
+
+
 
 }
