@@ -1259,6 +1259,12 @@ class Dao_ot_hija_model extends CI_Model {
         return $this->db->affected_rows();
     }
 
+    // ELIMINA REGISTROS POR FECHA ACTUAL
+    public function delete_oth_by_last_export($export) {
+        $this->db->delete('ot_hija', array('k_id_register >' => 0, 'actualizado <=' => $export));
+        return $this->db->affected_rows();
+    }
+
     // OBTENER LAS OTH QUE LLEVEN CERRADAS MAS DE 8 DIAS
     public function getListOtsEigtDay() {
         $query = $this->db->query("
@@ -1431,7 +1437,25 @@ class Dao_ot_hija_model extends CI_Model {
         return $query->result();
     }
 
+    // retorna solo la primera celda de la columna actualizada de la tabla ticket
+    public function get_actualizado_row() {
+        $query = $this->db->query("
+            SELECT actualizado FROM ot_hija
+            ORDER BY actualizado DESC LIMIT 1
+            ;
+        ");
+
+        if ($query->num_rows() > 0) {
+            return $query->row()->actualizado;
+        } else {
+            return 0;
+        }
+    }
+
+
     /*     * *********************************************************************************************************** */
     /*     * ***********************ACOSTUMBRENSE A COMENTAR TODAS LAS FUNCIONES QUE HAGAN PUTOS************************ */
     /*     * *********************************************************************************************************** */
+
+
 }

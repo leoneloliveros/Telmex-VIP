@@ -295,7 +295,7 @@ class Dao_ot_padre_model extends CI_Model {
             INNER JOIN user ON otp.k_id_user = user.k_id_user
             LEFT JOIN hitos ON hitos.id_ot_padre = otp.k_id_ot_padre
             WHERE
-            DATEDIFF(CURDATE(), otp.ultimo_envio_reporte) >= 7
+            DATEDIFF(CURDATE(), otp.ultimo_envio_reporte) > 7
             $condicion
             GROUP BY nro_ot_onyx
         ");
