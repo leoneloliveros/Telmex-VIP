@@ -7,7 +7,6 @@ class Dao_reportes_model extends CI_Model {
     public function getInfoReportAct()
     {
         $query = $this->db->query('SELECT rf.id_ot_padre,rf.contador_reportes,rf.last_f_envio, CONCAT(u.n_name_user," ",u.n_last_name_user) AS enviador  FROM reporte_info rf  INNER JOIN user u ON rf.last_sender = u.k_id_user;');
-
         return $query->result();
     }
     
