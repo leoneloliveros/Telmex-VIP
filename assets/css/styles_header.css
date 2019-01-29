@@ -504,7 +504,7 @@ margin-left: -53%;
 
 .telmexVIP_header .menu_nav_header{
     background: #084c6f;
-    font-size: 110%;
+    font-size: inherit;
     font-family:sans-serif;
     
 }

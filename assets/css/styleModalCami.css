@@ -85,11 +85,11 @@
 }
 
 .vieneDeLineaBase{
-    color: #4545d6;
+    color: #000000;
     font-size: 1.1em;
-    background: #ffd7d787;
+    background: #79ffff9e;
     padding: 5px 0px;
-    border-radius: 11px;
+    border-radius: 4px;
     display: block;
     text-align: center;
     margin-top: 11px;

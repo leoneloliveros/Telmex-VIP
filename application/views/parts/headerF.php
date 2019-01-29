@@ -144,6 +144,9 @@
                                         <li><a href="<?= URL::to('facturacion') ?>">Facturados </a></li>
                                     </ul>
                                 </li>
+
+                                <li><a href="<?= URL::to('reportes') ?>">Generar reportes</a></li>
+                                
                             <?php endif ?>
 
                             <?php if (Auth::user()->n_role_user == 'administrador' || Auth::user()->n_role_user == 'clarocc' || (Auth::user()->n_role_user == 'ingeniero' && Auth::user()->n_code_user == 'TIPO_A')): ?>

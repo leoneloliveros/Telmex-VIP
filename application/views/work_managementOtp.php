@@ -278,7 +278,10 @@
             </div>
             <div class="modal-body">
                 <form class="well form-horizontal" id="formModalOTHS" method="post" novalidate="novalidate">
-
+                    <div class="col-xs-4 col-xs-offset-4 ver-log-general">
+                        <span class="fa fa-info-circle" aria-hidden="true"></span>
+                        <span>Ver historial</span>
+                    </div>
                     <table class="table table-hover table-bordered  dataTable_camilo table-striped  " id="table_oths_otp"  cellspacing="2"></table>
                 </form>
             </div>
@@ -1447,7 +1450,7 @@
                                                     <a href="#" class="list-group-item text-center">
                                                         <h2 class="glyphicon glyphicon-list"></h2><br/>Cierre de Kickoff
                                                     </a>
-                                                    <a href="#" class="list-group-item text-center">
+                                                    <a href="#" class="list-group-item text-center" id="reporteInicioFormModal">
                                                         <h2 class="glyphicon glyphicon-folder-open"></h2><br/>Reporte de inicio
                                                     </a>
                                                     <a href="#" class="list-group-item text-center" id="contentAll">

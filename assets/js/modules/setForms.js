@@ -12,11 +12,14 @@ $(function() {
         returnFormularyService: function(nombre_cliente = '', direccion_destino = '', servicio_val, servicio_nombre = '', arg) {
             let form = "";
             // primera seccion, la dejo true porque no se si hay plantillas que no necesite la primera seccion
-            if (servicio_val != '30' || servicio_val != '31') {
-            	console.log("servicio_val", servicio_val);
-                form += setForm.primeraSeccionServicio(nombre_cliente, servicio_nombre);
-                console.log('no debe entrar aca');
-            }
+
+            if (servicio_val === '30' || servicio_val === '31') {
+				$("#reporteInicioFormModal").hide();
+				form += setForm.noNecesitaReporteInicio();
+            }else{
+				$("#reporteInicioFormModal").show();
+				form += setForm.primeraSeccionServicio(nombre_cliente, servicio_nombre);
+			}
 
             switch (servicio_val) {
                 case '1': // internet dedicado empresarial
@@ -49,10 +52,10 @@ $(function() {
                 case '10': // MPLS Transaccional 3G
                     form += setForm.MPLS_Transaccional_3G(direccion_destino);
                     break;
-                    /*plantillas nuevas*/
+					/*plantillas nuevas*/
                 case '11': // Adición Marquillas Aeropuerto el Dorado Opain
                     form += setForm.adicion_marquillas_aeropuerto_el_dorado_opain(direccion_destino, arg.otp);
-                    break;
+					break;
                 case '12': // Cambio de Equipos Servicio
                     form += setForm.cambio_de_equipos_servicio(direccion_destino, arg.otp);
                     break;
@@ -93,14 +96,18 @@ $(function() {
                     form +=setForm.pl_ethernet(direccion_destino);
             }
 
-            if (servicio_val != 30 || servicio_val != 31) {
-                form += setForm.ultimaSeccionServicio(servicio_val);
-            }
+            if (servicio_val === '30' || servicio_val === '31') {
+				//nada alert("aa")
+			}else form += setForm.ultimaSeccionServicio(servicio_val);
 
             return form;
 
-        },
+		},
 
+		//retorna msg de que tal servicio no tiene reporte de inicio
+		noNecesitaReporteInicio: function(){
+			return "<fieldset class='widget'><h5><b>Este servicio no contiene reporte de inicio</b></h5></fieldset>";
+		},
         // retorna la primera seccion de los formularios de servicio
         primeraSeccionServicio: function(nombre_cliente, servicio_nombre) {
             // comentariada la seccion de elegir a quien va dirigido
