@@ -989,7 +989,9 @@ class Templates extends CI_Controller {
         $dataLogMail['destinatarios']         = Auth::user()->k_id_user;
         $dataLogMail['usuario_sesion']        = Auth::user()->k_id_user;
         $dataLogMail['fecha']                 = $fActual;
-
+        $dataLogMail['servicio']              = $pt['servicio'];
+        $dataLogMail['nombre']              = $pt['nombre'];
+        
         $this->Dao_log_correo_model->insert_data($dataLogMail);
     }
 
@@ -1111,7 +1113,7 @@ class Templates extends CI_Controller {
     // Arma el pdf para mostrar el correo enviado
     public function generatePDF() {
         $data = $this->input->post('data');
-
+        
         if ($data['clase'] == 'cierre_ko') {
             switch ($data['servicio']) {
             case 'Internet Dedicado Empresarial':
@@ -1143,6 +1145,48 @@ class Templates extends CI_Controller {
                 break;
             case 'MPLS Transaccional 3G':
                 $template = $this->mpls_transaccional_3g($data);
+                break;
+            case 'Adición Marquillas Aeropuerto el Dorado Opain':
+                $template = $this->adicion_marquillas_aeropuerto_el_dorado_opain($data);
+                break;
+            case 'Cambio de Equipos Servicio':
+                $template = $this->cambio_de_equipos_servicio($data);
+                break;
+            case 'Cambio de Servicio Telefonia Fija Pública Linea Basica a Linea E1':
+                $template = $this->cambio_de_servicio_telefonia_fija_publica_linea_basica_a_linea_e1($data);
+                break;
+            case 'Cambio de Servicio Telefonia Fija Pública Linea SIP a PBX Distribuida Linea SIP':
+                $template = $this->cambio_de_servicio_telefonia_fija_pública_linea_sip_a_pbx_distribuida_linea_sip($data);
+                break;
+            case 'Traslado Externo Servicio':
+                $template = $this->traslado_externo_servicio($data);
+                break;
+            case 'Traslado Interno Servicio':
+                $template = $this->traslado_interno_servicio($data);
+                break;
+            case 'SOLUCIONES ADMINISTRATIVAS - COMUNICACIONES UNIFICADAS PBX ADMINISTRADA':
+                $template = $this->soluciones_administrativas_comunicaciones_unificadas_pbx_administrada($data);
+                break;
+            case 'Instalación Servicio Telefonia Fija PBX Distribuida Linea E1':
+                $template = $this->instalacion_servicio_telefonia_fija_pbx_distribuida_linea_e1($data);
+                break;
+            case 'Instalación Servicio Telefonia Fija PBX Distribuida Linea SIP':
+                $template = $this->instalacion_servicio_telefonia_fija_pbx_distribuida_linea_sip($data);
+                break;
+            case 'Instalación Servicio Telefonia Fija PBX Distribuida Linea SIP con Gateway de Voz':
+                $template =$this->instalación_servicio_telefonia_fija_pbx_distribuida_linea_sip_con_gateway_de_voz($data);
+                break;
+            case 'Instalación Telefonía Publica Básica - Internet Dedicado':
+                $template = $this->instalación_telefonia_publica_basica_internet_dedicado($data);
+                break;
+            case 'Cambio de Última Milla':
+                $template = $this->cambio_de_ultima_milla($data);
+                break;
+            case 'Cambio de Equipo':
+                $template = $this->cambio_de_equipo($data);
+                break;
+            case 'PL ETHERNET':
+                $template = $this->pl_ethernet($data);
                 break;
             }
         } else if ($data['clase'] == 'ko_8d') {

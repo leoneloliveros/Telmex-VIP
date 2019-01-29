@@ -113,7 +113,7 @@ $(function(){
             tablaInit.tablereportinit = $('#tablereportinit').DataTable(tablaInit.configTableReportInit(data, [
                 {title: "OTP",data:"k_id_ot_padre"},
                 {title: "OTH",data:"id_orden_trabajo_hija"},
-                {title: "Ultimo en Actualizar",data:"Nombres"},
+                {title: "Enviador",data:"Nombres"},
                 {title: "Cliente",data:"nombre_cliente"},
                 {title: "Servicio",data:"servicio"},
                 {title: "Fecha de Envío",data:"fecha"},
