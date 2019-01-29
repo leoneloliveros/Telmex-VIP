@@ -2084,7 +2084,7 @@ class Templates extends CI_Controller {
             );
 
             break;
-            case ($s == 24): // LP ETHERNET
+            case ($s == 24): // PL ETHERNET
 
             $argumentos = array(
                 'campo1'  => $p['nombre'], //Nombre

@@ -626,7 +626,7 @@ class Dao_ot_padre_model extends CI_Model {
 
                 ) AS mayor_30
             FROM user u
-            WHERE u.n_role_user = 'ingeniero'
+            WHERE u.n_role_user = 'ingeniero' AND u.n_group='GESTION OTS ESTANDAR'
             $condicion
         ");
         return $query->result();
