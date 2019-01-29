@@ -12,8 +12,10 @@ $(function() {
         returnFormularyService: function(nombre_cliente = '', direccion_destino = '', servicio_val, servicio_nombre = '', arg) {
             let form = "";
             // primera seccion, la dejo true porque no se si hay plantillas que no necesite la primera seccion
-            if (servicio_val != 30 || servicio_val != 31) {
+            if (servicio_val != '30' || servicio_val != '31') {
+            	console.log("servicio_val", servicio_val);
                 form += setForm.primeraSeccionServicio(nombre_cliente, servicio_nombre);
+                console.log('no debe entrar aca');
             }
 
             switch (servicio_val) {
