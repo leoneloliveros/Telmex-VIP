@@ -70,8 +70,7 @@ $route['generarMarcaciones'] = 'User/markings';
 $route['validadorIp'] = 'User/routingVerification';
 $route['login'] = 'welcome/index';
 $route['facturacion'] = 'Facturacion_ots/index';
-
-//$route['cierre_ots'] = 'Cierre_ots/index';
+$route['reportes'] = 'Reportesexcel/Reportes';
 $route['copy_text'] = 'Templates/view_textarea';
 
 

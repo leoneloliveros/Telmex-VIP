@@ -399,7 +399,7 @@ class OtPadre extends CI_Controller {
                             </tr>
                             <tr height="20" style="height:15pt">
                                 <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'VISITA ENTREGA UM TERCEROS' ? '#4bd605' : '#7c7c7c') . ';">9</div></td>
-                                <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">VISITA ENTREGA UM TERCEROS</td>
+                                <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">ENTREGA SERVICIO</td>
                                 <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->f_compromiso_veut . '</td>
                                 <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->estado_veut . '</td>
                             </tr>
@@ -423,9 +423,12 @@ class OtPadre extends CI_Controller {
             <p class="x_MsoNormal"><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Cliente: &nbsp;</span></strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $configuracion . '<strong></strong></span></p>
             <p class="x_MsoNormal"><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Entrega del servicio:</span></strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;"> ' . $entregaServicio . ' </span><span lang="ES" style="font-family: Arial, sans-serif, serif, EmojiFont;">(Fecha sujeta a cambios en caso de tener algún inconveniente o adelantos en el proceso de instalación). </span><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>
             <p class="x_MsoNormal" style="text-align:justify"><span style="text-decoration:underline"><span lang="ES" style="font-family: Arial, sans-serif, serif, EmojiFont;">De acuerdo a lo anterior, solicitamos de su colaboración confirmado la siguiente información:</span></span></p>
-            <p class="x_MsoListParagraph" style="text-indent:-18.0pt"><span style="font-family: Symbol, serif, EmojiFont;"><span style="">·<span style="font: 7pt &quot;Times New Roman&quot;, serif, EmojiFont;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $observacionesEmail . '</span></p>
+            <p class="x_MsoListParagraph" style="text-indent:-18.0pt"><span style="font-family: Symbol, serif, EmojiFont;"><span style="">·<span style="font: 7pt &quot;Times New Roman&quot;, serif, EmojiFont;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"><br><b>Observaciones: </b>&nbsp;' . $observacionesEmail . '</span></p>
             <p class="x_MsoListParagraph"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>
             <br><br>';
+
+
+
 
         $contacto = '
             <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Durante todo el Proceso de Instalación puede contactar a:</span></p>
@@ -487,5 +490,116 @@ class OtPadre extends CI_Controller {
 
         return $dir;
     }
+
+
+    public function c_getInfoEmailreport()
+    {
+        $idsOtp = $this->input->post("idsOtp");
+
+        //cuenta cuantas filas están seleccionadas
+        $seleccionadas = count($idsOtp);
+
+        $exist = $this->Dao_ot_padre_model->getInfoEmailReport($idsOtp);
+
+        if ($seleccionadas == 1) {
+            //verifica si existe en la base de datos, si no, extraerá la info de la linea base
+            if ($exist) {
+                echo json_encode($exist);
+            }else{
+
+                //si no existe en la tabla de reporte_info, buscará si existe en la linea base
+                $fLineaBase = $this->Dao_ot_padre_model->getFechaLineaBaseEmailReport($idsOtp);
+                if ($fLineaBase) {
+                    $answer['fecha_compromiso'] = $fLineaBase->fecha_compromiso;
+                    echo json_encode($answer);
+                }else{
+
+                    //si no retorna sin data
+                    echo json_encode('sin data');
+                }
+            }
+        }
+        else{
+            //entra si hay más de una seleccion
+
+            $answer = array();
+            //creo el arreglo que devolveré
+
+            for ($i=0; $i < $seleccionadas; $i++) { 
+                if($this->Dao_ot_padre_model->getInfoEmailReport($idsOtp[$i])){
+                    //si existe algo en la tabla reporte_info, lo pondrá en el arreglo
+                    array_push($answer,$this->Dao_ot_padre_model->getInfoEmailReport($idsOtp[$i]));
+                }else if($this->Dao_ot_padre_model->getFechaLineaBaseEmailReport($idsOtp[$i])){
+                    //si no, intentará obtener si existe algo en la linea base
+                    $flb['fecha_compromiso'] = $this->Dao_ot_padre_model->getFechaLineaBaseEmailReport($idsOtp[$i])->fecha_compromiso;
+                    array_push($answer,$flb);
+                }else{
+                    // si no, retornará sin data y seguira iterando
+                    array_push($answer,"sin data");
+                }
+            }
+            echo json_encode($answer);
+        } 
+        
+        
+        
+    }
+    
+
+
+
+
+
+
+
+
+
+
+    //funcion que actualiza o ingresa la info. del formulario del reporte de act.
+    public function saveOrUpdateInfoEmailReport()
+    {
+        $ots = $this->input->post("ids_otp");// ids seleccionadas;
+        $last_sender = Auth::user()->k_id_user; //captura quién envió el reporte
+
+        $last_f_evio = date('Y-m-d H:i:s'); //obtiene la fecha de envío del reporte
+        $data = array(
+            'senior' => $this->input->post("senior"), 
+            'nombre_cliente'=>  $this->input->post("configuracion"), 
+            'f_entrega_servicio' => $this->input->post("entregaServicio"), 
+            'observaciones' => $this->input->post("observaciones"),
+            'last_sender' => $last_sender,
+            'last_f_envio' => $last_f_evio
+        );
+        
+        //ELIMINA LOS CAMPOS VACÍOS PARA QUE SI UN INPUT SE VA VACÍO, NO LO ACTUALICE A NULL
+        foreach ($data as $key => $value) {
+            if ($data[$key] == "" || $data[$key] == " " || $data[$key] == "  ") {
+                unset($data[$key]);
+            }
+        }
+        
+        $cant_ots = count($ots); //cuenta cuantas selecciones hay
+
+        for ($i=0; $i < $cant_ots; $i++) { 
+
+            $exist = $this->Dao_ot_padre_model->get_email_report_by_otp($ots[$i]);
+
+            if ($exist) {
+                //actualizar
+                $data['contador_reportes'] = $exist->contador_reportes + 1;
+                $this->Dao_ot_padre_model->updateInfoEmailDB($data,$ots[$i]);
+                
+            } else {
+                //inserta porque no está en db
+                $data['id_ot_padre'] = $ots[$i];
+                $data['contador_reportes'] = 1;
+                $this->Dao_ot_padre_model->saveInfoEmailDB($data);
+                unset($data['id_ot_padre']);
+            }
+        }
+        echo json_encode('ok');
+    }
+
+
 
 }

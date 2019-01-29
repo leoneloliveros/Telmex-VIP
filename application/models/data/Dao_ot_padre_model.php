@@ -295,7 +295,7 @@ class Dao_ot_padre_model extends CI_Model {
             INNER JOIN user ON otp.k_id_user = user.k_id_user
             LEFT JOIN hitos ON hitos.id_ot_padre = otp.k_id_ot_padre
             WHERE
-            DATEDIFF(CURDATE(), otp.ultimo_envio_reporte) >= 7
+            DATEDIFF(CURDATE(), otp.ultimo_envio_reporte) > 7
             $condicion
             GROUP BY nro_ot_onyx
         ");
@@ -575,6 +575,7 @@ class Dao_ot_padre_model extends CI_Model {
     }
 
     // trae la cantidad de otp sin enviar correo
+    // Por requerimiento se quitaron de los contadores los clientes 'BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', y 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.
     public function getCountPtesPorEnvio() {
         $condicion = " ";
         if (Auth::user()->n_role_user == 'ingeniero') {
@@ -587,6 +588,7 @@ class Dao_ot_padre_model extends CI_Model {
                     SELECT COUNT(1) FROM ot_padre otp1
                     WHERE DATEDIFF(CURDATE(), otp1.ultimo_envio_reporte) <= 7
                     AND otp1.k_id_user = u.k_id_user
+                    AND otp1.n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
                     AND EXISTS(
                         SELECT nro_ot_onyx FROM ot_hija AS oth1
                         WHERE otp1.k_id_ot_padre = oth1.nro_ot_onyx
@@ -598,6 +600,7 @@ class Dao_ot_padre_model extends CI_Model {
                     WHERE DATEDIFF(CURDATE(), otp2.ultimo_envio_reporte) >= 8
                     AND DATEDIFF(CURDATE(), otp2.ultimo_envio_reporte) <= 15
                     AND otp2.k_id_user = u.k_id_user
+                    AND otp2.n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
                     AND EXISTS(
                         SELECT nro_ot_onyx FROM ot_hija AS oth2
                         WHERE otp2.k_id_ot_padre = oth2.nro_ot_onyx
@@ -609,6 +612,7 @@ class Dao_ot_padre_model extends CI_Model {
                     WHERE DATEDIFF(CURDATE(), otp3.ultimo_envio_reporte) >= 16
                     AND DATEDIFF(CURDATE(), otp3.ultimo_envio_reporte) <= 30
                     AND otp3.k_id_user = u.k_id_user
+                    AND otp3.n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
                     AND EXISTS(
                         SELECT nro_ot_onyx FROM ot_hija AS oth3
                         WHERE otp3.k_id_ot_padre = oth3.nro_ot_onyx
@@ -619,6 +623,7 @@ class Dao_ot_padre_model extends CI_Model {
                     SELECT COUNT(1) FROM ot_padre otp4
                     WHERE DATEDIFF(CURDATE(), otp4.ultimo_envio_reporte) > 30
                     AND otp4.k_id_user = u.k_id_user
+                    AND otp4.n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
                     AND EXISTS(
                         SELECT nro_ot_onyx FROM ot_hija AS oth4
                         WHERE otp4.k_id_ot_padre = oth4.nro_ot_onyx
@@ -632,4 +637,41 @@ class Dao_ot_padre_model extends CI_Model {
         return $query->result();
     }
 
+
+    //consulto si existe algo en la tabla reporte info
+    public function getInfoEmailReport($id)
+    {
+        $this->db->where_in('id_ot_padre', $id);
+        $query = $this->db->get('reporte_info');
+        return $query->row();
+    }
+
+   //guarda la informacion del form. en la tabla reporte info
+    public function saveInfoEmailDB($data)
+    {
+        $this->db->insert('reporte_info',$data);
+    }
+
+    //actualiza la inf. de la tabla reporte_info
+    public function updateInfoEmailDB($data,$ids)
+    {
+        $this->db->where('id_ot_padre',$ids);
+        $this->db->update('reporte_info',$data);
+    } 
+
+    // trae registro de la tabla reporte_info mediante otp
+    public function get_email_report_by_otp($otp)
+    {
+        $query = $this->db->get_where('reporte_info', array('id_ot_padre' => $otp));
+        return $query->row();
+    }
+
+
+    //extrae la fecha de linea base si no existe en la tabla reporte_info
+    public function getFechaLineaBaseEmailReport($id)
+    {
+        $this->db->where_in('id_ot_padre', $id);
+        $query = $this->db->get('linea_base');
+        return $query->row();
+    }
 }

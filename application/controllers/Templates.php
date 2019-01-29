@@ -65,10 +65,11 @@ class Templates extends CI_Controller {
         $this->actualizar_oth($pt, $ismail, $plantila_txt);
         // 5. actualizar ot_padre
         $this->actualizar_otp($pt['nro_ot_onyx']);
-         $this->session->set_flashdata('msj', $msj);
-         header('Location: ' . URL::base() . '/managementOtp');
 
-         $this->actualizar_compromiso_oths($this->input->post());
+        //  $this->session->set_flashdata('msj', $msj);
+        //  header('Location: ' . URL::base() . '/managementOtp');
+
+        //  $this->actualizar_compromiso_oths($this->input->post());
     }
 
     public function c_updateStatusOt($servicio = null) {;
@@ -84,19 +85,20 @@ class Templates extends CI_Controller {
             $res_envio = $this->enviar_correo_servicio($pt, $servicio);
             // 3.1 si se envio guardar formulario servicio en log correo.
 
-             if ($res_envio) {
-                 $this->guardar_servicio($pt, $servicio);
-                 // 4. Actualizar ot_hija en tabla ot_hija
-                 $this->actualizar_oth($pt, true, $plantila_txt);
-                 // 5. actualizar ot_padre
-                 $this->actualizar_otp($pt['nro_ot_onyx']);
-                 }
-             // si no se envia no se envia el correo
-             else {
-                 $msj = 'error';
-                 $this->session->set_flashdata('msj', $msj);
-                 header('Location: ' . URL::base() . '/managementOtp');
-             }
+            if ($res_envio) {
+                $this->guardar_servicio($pt, $servicio);
+                // 4. Actualizar ot_hija en tabla ot_hija
+                $this->actualizar_oth($pt, true, $plantila_txt);
+                // 5. actualizar ot_padre
+                $this->actualizar_otp($pt['nro_ot_onyx']);
+                }
+            // si no se envia no se envia el correo
+            else {
+                $msj = 'error';
+                $this->session->set_flashdata('msj', $msj);
+                header('Location: ' . URL::base() . '/managementOtp');
+            }
+
         } else {
             // actualizar el estado
             $this->actualizar_oth($pt);
@@ -970,7 +972,7 @@ class Templates extends CI_Controller {
         $this->load->helper('camilo');
 
         $asunto   = "Notificación de Servicio de la orden " . $pt['nro_ot_onyx'] . "-" . $pt['id_orden_trabajo_hija'];
-         $se_envio = $this->Dao_email_model->h_enviarCorreo($template, Auth::user()->n_mail_user, $asunto);
+        $se_envio = $this->Dao_email_model->h_enviarCorreo($template, Auth::user()->n_mail_user, $asunto);
 
         return $se_envio['success'];
 

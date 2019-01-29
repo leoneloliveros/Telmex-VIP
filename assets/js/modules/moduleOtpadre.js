@@ -848,6 +848,7 @@ $(function() {
             $('#btnGuardarModalHitos').on('click', eventos.onClickSaveHitosOtp);// ver detalles de correo btn impresora
             $('#table_selected').on('click', 'img.quitar_fila', eventos.quitarFila);
             $('#mdl-enviar-reporte').on('click', eventos.onClickSendReportUpdate);
+            $('#mdl_cierre').on("hidden.bs.modal",eventos.cleanFormReportUpdate); 
 
             // ***********************Inicio del evento del menu sticky******************
             $('.contenedor_sticky').on('click', function() {
@@ -1441,7 +1442,10 @@ $(function() {
                 }
             });
             // console.log($("#formModalHitosOTP").serializeArray());
+
+
             
+
             if (vacios == 0) {
                 $.post(baseurl + '/OtPadre/c_saveHitosOtp',
                         {
@@ -1479,6 +1483,15 @@ $(function() {
 
 
         },
+        clean: function(names) {
+            let unique = {};
+            names.forEach(function(i) {
+                if(!unique[i]) {
+                unique[i] = true;
+                }
+            });
+            return Object.keys(unique);
+        },
         // muestra las otp seleccionadas dependiendo la tabla
         otp_seleccionadas: function() {
             var tabla = $('ul#pestania').find('li.active').attr('tabla');
@@ -1509,11 +1522,99 @@ $(function() {
             var seleccionadas = record.rows({selected: true}).data();// los datos de los elem seleccionados
             if (hay_sel) {
                 eventos.modalSeleccionadas(seleccionadas);
-
+                // console.log(seleccionadas[0].k_id_ot_padre);
+                // console.log("==================");
+                // console.log(seleccionadas);
                 var cuantas = record.rows({selected: true}).count();
-                $('#mdl-title-cierre').html(`<b>${cuantas}</b> ORDENES SELECCIONADAS`);
+                var ids = [];
+                    if (cuantas > 1) {
+                        for (let i = 0; i < cuantas; i++) {
+                            ids.push(seleccionadas[i].k_id_ot_padre);
+                        }
+                    }else{
+                        ids.push(seleccionadas[0].k_id_ot_padre);
+                    }
+                // console.log(ids);
 
+                $('#mdl-title-cierre').html(`<b>${cuantas}</b> ORDENES SELECCIONADAS`);
                 $('#mdl_cierre').modal('show');
+                $.post(baseurl + '/OtPadre/c_getInfoEmailreport',{ idsOtp: ids },
+                function(data){
+                    data = JSON.parse(data);
+                    // console.log('data:',data);
+
+                    var ids =['seniorHitos','configuracionHitos','entregaServicioHitos','observacionesHitos'];
+                    if (cuantas == 1) {
+                        //significa que hay una seleccion
+                        if (data != "sin data") {
+                            //si entra aca es porque tiene la fecha de compromiso de linea base o datos en la tabla reporte_info
+                            if(data['fecha_compromiso']) {
+                                //si entra acá es porque la información viene de la linea base
+                                $('#entregaServicioHitos').val(data.fecha_compromiso);
+                                $('#entregaServicioHitos').parents("div.col-sm-10").append(`<b class='vieneDeLineaBase'>Fecha extraída de la fecha de compromiso en línea base</b>`);
+                            }else{
+                                //si entra acá es porque la info viene de la tabla reporte_indo
+                                $('#seniorHitos').val(data['senior']);
+                                $('#configuracionHitos').val(data['nombre_cliente']);
+                                $('#entregaServicioHitos').val(data['f_entrega_servicio']);
+                                $('#observacionesHitos').val(data['observaciones']);
+                            }
+                            
+                        }//si no entra a ninguno no hace nada porque no tiene nada de info.
+                    }else{
+                        //entra si hay más de una seleccion
+
+                        //creamos los arrays para almacenar toda la info. de la bd 
+                        const seniores = [];
+                        const nomCliente = [];
+                        const f_entregaServicio = [];
+                        const obsr = [];
+                        const lineabasearr = [];
+
+                        //ESTE EACH LLENA LA INFORMACION A VALIDAR Y LOS PONE EN DISTINTOS ARREGLOS
+                        $.each(data,function(i,item){
+                            if(item['fecha_compromiso']) {
+                                //entra si los datos es igual a la fehca de compromiso de la linea base
+                                lineabasearr.push(item['fecha_compromiso']);
+
+                                f_entregaServicio.push("se debe eliminar"); // este se debe eliminar es para que entre a la condicional para crear el select
+
+                                //si es igual a sin data significa que no existe en base de datos
+                            }else if(item != "sin data"){
+                                //si entra acá significa que son datos de la tabla
+                                //estos ifs validan si algún campo está vacío, porque puede que algún campo no esté lleno, pero exista en la tabla reporte_info, es para que no se vayan en null
+
+                                //crean los arreglos para llenar la informacion del select
+                                if(item['senior'] != null || item['senior'] != undefined){
+                                    seniores.push(item['senior']);
+                                }
+                                if(item['nombre_cliente'] != null || item['nombre_cliente'] != undefined){
+                                    nomCliente.push(item['nombre_cliente']);
+                                }
+                                if(item['f_entrega_servicio'] != null || item['f_entrega_servicio'] != undefined){
+                                    f_entregaServicio.push(item['f_entrega_servicio']);
+                                }
+                                if(item['observaciones'] != null || item['observaciones'] != undefined){
+                                    obsr.push(item['observaciones']);
+                                }
+                            }
+                        });
+                                
+                        //LIMPIA TODOS LOS VALORES QUE SEAN REPETIDOS Y SOLO DEJA UNO DE CADA UNO
+                        const fseniores = eventos.clean(seniores);
+                        const fnomCliente = eventos.clean(nomCliente);
+                        const ff_entregaServicio = eventos.clean(f_entregaServicio);
+                        const fobsr = eventos.clean(obsr);
+                        
+                        //ARMAMOS EL OBJETO PARA ENVIARLO A LA FUCNIÓN DE VALIDACIÓN
+                        const todo = {0: fseniores , 
+                                    1: fnomCliente ,
+                                    2: ff_entregaServicio,
+                                    3: fobsr}
+                        eventos.validarIgualesReporteAct(todo,ids,lineabasearr)
+
+                    }
+                });
 
             } else {
                 const toast = swal.mixin({
@@ -1529,6 +1630,83 @@ $(function() {
             }
 
         },
+        //validará qué campos son iguales y cuales no
+        validarIgualesReporteAct: function(obj,ids,lineabasearr){
+
+            //se crea el arreglo que devolverá las opc. del selectInfo en caso que no todas las selecciones sean iguales
+            $.each(obj,function(i){
+                //se hace para poder ingresar algo al arreglo normal de fechas y así entre a crear el select
+                if (lineabasearr.length>1 && ids[i] == 'entregaServicioHitos') {
+                    obj[i].push("msg");
+                }
+                //pasa a true si la posicion 1 del array es undefined en el array, cosa que no debería pasar si todas son iguales
+                if (obj[i][1] == undefined) {
+                    // console.log(ids[i],": todos son iguales ");
+                    $('#'+ids[i]).val(obj[i]); //uso los ids en cierta posicion para poder pintar el que es y no todos a la vez
+                }else{
+                    
+                    //ya que entró en el false, se debe limpiar los msg enviados anteriormente para que no se pinten en el select
+                    // console.log(ids[i],": no se puede llenar");
+                    if (ids[i] == 'entregaServicioHitos') {
+                        //se eliminan
+                        if (obj[i].includes('se debe eliminar')) {
+                            var eliminar = obj[i].indexOf('se debe eliminar');
+                            obj[i].splice(eliminar,1);
+                        }
+                        if (obj[i].includes('msg')) {
+                            var eliminar2 = obj[i].indexOf('msg');
+                            obj[i].splice(eliminar2,1);
+                        }
+                    }
+                    // console.log(Object.values(obj[i]));
+
+                    var input = $('#'+ids[i]); //selecciono el input
+                    input.css({"border-color":"#ffc800","background-color" : "#ffd92030"}); //le doy color al input
+
+                    //extraigo el div padre y el hermano para insertar el select y cambiar el tamaño del input
+                    var divPadre = input.parents("div.form-group");
+                    var divHermano = input.parents("div.col-sm-10");
+
+                    //le cambio el tamaño al input
+                    divHermano.addClass("col-sm-7");
+                    divHermano.removeClass("col-sm-10");
+
+                    //aparezco el select
+                    divPadre.append(`<div class="col-sm-3 borrar">
+                        <select class="form-control select${i}" onchange="eventos.changeInput(this,${ids[i]})")>
+                          <option value="">Seleccione</option>`);
+                    $.each(obj[i],function(ii,valor){ 
+                        $('.select'+i).append("<option value='"+valor+"'>"+valor+"</option>");
+                    });
+                    divPadre.append(`
+                        </select>
+                      </div>`);
+
+                }
+                //valido si se deben aggregar al select fechas de la linea base
+                if (lineabasearr.length > 0 && ids[i] == 'entregaServicioHitos') {
+
+                    //las agrego
+                    $('.select'+i).append("<optgroup class='lbopt' label='fechas de línea base' >");
+                        $.each(lineabasearr,function(ii,valor){ 
+                            $('.select'+i).append("<option class='lbopt' value='"+valor+"'>"+valor+"</option>");
+                        });
+
+                    if (lineabasearr.length == 1) {
+                        //si de todas las selecciones sólo hay una linea base y las demás están vacías, entra acá para pintar la fecha
+                        // console.log(lineabasearr);
+                         $('#'+ids[i]).val(lineabasearr);
+                    }
+                    
+                }
+            })
+        },
+
+        changeInput: function(elemento,vall){
+            var valor = elemento.value;
+            $(vall).val(valor);
+        },
+        
         modalSeleccionadas: function(data) {
             if (eventos.table_selected) {
                 var tabla = eventos.table_selected;
@@ -1591,6 +1769,7 @@ $(function() {
         ya_se_envio: true,
         //Envia el reporte de actualizacion dependiendo de las OTP seleccionadas
         onClickSendReportUpdate: function() {
+            
             if (eventos.ya_se_envio) {
 
                 var tableSelected = eventos.table_selected.rows().data();
@@ -1602,13 +1781,26 @@ $(function() {
                     if (otp.id_hitos === null) {
                         flag = false;
                     }
-                    if (otp["n_nombre_cliente"] == "BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A" || otp["n_nombre_cliente"] == "BANCO DAVIVIENDA S.A" || otp["n_nombre_cliente"] == "SERVIBANCA S.A." /*|| otp["n_nombre_cliente"] == "ADCAP Colombia SA Comisionistas de Bolsda"*/) {
+                    if (otp["n_nombre_cliente"] == "BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A" || otp["n_nombre_cliente"] == "BANCO DAVIVIENDA S.A" || otp["n_nombre_cliente"] == "SERVIBANCA S.A.") {
                         clientesSinCorreo = false;
                     }
                 });
                  
-                if (flag && clientesSinCorreo) {
-                    helper.alertLoading('Enviando Email...','Por favor espere c:');
+                if (flag && clientesSinCorreo){
+                    
+                    $.post(baseurl + '/OtPadre/saveOrUpdateInfoEmailReport',
+                    {
+                        ids_otp: ids_otp,
+                        senior: $('#seniorHitos').val(),
+                        configuracion: $('#configuracionHitos').val(),
+                        entregaServicio: $('#entregaServicioHitos').val(),
+                        observaciones: $('#observacionesHitos').val()
+                    }, function(data) {
+                        console.log(data);
+                        var obj = JSON.parse(data);
+                        console.log(obj);
+                    });
+                    helper.alertLoading('Enviando Email...','Por favor espere.');
                     $.post(baseurl + '/OtPadre/c_sendReportUpdate',
                             {
                                 ids_otp: ids_otp,
@@ -1649,6 +1841,16 @@ $(function() {
             }
 
         },
+        //limpia el formulario, colores y selects aparecidos en el reporte de act.
+        cleanFormReportUpdate: function(){
+            $("#formEmail")[0].reset();
+            $("#seniorHitos, #configuracionHitos, #entregaServicioHitos, #observacionesHitos").css({"border-color":"#ccc",
+             "background-color" : "white"});
+            $("div.borrar").remove();
+            $("div.col-sm-7").addClass("col-sm-10");
+            $("div.col-sm-7").removeClass("col-sm-7");
+            $("b.vieneDeLineaBase").remove();
+        }
     };
     eventos.init();
 

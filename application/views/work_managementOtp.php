@@ -244,6 +244,7 @@
                 <tbody id="tbodyCount"></tbody>
             </table>
         </div>
+        
         <table id="table_reporte_actualizacion" class="table table-hover table-bordered table-striped dataTable_camilo" style="width: 100%;">
             <tfoot>
                 <tr>
@@ -357,15 +358,15 @@
                         <label for="email">Actividad Actual:</label>
                         <select name="actividad_actual" id="actividad_actual" class="form-control" required>
                             <option value="">SELECCIONE...</option>
-                            <option value="KICK OFF">KICK OFF</option>
-                            <option value="VISITA OBRA CIVIL">VISITA OBRA CIVIL</option>
-                            <option value="ENVIO COTIZACION">ENVIO COTIZACION</option>
+                            <option value="KICK OFF">CIERRE KICKOFF (KO)</option>
+                            <option value="VISITA OBRA CIVIL">VISITA OBRA CIVIL (VOC)</option>
+                            <option value="ENVIO COTIZACION">ENVIÓ COTIZACIÓN OC</option>
                             <option value="APROBACION COTIZACION">APROBACION COTIZACION</option>
-                            <option value="SOLICITUD INFORMACIÓN TECNICA">SOLICITUD INFORMACIÓN TECNICA</option>
-                            <option value="VISITA EJECUCION OBRA CIVIL">VISITA EJECUCION OBRA CIVIL</option>
+                            <option value="SOLICITUD INFORMACIÓN TECNICA">SOLICITUD INFORMACIÓN TÉCNICA</option>
+                            <option value="VISITA EJECUCION OBRA CIVIL">VISITA EJECUCION OBRA CIVIL (EOC)</option>
                             <option value="EMPALMES">EMPALMES</option>
                             <option value="CONFIGURACION RED CLARO">CONFIGURACION RED CLARO</option>
-                            <option value="VISITA ENTREGA UM TERCEROS">VISITA ENTREGA UM TERCEROS</option>
+                            <option value="VISITA ENTREGA UM TERCEROS">VISITA ENTREGA DE SERVICIO</option>
                         </select>
                     </div>
                     <table class="table table-hover table-bordered  dataTable_camilo table-striped  ">
@@ -394,7 +395,7 @@
                                         </li>
                                     </ul>
                                 </td>
-                                <td>KICK OFF</td>
+                                <td>CIERRE KICKOFF (KO)</td>
                                 <td>
                                     <input type="date" name="f_compromiso" id="f_compromiso_ko" class="form-control fechas_hitos">
                                 </td>
@@ -424,7 +425,7 @@
                                 </td>
                                 <td><!--VISITA OBRA CIVIL-->
                                     <select name="tipo_voc" id="tipo_voc" class="form-control">
-                                        <option value="VISITA OBRA CIVIL" >VISITA OBRA CIVIL</option>
+                                        <option value="VISITA OBRA CIVIL" >VISITA OBRA CIVIL (VOC)</option>
                                         <option value="VISITA OBRA CIVIL TERCEROS" >VISITA OBRA CIVIL TERCEROS</option>
                                     </select>
                                 </td>
@@ -475,7 +476,7 @@
                                         </li>
                                     </ul>
                                 </td>
-                                <td>ENVIO COTIZACION</td>
+                                <td>ENVIÓ COTIZACIÓN OC</td>
                                 <td>
                                     <input type="date" name="f_compromiso" id="f_compromiso_ec" class="form-control fechas_hitos">
                                 </td>
@@ -503,7 +504,7 @@
                                         </li>
                                     </ul>
                                 </td>
-                                <td>APROBACION COTIZACION</td>
+                                <td>APROBACIÓN COTIZACIÓN OC</td>
                                 <td>
                                     <input type="date" name="f_compromiso" id="f_compromiso_ac" class="form-control fechas_hitos">
                                 </td>
@@ -531,7 +532,7 @@
                                         </li>
                                     </ul>
                                 </td>
-                                <td>SOLICITUD INFORMACIÓN TECNICA</td>
+                                <td>SOLICITUD INFORMACIÓN TÉCNICA</td>
                                 <td>
                                     <input type="date" name="f_compromiso" id="f_compromiso_sit" class="form-control fechas_hitos">
                                 </td>
@@ -561,7 +562,7 @@
                                 </td>
                                 <td><!--VISITA EJECUCION OBRA CIVIL-->
                                     <select name="tipo_veoc" id="tipo_veoc" class="form-control">
-                                        <option value="VISITA EJECUCION OBRA CIVIL" >VISITA EJECUCION OBRA CIVIL</option>
+                                        <option value="VISITA EJECUCION OBRA CIVIL" >VISITA EJECUCION OBRA CIVIL (EOC)</option>
                                         <option value="VISITA EJECUCION OBRA CIVIL TERCERO" >VISITA EJECUCION OBRA CIVIL TERCERO</option>
                                     </select>
                                 </td>
@@ -668,7 +669,7 @@
                                         </li>
                                     </ul>
                                 </td>
-                                <td>VISITA ENTREGA UM TERCEROS</td>
+                                <td>VISITA ENTREGA DE SERVICIO</td>
                                 <td>
                                     <input type="date" name="f_compromiso" id="f_compromiso_veut" class="form-control fechas_hitos">
                                 </td>
@@ -708,7 +709,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close cerrar" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                <h3 class="modal-title" id="myModalLabelEditOth">    Orden Ot Hija N <label id="id_ot_modal_edit_oth"></label></h3>
+                <h3 class="modal-title" id="myModalLabelEditOth">  Orden Ot Hija N <label id="id_ot_modal_edit_oth"></label></h3>
             </div>
             <div class="modal-body">
                 <button class="btn m-b-10" id="btn_mostrar_detalle"> ver detalle &nbsp;<img src="<?= URL::to('assets/images/plus.png'); ?>" data-simbol="plus" class="rigth"></span></button>
@@ -1458,7 +1459,7 @@
 
                                                 <!-- tab1  LINEA BASE-->
                                                 <div class="bhoechie-tab-content active" id="contentTab1">
-                                                    <h2 class="h4"><i class="fa fa-eye"></i> &nbsp; Formulario Linea Base</h2>
+                                                    <h2 class="h4"><i class="fa fa-eye"></i> &nbsp; Línea Base – Formulario de Fechas</h2>
                                                     <!-- formulario de linea base -->
                                                     <div id="general_linea_base">
                                                         <div>
@@ -1467,7 +1468,7 @@
                                                                     <fieldset class="col-md-6 m-l-200">
                                                                         
                                                                         <div class="form-group">
-                                                                            <label for="lb_fecha_cierreKo" class="col-md-3 control-label">Cierre KickOff(KO):</label>
+                                                                            <label for="lb_fecha_cierreKo" class="col-md-3 control-label">CIERRE KICKOFF(KO):</label>
                                                                             <div class="col-md-9 selectContainer">
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -1485,7 +1486,7 @@
                                                                     <fieldset class="col-md-6">
                                                                         <!--*********************  INPUT DATE  *********************-->
                                                                         <div class="form-group">
-                                                                            <label for="lb_fecha_compromiso" class="col-md-3 control-label">Fecha Compromiso:</label>
+                                                                            <label for="lb_fecha_compromiso" class="col-md-3 control-label">COMPROMISO:</label>
                                                                             <div class="col-md-9 selectContainer">
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -1495,7 +1496,7 @@
                                                                         </div>
                                                                         <!--*********************  INPUT DATE  *********************-->
                                                                         <div class="form-group">
-                                                                            <label for="lb_fecha_voc" class="col-md-3 control-label">Fecha Visita Obra Civil:</label>
+                                                                            <label for="lb_fecha_voc" class="col-md-3 control-label">VISITA OBRA CIVIL:</label>
                                                                             <div class="col-md-9 selectContainer">
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -1508,7 +1509,7 @@
                                                                     <fieldset class="col-md-6">
                                                                         <!--*********************  INPUT DATE  *********************-->
                                                                         <div class="form-group">
-                                                                            <label for="lb_fecha_programacion" class="col-md-3 control-label">Fecha Programación:</label>
+                                                                            <label for="lb_fecha_programacion" class="col-md-3 control-label">PROGRAMACIÓN:</label>
                                                                             <div class="col-md-9 selectContainer">
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -1518,7 +1519,7 @@
                                                                         </div>
                                                                         <!--*********************  INPUT DATE  *********************-->
                                                                         <div class="form-group">
-                                                                            <label for="lb_fecha_dcoc" class="col-md-3 control-label">Fecha documentación cotización obra civil :</label>
+                                                                            <label for="lb_fecha_dcoc" class="col-md-3 control-label">DOCUMENTACIÓN COTIZACIÓN OBRA CIVIL :</label>
                                                                             <div class="col-md-9 selectContainer">
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -1534,7 +1535,7 @@
                                                                     <fieldset class="col-md-6">
                                                                         <!--*********************  INPUT DATE  *********************-->
                                                                         <div class="form-group">
-                                                                            <label for="lb_fecha_aprobacion_coc" class="col-md-3 control-label">Fecha Aprobación COC:</label>
+                                                                            <label for="lb_fecha_aprobacion_coc" class="col-md-3 control-label">APROBACIÓN COC:</label>
                                                                             <div class="col-md-9 selectContainer">
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -1545,7 +1546,7 @@
 
                                                                         <!--*********************  INPUT DATE  *********************-->
                                                                         <div class="form-group">
-                                                                            <label for="lb_fecha_configuracion" class="col-md-3 control-label">Fecha Configuración:</label>
+                                                                            <label for="lb_fecha_configuracion" class="col-md-3 control-label">CONFIGURACIÓN:</label>
                                                                             <div class="col-md-9 selectContainer">
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -1558,7 +1559,7 @@
                                                                     <fieldset class="col-md-6">
                                                                         <!--*********************  INPUT DATE  *********************-->
                                                                          <div class="form-group">
-                                                                            <label for="lb_fecha_ingenieria_detalle" class="col-md-3 control-label">Fecha Ingeniería Detalle:</label>
+                                                                            <label for="lb_fecha_ingenieria_detalle" class="col-md-3 control-label">INGENIERÍA DETALLE:</label>
                                                                             <div class="col-md-9 selectContainer">
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -1569,7 +1570,7 @@
 
                                                                         <!--*********************  INPUT DATE  *********************-->
                                                                         <div class="form-group">
-                                                                            <label for="lb_fecha_equipos" class="col-md-3 control-label">Fecha Equipos:</label>
+                                                                            <label for="lb_fecha_equipos" class="col-md-3 control-label">EQUIPOS:</label>
                                                                             <div class="col-md-9 selectContainer">
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -1585,7 +1586,7 @@
                                                                     <fieldset class="col-md-6">
                                                                         <!--*********************  INPUT DATE  *********************-->
                                                                         <div class="form-group">
-                                                                            <label for="lb_fecha_ejecucion_obra_civil" class="col-md-3 control-label">Fecha Ejecución Obra Civil:</label>
+                                                                            <label for="lb_fecha_ejecucion_obra_civil" class="col-md-3 control-label">EJECUCIÓN OBRA CIVIL:</label>
                                                                             <div class="col-md-9 selectContainer">
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -1595,7 +1596,7 @@
                                                                         </div>
                                                                         <!--*********************  INPUT DATE  *********************-->
                                                                        <div class="form-group">
-                                                                            <label for="lb_fecha_entrega_servicio" class="col-md-3 control-label">Fecha Entrega Servicio:</label>
+                                                                            <label for="lb_fecha_entrega_servicio" class="col-md-3 control-label">VISITA ENTREGA DE SERVICIO:</label>
                                                                             <div class="col-md-9 selectContainer">
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -1608,7 +1609,7 @@
                                                                     <fieldset class="col-md-6">
                                                                         <!--*********************  INPUT DATE  *********************-->
                                                                         <div class="form-group">
-                                                                            <label for="lb_fecha_empalmes" class="col-md-3 control-label">Fecha de Emplames:</label>
+                                                                            <label for="lb_fecha_empalmes" class="col-md-3 control-label">EMPLAMES:</label>
                                                                             <div class="col-md-9 selectContainer">
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -1673,7 +1674,7 @@
             <div class="modal-body">
                 <table id="table_selected" class="table table-hover table-bordered table-striped dataTable_camilo" width="100%"></table>
 
-                <form class="form-horizontal">
+                <form class="form-horizontal" id="formEmail">
                     <div class="form-group">
                         <label for="seniorHitos" class="col-sm-2 control-label">Señor(a)</label>
                         <div class="col-sm-10">
