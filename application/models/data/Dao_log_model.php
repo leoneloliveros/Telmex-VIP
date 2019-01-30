@@ -94,4 +94,13 @@ class Dao_log_model extends CI_Model {
         }
 
     }
+
+    // obtengo los datos del log general según las oths de la tabla
+    public function getLogsByOTP($oths)
+    {
+        $this->db->where_in("id_ot_hija",$oths);
+        $query = $this->db->get("log");
+        
+        return $query->result_array();
+    }
 }

@@ -409,20 +409,33 @@ $(function() {
             return obj.observacion;
         },
 
-        getButtonsOTP: function(obj) {
+        getButtonsOTP/**/: function(obj) {
             var span = '';
             var title = '';
             var cierreKo = '';
-            if (obj.cant_mails != 0) {
-                span = "<span class='fa fa-fw '>" + obj.cant_mails + "</span>";
-                title = (obj.cant_mails == 1) ? obj.cant_mails + " correo enviado" : obj.cant_mails + " correos enviados";
-            } else {
-                span = "<span class='fa fa-fw fa-eye'></span>";
-                title = "ver OT Hijas";
+            //si existe una OTP con contador de reportes enviados, aparecerá, de lo contrario, pondrá el icono del ojo
+            if (obj.contador_reportes) {
+                if (obj.contador_reportes != null) {
+                    span = "<span class='fa fa-fw '>" + obj.contador_reportes + "</span>";
+                    title = (obj.contador_reportes == 1) ? obj.contador_reportes + " correo enviado" : obj.contador_reportes + " correos enviados";
+                }else{
+                    span = "<span class='fa fa-fw fa-eye'></span>";
+                    title = "ver OT Hijas";
+                }
+            }else{
+                //SI no es reporte de act. entra acá, pero si lo es, entrará arriba
+                if (obj.cant_mails != 0) {
+                    span = "<span class='fa fa-fw '>" + obj.cant_mails + "</span>";
+                    title = (obj.cant_mails == 1) ? obj.cant_mails + " correo enviado" : obj.cant_mails + " correos enviados";
+                } else {
+                    span = "<span class='fa fa-fw fa-eye'></span>";
+                    title = "ver OT Hijas";
+                }
             }
             if (obj.finalizo != null) {
                 cierreKo = "<a class='btn btn-default btn-xs product-otp btn_datatable_cami' data-btn='cierreKo' title='Ver Detalle Cierre KO'><span class='fa fa-fw fa-info-circle'></span></a>";
             }
+    
             const color = (obj.id_hitos) ? 'clr_lime' : '';
             var botones = "<div class='btn-group-vertical'>"
                     + "<a class='btn btn-default btn-xs btnoths btn_datatable_cami' title='" + title + "'>" + span + "</a>"
@@ -838,7 +851,8 @@ $(function() {
         events: function() {
             $('#contenido_tablas').on('click', 'a.product-otp', eventos.onClickBtnCloseOtp);
             $('#contenido_tablas').on('click', 'a.edit-otp', eventos.onClickBtnEditOtp);
-            $('#table_oths_otp').on('click', 'a.ver-log', eventos.onClickShowEmailOth);
+            // $('#table_oths_otp').on('click', 'a.ver-log', eventos.onClickShowEmailOth); //fue remplazado por el botón general
+            $('#formModalOTHS').on('click', 'div.ver-log-general', eventos.showEmailOthGeneral);
             $('#ModalHistorialLog').on('click', 'button.ver-mail', eventos.onClickVerLogMailOTP);// ver detalles de correo btn impresora
             // $('#table_oths_otp').on('click', 'a.ver-det', formulario.onClickShowModalEdit);
             // correccion scroll modal sobre modal
@@ -1241,24 +1255,50 @@ $(function() {
 
             })
         },
-        onClickShowEmailOth: function(obj) {
-            var aLinkLog = $(this);
-            var trParent = aLinkLog.parents('tr');
-            var record = listoth.table_oths_otp.row(trParent).data();
-            $.post(baseurl + '/Log/getLogById',
-                    {
-                        id: record.id_orden_trabajo_hija
-                    },
-                    function(data) {
-                        var obj = JSON.parse(data);
-                        eventos.showModalHistorial(obj, record.id_orden_trabajo_hija);
-                    }
-            );
+
+        // LO REMPLAZARÁ EL DE ABAJO, showEmailOthGeneral
+        // onClickShowEmailOth: function(obj) {
+        //     var aLinkLog = $(this);
+        //     var trParent = aLinkLog.parents('tr');
+        //     var record = listoth.table_oths_otp.row(trParent).data();
+        //     $.post(baseurl + '/Log/getLogById',
+        //             {
+        //                 id: record.id_orden_trabajo_hija
+        //             },
+        //             function(data) {
+        //                 var obj = JSON.parse(data);
+        //                 eventos.showModalHistorial(obj, record.id_orden_trabajo_hija);
+        //             }
+        //     );
+        // },
+
+        //evento que pintará la tabla log mail y historial mail
+        showEmailOthGeneral: function(){
+            var tabla = $("#table_oths_otp");
+            var OTHs = tabla.find("tbody tr td.sorting_1");
+            //seleccionamos las OTHs de la OTP seleccionada
+            var valorOTHs = new Array; 
+            var OTP =$("#NroOTPSelect").html();
+            //creamos el arreglo para enviarlo por ajax
+            $.each(OTHs,function(i,item){
+                valorOTHs.push(item.innerHTML)
+            })
+            
+            $.post(baseurl + "/Log/c_getLogsByOTP",
+            {
+                valOTHs: valorOTHs,
+            },
+            function(data){
+                var obj = JSON.parse(data);
+                console.log(obj);
+                eventos.showModalHistorial(obj, OTP );
+            });
         },
+
         // Muestra modal detalle historial log por id
-        showModalHistorial: function(obj, id_orden_trabajo_hija) {
+        showModalHistorial: function(obj,OTP) {
             $('#ModalHistorialLog').modal('show');
-            $('#titleEventHistory').html('Historial Cambios de orden ' + id_orden_trabajo_hija + '');
+            $('#titleEventHistory').html('Historial Cambios de OTP N.' + OTP + '');
             eventos.printTableHistory(obj.log);
             eventos.printTableLogMail(obj.mail);
         },
@@ -1919,7 +1959,7 @@ $(function() {
             // resetea el formulario y lo deja vacio
             document.getElementById("formModalOTHS").reset();
             //pinta el titulo del modal y cambia dependiendo de la otp seleccionada
-            $('#myModalLabel').html('<strong> Lista OTH de la OTP N.' + data.k_id_ot_padre + '</strong>');
+            $('#myModalLabel').html('<strong> Lista OTH de la OTP N.<span id="NroOTPSelect">' + data.k_id_ot_padre + '</span></strong>');
             $('#modalOthDeOtp').modal('show');
         },
         //pintar tabla
@@ -1966,13 +2006,14 @@ $(function() {
         getButtonsOth: function(obj) {
             var botones = '<div class="btn-group" style="display: inline-flex;">';
             botones += '<a class="btn btn-default btn-xs ver-det btn_datatable_cami" title="Editar Oth"><span class="fa fa-fw fa-edit"></span></a>';
-            if (obj.function != 0) {
-                if (obj.c_email > 0) {
-                    botones += '<a class="btn btn-default btn-xs ver-log btn_datatable_cami" title="Historial"><span class="fa fa-fw">' + obj.c_email + '</span></a>';
-                } else {
-                    botones += '<a class="btn btn-default btn-xs ver-log btn_datatable_cami" title="Historial"><span class="fa fa-fw fa-info"></span></a>';
-                }
-            }
+            // este era el botón privado de cada oth
+            // if (obj.function != 0) {
+            //     if (obj.c_email > 0) {
+            //         botones += '<a class="btn btn-default btn-xs ver-log btn_datatable_cami" title="Historial"><span class="fa fa-fw">' + obj.c_email + '</span></a>';
+            //     } else {
+            //         botones += '<a class="btn btn-default btn-xs ver-log btn_datatable_cami" title="Historial"><span class="fa fa-fw fa-info"></span></a>';
+            //     }
+            // }
 
             botones += '</div>';
             return botones;
@@ -2149,7 +2190,7 @@ $(function() {
                 {title: "Observaciónes dejadas", data: "observacion", visible: false},
                 {title: "Recurrente", data: "MRC"},
                 {title: "ultimo envio", data: gral.cant_dias_ultimo_reporte},
-                {title: "Opc", data: vista.getButtonsOTP},
+                {title: "Opc", data: vista.getButtonsOTP/**/},
             ]));
         },
         // Datos de configuracion del datatable

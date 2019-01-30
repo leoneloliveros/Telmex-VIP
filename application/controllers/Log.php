@@ -19,6 +19,16 @@ class Log extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	// obtengo la información que se pintará en la tabla log y historial mail
+	public function c_getLogsByOTP()
+	{
+		$OTHs = $this->input->post("valOTHs");
+		$result['log'] = $this->Dao_log_model->getLogsByOTP($OTHs);
+		$result['mail'] = $this->Dao_log_correo_model->getLogsMailsByOTP(implode($OTHs,","));
+
+		echo json_encode($result);
+	}
+
 	//
 	public function view_email(){
 		$fun['cuerpo'] = $this->input->post('txt_template');
