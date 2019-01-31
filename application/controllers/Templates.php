@@ -971,7 +971,7 @@ class Templates extends CI_Controller {
 
         $this->load->helper('camilo');
 
-        $asunto   = "Notificación de Servicio de la orden " . $pt['nro_ot_onyx'] . "-" . $pt['id_orden_trabajo_hija'];
+        $asunto   = "Reporte de Inicio de Actividades Cliente " . $pt['nombre_cliente'] . "-" . " OTP " . $pt['nro_ot_onyx'] . " - " . " Servicio " . $pt['servicio'];
         $se_envio = $this->Dao_email_model->h_enviarCorreo($template, Auth::user()->n_mail_user, $asunto);
 
         return $se_envio['success'];

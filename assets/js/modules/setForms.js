@@ -12,6 +12,7 @@ $(function() {
         returnFormularyService: function(nombre_cliente = '', direccion_destino = '', servicio_val, servicio_nombre = '', arg) {
             let form = "";
             // primera seccion, la dejo true porque no se si hay plantillas que no necesite la primera seccion
+
             if (servicio_val === '30' || servicio_val === '31') {
 				$("#reporteInicioFormModal").hide();
 				form += setForm.noNecesitaReporteInicio();

@@ -299,10 +299,13 @@ class Dao_ot_padre_model extends CI_Model {
             LEFT JOIN hitos ON hitos.id_ot_padre = otp.k_id_ot_padre
             WHERE
             DATEDIFF(CURDATE(), otp.ultimo_envio_reporte) > 7 
+            AND n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
+            AND otp.orden_trabajo != 'Caso de Seguimiento'
+            AND user.n_group = 'GESTION OTS ESTANDAR'
             $condicion
             GROUP BY nro_ot_onyx
         ");
-        return $query;
+        return $query; 
     }
 
     // obtiene las otp de una sede (pasarle el id de la sede)
@@ -592,6 +595,7 @@ class Dao_ot_padre_model extends CI_Model {
                     WHERE DATEDIFF(CURDATE(), otp1.ultimo_envio_reporte) <= 7
                     AND otp1.k_id_user = u.k_id_user
                     AND otp1.n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
+                    AND otp1.orden_trabajo != 'Caso de Seguimiento'
                     AND EXISTS(
                         SELECT nro_ot_onyx FROM ot_hija AS oth1
                         WHERE otp1.k_id_ot_padre = oth1.nro_ot_onyx
@@ -604,6 +608,7 @@ class Dao_ot_padre_model extends CI_Model {
                     AND DATEDIFF(CURDATE(), otp2.ultimo_envio_reporte) <= 15
                     AND otp2.k_id_user = u.k_id_user
                     AND otp2.n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
+                    AND otp2.orden_trabajo != 'Caso de Seguimiento'
                     AND EXISTS(
                         SELECT nro_ot_onyx FROM ot_hija AS oth2
                         WHERE otp2.k_id_ot_padre = oth2.nro_ot_onyx
@@ -616,6 +621,7 @@ class Dao_ot_padre_model extends CI_Model {
                     AND DATEDIFF(CURDATE(), otp3.ultimo_envio_reporte) <= 30
                     AND otp3.k_id_user = u.k_id_user
                     AND otp3.n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
+                    AND otp3.orden_trabajo != 'Caso de Seguimiento'
                     AND EXISTS(
                         SELECT nro_ot_onyx FROM ot_hija AS oth3
                         WHERE otp3.k_id_ot_padre = oth3.nro_ot_onyx
@@ -627,6 +633,7 @@ class Dao_ot_padre_model extends CI_Model {
                     WHERE DATEDIFF(CURDATE(), otp4.ultimo_envio_reporte) > 30
                     AND otp4.k_id_user = u.k_id_user
                     AND otp4.n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
+                    AND otp4.orden_trabajo != 'Caso de Seguimiento'
                     AND EXISTS(
                         SELECT nro_ot_onyx FROM ot_hija AS oth4
                         WHERE otp4.k_id_ot_padre = oth4.nro_ot_onyx
