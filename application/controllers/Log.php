@@ -23,8 +23,10 @@ class Log extends CI_Controller {
 	public function c_getLogsByOTP()
 	{
 		$OTHs = $this->input->post("valOTHs");
+		$OTP = $this->input->post("OTP");
 		$result['log'] = $this->Dao_log_model->getLogsByOTP($OTHs);
-		$result['mail'] = $this->Dao_log_correo_model->getLogsMailsByOTP(implode($OTHs,","));
+		$result['mail'] = $this->Dao_log_correo_model->getInitReportMailsByOTP(implode($OTHs,","));
+		$result['reportAct'] = $this->Dao_log_correo_model->getLogsMailsByOTP($OTP);
 
 		echo json_encode($result);
 	}

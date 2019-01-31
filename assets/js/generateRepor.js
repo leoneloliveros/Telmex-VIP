@@ -20,7 +20,7 @@ $(function(){
             ///lleno la tablaAct con los valores enviados
             tablaAct.tablereportAct = $('#tablereportAct').DataTable(tablaAct.configTableReportAct(data, [
                 {title: "OTP",data:"id_ot_padre"},
-                {title: "No. de reportes envíados",data:"contador_reportes"},
+                {title: "No. de reportes envíados",data:"mail_enviados"},
                 {title: "Último en Enviar",data:"enviador"},
                 {title: "Última Fecha de Envío",data:"last_f_envio"},
             ]));

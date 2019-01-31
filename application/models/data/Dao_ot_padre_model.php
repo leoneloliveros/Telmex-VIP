@@ -282,22 +282,23 @@ class Dao_ot_padre_model extends CI_Model {
             $usuario_session = Auth::user()->k_id_user;
             $condicion = " AND otp.k_id_user = $usuario_session ";
         }
-        $query = $this->db->query("
-            SELECT
+        $query = $this->db->query(
+            "SELECT
             otp.k_id_ot_padre, otp.n_nombre_cliente, otp.orden_trabajo,
+            (
+                SELECT COUNT(idreporte_info) as cant FROM reporte_info where paquete_enviados >= 1 and id_ot_padre = otp.k_id_ot_padre
+            ) AS MAIL_enviados,
             otp.servicio, REPLACE(otp.estado_orden_trabajo,'otp_cerrada','Cerrada') AS estado_orden_trabajo, otp.fecha_programacion,
             otp.fecha_compromiso, otp.fecha_creacion, otp.k_id_user, user.n_name_user,
             CONCAT(user.n_name_user, ' ' , user.n_last_name_user) AS ingeniero,
             otp.lista_observaciones, otp.observacion, SUM(oth.c_email) AS cant_mails, hitos.id_hitos, otp.finalizo, otp.ultimo_envio_reporte,
-            CONCAT('$ ',FORMAT(oth.monto_moneda_local_arriendo + oth.monto_moneda_local_cargo_mensual,2)) AS MRC,
-            ri.contador_reportes
+            CONCAT('$ ',FORMAT(oth.monto_moneda_local_arriendo + oth.monto_moneda_local_cargo_mensual,2)) AS MRC
             FROM ot_hija oth
             INNER JOIN ot_padre otp ON oth.nro_ot_onyx = otp.k_id_ot_padre
             INNER JOIN user ON otp.k_id_user = user.k_id_user
             LEFT JOIN hitos ON hitos.id_ot_padre = otp.k_id_ot_padre
-            LEFT JOIN reporte_info ri ON otp.k_id_ot_padre = ri.id_ot_padre
             WHERE
-            DATEDIFF(CURDATE(), otp.ultimo_envio_reporte) > 7
+            DATEDIFF(CURDATE(), otp.ultimo_envio_reporte) > 7 
             $condicion
             GROUP BY nro_ot_onyx
         ");
@@ -644,6 +645,7 @@ class Dao_ot_padre_model extends CI_Model {
     public function getInfoEmailReport($id)
     {
         $this->db->where_in('id_ot_padre', $id);
+        $this->db->select(["senior","nombre_cliente","f_entrega_servicio","observaciones"]);
         $query = $this->db->get('reporte_info');
         return $query->row();
     }
@@ -655,18 +657,19 @@ class Dao_ot_padre_model extends CI_Model {
     }
 
     //actualiza la inf. de la tabla reporte_info
-    public function updateInfoEmailDB($data,$ids)
-    {
-        $this->db->where('id_ot_padre',$ids);
-        $this->db->update('reporte_info',$data);
-    } 
+    // ya no sirve :'v
+    // public function updateInfoEmailDB($data,$ids)
+    // {
+    //     $this->db->where('id_ot_padre',$ids);
+    //     $this->db->update('reporte_info',$data);
+    // } 
 
     // trae registro de la tabla reporte_info mediante otp
-    public function get_email_report_by_otp($otp)
-    {
-        $query = $this->db->get_where('reporte_info', array('id_ot_padre' => $otp));
-        return $query->row();
-    }
+    // public function get_email_report_by_otp($otp)
+    // {
+    //     $query = $this->db->get_where('reporte_info', array('id_ot_padre' => $otp));
+    //     return $query->row();
+    // }
 
 
     //extrae la fecha de linea base si no existe en la tabla reporte_info
@@ -674,6 +677,26 @@ class Dao_ot_padre_model extends CI_Model {
     {
         $this->db->where_in('id_ot_padre', $id);
         $query = $this->db->get('linea_base');
+        return $query->row();
+    }
+
+    // obtiene el mayor numero de paquete de envio de la tabla reporte info para poder aumentarlo cuando se guarde o actualice
+    public function getMaxPaqueteEnvío()
+    {
+        $this->db->select_max("paquete_enviados");
+        $query = $this->db->get('reporte_info');
+        return $query->result();
+    }
+
+
+    public function getLastMailSent($ids)
+    {
+        $query = $this->db->query( 
+        "SELECT senior,nombre_cliente,f_entrega_servicio,observaciones 
+         FROM reporte_info 
+         WHERE id_ot_padre IN ($ids) 
+         ORDER BY senior DESC LIMIT 1;");
+        //  echo("<pre>"); print_r($query->result()); echo("</pre>");
         return $query->row();
     }
 }

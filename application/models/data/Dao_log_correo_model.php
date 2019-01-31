@@ -34,7 +34,7 @@ class Dao_log_correo_model extends CI_Model {
     }
 
     //obtengo la info de los Mails enviados
-    public function getLogsMailsByOTP($oths)
+    public function getInitReportMailsByOTP($oths)
     {
         $query = $this->db->query(
             "SELECT
@@ -49,5 +49,31 @@ class Dao_log_correo_model extends CI_Model {
         );
         return $query->result_array();
     }
+
+
+    //obtengo la info de los Mails enviados
+    public function getLogsMailsByOTP($otp)
+    {
+        $query = $this->db->query(
+            "SELECT ri.id_ot_padre, ri.senior, ri.nombre_cliente, ri.f_entrega_servicio, ri.observaciones, CONCAT(u.n_name_user,' ',u.n_last_name_user) AS last_enviador , ri.last_f_envio, ri.paquete_enviados
+            FROM reporte_info ri INNER JOIN user u ON u.k_id_user = ri.last_sender
+            WHERE id_ot_padre = $otp
+            ");
+        return $query->result_array();
+    }
+
+
+    
+    //obtengo la info de los correos que se enviaron juntos o sólos si es el caso
+    public function getPaqueteEnviados($pe)
+    {
+        $this->db->select(['id_ot_padre','servicio','paquete_enviados']);
+        $this->db->where("paquete_enviados",$pe);
+        $query = $this->db->get("reporte_info");
+        // echo("<pre>"); print_r($this->db->last_query()); echo("</pre>");
+        // echo("<pre>"); print_r($query->result()); echo("</pre>");
+        return array("data" => $query->result() , "cant" => $query->num_rows());
+    }
+
 
 }

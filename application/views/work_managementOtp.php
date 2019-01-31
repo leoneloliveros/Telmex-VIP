@@ -305,8 +305,9 @@
                 <div class="container2">
                     <!--*********************  MODULO PESTAÑAS  *********************-->
                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#tab_log">Historial Log</a></li>
-                        <li class=""><a data-toggle="tab" href="#tab_log_mail">Historial Mail</a></li>
+                        <li id="liLogHistory" class="active"><a data-toggle="tab" href="#tab_log">Historial Log</a></li>
+                        <li id="liLogReportInit" class=""><a data-toggle="tab" href="#tabLogReportInit">Historial Reporte Inicio</a></li>
+                        <li id="liLogReporAct" class=""><a data-toggle="tab" href="#tabLogReportAct">Historial Reporte Act.</a></li>
                     </ul>
 
                     <!--*********************  CONTENIDO PESTAÑAS  *********************-->
@@ -324,16 +325,37 @@
                             </table>
                         </div>
 
-                        <div id="tab_log_mail" class="tab-pane fade">
-                            <h3>Historial Mail</h3>
-                            <table id="table_log_mail" class='table table-bordered table-striped' width='100%'>
+                        <div id="tabLogReportInit" class="tab-pane fade">
+                            <h3>Historial Reporte Inicio</h3>
+                            <table id="tableLogReportInit" class='table table-bordered table-striped' width='100%'>
                                 <thead>
-                                <th>FECHA</th>
-                                <th>CLASE</th>
-                                <th>SERVICIO</th>
-                                <th>ENVIADO POR</th>
-                                <th>DIRIGIDO A</th>
-                                <th>opc</th>
+                                    <th>FECHA</th>
+                                    <th>CLASE</th>
+                                    <th>SERVICIO</th>
+                                    <th>ENVIADO POR</th>
+                                    <th>DIRIGIDO A</th>
+                                    <th>Opc</th>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="tabLogReportAct" class="tab-pane fade">
+                            <h3>Historial Reporte de Inicio</h3>
+                            <table id="tableLogReportAct" class="table table-bordered table-striped" width="100%">
+                                <thead>
+                                    <!-- <th>id_ot_padre</th> -->
+                                    <th>Destinatario</th>
+                                    <th>Nombre Cliente</th>
+                                    <!-- <th>observaciones</th> -->
+                                    <th>Enviado por</th>
+                                    <th>Fecha Envío</th>
+                                    <!-- <th>paquete_enviados</th> -->
+                                    <th>opc.</th>
+                                    <!-- <th>FECHA</th>
+                                    <th>CLASE</th>
+                                    <th>SERVICIO</th>
+                                    <th>ENVIADO POR</th>
+                                    <th>ING. 2</th>
+                                    <th>DIRIGIDO A</th> -->
                                 </thead>
                             </table>
                         </div>
