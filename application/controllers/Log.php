@@ -10,21 +10,23 @@ class Log extends CI_Controller {
   }
   
  	// Llama los log por id 
-	public function getLogById(){
-		$id = $this->input->post('id');
-		// $data['title'] = 'Email'; // cargar el  titulo en la pestaña de la pagina para otp
-        // $this->load->view('moduleOtp', $data);
-		$data['log'] = $this->Dao_log_model->getLogById($id);
-		$data['mail'] = $this->Dao_log_correo_model->getLogMailById($id);
-		echo json_encode($data);
-	}
+	// public function getLogById(){
+	// 	$id = $this->input->post('id');
+	// 	// $data['title'] = 'Email'; // cargar el  titulo en la pestaña de la pagina para otp
+    //     // $this->load->view('moduleOtp', $data);
+	// 	$data['log'] = $this->Dao_log_model->getLogById($id);
+	// 	$data['mail'] = $this->Dao_log_correo_model->getLogMailById($id);
+	// 	echo json_encode($data);
+	// }
 
 	// obtengo la información que se pintará en la tabla log y historial mail
 	public function c_getLogsByOTP()
 	{
 		$OTHs = $this->input->post("valOTHs");
+		$OTP = $this->input->post("OTP");
 		$result['log'] = $this->Dao_log_model->getLogsByOTP($OTHs);
-		$result['mail'] = $this->Dao_log_correo_model->getLogsMailsByOTP(implode($OTHs,","));
+		$result['mail'] = $this->Dao_log_correo_model->getInitReportMailsByOTP(implode($OTHs,","));
+		$result['reportAct'] = $this->Dao_log_correo_model->getLogsMailsByOTP($OTP);
 
 		echo json_encode($result);
 	}
