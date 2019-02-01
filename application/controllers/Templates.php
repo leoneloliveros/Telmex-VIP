@@ -1371,43 +1371,263 @@ class Templates extends CI_Controller {
                 $template = $this->adicion_marquillas_aeropuerto_el_dorado_opain($data);
                 break;
             case 'Cambio de Equipos Servicio':
+                $data['campo5'] = array("si"=> $this->si($data['campo5']),"no"=> $this->no($data['campo5']));
                 $template = $this->cambio_de_equipos_servicio($data);
                 break;
             case 'Cambio de Servicio Telefonia Fija Pública Linea Basica a Linea E1':
                 $template = $this->cambio_de_servicio_telefonia_fija_publica_linea_basica_a_linea_e1($data);
                 break;
             case 'Cambio de Servicio Telefonia Fija Pública Linea SIP a PBX Distribuida Linea SIP':
+                $data['campo6'] = array($data['campo6']);
+                $argumentos = array(
+                    'campo1'  => $data['nombre'], // nombre
+                    'campo2'  => $data['nombre_cliente'], // nombre cliente
+                    'campo3'  => $data['servicio'], // servicio
+                    'campo4'  => $data['campo4'], // Dirección Destino
+                    'campo5'  => $data['campo5'], // Cantidad de DID
+                    // 'campo6'  => $data['campo6'], // ciudades (x)
+                    'campo7'  => date('Y-m-d'), // inicio al Proceso de Cambio  de Servicio
+                    'campo8'  => $data['ingeniero1'], // INGENIERO IMPLEMENTACIÓN
+                    'campo9'  => $data['ingeniero1_tel'], // TELEFONOS DE CONTACTO
+                    'campo10' => $data['ingeniero1_email'], // EMAIL
+                    'campo11' => $data['campo11'], // Fecha de Entrega de su servicio
+                );
+                $list_ciudades = $this->set_cities();
+                foreach ($list_ciudades as $key => $ciudad) {
+                    if (in_array($ciudad, $data['campo6'])) {
+                        $data['campo6'][$ciudad] = 'X';
+                    } else {
+                        $data['campo6'][$ciudad] = '';
+                    }
+                }
                 $template = $this->cambio_de_servicio_telefonia_fija_pública_linea_sip_a_pbx_distribuida_linea_sip($data);
                 break;
             case 'Traslado Externo Servicio':
+            $data['campo6'] = array("si"=> $this->si($data['campo6']),"no"=> $this->no($data['campo6']));
                 $template = $this->traslado_externo_servicio($data);
                 break;
             case 'Traslado Interno Servicio':
+                $data['campo5'] = array("si"=> $this->si($data['campo5']),"no"=> $this->no($data['campo5']));
+                $data['campo9'] = array("si"=> $this->si($data['campo9']),"no"=> $this->no($data['campo9']));
+                $data['campo10'] = array("si"=> $this->si($data['campo10']),"no"=> $this->no($data['campo10']));
+                $data['campo11'] = array("si"=> $this->si($data['campo11']),"no"=> $this->no($data['campo11']));
+                $data['campo12'] = array("si"=> $this->si($data['campo12']),"no"=> $this->no($data['campo12']));
+                $data['campo13'] = array("si"=> $this->si($data['campo13']),"no"=> $this->no($data['campo13']));
+                $data['campo14'] = array("si"=> $this->si($data['campo14']),"no"=> $this->no($data['campo14']));
+                $data['campo15'] = array("si"=> $this->si($data['campo15']),"no"=> $this->no($data['campo15']));
                 $template = $this->traslado_interno_servicio($data);
                 break;
             case 'SOLUCIONES ADMINISTRATIVAS - COMUNICACIONES UNIFICADAS PBX ADMINISTRADA':
-                $template = $this->soluciones_administrativas_comunicaciones_unificadas_pbx_administrada($data);
+                $dataa = array(
+                    'campo0'  => $data['k_id_ot_padre'],
+                    'campo1'  => $data['nombre'], //  nombre
+                    'campo2'  => $data['campo2'], //  nombre cliente
+                    'campo3'  => $data['servicio'], //  servicio
+                    'campo4'  => $data['campo4'], //  Dirección Destino
+                    'campo5'  => $data['campo5'], //  Existente
+                    'campo6'  => $data['campo6'], //  A Implementar
+                    'campo7'  => $data['campo7'], //  DID
+                    'campo8'  => $data['campo8'], //  canales
+                    'campo9'  => $data['campo9'], //  E1(DID)
+                    'campo10' => $data['campo10'], //  E1(E1)
+                    'campo12' => $data['campo12'], //  cantidad
+                    'campo14' => $data['campo14'], //  cantidad
+                    'campo15' => $data['campo15'], //  tipo
+                    'campo17' => $data['campo17'], //  cantidad
+                    'campo18' => $data['campo18'], //  pc
+                    'campo19' => $data['campo19'], //  celular
+                    'campo21' => $data['campo21'], //  cantidad
+                    'campo36' => $data['campo36'], //  cantidad
+                    'campo24' => $data['campo24'], //  cantidad
+                    'campo27' => $data['campo27'], //  cantidad SW
+                    'campo28' => $data['campo28'], //  puertos por sw
+                    'campo31' => $data['campo31'], //  cantidad
+                    'campo33' => $data['campo33'], //  existente
+                    'campo34' => $data['campo34'], //  a implementar
+                    'campo37' => date('Y-m-d'), //  inicio al Proceso de instalación del Servicio
+                    'campo38' => $data['campo38'], //  INGENIERO IMPLEMENTACIÓN
+                    'campo39' => $data['campo39'], //  TELEFONOS DE CONTACTO
+                    'campo40' => $data['campo40'], //  EMAIL
+                    'campo41' => $data['campo41'], //  Fecha de Entrega de su servicio
+                );
+                $dataa['campo11'] = array("si"=>$this->si($data['campo11']),"no"=>$this->no($data['campo11'])); 
+                $dataa['campo13'] = array("si"=>$this->si($data['campo13']),"no"=>$this->no($data['campo13'])); 
+                $dataa['campo16'] = array("si"=>$this->si($data['campo16']),"no"=>$this->no($data['campo16'])); 
+                $dataa['campo20'] = array("si"=>$this->si($data['campo20']),"no"=>$this->no($data['campo20'])); 
+                $dataa['campo22'] = array("si"=>$this->si($data['campo22']),"no"=>$this->no($data['campo22'])); 
+                $dataa['campo23'] = array("si"=>$this->si($data['campo23']),"no"=>$this->no($data['campo23'])); 
+                $dataa['campo25'] = array("si"=>$this->si($data['campo25']),"no"=>$this->no($data['campo25'])); 
+                $dataa['campo26'] = array("si"=>$this->si($data['campo26']),"no"=>$this->no($data['campo26'])); 
+                $dataa['campo29'] = array("si"=>$this->si($data['campo29']),"no"=>$this->no($data['campo29'])); 
+                $dataa['campo30'] = array("si"=>$this->si($data['campo30']),"no"=>$this->no($data['campo30'])); 
+                $dataa['campo32'] = array("si"=>$this->si($data['campo32']),"no"=>$this->no($data['campo32'])); 
+                
+                if ($data['campo35'] == 'MPLS') {
+                    $dataa['campo35']['mpls']     = 'X';
+                    $dataa['campo35']['internet'] = '';
+                } else {
+                    $dataa['campo35']['mpls']     = '';
+                    $dataa['campo35']['internet'] = 'X';
+                }
+                
+                $template = $this->soluciones_administrativas_comunicaciones_unificadas_pbx_administrada($dataa);
                 break;
             case 'Instalación Servicio Telefonia Fija PBX Distribuida Linea E1':
+                $data['campo6'] = array($data['campo6']);
+                $argumentos = array(
+                    'campo1'  => $data['nombre'], // nombre
+                    'campo2'  => $data['nombre_cliente'], // nombre cliente
+                    'campo3'  => $data['servicio'], // servicio
+                    'campo4'  => $data['campo4'], // Dirección Destino
+                    'campo5'  => $data['campo5'], // Cantidad de DID
+                    // 'campo6'  => $data['campo6'], // ciudades (x)
+                    'campo7'  => date('Y-m-d'), // inicio al Proceso de Cambio  de Servicio
+                    'campo8'  => $data['ingeniero1'], // INGENIERO IMPLEMENTACIÓN
+                    'campo9'  => $data['ingeniero1_tel'], // TELEFONOS DE CONTACTO
+                    'campo10' => $data['ingeniero1_email'], // EMAIL
+                    'campo11' => $data['campo11'], // Fecha de Entrega de su servicio
+                );
+                $list_ciudades = $this->set_cities();
+                foreach ($list_ciudades as $key => $ciudad) {
+                    if (in_array($ciudad, $data['campo6'])) {
+                        $data['campo6'][$ciudad] = 'X';
+                    } else {
+                        $data['campo6'][$ciudad] = '';
+                    }
+                }
                 $template = $this->instalacion_servicio_telefonia_fija_pbx_distribuida_linea_e1($data);
                 break;
             case 'Instalación Servicio Telefonia Fija PBX Distribuida Linea SIP':
+                $data['campo6'] = array($data['campo6']);
+                $argumentos = array(
+                    'campo1'  => $data['nombre'], // nombre
+                    'campo2'  => $data['nombre_cliente'], // nombre cliente
+                    'campo3'  => $data['servicio'], // servicio
+                    'campo4'  => $data['campo4'], // Dirección Destino
+                    'campo5'  => $data['campo5'], // Cantidad de DID
+                    // 'campo6'  => $data['campo6'], // ciudades (x)
+                    'campo7'  => date('Y-m-d'), // inicio al Proceso de Cambio  de Servicio
+                    'campo8'  => $data['ingeniero1'], // INGENIERO IMPLEMENTACIÓN
+                    'campo9'  => $data['ingeniero1_tel'], // TELEFONOS DE CONTACTO
+                    'campo10' => $data['ingeniero1_email'], // EMAIL
+                    'campo11' => $data['campo11'], // Fecha de Entrega de su servicio
+                );
+                $list_ciudades = $this->set_cities();
+                foreach ($list_ciudades as $key => $ciudad) {
+                    if (in_array($ciudad, $data['campo6'])) {
+                        $data['campo6'][$ciudad] = 'X';
+                    } else {
+                        $data['campo6'][$ciudad] = '';
+                    }
+                }
                 $template = $this->instalacion_servicio_telefonia_fija_pbx_distribuida_linea_sip($data);
                 break;
             case 'Instalación Servicio Telefonia Fija PBX Distribuida Linea SIP con Gateway de Voz':
+                $data['campo6'] = array($data['campo6']);
+                    $argumentos = array(
+                        'campo1'  => $data['nombre'], // nombre
+                        'campo2'  => $data['nombre_cliente'], // nombre cliente
+                        'campo3'  => $data['servicio'], // servicio
+                        'campo4'  => $data['campo4'], // Dirección Destino
+                        'campo5'  => $data['campo5'], // Cantidad de DID
+                        // 'campo6'  => $data['campo6'], // ciudades (x)
+                        'campo7'  => date('Y-m-d'), // inicio al Proceso de Cambio  de Servicio
+                        'campo8'  => $data['ingeniero1'], // INGENIERO IMPLEMENTACIÓN
+                        'campo9'  => $data['ingeniero1_tel'], // TELEFONOS DE CONTACTO
+                        'campo10' => $data['ingeniero1_email'], // EMAIL
+                        'campo11' => $data['campo11'], // Fecha de Entrega de su servicio
+                    );
+                    $list_ciudades = $this->set_cities();
+                    foreach ($list_ciudades as $key => $ciudad) {
+                        if (in_array($ciudad, $data['campo6'])) {
+                            $data['campo6'][$ciudad] = 'X';
+                        } else {
+                            $data['campo6'][$ciudad] = '';
+                        }
+                    }
                 $template =$this->instalación_servicio_telefonia_fija_pbx_distribuida_linea_sip_con_gateway_de_voz($data);
                 break;
             case 'Instalación Telefonía Publica Básica - Internet Dedicado':
                 $template = $this->instalación_telefonia_publica_basica_internet_dedicado($data);
                 break;
             case 'Cambio de Última Milla':
-                $template = $this->cambio_de_ultima_milla($data);
+            // echo("<pre>"); print_r($data); echo("</pre>");
+            $otps      = explode(', ', $data['campo10']);
+            $ids_serv  = explode(', ', $data['campo11']);
+            $dirs      = explode(', ', $data['campo12']);
+            $dirs      = explode(', ', $data['campo12']);
+            $r_equipos = explode(', ', $data['campo13']);
+            $r_um      = explode(', ', $data['campo14']);
+                $argumentos = array(
+                    'campo0'  => $data['k_id_ot_padre'], //otp
+                    'campo1'  => $data['nombre'], //nombre
+                    'campo2'  => $data['campo2'], //nombre cliente
+                    'campo3'  => $data['servicio'], //servicio
+                    'campo4'  => $data['campo4'], //Dirección Sede
+                    'campo5'  => $data['campo5'], //BW Actual
+                    'campo6'  => $data['campo6'], //BW Nuevo
+                    'campo10' => $otps, //OTP
+                    'campo11' => $ids_serv, //ID Servicio
+                    'campo12' => $dirs, //Dirección Sede
+                    'campo13' => $r_equipos, //Requiere Cambio de Equipos (no)
+                    'campo14' => $r_um, //Requiere Cambio de UM (no)
+                    'campo15' => date('Y-m-d'), //inicio al Proceso de Ampliación del  Servicio
+                    'campo16' => $data['campo16'], //Fecha de Entrega de la Ampliación de su Servicio
+                    'campo17' => $data['campo17'], //INGENIERO IMPLEMENTACIÓN
+                    'campo18' => $data['campo18'], //TELEFONOS DE CONTACTO
+                    'campo19' => $data['campo19'], //EMAIL
+                );
+
+                $argumentos['campo7']= array("si"=>$this->si($data['campo7']),"no"=>$this->no($data['campo7']));
+                $argumentos['campo8']= array("si"=>$this->si($data['campo8']),"no"=>$this->no($data['campo8']));
+                $argumentos['campo9']= array("si"=>$this->si($data['campo9']),"no"=>$this->no($data['campo9']));
+            
+                $template = $this->cambio_de_ultima_milla($argumentos);
                 break;
             case 'Cambio de Equipo':
-                $template = $this->cambio_de_equipo($data);
+
+            $otps      = explode(', ', $data['campo9']);
+            $ids_serv  = explode(', ', $data['campo10']);
+            $dirs      = explode(', ', $data['campo11']);
+            $r_equipos = explode(', ', $data['campo12']);
+            $argumentos = array(
+                'campo0'  => $data['k_id_ot_padre'], //otp
+                'campo1'  => $data['nombre'], //nombre
+                'campo2'  => $data['campo2'], //nombre cliente
+                'campo3'  => $data['servicio'], //servicio
+                'campo4'  => $data['campo4'], //Dirección Sede
+                'campo5'  => $data['campo5'], //BW Actual
+                'campo6'  => $data['campo6'], //BW Nuevo
+                'campo9'  => $otps, //otp
+                'campo10' => $ids_serv, //ID Servicio
+                'campo11' => $dirs, //Dirección Sede
+                'campo12' => $r_equipos, //Requiere Cambio de Equipos (si)
+                'campo13' => date('Y-m-d'), //inicio al Proceso de Ampliación del  Servicio
+                'campo14' => $data['campo14'], //Fecha de Entrega de la Ampliación de su Servicio
+                'campo15' => $data['campo15'], //INGENIERO IMPLEMENTACIÓN
+                'campo16' => $data['campo16'], //TELEFONOS DE CONTACTO
+                'campo17' => $data['campo17'], //EMAIL
+            );
+            $argumentos['campo7']= array("si"=>$this->si($data['campo7']),"no"=>$this->no($data['campo7']));
+            $argumentos['campo8']= array("si"=>$this->si($data['campo8']),"no"=>$this->no($data['campo8']));
+                $template = $this->cambio_de_equipo($argumentos);
                 break;
             case 'PL ETHERNET':
-                $template = $this->pl_ethernet($data);
+                $argumentos = array(
+                    'nombre'  => $data['nombre'], //Nombre
+                    'nombre_cliente'  => $data['campo2'], //Nombre cliente
+                    'servicio'  => $data['servicio'], //Servicio
+                    'fecha'  => $data['campo4'], //Fecha Inicio
+                    'campo4'  => $data['campo5'], //Direccion Destino
+                    'campo5'  => $data['campo6'], //Equpos a Instalar
+                    'campo6'  => $data['campo7'], //Interfaz de Entrega
+                    'campo7'  => $data['campo8'], //Ancho de banda
+                    'ingeniero1' => $data['campo9'], //INGENIERO IMPLEMENTACIÓN
+                    'ingeniero1_tel' => $data['campo10'], //TELEFONOS DE CONTACTO
+                    'ingeniero1_email' => $data['campo11'], //EMAIL
+                );
+                // echo("<pre>"); print_r($argumentos); echo("</pre>");
+                $template = $this->pl_ethernet($argumentos);
                 break;
             }
         } else if ($data['clase'] == 'ko_8d') {

@@ -586,7 +586,6 @@ class OtPadre extends CI_Controller {
                 //inserta porque no está en db
                 $data['id_ot_padre'] = $ots[$i];
                 $data['servicio'] = $servicios[$i];
-                $data['contador_reportes'] = 1;
                 $this->Dao_ot_padre_model->saveInfoEmailDB($data);
                 // los elimino para que en la siguiente iteracion sólo exista el que debe insertarse
                 unset($data['id_ot_padre']);

@@ -1669,8 +1669,10 @@ $(function() {
                                 //si es igual a sin data significa que no existe en base de datos
                             }else if(item != "sin data"){
                                 //si entra acá significa que son datos de la tabla
-                                //estos ifs validan si algún campo está vacío, porque puede que algún campo no esté lleno, pero exista en la tabla reporte_info, es para que no se vayan en null
+
                                 
+                                //estos ifs validan si algún campo está vacío, porque puede que algún campo no esté lleno, pero exista en la tabla reporte_info, es para que no se vayan en null
+                            
                                 //crean los arreglos para llenar la informacion del select
                                 if(item['senior'] != null || item['senior'] != undefined){
                                     seniores.push(item['senior']);
