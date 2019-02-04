@@ -1448,7 +1448,7 @@ $(function() {
 				              <label for="campo7" class="col-md-3 control-label">Cantidad:</label>
 				              <div class="col-md-9 selectContainer">
 				                  <div class="input-group">
-				                      <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+				                      <span class="input-group-addon"><i class="glyphicon glyphicon-sort-by-order"></i></span>
 				                      <input type="number" name="campo7" id="campo7" class="form-control">
 				                  </div>
 				              </div>
@@ -1459,7 +1459,7 @@ $(function() {
 				              <label for="campo9" class="col-md-3 control-label">Códigos Servicios a Trasladar:</label>
 				              <div class="col-md-9 selectContainer">
 				                  <div class="input-group">
-				                      <span class="input-group-addon"><i class="glyphicon glyphicon-sound-5-1"></i></span>
+				                      <span class="input-group-addon"><i class="glyphicon glyphicon-sort-by-order"></i></span>
 				                      <input type="text" name="campo9" id="campo9" class="form-control">
 				                  </div>
 				              </div>
@@ -1527,7 +1527,7 @@ $(function() {
 				            	<label for="campo6" class="col-md-3 control-label">Cantidad de otros servicios a Trasladar:</label>
 				            	<div class="col-md-9 selectContainer">
 				            		<div class="input-group">
-				            			<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				            			<span class="input-group-addon"><i class="glyphicon glyphicon-sort-by-order"></i></span>
 				            			<input type="number" name="campo6" id="campo6" class="form-control">
 				            		</div>
 				            	</div>
@@ -1538,7 +1538,7 @@ $(function() {
 				            	<label for="campo7" class="col-md-3 control-label">Codigos de servicio a Trasladar:</label>
 				            	<div class="col-md-9 selectContainer">
 				            		<div class="input-group">
-				            			<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				            			<span class="input-group-addon"><i class="glyphicon glyphicon-sort-by-order"></i></span>
 				            			<input type="text" name="campo7" id="campo7" class="form-control">
 				            		</div>
 				            	</div>

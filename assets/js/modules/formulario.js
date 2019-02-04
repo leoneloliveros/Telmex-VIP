@@ -396,8 +396,6 @@ $(function() {
         },
         // llena los campos de cantidad de servicios a trasladar y codigos de servicios a trasladar del reporte de inicio con la info del form. cierre KO
         llenarCamposTraslado: function(){
-            console.log("solo debe llegar con los traslados");
-            
             const tipoTraslado = $("#ins_servicio").val();
             //si el servicio es traslado externo, entra al 15, si es 16, entrará al else, el traslado interno
             const cantidadsServTrasladar = $("#pr_cant_servicios_trasladar").val();
