@@ -17,7 +17,7 @@ class Files extends CI_Controller {
 
     // retorna los nombres de los archivos de la carpeta dada
     public function c_getFillName() {
-        $files   = [];
+        $files = [];
         if (is_dir("uploads")) {
             $directorio = opendir("uploads"); //ruta actual
             while ($archivo = readdir($directorio)) //obtenemos un archivo y luego otro sucesivamente
