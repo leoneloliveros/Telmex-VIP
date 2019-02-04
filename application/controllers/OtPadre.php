@@ -308,7 +308,7 @@ class OtPadre extends CI_Controller {
         $observaciones = '';
         $asunOtp = ' - ';
         $ids_in = implode(",", $ids_otp);
-        $direccionCierreOtp = $this->getDireccionCierreOTP($ids_in);
+        $direccionCierreOtp = implode(',' , $this->getDireccionCierreOTP($ids_in));
         $detCierreOtp = $this->Dao_cierre_ots_model->getDetailsCierreOTP($ids_in);
 
         foreach ($ids_otp as $idOtp) {
