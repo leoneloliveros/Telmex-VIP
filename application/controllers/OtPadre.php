@@ -311,6 +311,9 @@ class OtPadre extends CI_Controller {
         $direccionCierreOtp = implode(',' , $this->getDireccionCierreOTP($ids_in));
         $detCierreOtp = $this->Dao_cierre_ots_model->getDetailsCierreOTP($ids_in);
 
+        /*print_r($direccionCierreOtp);
+       exit();*/
+
         foreach ($ids_otp as $idOtp) {
             //actualizar la ultima fecha de envio de reporte de loa ot padre (CAMILO)
             $this->Dao_ot_padre_model->update_ot_padre(array('ultimo_envio_reporte' => date('Y-m-d')), $idOtp);
@@ -481,7 +484,7 @@ class OtPadre extends CI_Controller {
         /*$detCierreOtp = $this->Dao_cierre_ots_model->getDetailsCierreOTP($ids_in);*/
         $DirCierreOTP = $this->Dao_ot_hija_model->get_direccionservicio($ids_in);
        
-        return $DirCierreOTP->direccion_destino;
+        return array_column($DirCierreOTP, 'direccion_destino');
     }
 
 
