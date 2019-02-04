@@ -1451,6 +1451,11 @@ class Dao_ot_hija_model extends CI_Model {
             return 0;
         }
     }
+    // Retorna la direccion de servicio de una OTH
+    public function get_direccionservicio($ids_in){
+        $query = $this->db->query("SELECT direccion_destino FROM ot_hija WHERE nro_ot_onyx IN ($ids_in) LIMIT 1");
+        return $query->row();
+    }
 
 
     /*     * *********************************************************************************************************** */

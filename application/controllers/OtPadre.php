@@ -478,17 +478,10 @@ class OtPadre extends CI_Controller {
 
     //Trae la dirrecion de cierre de la otp
     public function getDireccionCierreOTP($ids_in) {
-        $tabla = '';
-        $dir = '';
-        $columWhere = 'id_ot_padre';
-        $detCierreOtp = $this->Dao_cierre_ots_model->getDetailsCierreOTP($ids_in);
-
-        if (isset($detCierreOtp->servicio)) {
-            $dirService = $this->Dao_cierre_ots_model->getDirServiceByOtp($detCierreOtp->k_id_ot_padre, $detCierreOtp->servicio);
-            $dir = $dirService->dir;
-        }
-
-        return $dir;
+        /*$detCierreOtp = $this->Dao_cierre_ots_model->getDetailsCierreOTP($ids_in);*/
+        $DirCierreOTP = $this->Dao_ot_hija_model->get_direccionservicio($ids_in);
+       
+        return $DirCierreOTP->direccion_destino;
     }
 
 
