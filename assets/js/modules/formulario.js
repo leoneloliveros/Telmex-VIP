@@ -36,6 +36,7 @@ $(function() {
                 formulario.calcularLineaBase();
             });
             $('#lb_fecha_cierreKo').on('change', formulario.calcularLineaBase);
+            $('#modalEditTicket').on('blur','input#pr_cant_servicios_trasladar,input#pr_cod_servicio_trasladar,#pr_cod_servicios_trasladar',formulario.llenarCamposTraslado);
         },
 
         // formulario tabs vertical
@@ -179,7 +180,10 @@ $(function() {
                 formulario.get_eingenieer(); // lenar los selects con los ingenieros actuales
                 formulario.llenarInfoIngeniero(); // llena la informacion en los input de los inge seleccionados
             }
-           
+            // si el servicio es traslado interno, pintará el nombre del servicio en el input traslado servicio del reporte de inicio
+            if (servicio_seleccionado == '16') {
+                $("#campo8").val($("#servicio_val").val());
+            }
         },
         //limpia el modal cada vez que se cierra
         clearModal: function() {
@@ -391,6 +395,24 @@ $(function() {
                 return formulario.calcular_nueva_fecha(helper.formatDate(veinte), 1)
             } else {
                 return helper.formatDate(veinte);
+            }
+        },
+        // llena los campos de cantidad de servicios a trasladar y codigos de servicios a trasladar del reporte de inicio con la info del form. cierre KO
+        llenarCamposTraslado: function(){
+            const tipoTraslado = $("#ins_servicio").val();
+            const cantidadsServTrasladar = $("#pr_cant_servicios_trasladar").val();
+            //si el servicio es traslado externo, entra al 15, 
+            if (tipoTraslado =='15'){
+                let codigosServTrasladar = $("#pr_cod_servicio_trasladar").val();
+                //les damos el valor a cada input 
+                $("#campo7").val(cantidadsServTrasladar);
+                $("#campo9").val(codigosServTrasladar);
+            } else {
+                // si no es 15, entrará al else, el traslado interno
+                let codigosServTrasladar = $("#pr_cod_servicios_trasladar").val();
+                //les damos el valor a cada input 
+                $("#campo6").val(cantidadsServTrasladar);
+                $("#campo7").val(codigosServTrasladar);
             }
         },
     };

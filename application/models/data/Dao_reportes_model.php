@@ -8,8 +8,8 @@ class Dao_reportes_model extends CI_Model {
     {
         $query = $this->db->query(
         'SELECT rf.id_ot_padre,COUNT(paquete_enviados) AS mail_enviados,rf.last_f_envio, 
-            CONCAT(u.n_name_user," ",u.n_last_name_user) AS enviador  
-            FROM reporte_info rf  INNER JOIN user u ON rf.last_sender = u.k_id_user 
+            CONCAT(u.n_name_user," ",u.n_last_name_user) AS enviador 
+            FROM reporte_info rf INNER JOIN user u ON rf.last_sender = u.k_id_user 
             WHERE paquete_enviados>= 1 
             GROUP BY(id_ot_padre)');
         return $query->result();
@@ -21,6 +21,5 @@ class Dao_reportes_model extends CI_Model {
         return $query->result();
     }
 }
-
 
 ?>

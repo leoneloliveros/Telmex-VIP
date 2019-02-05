@@ -1415,7 +1415,7 @@
                                                 <label for="t_servicio" class="col-md-3 control-label">Instalacion De Servicio: &nbsp;</label>
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
+                                                        <span class="input-group-addon"><i class="fa fa-briefcase" aria-hidden="true"></i></span>
                                                         <select class="form-control" id="ins_servicio" class="form-control">
                                                             <option value="">select...</option>
                                                             <option value="1">Internet Dedicado Empresarial</option>
