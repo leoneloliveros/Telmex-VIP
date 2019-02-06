@@ -279,7 +279,10 @@ $(function() {
                             function(data) {
                                 // convertir el json a objeto de javascript
                                 var obj = JSON.parse(data);
-                                vista.printTable(obj);
+                                vista.printTable(obj.data);
+                                if (obj.cantOTPs > 0) {
+                                    $('#badge_cant_total_OTP').html(obj.cantOTPs);
+                                }
                             }
                     );
                 },

@@ -181,7 +181,11 @@ class OtPadre extends CI_Controller {
     // TABLA QUE TRAE LA INFORMACION DE OTPADRE
     public function c_getListOtsOtPadre() {
         $otPadreList = $this->Dao_ot_padre_model->getListOtsOtPadre();
-        echo json_encode($otPadreList);
+        $data = array(
+            'data' => $otPadreList->result(),
+            'cantOTPs' => $otPadreList->num_rows()
+        );
+        echo json_encode($data);
     }
 
     //inserta los datos (lista y observaciones )de la vista detalles

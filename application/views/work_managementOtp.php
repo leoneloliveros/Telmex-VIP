@@ -37,7 +37,7 @@
 <a class="btn btn_datatable_cami" id="reload" title="Guardar Código de Resolución" style="float: right;"><span class="glyphicon glyphicon-save"></span></a>
 <!--*********************  MODULO PESTAÑAS  *********************-->
 <ul class="nav nav-tabs" id="pestania">
-    <li tabla="table_otPadreList" class="active"><a id="pestana_cant_total" data-toggle="tab" href="#total">Total</a></li>
+    <li tabla="table_otPadreList" class="active"><a id="pestana_cant_total" data-toggle="tab" href="#total">Total <span class="badge" style="background: white;color: #7a00ff;border: 1.2px solid #7a00ff;" id="badge_cant_total_OTP"></span></a></li>
     <li tabla="table_otPadreListHoy" class=""><a data-toggle="tab" href="#hoy">Hoy</a></li>
     <li tabla="table_otPadreListVencidas" class=""><a data-toggle="tab" href="#vencidas">Vencida</a></li>
     <li tabla="table_list_opc" class=""><a data-toggle="tab" href="#por_lista">Por Lista</a></li>

@@ -79,8 +79,8 @@ class Dao_ot_padre_model extends CI_Model {
                 LEFT JOIN hitos ON hitos.id_ot_padre = otp.k_id_ot_padre
                 $condicion
                 GROUP BY nro_ot_onyx
-    	");
-        return $query->result();
+        ");
+        return $query;
     }
 
     // tabla que lista las OT Padre que tengan fecha de compromiso para hoy
