@@ -300,7 +300,7 @@ $(function() {
                 {title: "Observaciónes dejadas", data: gral.inputObservaciones},
                 {title: "Recurrente", data: "MRC", visible: false},
                 {title: "ultimo envio", data: gral.cant_dias_ultimo_reporte, visible: false},
-                {title: "Opc", data: vista.getButtonsOTP},
+                {title: "Opc", data: vista.getButtonsOTP/**/},
             ]));
         },
         // Datos de configuracion del datatable
@@ -338,6 +338,7 @@ $(function() {
                     columna9.visible(!columna9.visible());
                     columna10 = table.column(10);
                     columna10.visible(!columna10.visible());
+                    $("#table_otPadreList").css("text-align","center");
                 },
 
                 // Este callback se ejecuta cada vex que hay cambio de pagina, ordenamiento, o cambio en cantidad de registros a mostrar
@@ -414,13 +415,20 @@ $(function() {
             var title = '';
             var cierreKo = '';
             var icon ='';
+            var reportInicio= ''; //si tiene reporte de inicio y tiene emails enviados
+
             //si existe una OTP con contador de reportes enviados, aparecerá, de lo contrario, pondrá el icono del ojo
             if (obj.MAIL_enviados) {
                 if (obj.MAIL_enviados != 0) {
-                    span = "<span class='fa fa-fw '>" + obj.MAIL_enviados + "</span>";
-                    icon= "<span class='fa fa-envelope' aria-hidden='true'></span>"
+                    reportInicio = (obj.cant_mails != 0) ? "<span class='fa fa-fw '>| &nbsp" + obj.cant_mails + "</span> <span style='color: #7eec7c;' class='fa fa-check-circle'  aria-hidden='true'></span>": '';
+                    span = "<span class='fa fa-fw'>" + obj.MAIL_enviados + "</span>";
+                    icon= "<span class='fa fa-envelope' aria-hidden='true' style='color: #fff700;'></span>"
                     title = (obj.MAIL_enviados == 1) ? obj.MAIL_enviados + " correo enviado" : obj.MAIL_enviados + " correos enviados";
-                }else{
+                }else if (obj.cant_mails != 0) {
+                    span = "<span class='fa fa-fw '>" + obj.cant_mails + "</span>";
+                    reportInicio = "<span style='color: #7eec7c;' class='fa fa-check-circle' aria-hidden='true'></span>";
+                    title = (obj.cant_mails == 1) ? obj.cant_mails + " correo enviado" : obj.cant_mails + " correos enviados";
+                }else {
                     span = "<span class='fa fa-fw fa-eye'></span>";
                     title = "ver OT Hijas";
                 }
@@ -439,8 +447,8 @@ $(function() {
             }
     
             const color = (obj.id_hitos) ? 'clr_lime' : '';
-            var botones = "<div class='btn-group-vertical'>"
-                    + "<a class='btn btn-default btn-xs btnoths btn_datatable_cami' title='" + title + "'>" + icon + span +  "</a>"
+            var botones = "<div class='btn-group-vertical' style=''>"
+                    + "<a class='btn btn-default btn-xs btnoths btn_datatable_cami' title='" + title + "'>" + icon + span + reportInicio + "</a>"
                     // + "<a class='btn btn-default btn-xs edit-otp btn_datatable_cami' title='Editar Ots'><span class='glyphicon glyphicon-save'></span></a>"
                     + "<a class='btn btn-default btn-xs hitos-otp btn_datatable_cami' data-btn='hito' title='Hitos Ots'><span class='glyphicon glyphicon-header " + color + "'></span></a>"
                     + cierreKo
@@ -527,6 +535,7 @@ $(function() {
                     columna9.visible(!columna9.visible());
                     columna10 = table.column(10);
                     columna10.visible(!columna10.visible());
+                    $("#table_otPadreListHoy").css("text-align","center");
                 },
                 // Este callback se ejecuta cada vex que hay cambio de pagina, ordenamiento, o cambio en cantidad de registros a mostrar
                 // o un cambio especifico en la pagina
@@ -653,6 +662,7 @@ $(function() {
                     columna9.visible(!columna9.visible());
                     columna10 = table.column(10);
                     columna10.visible(!columna10.visible());
+                    $("#table_otPadreListVencidas").css("text-align","center");
                 },
                 // Este callback se ejecuta cada vex que hay cambio de pagina, ordenamiento, o cambio en cantidad de registros a mostrar
                 // o un cambio especifico en la pagina
@@ -788,6 +798,7 @@ $(function() {
                     columna9.visible(!columna9.visible());
                     columna10 = table.column(10);
                     columna10.visible(!columna10.visible());
+                    $("#table_list_opc").css("text-align","center");
                 },
                 // Este callback se ejecuta cada vex que hay cambio de pagina, ordenamiento, o cambio en cantidad de registros a mostrar
                 // o un cambio especifico en la pagina
@@ -1304,7 +1315,7 @@ $(function() {
             $('#titleEventHistory').html('Historial Cambios de OTP N.' + OTP + '');
             // la pestaña de log historial mail reporte act. estará escondida por defecto
             $("li#liLogReporAct").hide();
-            if($("#pestana_cant_report").parents("li").hasClass("active")){
+            if($("#pestana_cant_report").parents("li").hasClass("active") || $("#pestana_cant_total").parents("li").hasClass("active") ){
                 // si esta en la pestaña de reporte de act. la pintará, de lo contrario, no lo hará
                 eventos.printTableLogMailAct(obj.reportAct);
                 $("li#liLogReporAct").show();
@@ -2231,10 +2242,8 @@ $(function() {
                                 // convertir el json a objeto de javascript
                                 var obj = JSON.parse(data);
                                 reporte_act.printTableReporteAtc(obj.data);
-
                                 if (obj.cantidad > 0) {
                                     $('#badge_cant_report').html(obj.cantidad);
-                                    // $('#pestana_cant_report').removeClass('hidden');
                                 }
                             }
                     );
@@ -2285,6 +2294,7 @@ $(function() {
                             }
                         });
                     });
+                    $("#table_reporte_actualizacion").css("text-align","center");
                 },
                 data: data,
                 columns: columns,

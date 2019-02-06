@@ -37,7 +37,7 @@
 <a class="btn btn_datatable_cami" id="reload" title="Guardar Código de Resolución" style="float: right;"><span class="glyphicon glyphicon-save"></span></a>
 <!--*********************  MODULO PESTAÑAS  *********************-->
 <ul class="nav nav-tabs" id="pestania">
-    <li tabla="table_otPadreList" class="active"><a data-toggle="tab" href="#total">Total</a></li>
+    <li tabla="table_otPadreList" class="active"><a id="pestana_cant_total" data-toggle="tab" href="#total">Total</a></li>
     <li tabla="table_otPadreListHoy" class=""><a data-toggle="tab" href="#hoy">Hoy</a></li>
     <li tabla="table_otPadreListVencidas" class=""><a data-toggle="tab" href="#vencidas">Vencida</a></li>
     <li tabla="table_list_opc" class=""><a data-toggle="tab" href="#por_lista">Por Lista</a></li>
@@ -65,14 +65,14 @@
                     <th></th>
                     <th></th>
                     <th></th>
-                    <th></th>
+                    <th id="opciones"></th>
                 </tr>
             </tfoot>
         </table>
     </div>
 
     <div id="hoy" class="tab-pane fade">
-        <h3>hoy</h3>
+        <h3>Hoy</h3>
         <table id="table_otPadreListHoy" class="table table-hover table-bordered table-striped dataTable_camilo" style="width: 100%;">
             <tfoot>
                 <tr>
@@ -306,8 +306,8 @@
                     <!--*********************  MODULO PESTAÑAS  *********************-->
                     <ul class="nav nav-tabs">
                         <li id="liLogHistory" class="active"><a data-toggle="tab" href="#tab_log">Historial Log</a></li>
-                        <li id="liLogReportInit" class=""><a data-toggle="tab" href="#tabLogReportInit">Historial Reporte Inicio</a></li>
-                        <li id="liLogReporAct" class=""><a data-toggle="tab" href="#tabLogReportAct">Historial Reporte Act.</a></li>
+                        <li id="liLogReportInit" class=""><a data-toggle="tab" href="#tabLogReportInit">Historial Reporte Inicio <span style='color: #2dea29;' class='fa fa-check-circle'  aria-hidden='true'></span></a></li>
+                        <li id="liLogReporAct" class=""><a data-toggle="tab" href="#tabLogReportAct">Historial Reporte Act. <span class='fa fa-envelope' aria-hidden='true' style='color: #e2f105;'></span></a></li>
                     </ul>
 
                     <!--*********************  CONTENIDO PESTAÑAS  *********************-->

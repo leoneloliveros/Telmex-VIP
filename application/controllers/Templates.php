@@ -1109,21 +1109,11 @@ class Templates extends CI_Controller {
 
         header('Location: ' . URL::base() . '/managementOtp?msj=ok');
     }
-
-     //Trae la dirrecion de cierre de la otp
-     public function getDireccionCierreOTP($ids_in) {
-         $this->load->model("data/Dao_cierre_ots_model");
-        $tabla = '';
-        $dir = '';
-        $columWhere = 'id_ot_padre';
-        $detCierreOtp = $this->Dao_cierre_ots_model->getDetailsCierreOTP($ids_in);
-
-        if (isset($detCierreOtp->servicio)) {
-            $dirService = $this->Dao_cierre_ots_model->getDirServiceByOtp($detCierreOtp->k_id_ot_padre, $detCierreOtp->servicio);
-            $dir = $dirService->dir;
-        }
-
-        return $dir;
+    public function getDireccionCierreOTP($ids_in) {
+        $this->load->model("data/Dao_cierre_ots_model");
+        $DirCierreOTP = $this->Dao_ot_hija_model->get_direccionservicio($ids_in);
+       
+        return array_column($DirCierreOTP, 'direccion_destino');
     }
 
 
@@ -1140,7 +1130,7 @@ class Templates extends CI_Controller {
         }
         
         $ids_in = implode(",", $OTsPaqueteEnvio);
-        $direccionCierreOtp = $this->getDireccionCierreOTP($ids_in);
+        $direccionCierreOtp = implode(',' , $this->getDireccionCierreOTP($ids_in));
         $detCierreOtp = $this->Dao_cierre_ots_model->getDetailsCierreOTP($ids_in);
         
 
@@ -1152,11 +1142,6 @@ class Templates extends CI_Controller {
         $templateHitos = "";
         $ii= 0;
         foreach ($OTsPaqueteEnvio as $idOtp) {
-            
-            
-            // echo("<pre>"); print_r('================'); echo("</pre>");
-            // echo("<pre>"); print_r($infoReportMail['data'][$ii]->servicio); echo("</pre>");
-            // echo("<pre>"); print_r('================'); echo("</pre>");
             $asunOtp .= $idOtp . ' - ';
             $hitosotp = $this->Dao_ot_padre_model->getHitosOtp($idOtp);
             $infOtp = $this->Dao_ot_padre_model->getDetailsHitosOTP($idOtp);
@@ -1169,9 +1154,7 @@ class Templates extends CI_Controller {
                     $hitosotp->observaciones_empalmes . '<br><br>' .
                     $hitosotp->observaciones_crc . '<br><br>' .
                     $hitosotp->observaciones_veut;
-
-
-
+                    
             $templateHitos .= '
                 <div dir="ltr">
                     <table border="0" cellpadding="0" cellspacing="0" width="712" style="border-collapse:collapse;box-shadow: rgba(8, 76, 111, 0.5) 6px 7px;">
