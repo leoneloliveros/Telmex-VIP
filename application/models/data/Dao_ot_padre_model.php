@@ -66,7 +66,7 @@ class Dao_ot_padre_model extends CI_Model {
         $query = $this->db->query(
             "SELECT
                 otp.k_id_ot_padre, otp.n_nombre_cliente, otp.orden_trabajo,
-                (SELECT COUNT(idreporte_info) as cant FROM reporte_info where paquete_enviados >= 1 and id_ot_padre = otp.k_id_ot_padre
+                (SELECT COUNT(id_ot_padre) FROM reporte_info where id_ot_padre = otp.k_id_ot_padre
                 ) AS MAIL_enviados,
                 otp.servicio, REPLACE(otp.estado_orden_trabajo,'otp_cerrada','Cerrada') AS estado_orden_trabajo, otp.fecha_programacion,
                 otp.fecha_compromiso, otp.fecha_creacion, otp.k_id_user, user.n_name_user,
