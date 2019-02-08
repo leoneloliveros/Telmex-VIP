@@ -279,7 +279,10 @@ $(function() {
                             function(data) {
                                 // convertir el json a objeto de javascript
                                 var obj = JSON.parse(data);
-                                vista.printTable(obj);
+                                vista.printTable(obj.data);
+                                if (obj.cantOTPs > 0) {
+                                    $('#badge_cant_total_OTP').html(obj.cantOTPs);
+                                }
                             }
                     );
                 },
@@ -300,7 +303,7 @@ $(function() {
                 {title: "Observaciónes dejadas", data: gral.inputObservaciones},
                 {title: "Recurrente", data: "MRC", visible: false},
                 {title: "ultimo envio", data: gral.cant_dias_ultimo_reporte, visible: false},
-                {title: "Opc", data: vista.getButtonsOTP},
+                {title: "Opc", data: vista.getButtonsOTP/**/},
             ]));
         },
         // Datos de configuracion del datatable
@@ -338,6 +341,7 @@ $(function() {
                     columna9.visible(!columna9.visible());
                     columna10 = table.column(10);
                     columna10.visible(!columna10.visible());
+                    $("#table_otPadreList").css("text-align","center");
                 },
 
                 // Este callback se ejecuta cada vex que hay cambio de pagina, ordenamiento, o cambio en cantidad de registros a mostrar
@@ -409,23 +413,45 @@ $(function() {
             return obj.observacion;
         },
 
-        getButtonsOTP: function(obj) {
+        getButtonsOTP/**/: function(obj) {
             var span = '';
             var title = '';
             var cierreKo = '';
-            if (obj.cant_mails != 0) {
-                span = "<span class='fa fa-fw '>" + obj.cant_mails + "</span>";
-                title = (obj.cant_mails == 1) ? obj.cant_mails + " correo enviado" : obj.cant_mails + " correos enviados";
-            } else {
-                span = "<span class='fa fa-fw fa-eye'></span>";
-                title = "ver OT Hijas";
+            var icon ='';
+            var reportInicio= ''; //si tiene reporte de inicio y tiene emails enviados
+
+            //si existe una OTP con contador de reportes enviados, aparecerá, de lo contrario, pondrá el icono del ojo
+            if (obj.MAIL_enviados) {
+                if (obj.MAIL_enviados != 0) {
+                    reportInicio = (obj.cant_mails != 0) ? "<span class='fa fa-fw '>| &nbsp" + obj.cant_mails + "</span> <span style='color: #7eec7c;' class='fa fa-check-circle'  aria-hidden='true'></span>": '';
+                    span = "<span class='fa fa-fw'>" + obj.MAIL_enviados + "</span>";
+                    icon= "<span class='fa fa-envelope' aria-hidden='true' style='color: #fff700;'></span>"
+                    title = (obj.MAIL_enviados == 1) ? obj.MAIL_enviados + " correo enviado" : obj.MAIL_enviados + " correos enviados";
+                }else if (obj.cant_mails != 0) {
+                    span = "<span class='fa fa-fw '>" + obj.cant_mails + "</span>";
+                    reportInicio = "<span style='color: #7eec7c;' class='fa fa-check-circle' aria-hidden='true'></span>";
+                    title = (obj.cant_mails == 1) ? obj.cant_mails + " correo enviado" : obj.cant_mails + " correos enviados";
+                }else {
+                    span = "<span class='fa fa-fw fa-eye'></span>";
+                    title = "ver OT Hijas";
+                }
+            }else{
+                //SI no es reporte de act. entra acá, pero si lo es, entrará arriba
+                if (obj.cant_mails != 0) {
+                    span = "<span class='fa fa-fw '>" + obj.cant_mails + "</span>";
+                    title = (obj.cant_mails == 1) ? obj.cant_mails + " correo enviado" : obj.cant_mails + " correos enviados";
+                } else {
+                    span = "<span class='fa fa-fw fa-eye'></span>";
+                    title = "ver OT Hijas";
+                }
             }
             if (obj.finalizo != null) {
                 cierreKo = "<a class='btn btn-default btn-xs product-otp btn_datatable_cami' data-btn='cierreKo' title='Ver Detalle Cierre KO'><span class='fa fa-fw fa-info-circle'></span></a>";
             }
+    
             const color = (obj.id_hitos) ? 'clr_lime' : '';
-            var botones = "<div class='btn-group-vertical'>"
-                    + "<a class='btn btn-default btn-xs btnoths btn_datatable_cami' title='" + title + "'>" + span + "</a>"
+            var botones = "<div class='btn-group-vertical' style=''>"
+                    + "<a class='btn btn-default btn-xs btnoths btn_datatable_cami' title='" + title + "'>" + icon + span + reportInicio + "</a>"
                     // + "<a class='btn btn-default btn-xs edit-otp btn_datatable_cami' title='Editar Ots'><span class='glyphicon glyphicon-save'></span></a>"
                     + "<a class='btn btn-default btn-xs hitos-otp btn_datatable_cami' data-btn='hito' title='Hitos Ots'><span class='glyphicon glyphicon-header " + color + "'></span></a>"
                     + cierreKo
@@ -512,6 +538,7 @@ $(function() {
                     columna9.visible(!columna9.visible());
                     columna10 = table.column(10);
                     columna10.visible(!columna10.visible());
+                    $("#table_otPadreListHoy").css("text-align","center");
                 },
                 // Este callback se ejecuta cada vex que hay cambio de pagina, ordenamiento, o cambio en cantidad de registros a mostrar
                 // o un cambio especifico en la pagina
@@ -638,6 +665,7 @@ $(function() {
                     columna9.visible(!columna9.visible());
                     columna10 = table.column(10);
                     columna10.visible(!columna10.visible());
+                    $("#table_otPadreListVencidas").css("text-align","center");
                 },
                 // Este callback se ejecuta cada vex que hay cambio de pagina, ordenamiento, o cambio en cantidad de registros a mostrar
                 // o un cambio especifico en la pagina
@@ -773,6 +801,7 @@ $(function() {
                     columna9.visible(!columna9.visible());
                     columna10 = table.column(10);
                     columna10.visible(!columna10.visible());
+                    $("#table_list_opc").css("text-align","center");
                 },
                 // Este callback se ejecuta cada vex que hay cambio de pagina, ordenamiento, o cambio en cantidad de registros a mostrar
                 // o un cambio especifico en la pagina
@@ -838,12 +867,14 @@ $(function() {
         events: function() {
             $('#contenido_tablas').on('click', 'a.product-otp', eventos.onClickBtnCloseOtp);
             $('#contenido_tablas').on('click', 'a.edit-otp', eventos.onClickBtnEditOtp);
-            $('#table_oths_otp').on('click', 'a.ver-log', eventos.onClickShowEmailOth);
+            // $('#table_oths_otp').on('click', 'a.ver-log', eventos.onClickShowEmailOth); //fue remplazado por el botón general
+            $('#formModalOTHS').on('click', 'div.ver-log-general', eventos.showEmailOthGeneral);
             $('#ModalHistorialLog').on('click', 'button.ver-mail', eventos.onClickVerLogMailOTP);// ver detalles de correo btn impresora
             // $('#table_oths_otp').on('click', 'a.ver-det', formulario.onClickShowModalEdit);
-            // correccion scroll modal sobre modal
+            // correccion scroll modal sobre modal 
             $('#Modal_detalle').on("hidden.bs.modal", eventos.modal_sobre_modal);
             $('#ModalHistorialLog').on("hidden.bs.modal", eventos.modal_sobre_modal);
+            $('#ModalHistorialLog').on("hidden.bs.modal", eventos.limpiarLogs);
             $('#contenido_tablas').on('click', 'a.hitos-otp', eventos.onClickBtnCloseOtp);
             $('#btnGuardarModalHitos').on('click', eventos.onClickSaveHitosOtp);// ver detalles de correo btn impresora
             $('#table_selected').on('click', 'img.quitar_fila', eventos.quitarFila);
@@ -1241,26 +1272,59 @@ $(function() {
 
             })
         },
-        onClickShowEmailOth: function(obj) {
-            var aLinkLog = $(this);
-            var trParent = aLinkLog.parents('tr');
-            var record = listoth.table_oths_otp.row(trParent).data();
-            $.post(baseurl + '/Log/getLogById',
-                    {
-                        id: record.id_orden_trabajo_hija
-                    },
-                    function(data) {
-                        var obj = JSON.parse(data);
-                        eventos.showModalHistorial(obj, record.id_orden_trabajo_hija);
-                    }
-            );
+
+        // LO REMPLAZARÁ EL DE ABAJO, showEmailOthGeneral
+        // onClickShowEmailOth: function(obj) {
+        //     var aLinkLog = $(this);
+        //     var trParent = aLinkLog.parents('tr');
+        //     var record = listoth.table_oths_otp.row(trParent).data();
+        //     $.post(baseurl + '/Log/getLogById',
+        //             {
+        //                 id: record.id_orden_trabajo_hija
+        //             },
+        //             function(data) {
+        //                 var obj = JSON.parse(data);
+        //                 eventos.showModalHistorial(obj, record.id_orden_trabajo_hija);
+        //             }
+        //     );
+        // },
+
+        //evento que pintará la tabla log mail y historial mail
+        showEmailOthGeneral: function(){
+            var tabla = $("#table_oths_otp");
+            var OTHs = tabla.find("tbody tr td.sorting_1");
+            //seleccionamos las OTHs de la OTP seleccionada
+            var valorOTHs = new Array; 
+            var OTP =$("#NroOTPSelect").html();
+            //creamos el arreglo para enviarlo por ajax
+            $.each(OTHs,function(i,item){
+                valorOTHs.push(item.innerHTML)
+            })
+            
+            $.post(baseurl + "/Log/c_getLogsByOTP",
+            {
+                valOTHs: valorOTHs,
+                OTP: OTP,
+            },
+            function(data){
+                var obj = JSON.parse(data);
+                eventos.showModalHistorial(obj, OTP );
+            });
         },
+
         // Muestra modal detalle historial log por id
-        showModalHistorial: function(obj, id_orden_trabajo_hija) {
+        showModalHistorial: function(obj,OTP) {
             $('#ModalHistorialLog').modal('show');
-            $('#titleEventHistory').html('Historial Cambios de orden ' + id_orden_trabajo_hija + '');
+            $('#titleEventHistory').html('Historial Cambios de OTP N.' + OTP + '');
+            // la pestaña de log historial mail reporte act. estará escondida por defecto
+            $("li#liLogReporAct").hide();
+            if($("#pestana_cant_report").parents("li").hasClass("active") || $("#pestana_cant_total").parents("li").hasClass("active") ){
+                // si esta en la pestaña de reporte de act. la pintará, de lo contrario, no lo hará
+                eventos.printTableLogMailAct(obj.reportAct);
+                $("li#liLogReporAct").show();
+            }
             eventos.printTableHistory(obj.log);
-            eventos.printTableLogMail(obj.mail);
+            eventos.printTableLogMailReportInit(obj.mail);
         },
         //pintamos la tabla de log
         printTableHistory: function(data) {
@@ -1280,46 +1344,81 @@ $(function() {
         },
 
         //pintamos la tabla de log de correos
-        printTableLogMail: function(data) {
+        printTableLogMailReportInit: function(data) {
             // limpio el cache si ya habia pintado otra tabla
-            if (eventos.tableModalLogMail) {
+            if (eventos.tableModalLogMailReportInit) {
                 //si ya estaba inicializada la tabla la destruyo
-                eventos.tableModalLogMail.destroy();
+                eventos.tableModalLogMailReportInit.destroy();
             }
             ///lleno la tabla con los valores enviados
-            eventos.tableModalLogMail = $('#table_log_mail').DataTable(listoth.configTable(data, [
+            eventos.tableModalLogMailReportInit = $('#tableLogReportInit').DataTable(listoth.configTable(data, [
                 {data: "fecha"},
                 {data: "clase"},
                 {data: "servicio"},
                 {data: "usuario_en_sesion"},
                 // {data: "destinatarios"},
                 {data: "nombre"},
-                {data: eventos.getButonsPrint}
+                {data: eventos.getButonsViewEmail}
             ]));
-
         },
-        // creamos los botones para imprimir el correo enviado
-        getButonsPrint: function(obj) {
-            var button = '<button class="btn btn-default btn-xs ver-mail btn_datatable_cami" title="ver correo"><span class="fa fa-fw fa-print"></span></button>'
-            return button;
 
+        printTableLogMailAct: function(data){
+
+            if (eventos.tableModalLogReportAct) {
+                //si ya estaba inicializada la tabla la destruyo
+                eventos.tableModalLogReportAct.destroy();
+            }
+            eventos.tableModalLogReportAct = $('#tableLogReportAct').DataTable(listoth.configTable(data, [
+                // {data: "id_ot_padre"},
+                {data: "senior"},
+                {data: "nombre_cliente"},
+                // {data: "f_entrega_servicio"},
+                // {data: "observaciones"},
+                {data: "last_enviador"},
+                {data: "last_f_envio"},
+                // {data: "paquete_enviados"},
+                {data: eventos.getButonsViewEmail}
+            ]));
+        },
+        
+        // creamos los botones para imprimir el correo enviado
+        getButonsViewEmail: function(obj) {
+            if(obj.paquete_enviados){
+                var button = '<button class="btn btn-default btn-xs ver-mail act btn_datatable_cami" title="ver correo"><span class="fa fa-fw fa-print"></span></button>'
+            }else{
+                var button = '<button class="btn btn-default btn-xs ver-mail init btn_datatable_cami" title="ver correo"><span class="fa fa-fw fa-print"></span></button>'
+            }
+            
+            return button;
         },
 
         onClickVerLogMailOTP: function() {
             var tr = $(this).parents('tr');
-            var record = eventos.tableModalLogMail.row(tr).data();
-
+            if ($(this).hasClass("init")) {
+                var record = eventos.tableModalLogMailReportInit.row(tr).data();
+            }else{
+                var record = eventos.tableModalLogReportAct.row(tr).data();
+            }
             eventos.generarPDF(record);
         },
 
         // generar pdf redireccionar
         generarPDF: function(data) {
-            $.post(baseurl + '/Templates/generatePDF',
+            if(!data.paquete_enviados){
+                // entra si el reporte es de inicio
+                var funcionControlador = 'generatePDF'
+            }else{
+                // entra si es reporte de actualizacion
+                var funcionControlador = 'ViewLogMail'
+            }
+
+
+            $.post(baseurl + '/Templates/'+funcionControlador,
                     {
                         data: data
                     },
                     function(data) {
-                        var plantilla = JSON.parse(data);
+                        if(funcionControlador === 'generatePDF')  var plantilla = JSON.parse(data);
                         $('body').append(
                                 `
                             <form action="${baseurl}/Log/view_email" method="POST" target="_blank" hidden>
@@ -1328,7 +1427,8 @@ $(function() {
                             </form>
                         `
                                 );
-                        $('#txt_template').val(plantilla);
+                        var enviar = (funcionControlador === 'generatePDF') ? enviar = plantilla : enviar = data;
+                        $('#txt_template').val(enviar);
                         $('#smt_ver_correo').click();
 
 
@@ -1573,6 +1673,7 @@ $(function() {
 
                         //ESTE EACH LLENA LA INFORMACION A VALIDAR Y LOS PONE EN DISTINTOS ARREGLOS
                         $.each(data,function(i,item){
+                            
                             if(item['fecha_compromiso']) {
                                 //entra si los datos es igual a la fehca de compromiso de la linea base
                                 lineabasearr.push(item['fecha_compromiso']);
@@ -1582,8 +1683,10 @@ $(function() {
                                 //si es igual a sin data significa que no existe en base de datos
                             }else if(item != "sin data"){
                                 //si entra acá significa que son datos de la tabla
-                                //estos ifs validan si algún campo está vacío, porque puede que algún campo no esté lleno, pero exista en la tabla reporte_info, es para que no se vayan en null
 
+                                
+                                //estos ifs validan si algún campo está vacío, porque puede que algún campo no esté lleno, pero exista en la tabla reporte_info, es para que no se vayan en null
+                            
                                 //crean los arreglos para llenar la informacion del select
                                 if(item['senior'] != null || item['senior'] != undefined){
                                     seniores.push(item['senior']);
@@ -1600,6 +1703,11 @@ $(function() {
                             }
                         });
                                 
+                        
+                        
+                        
+                        
+                        
                         //LIMPIA TODOS LOS VALORES QUE SEAN REPETIDOS Y SOLO DEJA UNO DE CADA UNO
                         const fseniores = eventos.clean(seniores);
                         const fnomCliente = eventos.clean(nomCliente);
@@ -1611,6 +1719,8 @@ $(function() {
                                     1: fnomCliente ,
                                     2: ff_entregaServicio,
                                     3: fobsr}
+                                    
+                                    
                         eventos.validarIgualesReporteAct(todo,ids,lineabasearr)
 
                     }
@@ -1776,7 +1886,11 @@ $(function() {
                 var clientesSinCorreo = true;
                 var ids_otp = [];
                 var flag = true;
+                var servicios = []
+                // console.log(tableSelected);
+                
                 tableSelected.each(function(otp) {
+                    servicios.push(otp.servicio)
                     ids_otp.push(otp.k_id_ot_padre);
                     if (otp.id_hitos === null) {
                         flag = false;
@@ -1785,20 +1899,19 @@ $(function() {
                         clientesSinCorreo = false;
                     }
                 });
+                //  console.log(servicios);
                  
                 if (flag && clientesSinCorreo){
-                    
-                    $.post(baseurl + '/OtPadre/saveOrUpdateInfoEmailReport',
+                    $.post(baseurl + '/OtPadre/saveInfoEmailReport',
                     {
                         ids_otp: ids_otp,
                         senior: $('#seniorHitos').val(),
                         configuracion: $('#configuracionHitos').val(),
                         entregaServicio: $('#entregaServicioHitos').val(),
-                        observaciones: $('#observacionesHitos').val()
+                        observaciones: $('#observacionesHitos').val(),
+                        servicios: servicios,
                     }, function(data) {
-                        console.log(data);
-                        var obj = JSON.parse(data);
-                        console.log(obj);
+                        //no necesita hacer nada
                     });
                     helper.alertLoading('Enviando Email...','Por favor espere.');
                     $.post(baseurl + '/OtPadre/c_sendReportUpdate',
@@ -1850,7 +1963,13 @@ $(function() {
             $("div.col-sm-7").addClass("col-sm-10");
             $("div.col-sm-7").removeClass("col-sm-7");
             $("b.vieneDeLineaBase").remove();
-        }
+        },
+
+        limpiarLogs:function(){
+            $("li#liLogHistory").addClass("active")
+            $("#tab_log").addClass("active").addClass("in");
+            $("#tabLogReportInit, #tabLogReportAct, #liLogReportInit, #liLogReporAct").removeClass("active").removeClass("in");
+        },
     };
     eventos.init();
 
@@ -1919,7 +2038,7 @@ $(function() {
             // resetea el formulario y lo deja vacio
             document.getElementById("formModalOTHS").reset();
             //pinta el titulo del modal y cambia dependiendo de la otp seleccionada
-            $('#myModalLabel').html('<strong> Lista OTH de la OTP N.' + data.k_id_ot_padre + '</strong>');
+            $('#myModalLabel').html('<strong> Lista OTH de la OTP N.<span id="NroOTPSelect">' + data.k_id_ot_padre + '</span></strong>');
             $('#modalOthDeOtp').modal('show');
         },
         //pintar tabla
@@ -1966,13 +2085,14 @@ $(function() {
         getButtonsOth: function(obj) {
             var botones = '<div class="btn-group" style="display: inline-flex;">';
             botones += '<a class="btn btn-default btn-xs ver-det btn_datatable_cami" title="Editar Oth"><span class="fa fa-fw fa-edit"></span></a>';
-            if (obj.function != 0) {
-                if (obj.c_email > 0) {
-                    botones += '<a class="btn btn-default btn-xs ver-log btn_datatable_cami" title="Historial"><span class="fa fa-fw">' + obj.c_email + '</span></a>';
-                } else {
-                    botones += '<a class="btn btn-default btn-xs ver-log btn_datatable_cami" title="Historial"><span class="fa fa-fw fa-info"></span></a>';
-                }
-            }
+            // este era el botón privado de cada oth
+            // if (obj.function != 0) {
+            //     if (obj.c_email > 0) {
+            //         botones += '<a class="btn btn-default btn-xs ver-log btn_datatable_cami" title="Historial"><span class="fa fa-fw">' + obj.c_email + '</span></a>';
+            //     } else {
+            //         botones += '<a class="btn btn-default btn-xs ver-log btn_datatable_cami" title="Historial"><span class="fa fa-fw fa-info"></span></a>';
+            //     }
+            // }
 
             botones += '</div>';
             return botones;
@@ -2125,10 +2245,8 @@ $(function() {
                                 // convertir el json a objeto de javascript
                                 var obj = JSON.parse(data);
                                 reporte_act.printTableReporteAtc(obj.data);
-
                                 if (obj.cantidad > 0) {
                                     $('#badge_cant_report').html(obj.cantidad);
-                                    // $('#pestana_cant_report').removeClass('hidden');
                                 }
                             }
                     );
@@ -2149,7 +2267,7 @@ $(function() {
                 {title: "Observaciónes dejadas", data: "observacion", visible: false},
                 {title: "Recurrente", data: "MRC"},
                 {title: "ultimo envio", data: gral.cant_dias_ultimo_reporte},
-                {title: "Opc", data: vista.getButtonsOTP},
+                {title: "Opc", data: vista.getButtonsOTP/**/},
             ]));
         },
         // Datos de configuracion del datatable
@@ -2179,6 +2297,7 @@ $(function() {
                             }
                         });
                     });
+                    $("#table_reporte_actualizacion").css("text-align","center");
                 },
                 data: data,
                 columns: columns,

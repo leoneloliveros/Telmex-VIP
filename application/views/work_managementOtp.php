@@ -37,7 +37,7 @@
 <a class="btn btn_datatable_cami" id="reload" title="Guardar Código de Resolución" style="float: right;"><span class="glyphicon glyphicon-save"></span></a>
 <!--*********************  MODULO PESTAÑAS  *********************-->
 <ul class="nav nav-tabs" id="pestania">
-    <li tabla="table_otPadreList" class="active"><a data-toggle="tab" href="#total">Total</a></li>
+    <li tabla="table_otPadreList" class="active"><a id="pestana_cant_total" data-toggle="tab" href="#total">Total <span class="badge" style="background: white;color: #7a00ff;border: 1.2px solid #7a00ff;" id="badge_cant_total_OTP"></span></a></li>
     <li tabla="table_otPadreListHoy" class=""><a data-toggle="tab" href="#hoy">Hoy</a></li>
     <li tabla="table_otPadreListVencidas" class=""><a data-toggle="tab" href="#vencidas">Vencida</a></li>
     <li tabla="table_list_opc" class=""><a data-toggle="tab" href="#por_lista">Por Lista</a></li>
@@ -65,14 +65,14 @@
                     <th></th>
                     <th></th>
                     <th></th>
-                    <th></th>
+                    <th id="opciones"></th>
                 </tr>
             </tfoot>
         </table>
     </div>
 
     <div id="hoy" class="tab-pane fade">
-        <h3>hoy</h3>
+        <h3>Hoy</h3>
         <table id="table_otPadreListHoy" class="table table-hover table-bordered table-striped dataTable_camilo" style="width: 100%;">
             <tfoot>
                 <tr>
@@ -278,7 +278,10 @@
             </div>
             <div class="modal-body">
                 <form class="well form-horizontal" id="formModalOTHS" method="post" novalidate="novalidate">
-
+                    <div class="col-xs-4 col-xs-offset-4 ver-log-general">
+                        <span class="fa fa-info-circle" aria-hidden="true"></span>
+                        <span>Ver historial</span>
+                    </div>
                     <table class="table table-hover table-bordered  dataTable_camilo table-striped  " id="table_oths_otp"  cellspacing="2"></table>
                 </form>
             </div>
@@ -302,8 +305,9 @@
                 <div class="container2">
                     <!--*********************  MODULO PESTAÑAS  *********************-->
                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#tab_log">Historial Log</a></li>
-                        <li class=""><a data-toggle="tab" href="#tab_log_mail">Historial Mail</a></li>
+                        <li id="liLogHistory" class="active"><a data-toggle="tab" href="#tab_log">Historial Log</a></li>
+                        <li id="liLogReportInit" class=""><a data-toggle="tab" href="#tabLogReportInit">Historial Reporte Inicio <span style='color: #2dea29;' class='fa fa-check-circle'  aria-hidden='true'></span></a></li>
+                        <li id="liLogReporAct" class=""><a data-toggle="tab" href="#tabLogReportAct">Historial Reporte Act. <span class='fa fa-envelope' aria-hidden='true' style='color: #e2f105;'></span></a></li>
                     </ul>
 
                     <!--*********************  CONTENIDO PESTAÑAS  *********************-->
@@ -321,16 +325,37 @@
                             </table>
                         </div>
 
-                        <div id="tab_log_mail" class="tab-pane fade">
-                            <h3>Historial Mail</h3>
-                            <table id="table_log_mail" class='table table-bordered table-striped' width='100%'>
+                        <div id="tabLogReportInit" class="tab-pane fade">
+                            <h3>Historial Reporte Inicio</h3>
+                            <table id="tableLogReportInit" class='table table-bordered table-striped' width='100%'>
                                 <thead>
-                                <th>FECHA</th>
-                                <th>CLASE</th>
-                                <th>SERVICIO</th>
-                                <th>ENVIADO POR</th>
-                                <th>DIRIGIDO A</th>
-                                <th>opc</th>
+                                    <th>FECHA</th>
+                                    <th>CLASE</th>
+                                    <th>SERVICIO</th>
+                                    <th>ENVIADO POR</th>
+                                    <th>DIRIGIDO A</th>
+                                    <th>Opc</th>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="tabLogReportAct" class="tab-pane fade">
+                            <h3>Historial Reporte de Inicio</h3>
+                            <table id="tableLogReportAct" class="table table-bordered table-striped" width="100%">
+                                <thead>
+                                    <!-- <th>id_ot_padre</th> -->
+                                    <th>Destinatario</th>
+                                    <th>Nombre Cliente</th>
+                                    <!-- <th>observaciones</th> -->
+                                    <th>Enviado por</th>
+                                    <th>Fecha Envío</th>
+                                    <!-- <th>paquete_enviados</th> -->
+                                    <th>opc.</th>
+                                    <!-- <th>FECHA</th>
+                                    <th>CLASE</th>
+                                    <th>SERVICIO</th>
+                                    <th>ENVIADO POR</th>
+                                    <th>ING. 2</th>
+                                    <th>DIRIGIDO A</th> -->
                                 </thead>
                             </table>
                         </div>
@@ -1390,7 +1415,7 @@
                                                 <label for="t_servicio" class="col-md-3 control-label">Instalacion De Servicio: &nbsp;</label>
                                                 <div class="col-md-8 selectContainer">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon"><i class='glyphicon glyphicon-user'></i></span>
+                                                        <span class="input-group-addon"><i class="fa fa-briefcase" aria-hidden="true"></i></span>
                                                         <select class="form-control" id="ins_servicio" class="form-control">
                                                             <option value="">select...</option>
                                                             <option value="1">Internet Dedicado Empresarial</option>
@@ -1447,7 +1472,7 @@
                                                     <a href="#" class="list-group-item text-center">
                                                         <h2 class="glyphicon glyphicon-list"></h2><br/>Cierre de Kickoff
                                                     </a>
-                                                    <a href="#" class="list-group-item text-center">
+                                                    <a href="#" class="list-group-item text-center" id="reporteInicioFormModal">
                                                         <h2 class="glyphicon glyphicon-folder-open"></h2><br/>Reporte de inicio
                                                     </a>
                                                     <a href="#" class="list-group-item text-center" id="contentAll">

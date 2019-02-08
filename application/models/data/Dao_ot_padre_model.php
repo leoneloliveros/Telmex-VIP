@@ -63,9 +63,11 @@ class Dao_ot_padre_model extends CI_Model {
             $usuario_session = Auth::user()->k_id_user;
             $condicion = " WHERE otp.k_id_user = $usuario_session ";
         }
-        $query = $this->db->query("
-                SELECT
+        $query = $this->db->query(
+            "SELECT
                 otp.k_id_ot_padre, otp.n_nombre_cliente, otp.orden_trabajo,
+                (SELECT COUNT(id_ot_padre) FROM reporte_info where id_ot_padre = otp.k_id_ot_padre
+                ) AS MAIL_enviados,
                 otp.servicio, REPLACE(otp.estado_orden_trabajo,'otp_cerrada','Cerrada') AS estado_orden_trabajo, otp.fecha_programacion,
                 otp.fecha_compromiso, otp.fecha_creacion, otp.k_id_user, user.n_name_user,
                 CONCAT(user.n_name_user, ' ' , user.n_last_name_user) AS ingeniero,
@@ -77,8 +79,8 @@ class Dao_ot_padre_model extends CI_Model {
                 LEFT JOIN hitos ON hitos.id_ot_padre = otp.k_id_ot_padre
                 $condicion
                 GROUP BY nro_ot_onyx
-    	");
-        return $query->result();
+        ");
+        return $query;
     }
 
     // tabla que lista las OT Padre que tengan fecha de compromiso para hoy
@@ -282,9 +284,12 @@ class Dao_ot_padre_model extends CI_Model {
             $usuario_session = Auth::user()->k_id_user;
             $condicion = " AND otp.k_id_user = $usuario_session ";
         }
-        $query = $this->db->query("
-            SELECT
+        $query = $this->db->query(
+            "SELECT
             otp.k_id_ot_padre, otp.n_nombre_cliente, otp.orden_trabajo,
+            (
+                SELECT COUNT(idreporte_info) as cant FROM reporte_info where paquete_enviados >= 1 and id_ot_padre = otp.k_id_ot_padre
+            ) AS MAIL_enviados,
             otp.servicio, REPLACE(otp.estado_orden_trabajo,'otp_cerrada','Cerrada') AS estado_orden_trabajo, otp.fecha_programacion,
             otp.fecha_compromiso, otp.fecha_creacion, otp.k_id_user, user.n_name_user,
             CONCAT(user.n_name_user, ' ' , user.n_last_name_user) AS ingeniero,
@@ -295,11 +300,14 @@ class Dao_ot_padre_model extends CI_Model {
             INNER JOIN user ON otp.k_id_user = user.k_id_user
             LEFT JOIN hitos ON hitos.id_ot_padre = otp.k_id_ot_padre
             WHERE
-            DATEDIFF(CURDATE(), otp.ultimo_envio_reporte) > 7
+            DATEDIFF(CURDATE(), otp.ultimo_envio_reporte) > 7 
+            AND n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
+            AND otp.orden_trabajo != 'Caso de Seguimiento'
+            AND user.n_group = 'GESTION OTS ESTANDAR'
             $condicion
             GROUP BY nro_ot_onyx
         ");
-        return $query;
+        return $query; 
     }
 
     // obtiene las otp de una sede (pasarle el id de la sede)
@@ -589,6 +597,7 @@ class Dao_ot_padre_model extends CI_Model {
                     WHERE DATEDIFF(CURDATE(), otp1.ultimo_envio_reporte) <= 7
                     AND otp1.k_id_user = u.k_id_user
                     AND otp1.n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
+                    AND otp1.orden_trabajo != 'Caso de Seguimiento'
                     AND EXISTS(
                         SELECT nro_ot_onyx FROM ot_hija AS oth1
                         WHERE otp1.k_id_ot_padre = oth1.nro_ot_onyx
@@ -601,6 +610,7 @@ class Dao_ot_padre_model extends CI_Model {
                     AND DATEDIFF(CURDATE(), otp2.ultimo_envio_reporte) <= 15
                     AND otp2.k_id_user = u.k_id_user
                     AND otp2.n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
+                    AND otp2.orden_trabajo != 'Caso de Seguimiento'
                     AND EXISTS(
                         SELECT nro_ot_onyx FROM ot_hija AS oth2
                         WHERE otp2.k_id_ot_padre = oth2.nro_ot_onyx
@@ -613,6 +623,7 @@ class Dao_ot_padre_model extends CI_Model {
                     AND DATEDIFF(CURDATE(), otp3.ultimo_envio_reporte) <= 30
                     AND otp3.k_id_user = u.k_id_user
                     AND otp3.n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
+                    AND otp3.orden_trabajo != 'Caso de Seguimiento'
                     AND EXISTS(
                         SELECT nro_ot_onyx FROM ot_hija AS oth3
                         WHERE otp3.k_id_ot_padre = oth3.nro_ot_onyx
@@ -624,6 +635,7 @@ class Dao_ot_padre_model extends CI_Model {
                     WHERE DATEDIFF(CURDATE(), otp4.ultimo_envio_reporte) > 30
                     AND otp4.k_id_user = u.k_id_user
                     AND otp4.n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
+                    AND otp4.orden_trabajo != 'Caso de Seguimiento'
                     AND EXISTS(
                         SELECT nro_ot_onyx FROM ot_hija AS oth4
                         WHERE otp4.k_id_ot_padre = oth4.nro_ot_onyx
@@ -631,7 +643,7 @@ class Dao_ot_padre_model extends CI_Model {
 
                 ) AS mayor_30
             FROM user u
-            WHERE u.n_role_user = 'ingeniero'
+            WHERE u.n_role_user = 'ingeniero' AND u.n_group='GESTION OTS ESTANDAR'
             $condicion
         ");
         return $query->result();
@@ -642,6 +654,7 @@ class Dao_ot_padre_model extends CI_Model {
     public function getInfoEmailReport($id)
     {
         $this->db->where_in('id_ot_padre', $id);
+        $this->db->select(["senior","nombre_cliente","f_entrega_servicio","observaciones"]);
         $query = $this->db->get('reporte_info');
         return $query->row();
     }
@@ -653,18 +666,19 @@ class Dao_ot_padre_model extends CI_Model {
     }
 
     //actualiza la inf. de la tabla reporte_info
-    public function updateInfoEmailDB($data,$ids)
-    {
-        $this->db->where('id_ot_padre',$ids);
-        $this->db->update('reporte_info',$data);
-    } 
+    // ya no sirve :'v
+    // public function updateInfoEmailDB($data,$ids)
+    // {
+    //     $this->db->where('id_ot_padre',$ids);
+    //     $this->db->update('reporte_info',$data);
+    // } 
 
     // trae registro de la tabla reporte_info mediante otp
-    public function get_email_report_by_otp($otp)
-    {
-        $query = $this->db->get_where('reporte_info', array('id_ot_padre' => $otp));
-        return $query->row();
-    }
+    // public function get_email_report_by_otp($otp)
+    // {
+    //     $query = $this->db->get_where('reporte_info', array('id_ot_padre' => $otp));
+    //     return $query->row();
+    // }
 
 
     //extrae la fecha de linea base si no existe en la tabla reporte_info
@@ -672,6 +686,26 @@ class Dao_ot_padre_model extends CI_Model {
     {
         $this->db->where_in('id_ot_padre', $id);
         $query = $this->db->get('linea_base');
+        return $query->row();
+    }
+
+    // obtiene el mayor numero de paquete de envio de la tabla reporte info para poder aumentarlo cuando se guarde o actualice
+    public function getMaxPaqueteEnvío()
+    {
+        $this->db->select_max("paquete_enviados");
+        $query = $this->db->get('reporte_info');
+        return $query->result();
+    }
+
+
+    public function getLastMailSent($ids)
+    {
+        $query = $this->db->query( 
+        "SELECT senior,nombre_cliente,f_entrega_servicio,observaciones 
+         FROM reporte_info 
+         WHERE id_ot_padre IN ($ids) 
+         ORDER BY senior DESC LIMIT 1;");
+        //  echo("<pre>"); print_r($query->result()); echo("</pre>");
         return $query->row();
     }
 }

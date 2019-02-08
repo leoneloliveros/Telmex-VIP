@@ -181,7 +181,11 @@ class OtPadre extends CI_Controller {
     // TABLA QUE TRAE LA INFORMACION DE OTPADRE
     public function c_getListOtsOtPadre() {
         $otPadreList = $this->Dao_ot_padre_model->getListOtsOtPadre();
-        echo json_encode($otPadreList);
+        $data = array(
+            'data' => $otPadreList->result(),
+            'cantOTPs' => $otPadreList->num_rows()
+        );
+        echo json_encode($data);
     }
 
     //inserta los datos (lista y observaciones )de la vista detalles
@@ -308,8 +312,11 @@ class OtPadre extends CI_Controller {
         $observaciones = '';
         $asunOtp = ' - ';
         $ids_in = implode(",", $ids_otp);
-        $direccionCierreOtp = $this->getDireccionCierreOTP($ids_in);
+        $direccionCierreOtp = implode(',' , $this->getDireccionCierreOTP($ids_in));
         $detCierreOtp = $this->Dao_cierre_ots_model->getDetailsCierreOTP($ids_in);
+
+        /*print_r($direccionCierreOtp);
+       exit();*/
 
         foreach ($ids_otp as $idOtp) {
             //actualizar la ultima fecha de envio de reporte de loa ot padre (CAMILO)
@@ -478,17 +485,10 @@ class OtPadre extends CI_Controller {
 
     //Trae la dirrecion de cierre de la otp
     public function getDireccionCierreOTP($ids_in) {
-        $tabla = '';
-        $dir = '';
-        $columWhere = 'id_ot_padre';
-        $detCierreOtp = $this->Dao_cierre_ots_model->getDetailsCierreOTP($ids_in);
-
-        if (isset($detCierreOtp->servicio)) {
-            $dirService = $this->Dao_cierre_ots_model->getDirServiceByOtp($detCierreOtp->k_id_ot_padre, $detCierreOtp->servicio);
-            $dir = $dirService->dir;
-        }
-
-        return $dir;
+        /*$detCierreOtp = $this->Dao_cierre_ots_model->getDetailsCierreOTP($ids_in);*/
+        $DirCierreOTP = $this->Dao_ot_hija_model->get_direccionservicio($ids_in);
+       
+        return array_column($DirCierreOTP, 'direccion_destino');
     }
 
 
@@ -504,9 +504,9 @@ class OtPadre extends CI_Controller {
         if ($seleccionadas == 1) {
             //verifica si existe en la base de datos, si no, extraerá la info de la linea base
             if ($exist) {
-                echo json_encode($exist);
+                $ultimo_en_enviar = $this->Dao_ot_padre_model->getLastMailSent(implode($idsOtp,','));
+                echo json_encode($ultimo_en_enviar);
             }else{
-
                 //si no existe en la tabla de reporte_info, buscará si existe en la linea base
                 $fLineaBase = $this->Dao_ot_padre_model->getFechaLineaBaseEmailReport($idsOtp);
                 if ($fLineaBase) {
@@ -526,9 +526,9 @@ class OtPadre extends CI_Controller {
             //creo el arreglo que devolveré
 
             for ($i=0; $i < $seleccionadas; $i++) { 
-                if($this->Dao_ot_padre_model->getInfoEmailReport($idsOtp[$i])){
+                if($this->Dao_ot_padre_model->getLastMailSent($idsOtp[$i])){
                     //si existe algo en la tabla reporte_info, lo pondrá en el arreglo
-                    array_push($answer,$this->Dao_ot_padre_model->getInfoEmailReport($idsOtp[$i]));
+                    array_push($answer,$this->Dao_ot_padre_model->getLastMailSent($idsOtp[$i]));
                 }else if($this->Dao_ot_padre_model->getFechaLineaBaseEmailReport($idsOtp[$i])){
                     //si no, intentará obtener si existe algo en la linea base
                     $flb['fecha_compromiso'] = $this->Dao_ot_padre_model->getFechaLineaBaseEmailReport($idsOtp[$i])->fecha_compromiso;
@@ -546,29 +546,25 @@ class OtPadre extends CI_Controller {
     }
     
 
-
-
-
-
-
-
-
-
-
     //funcion que actualiza o ingresa la info. del formulario del reporte de act.
-    public function saveOrUpdateInfoEmailReport()
+    public function saveInfoEmailReport()
     {
         $ots = $this->input->post("ids_otp");// ids seleccionadas;
+        $servicios = $this->input->post("servicios");
         $last_sender = Auth::user()->k_id_user; //captura quién envió el reporte
 
         $last_f_evio = date('Y-m-d H:i:s'); //obtiene la fecha de envío del reporte
+        $paquete_envio = $this->Dao_ot_padre_model->getMaxPaqueteEnvío();
+        $paquete_envio = $paquete_envio[0]->paquete_enviados;
+
         $data = array(
             'senior' => $this->input->post("senior"), 
             'nombre_cliente'=>  $this->input->post("configuracion"), 
             'f_entrega_servicio' => $this->input->post("entregaServicio"), 
             'observaciones' => $this->input->post("observaciones"),
             'last_sender' => $last_sender,
-            'last_f_envio' => $last_f_evio
+            'last_f_envio' => $last_f_evio,
+            'paquete_enviados' => $paquete_envio+1
         );
         
         //ELIMINA LOS CAMPOS VACÍOS PARA QUE SI UN INPUT SE VA VACÍO, NO LO ACTUALICE A NULL
@@ -577,27 +573,25 @@ class OtPadre extends CI_Controller {
                 unset($data[$key]);
             }
         }
-        
         $cant_ots = count($ots); //cuenta cuantas selecciones hay
-
         for ($i=0; $i < $cant_ots; $i++) { 
-
-            $exist = $this->Dao_ot_padre_model->get_email_report_by_otp($ots[$i]);
-
-            if ($exist) {
-                //actualizar
-                $data['contador_reportes'] = $exist->contador_reportes + 1;
-                $this->Dao_ot_padre_model->updateInfoEmailDB($data,$ots[$i]);
+            // ya no sirve :'v
+            // $exist = $this->Dao_ot_padre_model->get_email_report_by_otp($ots[$i]);
+            // if ($exist) {
+            //     //actualizar
+            //     $data['contador_reportes'] = $exist->contador_reportes + 1;
+            //     $this->Dao_ot_padre_model->updateInfoEmailDB($data,$ots[$i]);
                 
-            } else {
+            // } else {
                 //inserta porque no está en db
                 $data['id_ot_padre'] = $ots[$i];
-                $data['contador_reportes'] = 1;
+                $data['servicio'] = $servicios[$i];
                 $this->Dao_ot_padre_model->saveInfoEmailDB($data);
+                // los elimino para que en la siguiente iteracion sólo exista el que debe insertarse
                 unset($data['id_ot_padre']);
-            }
+                unset($data['servicio']);
+            // }
         }
-        echo json_encode('ok');
     }
 
 

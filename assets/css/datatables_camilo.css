@@ -575,3 +575,26 @@ table.dataTable_camilo .btn_datatable_cami:hover{
 #tablereportinit thead tr th,#tablereportinit tbody tr td, #tablereportAct thead tr th,#tablereportAct tbody tr td {
     vertical-align: middle;
 }
+div.ver-log-general{
+    background: #34667f;
+    padding: 10px 0px;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    color: white;
+    border-radius: .5em;
+    transition: .3s;
+    box-shadow: 2px 1px 3px #9a9a9a;
+}
+div.ver-log-general:hover{
+    background: #084c6f;
+    box-shadow: 0 0 7px #00d0ff;
+}
+div.ver-log-general:active{
+    background: #0a2d3f;
+}
+span.verGeneral{
+    color: white;
+    transform: scale(1.5);
+
+}
