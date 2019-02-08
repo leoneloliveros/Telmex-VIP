@@ -72,6 +72,7 @@ $route['login'] = 'welcome/index';
 $route['facturacion'] = 'Facturacion_ots/index';
 $route['reportes'] = 'Reportesexcel/Reportes';
 $route['copy_text'] = 'Templates/view_textarea';
+$route['reporteTiemposKo'] = 'ReporteTiemposKo/viewReporteTiemposKo';
 
 
 

@@ -2994,7 +2994,11 @@
     background: #5cb85c;
 }
 
-
+.grupo-info-tiempo-ko{
+    font-weight: bold;
+    font-size: 14px;
+    text-align: left;
+}
 
 
 

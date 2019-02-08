@@ -15,6 +15,7 @@
 
         <!-- STYLES DATATABLES CAMILO -->
         <link rel="stylesheet" type="text/css" href="<?= URL::to('assets/css/datatables_camilo.css?v=' . validarEnProduccion()); ?>">
+        <link rel="stylesheet" type="text/css" href="<?= URL::to("assets/css/util.css?v=" . validarEnProduccion()) ?>">
         <!-- STYLES MODULES PRINCIPAL -->
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
         <!-- STYLES  FOOTER  -->
@@ -109,6 +110,7 @@
 
                                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">¿Cómo vamos?<span class="caret"></span></a>
                                     <ul class="dropdown-menu">
+                                        <li><a href="<?= URL::to('reporteTiemposKo') ?>">Reporte Tiempos Kick Off</a></li>
                                         <li><a href="<?= URL::to('OTP') ?>">¿Cómo vamos OTP?</a></li>
                                         <li><a href="<?= URL::to('paginaPrincipal') ?>">¿Cómo vamos OTH?</a></li>
                                     </ul>
@@ -146,7 +148,7 @@
                                 </li>
 
                                 <li><a href="<?= URL::to('reportes') ?>">Generar reportes</a></li>
-                                
+
                             <?php endif ?>
 
                             <?php if (Auth::user()->n_role_user == 'administrador' || Auth::user()->n_role_user == 'clarocc' || (Auth::user()->n_role_user == 'ingeniero' && Auth::user()->n_code_user == 'TIPO_A')): ?>
