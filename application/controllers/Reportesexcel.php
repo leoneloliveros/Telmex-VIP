@@ -18,6 +18,7 @@ class Reportesexcel extends CI_Controller {
     //funciones para generar reportes de actualizacion y de inicio
     public function Reportes()
     {
+        if (!Auth::check()) { Redirect::to(URL::base()); }
         $data['cantidad'] = $this->Dao_ot_hija_model->getCantUndefined();
         $data['title'] = 'Generar reportes'; // cargar el  titulo en la pestaña de la pagina
         $this->load->view('parts/headerF',$data);

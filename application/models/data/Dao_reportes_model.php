@@ -12,7 +12,7 @@ class Dao_reportes_model extends CI_Model {
         return $query->result();
     }
 
-    public function getInfoReportInit()
+    public function getInfoReportAct()
     {
         $query = $this->db->query(
             'SELECT
@@ -35,6 +35,7 @@ class Dao_reportes_model extends CI_Model {
         ');
         return $query->result();
     }
+
 
     public function getInfoReporteTiemposKo($fecha_ini, $fecha_fin){
         $query = $this->db->query("

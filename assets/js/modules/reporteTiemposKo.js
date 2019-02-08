@@ -2,9 +2,11 @@ $(function() {
     vista = {
         init: function() {
             vista.events();
+            vista.generateReportTimesKickOff();
         },
         //Eventos de la ventana.
         events: function() {
+
             $('#btnGenerarReporte').on('click', vista.generateReportTimesKickOff);
         },
         //Realiza una peticion para consultar la informacion del reporte de tiempos
@@ -40,18 +42,32 @@ $(function() {
                         '<td class="' + clase + '">' + value.ingeniero + '</td>' +
                         '<td>' + value.total_cerradas + '</td>' +
                         '<td>' + value.total_abiertas + '</td>' +
-                        '<td>' + value.dia_min_cerrado + '</td>' +
-                        '<td>' + value.dia_min_abierto + '</td>' +
-                        '<td>' + value.dia_max_cerrado + '</td>' +
-                        '<td>' + value.dia_max_abierto + '</td>' +
-                        '<td>' + parseFloat(promedio_cerradas).toFixed(2) + '</td>' +
-                        '<td>' + parseFloat(promedio_abiertas).toFixed(2) + '</td>' +
+                        `<td class="${vista.getColotTd(value.dia_min_cerrado)}">` + value.dia_min_cerrado + '</td>' +
+                        `<td class="${vista.getColotTd(value.dia_min_abierto)}">` + value.dia_min_abierto + '</td>' +
+                        `<td class="${vista.getColotTd(value.dia_max_cerrado)}">` + value.dia_max_cerrado + '</td>' +
+                        `<td class="${vista.getColotTd(value.dia_max_abierto)}">` + value.dia_max_abierto + '</td>' +
+                        `<td class="${vista.getColotTd(promedio_cerradas)}">` + parseFloat(promedio_cerradas).toFixed(2) + '</td>' +
+                        `<td class="${vista.getColotTd(promedio_abiertas)}">` + parseFloat(promedio_abiertas).toFixed(2) + '</td>' +
                         '</tr>';
             });
 
             $('#bodyInfo').empty();
             $('#bodyInfo').append(html);
         },
+
+        // obtener el color de la celda segun la cantidad enviada (v)
+        getColotTd: function(v){
+            let clase = '';
+            if (v >= 2 && v < 3) {
+                clase = 'amarillito';
+            } else if(v >= 3){
+                clase = 'rojito';
+            } 
+            return clase;
+        },
+
+
+
     };
     vista.init();
 });
