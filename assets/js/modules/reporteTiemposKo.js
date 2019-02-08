@@ -97,6 +97,7 @@ $(function() {
             Highcharts.chart('containerGraphics', {
                 chart: {
                     type: 'column',
+                    backgroundColor: '#6d9ea3',
                     options3d: {
                         enabled: true,
                         alpha: 30,
@@ -136,15 +137,18 @@ $(function() {
                 },
                 series: [{
                     name: 'Días Min Cerrado',
-                    data: data.d_min_cerr
+                    data: data.d_min_cerr,
+                    color: '#e0511d'
 
                 }, {
                     name: 'Días Max Cerrado',
-                    data: data.d_max_cerr
+                    data: data.d_max_cerr,
+                    color: '#0e7c10'
 
                 }, {
                     name: 'Días Prom Cerrado',
-                    data: data.d_prom_cerr
+                    data: data.d_prom_cerr,
+                    color: '#c68917'
 
                 }]
             });

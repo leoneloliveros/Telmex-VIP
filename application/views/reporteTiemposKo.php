@@ -54,4 +54,4 @@
 </table>
 
 
-<div id="containerGraphics" style="min-width: 310px; height: 600px; margin: 0 auto"></div>
+<div id="containerGraphics" style="min-width: 310px; height: 600px; margin: 20px auto; background: center; border-radius: 12px;"></div>
