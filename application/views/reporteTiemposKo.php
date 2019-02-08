@@ -1,5 +1,3 @@
-
-
 <style type="text/css">
     .amarillito {
         background: #f8d94f8f;
@@ -8,9 +6,6 @@
         background: #ff4a0157 ;
     }
 </style>
-
-
-
 
 <h2>Reporte Tiempos Kick Off</h2>
 <hr>
@@ -49,9 +44,8 @@
         </tr>
     </thead>
     <tbody id="bodyInfo">
-        
+
     </tbody>
 </table>
 
-
-<div id="containerGraphics" style="min-width: 310px; height: 600px; margin: 20px auto; background: center; border-radius: 12px;"></div>
+<div id="containerGraphics" style="min-width: 310px; height: 600px; margin: 0 auto"></div>

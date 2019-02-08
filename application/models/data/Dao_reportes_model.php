@@ -36,7 +36,7 @@ class Dao_reportes_model extends CI_Model {
         return $query->result();
     }
 
-
+    //Trae la informacion del reporte de tiempos Kick Off de acuerdo a un rango de fechas
     public function getInfoReporteTiemposKo($fecha_ini, $fecha_fin){
         $query = $this->db->query("
                 SELECT info.k_id_user, info.ingeniero,
