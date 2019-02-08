@@ -211,10 +211,16 @@
 <?php if ($this->uri->segment(1) == 'reporteTiemposKo'): ?>
     <script src="<?= URL::to('assets/plugins/datatables/DataTables-1.10.16/js/jquery.dataTables.min.js') ?>"></script>
     <script src="<?= URL::to('assets/plugins/datatables/js/dataTables.bootstrap.js?v=1.0') ?>"></script>
+    
+    <script src="<?= URL::to('assets/plugins/hightchart/code/highcharts.js') ?>"></script>
+    <script src="<?= URL::to('assets/plugins/hightchart/code/highcharts-3d.js') ?>"></script>
+    <script src="<?= URL::to('assets/plugins/hightchart/code/modules/exporting.js') ?>"></script>
+    <script src="<?= URL::to('assets/plugins/hightchart/code/modules/export-data.js') ?>"></script>
 
     <script src="<?= URL::to("assets/js/modules/reporteTiemposKo.js?v=" . validarEnProduccion()) ?>"></script>
 
 <?php endif ?>
+
 
 <script src="<?= URL::to('assets/plugins/select2/select2.js') ?>"></script>
 
