@@ -10,7 +10,7 @@
 <h2>Reporte Tiempos Kick Off</h2>
 <hr>
 <div class="text-center m-b-21">
-    <form class="form-inline">
+    <section class="form-inline">
         <div class="form-group">
             <label for="f_inicio">Fecha inicio</label>
             <input type="date" class="form-control" id="f_inicio" placeholder="Fecha inicio" value="<?= $f_inicio ?>">
@@ -19,8 +19,8 @@
             <label for="f_final">Fecha final</label>
             <input type="date" class="form-control" id="f_final" placeholder="Fecha final" value="<?= $f_final ?>">
         </div>
-    </form>
-    <button id="btnGenerarReporte" class="btn btn-success m-t-15">Generar Reporte</button>
+        <button id="btnGenerarReporte" class="btn btn-success">Generar Reporte</button>
+    </section>
 </div>
 
 <table id="tablereportinit" class="table table-hover table-bordered table-striped dataTable_camilo" width="100%">
@@ -47,3 +47,6 @@
 
     </tbody>
 </table>
+
+
+<div id="containerGraphics" style="min-width: 310px; height: 600px; margin: 0 auto"></div>
