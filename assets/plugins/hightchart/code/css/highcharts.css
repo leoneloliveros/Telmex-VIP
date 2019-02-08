@@ -134,6 +134,7 @@
   fill: #999999;
   font-size: 0.7em;
   transition: fill 250ms, font-size 250ms;
+  display: none;
 }
 
 .highcharts-credits:hover {

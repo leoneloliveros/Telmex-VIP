@@ -218,6 +218,7 @@
     <script src="<?= URL::to('assets/plugins/hightchart/code/modules/export-data.js') ?>"></script>
 
     <script src="<?= URL::to("assets/js/modules/reporteTiemposKo.js?v=" . validarEnProduccion()) ?>"></script>
+    <script src="<?= URL::to('assets/plugins/hightchart/code/themes/grid-light.js') ?>"></script> 
 
 <?php endif ?>
 

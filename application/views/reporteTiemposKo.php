@@ -54,4 +54,13 @@
 </table>
 
 
+<br>
+<br>
+<br>
+
+
+
+
+
+
 <div id="containerGraphics" style="min-width: 310px; height: 600px; margin: 0 auto"></div>

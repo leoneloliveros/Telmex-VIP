@@ -11,7 +11,6 @@
     printWindow.print();
 });*/
 
-
 $(function() {
     vista = {
         init: function() {
@@ -42,14 +41,18 @@ $(function() {
         },
         // Organiza la informacion para poder pintarla en la vista del reporte de tiempos
         printTableReportTimesKickOff: function(data) {
-            const graficas = {ingenieros:[], d_min_cerr:[],d_max_cerr:[],d_prom_cerr:[]};
-
+            const graficas = {
+                ingenieros: [],
+                d_min_cerr: [],
+                d_max_cerr: [],
+                d_prom_cerr: []
+            };
 
             var html = '';
             $.each(data, function(key, value) {
                 var promedio_cerradas = (value.total_cerradas != 0) ? value.dia_promedio_cerrado / value.total_cerradas : 0;
                 var promedio_abiertas = (value.total_abiertas != 0) ? value.dia_promedio_abierto / value.total_abiertas : 0;
-                
+
                 /*SECCION PARA ARMAR LOS ARREGLOS PARA LAS GRAFICAS*/
                 graficas.ingenieros.push(value.ingeniero);
                 graficas.d_min_cerr.push(parseInt(value.dia_min_cerrado));
@@ -75,10 +78,9 @@ $(function() {
             $('#bodyInfo').empty();
             $('#bodyInfo').append(html);
 
-
             console.log("data", data[1].total_cerradas);
-            
-            (data[1].total_cerradas != 0) ? vista.createGraphics(graficas) : '';
+
+            (data[1].total_cerradas != 0) ? vista.createGraphics(graficas): '';
         },
 
         // obtener el color de la celda segun la cantidad enviada (v)
@@ -99,7 +101,7 @@ $(function() {
                     type: 'column',
                     options3d: {
                         enabled: true,
-                        alpha: 30,
+                        alpha: 20,
                         beta: 5,
                         depth: 50
                     }
@@ -148,6 +150,10 @@ $(function() {
 
                 }]
             });
+
+
+
+            
         },
 
     };
