@@ -48,14 +48,6 @@
     </tbody>
 </table>
 
-
-<br>
-<br>
-<br>
-
-
-
-
-
-
+<br><br><br>
 <div id="containerGraphics"></div>
+
