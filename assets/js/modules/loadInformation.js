@@ -112,13 +112,18 @@ var vista = {
                 .complete(function () {
                 })
                 .success(function (response) {
-                    if (response.code == 2) {
+                    if (response.code == 2 && lavariabñle == 1) {
                         swal("Importado", "Se ha importado toda la información del archivo correctamente.", "success")
                                 .then(function () {
                                     // location.reload();
                                     window.location.href = vista.urlbase + "/managementOtp";
                                 });
                         return;
+                    } else if (ñavariable != 1){
+                        select == 1;
+                        // se carga el modal
+                        // la misma ruta
+                        
                     }
                     var v = app.validResponse(response);
                     if (v) {

@@ -22,7 +22,7 @@
         <button id="btnGenerarReporte" class="btn btn-success">Generar Reporte</button>
     </section>
 </div>
-
+    
 <table id="tablereportinit" class="table table-hover table-bordered table-striped dataTable_camilo" width="100%">
     <thead>
         <tr>
@@ -58,4 +58,4 @@
 
 
 
-<div id="containerGraphics" style="min-width: 310px; height: 600px; margin: 0 auto"></div>
+<div id="containerGraphics"></div>

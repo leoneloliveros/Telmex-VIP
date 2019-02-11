@@ -138,15 +138,18 @@ $(function() {
                 },
                 series: [{
                     name: 'Días Min Cerrado',
-                    data: data.d_min_cerr
+                    data: data.d_min_cerr,
+                    color: '#084c6f'
 
                 }, {
                     name: 'Días Max Cerrado',
-                    data: data.d_max_cerr
+                    data: data.d_max_cerr,
+                    color: '#1b771a'
 
                 }, {
                     name: 'Días Prom Cerrado',
-                    data: data.d_prom_cerr
+                    data: data.d_prom_cerr,
+                    color: '#5313c3'
 
                 }]
             });
