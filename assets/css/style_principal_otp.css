@@ -57,7 +57,7 @@
     margin-top: 20px;
     padding-left: 20px;
 }
-.in_time, .out_time, .today, .all{
+.in_time, .out_time, .today, .all, .excetes{
     background: #06a006;
     padding: 8px 0px;
     width: 30px;
@@ -72,6 +72,12 @@
 .all {
     background: #767676;
 }
+.excetes{
+    background: #1e1fd0;
+}
+
+
+
 .h4_for{
     float: right;
     margin-right: 25%;
@@ -95,7 +101,12 @@
 .span_today{
     color: #ffa509;
 }
-.span_all, .span_in_time, .span_out_time, .span_today{
+
+.span_execute{
+    color: #1e1fd0;
+}
+
+.span_all, .span_in_time, .span_out_time, .span_today, .span_execute{
     text-align:center;
     font-size: 13px;
     background: #fafaff;

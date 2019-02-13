@@ -29,17 +29,23 @@ class OtPadre extends CI_Controller {
 
     //trae los contadores de cantidades en tiempos y fuera de tiempos y hoy
     public function in_today_out() {
-        // header('Content-Type: text/plain');
-        $general = $this->Dao_ot_hija_model->get_ots_times();
+        $general = $this->Dao_ot_hija_model->get_ots_times(); // consulta de todas las ots_hijas y sus tiempos
         $total_reg = count($general);
+        // array para descartar los estados ya ejecutados
+        $estados_arr = ['Cancelada','Cerrada','3- Terminada'];
 
+        // Contadores generales
         $cont_total_in_otp = 0;
         $cont_total_out_otp = 0;
         $cont_total_hoy_otp = 0;
+        $cont_total_ejec_otp = 0;
         $cont_total_otp = 0;
-
-        $ingenieros = [];
+        // fin contadores generales
+        $otp_ejecutadas = [];// array para contar las otp ejecutadas
+        $ingenieros = [];// objetro final
         $x = 0;
+
+        // recorrer los registros
         for ($i = 0; $i < $total_reg; $i++) {
             // CReamos el indice del ingeniero para otp si no existe
             if (!isset($ingenieros[$general[$i]->k_id_user])) {
@@ -47,79 +53,134 @@ class OtPadre extends CI_Controller {
                 $ingenieros[$general[$i]->k_id_user]['out'] = 0;
                 $ingenieros[$general[$i]->k_id_user]['in'] = 0;
                 $ingenieros[$general[$i]->k_id_user]['hoy'] = 0;
+                $ingenieros[$general[$i]->k_id_user]['all'] = 0;
+                $ingenieros[$general[$i]->k_id_user]['ejecutadas'] = [];
+
             }
 
-            // validar si oth está fuera de times
-            if ($general[$i]->tiempo > 0) {
-                if (!array_key_exists($general[$i]->k_id_ot_padre, $ingenieros[$general[$i]->k_id_user])) {
-                    $ingenieros[$general[$i]->k_id_user][$general[$i]->k_id_ot_padre] = array('time' => 1, "cliente" => $general[$i]->n_nombre_cliente);
-                    $ingenieros[$general[$i]->k_id_user]['out'] ++;
-                    $cont_total_out_otp++;
-                    $cont_total_otp++;
-                } else {
-                    switch ($ingenieros[$general[$i]->k_id_user][$general[$i]->k_id_ot_padre]['time']) {
-                        case '1':
+            // validamos si la oth esta en alguno de los estados ejecutados ('Cancelada','Cerrada','3- Terminada')
+            if (!in_array($general[$i]->estado_orden_trabajo_hija, $estados_arr)) {
+                // validar si oth está fuera de times
+                if ($general[$i]->tiempo > 0) {
+                    // se valida si el index de la otp ya fue creada dentro del array del ingeniero
+                    if (!array_key_exists($general[$i]->k_id_ot_padre, $ingenieros[$general[$i]->k_id_user])) {
+                        // si no se crea la posicion de la otp donde va la iteracion
+                        $ingenieros[$general[$i]->k_id_user][$general[$i]->k_id_ot_padre] = array('time' => 1, "cliente" => $general[$i]->n_nombre_cliente);
+                        // se alteran contadores
+                        $ingenieros[$general[$i]->k_id_user]['out'] ++;
+                        $cont_total_out_otp++;
+                        $cont_total_otp++;
 
-                            break;
-                        case '0':
-                            $ingenieros[$general[$i]->k_id_user][$general[$i]->k_id_ot_padre]['time'] = 1;
-                            $ingenieros[$general[$i]->k_id_user]['out'] ++;
-                            $ingenieros[$general[$i]->k_id_user]['hoy'] --;
-                            $cont_total_out_otp++;
-                            $cont_total_hoy_otp--;
-                            break;
-                        case '-1':
-                            $ingenieros[$general[$i]->k_id_user][$general[$i]->k_id_ot_padre]['time'] = 1;
-                            $ingenieros[$general[$i]->k_id_user]['out'] ++;
-                            $ingenieros[$general[$i]->k_id_user]['in'] --;
-                            $cont_total_out_otp++;
-                            $cont_total_in_otp--;
-                            break;
+                    } else {
+                        // si existe
+                        // Se valida de que time viene si es 
+                        // SIEMPRE PREDOMINA EL FUERA DE TIEMPOS, POR ESO SE CAMBIA SIEMPRE A 1 (FUERA DE TIEMPO),
+                        // porque con una oth que venga fuera de tiempos toda la otp queda fuera de tiempos
+                        switch ($ingenieros[$general[$i]->k_id_user][$general[$i]->k_id_ot_padre]['time']) {
+                            //1 estaba en fuera de tiempo
+                            case '1':
+                                // no se hace nada, viene del mismo fuera de tiempos
+                                break;
+                            //0 estaba en hoy
+                            case '0':
+                                // el time se cambia a uno, y se modifican contadores
+                                $ingenieros[$general[$i]->k_id_user][$general[$i]->k_id_ot_padre]['time'] = 1;
+                                $ingenieros[$general[$i]->k_id_user]['out'] ++;
+                                $ingenieros[$general[$i]->k_id_user]['hoy'] --;
+                                $cont_total_out_otp++;
+                                $cont_total_hoy_otp--;
+                                break;
+                            //-1 viene de en tiempos
+                            case '-1':
+                                // tambien se cambia el time 
+                                $ingenieros[$general[$i]->k_id_user][$general[$i]->k_id_ot_padre]['time'] = 1;
+                                $ingenieros[$general[$i]->k_id_user]['out'] ++;
+                                $ingenieros[$general[$i]->k_id_user]['in'] --;
+                                $cont_total_out_otp++;
+                                $cont_total_in_otp--;
+                                break;
+                        }
                     }
                 }
-            }
 
-            // validar si oth está para now
-            if ($general[$i]->tiempo == 0) {
-                if (!array_key_exists($general[$i]->k_id_ot_padre, $ingenieros[$general[$i]->k_id_user])) {
-                    $ingenieros[$general[$i]->k_id_user][$general[$i]->k_id_ot_padre] = array('time' => 0, "cliente" => $general[$i]->n_nombre_cliente);
-                    $ingenieros[$general[$i]->k_id_user]['hoy'] ++;
-                    $cont_total_otp++;
-                    $cont_total_hoy_otp++;
-                } else if ($ingenieros[$general[$i]->k_id_user][$general[$i]->k_id_ot_padre]['time'] == -1) {
+                // validar si oth está para now
+                if ($general[$i]->tiempo == 0) {
+                    // se valida si el index de la otp ya fue creada dentro del array del ingeniero
+                    if (!array_key_exists($general[$i]->k_id_ot_padre, $ingenieros[$general[$i]->k_id_user])) {
+                        // si no se crea la posicion de la otp donde va la iteracion   time se deja en 0 (hoy)
+                        $ingenieros[$general[$i]->k_id_user][$general[$i]->k_id_ot_padre] = array('time' => 0, "cliente" => $general[$i]->n_nombre_cliente);
+                        $ingenieros[$general[$i]->k_id_user]['hoy'] ++;
+                        $cont_total_otp++;
+                        $cont_total_hoy_otp++;
+                    } 
 
-                    $ingenieros[$general[$i]->k_id_user][$general[$i]->k_id_ot_padre]['time'] = 0;
-                    $ingenieros[$general[$i]->k_id_user]['hoy'] ++;
-                    $ingenieros[$general[$i]->k_id_user]['in'] --;
-                    $cont_total_hoy_otp++;
-                    $cont_total_in_otp--;
+                    // si time viene en -1 (en tiempos) se deja en 0 (hoy)
+                    // porque con una oth que para hoy toda la otp queda para hoy (siempre y cuando no tenga ningna en fuera de tiempos * JERARQUIA)
+                    else if ($ingenieros[$general[$i]->k_id_user][$general[$i]->k_id_ot_padre]['time'] == -1) {
+
+                        $ingenieros[$general[$i]->k_id_user][$general[$i]->k_id_ot_padre]['time'] = 0;
+                        $ingenieros[$general[$i]->k_id_user]['hoy'] ++;
+                        $ingenieros[$general[$i]->k_id_user]['in'] --;
+                        $cont_total_hoy_otp++;
+                        $cont_total_in_otp--;
+                    }
                 }
-            }
 
-            if ($general[$i]->tiempo < 0) {
-                if (!array_key_exists($general[$i]->k_id_ot_padre, $ingenieros[$general[$i]->k_id_user])) {
-                    $ingenieros[$general[$i]->k_id_user][$general[$i]->k_id_ot_padre] = array('time' => -1, "cliente" => $general[$i]->n_nombre_cliente);
-                    ;
-                    $ingenieros[$general[$i]->k_id_user]['in'] ++;
-                    $cont_total_in_otp++;
-                    $cont_total_otp++;
+                if ($general[$i]->tiempo < 0) {
+                      // se valida si el index de la otp ya fue creada dentro del array del ingeniero
+                    if (!array_key_exists($general[$i]->k_id_ot_padre, $ingenieros[$general[$i]->k_id_user])) {
+                        $ingenieros[$general[$i]->k_id_user][$general[$i]->k_id_ot_padre] = array('time' => -1, "cliente" => $general[$i]->n_nombre_cliente);
+                        ;
+                        $ingenieros[$general[$i]->k_id_user]['in'] ++;
+                        $cont_total_in_otp++;
+                        $cont_total_otp++;
+                    }
                 }
-            }
 
-            $ingenieros[$general[$i]->k_id_user]['all'] = $ingenieros[$general[$i]->k_id_user]['in'] + $ingenieros[$general[$i]->k_id_user]['hoy'] + $ingenieros[$general[$i]->k_id_user]['out'];
+                // *************************************inicio calculo de color de los botones*************************************
+                if ($ingenieros[$general[$i]->k_id_user]['out'] > 0) {
+                    $ingenieros[$general[$i]->k_id_user]['color'] = "btn_red";
+                }
 
-            if ($ingenieros[$general[$i]->k_id_user]['out'] > 0) {
-                $ingenieros[$general[$i]->k_id_user]['color'] = "btn_red";
-            } else if ($ingenieros[$general[$i]->k_id_user]['hoy'] > 0) {
-                $ingenieros[$general[$i]->k_id_user]['color'] = "btn_orange";
+                else if ($ingenieros[$general[$i]->k_id_user]['hoy'] > 0) {
+                    $ingenieros[$general[$i]->k_id_user]['color'] = "btn_orange";
+                }
+
+                else {
+                    $ingenieros[$general[$i]->k_id_user]['color'] = "btn_green";
+                }
+                // *************************************fin calculo colores*************************************
+
+
+                // Si entra en este bloque la ot padre no tiene que estar en el arreglo de ejecutadas
+                if ( in_array($general[$i]->k_id_ot_padre , $ingenieros[$general[$i]->k_id_user]['ejecutadas'])) {
+                    // si existe se elimina del array y se decrementas los contadores
+                    $ingenieros[$general[$i]->k_id_user]['ejecutadas'] = array_values(array_diff($ingenieros[$general[$i]->k_id_user]['ejecutadas'], array($general[$i]->k_id_ot_padre)));
+                    $cont_total_otp--;
+                    $cont_total_ejec_otp--;
+
+                }
+            // Si está cerrada finalizada o cancelada 
             } else {
-                $ingenieros[$general[$i]->k_id_user]['color'] = "btn_green";
+                // si la otp no existe en el array de ejecutadas y tampoco se ha creado en el array del ingeniero la posicion de la otp
+                if (!in_array($general[$i]->k_id_ot_padre ,$ingenieros[$general[$i]->k_id_user]['ejecutadas']) && !array_key_exists($general[$i]->k_id_ot_padre, $ingenieros[$general[$i]->k_id_user] )) {
+                    // se inserta la otp en el array de ejecutadas para al final ser contadas cuantas ejecutó ese ingeniero
+                    array_push($ingenieros[$general[$i]->k_id_user]['ejecutadas'], $general[$i]->k_id_ot_padre);
+
+                    // se incrementas los contadores de total y general ejecutadas
+                    $cont_total_otp++;
+                    $cont_total_ejec_otp++;
+
+                }
             }
+
+            // se suman contadores  para obtener el total de otp
+            $ingenieros[$general[$i]->k_id_user]['all'] = $ingenieros[$general[$i]->k_id_user]['in'] + $ingenieros[$general[$i]->k_id_user]['hoy'] + $ingenieros[$general[$i]->k_id_user]['out'] + count($ingenieros[$general[$i]->k_id_user]['ejecutadas']);
+            // cuantas otp ejecuto ese ingeniero
+            $ingenieros[$general[$i]->k_id_user]['cont_ejec'] = count($ingenieros[$general[$i]->k_id_user]['ejecutadas']);
         }
-
-
+        
         // Seccion para el tratamiento de la grafica ppalo
-
         $grafics = [];
 
         $grafics['g_inges'] = [];
@@ -128,16 +189,14 @@ class OtPadre extends CI_Controller {
         $grafics['g_out'] = [];
         $grafics['g_all'] = [];
         $n_i = []; // nombre ingeniero
-        // print_r($ingenieros);
 
         $array_list_inge = $this->Dao_user_model->get_eng_trabajanding();
-        // print_r($array_list_inge);
         for ($i = 0; $i < count($array_list_inge); $i++) {
             $n_i[$array_list_inge[$i]->k_id_user] = $array_list_inge[$i]->nombre;
         }
 
 
-
+        // seccion para las grafica
         foreach ($ingenieros as $cc => $value) {
             array_push($grafics['g_inges'], $n_i[$cc]);
             array_push($grafics['g_in'], $value['in']);
@@ -147,15 +206,16 @@ class OtPadre extends CI_Controller {
         }
 
 
-
         $retorno = array(
             'cant_otp' => $cont_total_otp,
             'cant_in' => $cont_total_in_otp,
             'cant_hoy' => $cont_total_hoy_otp,
             'cant_out' => $cont_total_out_otp,
+            'cant_exce' => $cont_total_ejec_otp,
             'ing' => $ingenieros,
             'grafics' => $grafics
         );
+
 
         echo json_encode($retorno);
     }
