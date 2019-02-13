@@ -21,7 +21,7 @@ class LoadInformation extends CI_Controller {
         // $tam_max = 6414336;
         $MBexcel = $_FILES['file']['size'];
         if ($MBexcel > $tam_max) {
-            $MBexcel /= 1000000; 
+            $MBexcel /= 1000000;
             // echo("El tamaño del archivo es de ".$MBexcel."MB, y el maximo es de 6.41MB");
             // echo("El tamaño del archivo es de $_FILES['file']['size'], y el maximo es de 6,11MB");
             $response = new Response(EMessages::ERROR, "El tamaño del archivo que intenta subir es de <b>".$MBexcel."MB</b>, y el tamaño máximo permitido es de <b>6.41MB</b>");
@@ -125,7 +125,7 @@ class LoadInformation extends CI_Controller {
 
                 // envio de reportte automatico semanal...
                 // $res_mail = $this->enviar_correo_cant_reportes_actualizacion();
-                
+
                 $inputFileType = PHPExcel_IOFactory::identify($file);
                 $objReader     = PHPExcel_IOFactory::createReader($inputFileType);
                 $objReader->setReadDataOnly(true);
@@ -148,6 +148,8 @@ class LoadInformation extends CI_Controller {
                 $errorNoChange = [];
                 $actualizar    = 0;
                 $actualizados  = 0;
+                $cantArchivos = $request->cantArchivos;
+
 
                 $export = $request->export;
 
@@ -395,19 +397,17 @@ class LoadInformation extends CI_Controller {
                 /***********FUNCIONES QUE SE EJECUTAN AL TERMINAR DE CARGAR LA ULTIMA LINEA CON DATOS DEL EXCEL***********/
                 if (($limit - $row) >= 2) {
                     $response->setCode(2);
-                    
+
                     // NO BORRAR
                     // $this->insertar_cierre_ots(); // FUNCION PARA ENVIAR A CIERRE LO DE FECHA ANTERIOR
 
-                    if (lavariable == 1 ) {
+                    if ($cantArchivos == 1 ) {
                         //ENVIAR A CIERRE LO QUE NO ESTE EN EL ULTIMO ARCHIVO SUBIDO
                         $this->enviar_a_cierre($export);
-
                         // Si no hay cambios ni inserciones se deja
                         if ($inserts > 0 || $actualizados > 0) {
                             $this->Dao_log_model->insertNuevaFecha();
                         }
-                        # code...
                     }
 
                 }
@@ -422,7 +422,7 @@ class LoadInformation extends CI_Controller {
                     "row"                     => ($row - $request->index),
                     "data"                    => $this->objs,
                     "correo_enviado"          => $res_mail,
-                    'la_variable'=> lavariable
+                    "cantArchivos"            => $cantArchivos
                 ]);
             } catch (DeplynException $ex) {
                 $response = new Response(EMessages::ERROR, "Error al procesar el archivo.");

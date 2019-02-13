@@ -1,14 +1,14 @@
 var vista = {
     urlbase: $('body').attr('data-base'),
     exec: false,
-    init: function () {
+    init: function() {
         vista.events();
     },
-    events: function () {
+    events: function() {
         $('#formFileUpload').on('submit', vista.vistaFile);
-//        $('#btnUploadFile').on('click', vista.vistaFile);
+        $('#cantArchivos').on('change', vista.changeCantArchivos);
     },
-    vistaFile: function (e) {
+    vistaFile: function(e) {
         app.stopEvent(e);
         var form = $(this);
         var button = form.find('button');
@@ -21,35 +21,35 @@ var vista = {
         button.prop('disabled', true);
         vista.uploadFile(input[0], button);
     },
-    onChangeFile: function (e) {
+    onChangeFile: function(e) {
         if (!e) {
             return;
         }
         var input = e.target;
         vista.uploadFile(input);
     },
-    uploadFile: function (input, button) {
+    uploadFile: function(input, button) {
         app.uploadFile("LoadInformation/uploadFile", input, ["xlsx"]["xls"])
-                .progress(function (progress) {
+                .progress(function(progress) {
                     //Plajear barrita de progreso...
                     button.html('<span class="fa fa-fw fa-spin fa-refresh"></span> Subiendo (' + progress + ')...');
                 })
-                .complete(function (response) {
+                .complete(function(response) {
                     button.html('<span class="fa fa-fw fa-spin fa-refresh"></span> Procesando').prop('disabled', false);
                     if (response.code > 0) {
-                        swal("Correcto", "Se ha subido correctamente el archivo, haga clic a continuación en el botón ok para iniciar la lectura y carga del archivo que acaba de subir en el sistema.", "success").then(function () {
+                        swal("Correcto", "Se ha subido correctamente el archivo, haga clic a continuación en el botón ok para iniciar la lectura y carga del archivo que acaba de subir en el sistema.", "success").then(function() {
                             var alert = dom.printAlert('Cargando OTs en el sistema, por favor no cierre esta ventana.', 'vistaing', $('#principalAlert'));
                             vista.processData(response.data, alert);
                             $(input).val('');
                             $(input).parent('form').find('p').html('Procesando archivo, por favor no cierre la ventana.');
                         });
                     } else {
-                        swal("Error", response.message, "error").then(function(){
+                        swal("Error", response.message, "error").then(function() {
                             location.reload(true);
                         });
                     }
                 })
-                .errorExtension(function (file) {
+                .errorExtension(function(file) {
                     swal("Error", "Extención de archivo no permitida, solo se permiten archivos de extención XLSX y XLS", "error");
                 })
                 .start();
@@ -61,14 +61,13 @@ var vista = {
     actualProcess: null,
     sleepTime: 2000,
     selec: 0,
-
+    cantArchivos: 1,
     export: 0,
 
-    getLinesFile: function (data, callback) {
+    getLinesFile: function(data, callback) {
         app.post('LoadInformation/countLinesFile', {
             file: data.path
-        }).success(function (response) {
-            console.log(response);
+        }).success(function(response) {
             var v = app.successResponse(response);
             if (v) {
                 vista.linesFile = (parseInt(response.data.sheet1));
@@ -77,11 +76,11 @@ var vista = {
             } else {
                 swal("Error", "No hay lineas que procesar en el archivo.", "error");
             }
-        }).error(function (error) {
+        }).error(function(error) {
             console.error(error);
         }).send();
     },
-    showProgress: function () {
+    showProgress: function() {
         var progress = $('#progressProcessImportData');
         progress.removeClass('hidden');
         var i = (vista.indexTemp) + 2;
@@ -93,10 +92,10 @@ var vista = {
         $('#btnUploadFile').html('<i class="fa fa-fw fa-spin fa-refresh"></i> Procesando (' + progressValue + '%)');
 //        progress.find('.progress-bar').html(progressValue + '%').css('width', progressValue + '%').attr('title', progressValue + '% de progreso.');
     },
-    processData: function (data, alert) {
+    processData: function(data, alert) {
         vista.actualProcess = 1; //Procesando data...
         if (vista.linesFile < 0) {
-            vista.getLinesFile(data, function () {
+            vista.getLinesFile(data, function() {
                 vista.processData(data, alert);
             });
             return;
@@ -107,47 +106,60 @@ var vista = {
             file: data.path,
             index: vista.index,
             limit: vista.limit,
-            export: vista.export
+            export: vista.export,
+            cantArchivos: vista.cantArchivos
         })
-                .complete(function () {
+                .complete(function() {
                 })
-                .success(function (response) {
-                    if (response.code == 2 && lavariabñle == 1) {
+                .success(function(response) {
+                    console.log(response.data);
+                    if (response.code == 2 && response.data.cantArchivos == 1) {
                         swal("Importado", "Se ha importado toda la información del archivo correctamente.", "success")
-                                .then(function () {
+                                .then(function() {
                                     // location.reload();
                                     window.location.href = vista.urlbase + "/managementOtp";
                                 });
                         return;
-                    } else if (ñavariable != 1){
-                        select == 1;
+                    } else if (response.data.cantArchivos != 1) {
+                        console.log('entra a la funcion')
+                        vista.cantArchivos = 1;
+                        $('#btnUploadFile').html('SUBA EL SEGUNDO');
+                        swal('no lo dejas').then(function() {
+                            // location.reload();
+                            $('#idarchivo').click();
+                        });
+
                         // se carga el modal
                         // la misma ruta
-                        
+                        return;
                     }
+
                     var v = app.validResponse(response);
                     if (v) {
                         vista.index += response.data.row;
                         vista.indexTemp += response.data.row;
                         vista.selec += response.data.seleccionados;
-                        console.log(vista.selec);
-                        window.setTimeout(function () {
+                        window.setTimeout(function() {
                             vista.processData(data, alert);
                         }, vista.sleepTime);
                     } else {
                         swal("Error", "Lo sentimos, no se pudo procesar el archivo que ha subido.", "error");
                     }
                 })
-                .error(function (e) {
+                .error(function(e) {
                     swal("Error", "Lo sentimos se ha producido un error inesperado al procesar el archivo que ha subido.", "error");
                 })
                 .send();
     },
-    fillNA: function () {
+    fillNA: function() {
         return "Indefinido";
+    },
+    changeCantArchivos: function() {
+        vista.cantArchivos = $('#cantArchivos').val();
     }
+
 };
 
-$(function () {
+$(function() {
     vista.init();
 });
