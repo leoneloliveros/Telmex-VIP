@@ -28,10 +28,12 @@ $(function () {
             $('#in_time_otp').html(obj.cant_in);
             $('#out_time_otp').html(obj.cant_out);
             $('#today_otp').html(obj.cant_hoy);
+            $('#execute_otp').html(obj.cant_exce);
             // Recorro los span ppal de los botones ingenieros y anexo contadores
             $.each(obj.ing, function(cc, item) {
+                console.log("item", item);
                 $(`#${cc}`).append(`
-                    <span class='span_all'>${item.all}</span> <span class='span_in_time'>${item.in}</span> <span class='span_out_time'>${item.out}</span> <span class='span_today'>${item.hoy}</span>
+                    <span class='span_all'>${item.all}</span> <span class='span_in_time'>${item.in}</span> <span class='span_out_time'>${item.out}</span> <span class='span_today'>${item.hoy}</span> &nbsp;&nbsp;&nbsp;&nbsp; <span class='span_execute'>${item.cont_ejec}</span>
                 `);
                 // añado la clase del color que corresponda al boton del ingeniero
                 var btn_ing = $(`#${cc}`).parent('button');
@@ -72,11 +74,9 @@ $(function () {
 
         // llena la seccion para ots padres
         nivel_ot_padre: function(id, panel){
-            var valores = acord.obj.ing[id];
-            console.log(acord.obj);
-           
+            var valores = acord.obj.ing[id];         
 
-            // deber.sort()
+            const excluir = ['all', 'color', 'hoy', 'in', 'out', 'ejecutadas','cont_ejec'];
             var color = "";
             panel.html("");
             panel.append(`<legend class="sub-title-acord">OTP</legend>`);
@@ -91,9 +91,7 @@ $(function () {
                     color = 'btn_green';
                 }
 
-
-
-                if (i != 'all' && i != 'color' && i != 'hoy' && i != 'in' && i != 'out') {
+                if (excluir.indexOf(i) < 0) {
     				panel.append(`
     						<button class='accordion show_type ${color}' data-iduser='${id}' data-ot='${i}'>${i}<span style='margin-left:40%;'>${ot.cliente}</span><img class='rigth' src='${baseurl}/assets/images/plus.png'><a class='rigth fontsize10' target='_blank' href='${baseurl}/OtHija/detalle/${id}/${i}'><span class='glyphicon glyphicon-eye-open' title='ver detalle'></span></a> <a class='rigth fontsize10' href='${baseurl}/OtHija/exportar/${id}/${i}'><span class='glyphicon glyphicon-export' title='exportar a excel'></span></a></button>
     							<div class='panel'></div>

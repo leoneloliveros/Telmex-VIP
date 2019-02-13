@@ -78,7 +78,6 @@ $(function() {
             $('#bodyInfo').empty();
             $('#bodyInfo').append(html);
 
-            console.log("data", data[1].total_cerradas);
 
             (data[1].total_cerradas != 0) ? vista.createGraphics(graficas) : '';
         },
@@ -99,6 +98,7 @@ $(function() {
             Highcharts.chart('containerGraphics', {
                 chart: {
                     type: 'column',
+                    // backgroundColor: '#6d9ea3',
                     options3d: {
                         enabled: true,
                         alpha: 20,

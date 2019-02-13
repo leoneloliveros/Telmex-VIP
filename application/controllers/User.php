@@ -63,21 +63,16 @@ class User extends CI_Controller {
         $this->load->view('parts/headerF', $data);
         if ($proyecto === 'Gestion') {
             if ($roll == 'clarocc') {
-
                 $this->load->view('vista_x');
             } else {
                 $data['title'] = '¿Cómo vamos OTP?';
-
                 $this->load->view('moduleOtp');
             }
         } elseif ($proyecto === 'Implementacion') {
             $this->load->view('principal');
         } elseif ($proyecto === 'Graphics') {
             header('location: ' . URL::base() . '/Graphics/view_graphics/BBVA');
-            // $this->load->view('graficas/view_graphics/BBVA');
         }
-        // $this->load->view('moduleOtp');
-
         $this->load->view('parts/footerF');
     }
 
@@ -387,26 +382,13 @@ class User extends CI_Controller {
 
     //
     public function prueba() {
-        $a = array(
-            'esto',
-            'lo otro',
-            'casa'   => 'verde',
-            'saludo' => 'hola',
-            'jorge'  => 'algo',
-            '0' => 'xxxx',
-            'prueba'
-
-        );
-
-        echo '<pre>'; print_r($a); echo '</pre>';
-        $a = [55,25,87,418,5,874,58];
-
-        // foreach ($a as $key => $value) {
-        //     echo '<pre>'; print_r($key); echo '</pre>';
-        //     # code...
-        // }
-
-        // print_r($a);
+        $my_array = array('esta', 'es', 'una', 'pueba', 'de', 'codigo', 'jaja');
+        echo '<pre>'; print_r($my_array); echo '</pre>';
+        
+        $my_array = array_values(array_diff($my_array, array('jaja', 'de')));
+        
+        
+        
 
     }
 

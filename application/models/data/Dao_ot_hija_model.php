@@ -1184,6 +1184,7 @@ class Dao_ot_hija_model extends CI_Model {
                 otp.n_nombre_cliente,
                 t.i_orden,
                 oth.id_orden_trabajo_hija,
+                oth.estado_orden_trabajo_hija,
                 CASE
                     WHEN e.k_id_tipo = 1 then  DATEDIFF(CURDATE(),ADDDATE(oth.fecha_creacion_ot_hija, INTERVAL 2 DAY))
 
@@ -1212,10 +1213,10 @@ class Dao_ot_hija_model extends CI_Model {
                 ON e.k_id_tipo = t.k_id_tipo
                 INNER JOIN user u
                 ON otp.k_id_user = u.k_id_user
-                where
-                oth.estado_orden_trabajo_hija <> 'Cancelada' AND
-                oth.estado_orden_trabajo_hija <> 'Cerrada' AND
-                oth.estado_orden_trabajo_hija <> '3- Terminada'
+                -- where
+                -- oth.estado_orden_trabajo_hija <> 'Cancelada' AND
+                -- oth.estado_orden_trabajo_hija <> 'Cerrada' AND
+                -- oth.estado_orden_trabajo_hija <> '3- Terminada'
                 order by t.i_orden desc,k_id_ot_padre
             ");
         return $query->result();
