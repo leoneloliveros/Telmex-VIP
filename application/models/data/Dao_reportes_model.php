@@ -58,10 +58,13 @@ class Dao_reportes_model extends CI_Model {
                         WHERE u.n_role_user = 'ingeniero'
                         AND u.n_group = 'GESTION OTS ESTANDAR'
                         AND et.k_id_tipo = 1
+                        AND oth.k_id_estado_ot IN (1 , 3)
                 ) info
-                WHERE info.ultima_fecha_modificacion BETWEEN '$fecha_ini' AND '$fecha_fin'
+                WHERE info.ultima_fecha_modificacion BETWEEN '$fecha_ini' AND '$fecha_fin' 
                 ORDER BY info.ingeniero ASC, dias_trascurridos DESC
                 ");
+        // print_r($this->db->last_query());
+
         return $query->result();
     }
 }
