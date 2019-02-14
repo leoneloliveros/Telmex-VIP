@@ -12,7 +12,8 @@
 <form method="post" enctype="multipart/form-data" id="formFileUpload">
     <input type="file" name="idarchivo" id="idarchivo">
     <p>Arrastra su archivo aquí o haz clic en esta área.</p>
-    <button id="btnUploadFile" type="submit" class="btn btn-primary" >UpLoad  <span class="glyphicon glyphicon-ok"></span></button>
+    <button id="btnUploadFile" type="submit" class="btn btn-primary" >Upload  <span class="glyphicon glyphicon-ok"></span></button>
+    <img src="assets/images/loguito.png" class="logo">
 </form>
 <?php $this->load->view('parts/generic/scripts'); ?>
 <!-- CUSTOM SCRIPT   -->
@@ -23,4 +24,4 @@
         });
     });
 </script>
-<script src="<?= URL::to("assets/js/modules/loadInformation.js?v=" . validarEnProduccion()) ?>" type="text/javascript"></script>
+<script src="<?= URL::to("assets/js/modules/loadInformation.js?v=" . validarEnProduccion()) ?>" type="text/javascript"></script >
