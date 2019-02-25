@@ -113,24 +113,12 @@ var vista = {
                 })
                 .success(function(response) {
                     console.log(response.data);
-                    if (response.code == 2 && response.data.cantArchivos == 1) {
+                    if (response.code == 2) {
                         swal("Importado", "Se ha importado toda la información del archivo correctamente.", "success")
                                 .then(function() {
                                     // location.reload();
                                     window.location.href = vista.urlbase + "/managementOtp";
                                 });
-                        return;
-                    } else if (response.data.cantArchivos != 1) {
-                        console.log('entra a la funcion')
-                        vista.cantArchivos = 1;
-                        $('#btnUploadFile').html('SUBA EL SEGUNDO');
-                        swal('no lo dejas').then(function() {
-                            // location.reload();
-                            $('#idarchivo').click();
-                        });
-
-                        // se carga el modal
-                        // la misma ruta
                         return;
                     }
 

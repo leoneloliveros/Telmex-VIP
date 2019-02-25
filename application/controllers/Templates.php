@@ -810,6 +810,7 @@ class Templates extends CI_Controller {
                 $data_pr['observaciones_ori']            = $pt['pr_observaciones_ori'];
                 $data_pr['transmision_entrega_ori']      = $pt['pr_transmision_entrega_ori'];
                 $data_pr['cantidad_macs_ori']            = $pt['pr_cantidad_macs_ori'];
+                $data_pr['id_ot_padre_des']              = $pt['pr_id_ot_padre_des'];
             }
 
             $this->Dao_producto_model->insert_pr_private_line($data_pr);
@@ -991,7 +992,7 @@ class Templates extends CI_Controller {
         $dataLogMail['fecha']                 = $fActual;
         $dataLogMail['servicio']              = $pt['servicio'];
         $dataLogMail['nombre']              = $pt['nombre'];
-        
+
         $this->Dao_log_correo_model->insert_data($dataLogMail);
     }
 
@@ -1112,7 +1113,7 @@ class Templates extends CI_Controller {
     public function getDireccionCierreOTP($ids_in) {
         $this->load->model("data/Dao_cierre_ots_model");
         $DirCierreOTP = $this->Dao_ot_hija_model->get_direccionservicio($ids_in);
-       
+
         return array_column($DirCierreOTP, 'direccion_destino');
     }
 
@@ -1125,14 +1126,14 @@ class Templates extends CI_Controller {
         $infoReportMail = $this->Dao_log_correo_model->getPaqueteEnviados($data['paquete_enviados']);
 
         $OTsPaqueteEnvio = array();
-        for ($i=0; $i < $infoReportMail['cant'] ; $i++) { 
+        for ($i=0; $i < $infoReportMail['cant'] ; $i++) {
             array_push($OTsPaqueteEnvio,$infoReportMail['data'][$i]->id_ot_padre);
         }
-        
+
         $ids_in = implode(",", $OTsPaqueteEnvio);
         $direccionCierreOtp = implode(',' , $this->getDireccionCierreOTP($ids_in));
         $detCierreOtp = $this->Dao_cierre_ots_model->getDetailsCierreOTP($ids_in);
-        
+
 
         $ingeniero = Auth::user()->n_name_user . ' ' . Auth::user()->n_last_name_user;
         $celIngeniero = Auth::user()->cell_phone;
@@ -1154,7 +1155,7 @@ class Templates extends CI_Controller {
                     $hitosotp->observaciones_empalmes . '<br><br>' .
                     $hitosotp->observaciones_crc . '<br><br>' .
                     $hitosotp->observaciones_veut;
-                    
+
             $templateHitos .= '
                 <div dir="ltr">
                     <table border="0" cellpadding="0" cellspacing="0" width="712" style="border-collapse:collapse;box-shadow: rgba(8, 76, 111, 0.5) 6px 7px;">
@@ -1277,8 +1278,8 @@ class Templates extends CI_Controller {
             <p class="x_MsoListParagraph" style="text-indent:-18.0pt"><span style="font-family: Symbol, serif, EmojiFont;"><span style="">·<span style="font: 7pt &quot;Times New Roman&quot;, serif, EmojiFont;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"><br><b>Observaciones: </b>&nbsp;' . $data['observaciones'] . '</span></p>
             <p class="x_MsoListParagraph"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>
             <br><br>';
-            
-    
+
+
             $contacto = '
                 <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Durante todo el Proceso de Instalación puede contactar a:</span></p>
                 <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>
@@ -1317,7 +1318,7 @@ class Templates extends CI_Controller {
     // Arma el pdf para mostrar el correo de reporte de inicio
     public function generatePDF() {
         $data = $this->input->post('data');
-        
+
         if ($data['clase'] == 'cierre_ko') {
             switch ($data['servicio']) {
             case 'Internet Dedicado Empresarial':
@@ -1375,7 +1376,7 @@ class Templates extends CI_Controller {
                 );
                 $data['campo6'] = explode(", ",$data['campo6']);
                 $list_ciudades = $this->set_cities();
-                for ($i=0; $i < count($list_ciudades); $i++) { 
+                for ($i=0; $i < count($list_ciudades); $i++) {
                     $argumentos['campo6'][$list_ciudades[$i]] = ' ';
                 }
                 foreach ($data['campo6'] as $key => $ciudad) {
@@ -1435,18 +1436,18 @@ class Templates extends CI_Controller {
                     'campo40' => $data['campo40'], //  EMAIL
                     'campo41' => $data['campo41'], //  Fecha de Entrega de su servicio
                 );
-                $dataa['campo11'] = array("si"=>$this->si($data['campo11']),"no"=>$this->no($data['campo11'])); 
-                $dataa['campo13'] = array("si"=>$this->si($data['campo13']),"no"=>$this->no($data['campo13'])); 
-                $dataa['campo16'] = array("si"=>$this->si($data['campo16']),"no"=>$this->no($data['campo16'])); 
-                $dataa['campo20'] = array("si"=>$this->si($data['campo20']),"no"=>$this->no($data['campo20'])); 
-                $dataa['campo22'] = array("si"=>$this->si($data['campo22']),"no"=>$this->no($data['campo22'])); 
-                $dataa['campo23'] = array("si"=>$this->si($data['campo23']),"no"=>$this->no($data['campo23'])); 
-                $dataa['campo25'] = array("si"=>$this->si($data['campo25']),"no"=>$this->no($data['campo25'])); 
-                $dataa['campo26'] = array("si"=>$this->si($data['campo26']),"no"=>$this->no($data['campo26'])); 
-                $dataa['campo29'] = array("si"=>$this->si($data['campo29']),"no"=>$this->no($data['campo29'])); 
-                $dataa['campo30'] = array("si"=>$this->si($data['campo30']),"no"=>$this->no($data['campo30'])); 
-                $dataa['campo32'] = array("si"=>$this->si($data['campo32']),"no"=>$this->no($data['campo32'])); 
-                
+                $dataa['campo11'] = array("si"=>$this->si($data['campo11']),"no"=>$this->no($data['campo11']));
+                $dataa['campo13'] = array("si"=>$this->si($data['campo13']),"no"=>$this->no($data['campo13']));
+                $dataa['campo16'] = array("si"=>$this->si($data['campo16']),"no"=>$this->no($data['campo16']));
+                $dataa['campo20'] = array("si"=>$this->si($data['campo20']),"no"=>$this->no($data['campo20']));
+                $dataa['campo22'] = array("si"=>$this->si($data['campo22']),"no"=>$this->no($data['campo22']));
+                $dataa['campo23'] = array("si"=>$this->si($data['campo23']),"no"=>$this->no($data['campo23']));
+                $dataa['campo25'] = array("si"=>$this->si($data['campo25']),"no"=>$this->no($data['campo25']));
+                $dataa['campo26'] = array("si"=>$this->si($data['campo26']),"no"=>$this->no($data['campo26']));
+                $dataa['campo29'] = array("si"=>$this->si($data['campo29']),"no"=>$this->no($data['campo29']));
+                $dataa['campo30'] = array("si"=>$this->si($data['campo30']),"no"=>$this->no($data['campo30']));
+                $dataa['campo32'] = array("si"=>$this->si($data['campo32']),"no"=>$this->no($data['campo32']));
+
                 if ($data['campo35'] == 'MPLS') {
                     $dataa['campo35']['mpls']     = 'X';
                     $dataa['campo35']['internet'] = '';
@@ -1454,7 +1455,7 @@ class Templates extends CI_Controller {
                     $dataa['campo35']['mpls']     = '';
                     $dataa['campo35']['internet'] = 'X';
                 }
-                
+
                 $template = $this->soluciones_administrativas_comunicaciones_unificadas_pbx_administrada($dataa);
                 break;
             case 'Instalación Servicio Telefonia Fija PBX Distribuida Linea E1':
@@ -1474,7 +1475,7 @@ class Templates extends CI_Controller {
                 );
                 $data['campo6'] = explode(", ",$data['campo6']);
                 $list_ciudades = $this->set_cities();
-                for ($i=0; $i < count($list_ciudades); $i++) { 
+                for ($i=0; $i < count($list_ciudades); $i++) {
                     $argumentos['campo6'][$list_ciudades[$i]] = ' ';
                 }
                 foreach ($data['campo6'] as $key => $ciudad) {
@@ -1504,7 +1505,7 @@ class Templates extends CI_Controller {
                 // echo("<pre>"); print_r($data); echo("</pre>");
                 $data['campo6'] = explode(", ",$data['campo6']);
                 $list_ciudades = $this->set_cities();
-                for ($i=0; $i < count($list_ciudades); $i++) { 
+                for ($i=0; $i < count($list_ciudades); $i++) {
                     $argumentos['campo6'][$list_ciudades[$i]] = ' ';
                 }
                 foreach ($data['campo6'] as $key => $ciudad) {
@@ -1533,7 +1534,7 @@ class Templates extends CI_Controller {
                     );
                     $data['campo6'] = explode(", ",$data['campo6']);
                     $list_ciudades = $this->set_cities();
-                    for ($i=0; $i < count($list_ciudades); $i++) { 
+                    for ($i=0; $i < count($list_ciudades); $i++) {
                         $argumentos['campo6'][$list_ciudades[$i]] = ' ';
                     }
                     foreach ($data['campo6'] as $key => $ciudad) {
@@ -1579,7 +1580,7 @@ class Templates extends CI_Controller {
                 $argumentos['campo7']= array("si"=>$this->si($data['campo7']),"no"=>$this->no($data['campo7']));
                 $argumentos['campo8']= array("si"=>$this->si($data['campo8']),"no"=>$this->no($data['campo8']));
                 $argumentos['campo9']= array("si"=>$this->si($data['campo9']),"no"=>$this->no($data['campo9']));
-            
+
                 $template = $this->cambio_de_ultima_milla($argumentos);
                 break;
             case 'Cambio de Equipo':

@@ -401,14 +401,12 @@ class LoadInformation extends CI_Controller {
                     // NO BORRAR
                     // $this->insertar_cierre_ots(); // FUNCION PARA ENVIAR A CIERRE LO DE FECHA ANTERIOR
 
-                    if ($cantArchivos == 1 ) {
                         //ENVIAR A CIERRE LO QUE NO ESTE EN EL ULTIMO ARCHIVO SUBIDO
                         $this->enviar_a_cierre($export);
                         // Si no hay cambios ni inserciones se deja
                         if ($inserts > 0 || $actualizados > 0) {
                             $this->Dao_log_model->insertNuevaFecha();
                         }
-                    }
 
                 }
 

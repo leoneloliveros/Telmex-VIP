@@ -1,6 +1,6 @@
 <link href="<?= URL::to('assets/css/inputFile.css?v=' . validarEnProduccion()) ?>" rel="stylesheet" />
 
-<div class="container divSelectArchivo">
+<!--<div class="container divSelectArchivo">
     <div class="form-group">
         <label for="cantArchivos" class="labelArchivo">Cantidad de archivos a subir</label>
         <select class="form-control" id="cantArchivos">
@@ -8,7 +8,7 @@
         <option>2</option>
     </select>
     </div>
-</div>
+</div>-->
 <form method="post" enctype="multipart/form-data" id="formFileUpload">
     <input type="file" name="idarchivo" id="idarchivo">
     <p>Arrastra su archivo aquí o haz clic en esta área.</p>
