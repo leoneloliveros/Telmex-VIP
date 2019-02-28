@@ -300,14 +300,14 @@ class Dao_ot_padre_model extends CI_Model {
             INNER JOIN user ON otp.k_id_user = user.k_id_user
             LEFT JOIN hitos ON hitos.id_ot_padre = otp.k_id_ot_padre
             WHERE
-            DATEDIFF(CURDATE(), otp.ultimo_envio_reporte) > 7 
+            DATEDIFF(CURDATE(), otp.ultimo_envio_reporte) > 7
             AND n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
             AND otp.orden_trabajo != 'Caso de Seguimiento'
             AND user.n_group = 'GESTION OTS ESTANDAR'
             $condicion
             GROUP BY nro_ot_onyx
         ");
-        return $query; 
+        return $query;
     }
 
     // obtiene las otp de una sede (pasarle el id de la sede)
@@ -388,8 +388,8 @@ class Dao_ot_padre_model extends CI_Model {
                             f_compromiso_veoc,
                             estado_veoc,
                             observaciones_veoc,
-                            f_compromiso_empalmes, 
-                            estado_empalmes, 
+                            f_compromiso_empalmes,
+                            estado_empalmes,
                             observaciones_empalmes,
                             f_compromiso_crc,
                             estado_crc,
@@ -671,7 +671,7 @@ class Dao_ot_padre_model extends CI_Model {
     // {
     //     $this->db->where('id_ot_padre',$ids);
     //     $this->db->update('reporte_info',$data);
-    // } 
+    // }
 
     // trae registro de la tabla reporte_info mediante otp
     // public function get_email_report_by_otp($otp)
@@ -700,12 +700,46 @@ class Dao_ot_padre_model extends CI_Model {
 
     public function getLastMailSent($ids)
     {
-        $query = $this->db->query( 
-        "SELECT senior,nombre_cliente,f_entrega_servicio,observaciones 
-         FROM reporte_info 
-         WHERE id_ot_padre IN ($ids) 
+        $query = $this->db->query(
+        "SELECT senior,nombre_cliente,f_entrega_servicio,observaciones
+         FROM reporte_info
+         WHERE id_ot_padre IN ($ids)
          ORDER BY senior DESC LIMIT 1;");
         //  echo("<pre>"); print_r($query->result()); echo("</pre>");
         return $query->row();
+    }
+
+    // trae  todas las ots que tienen que enviar correo de actualizacion
+    public function downloadAllReportAct() {
+        $condicion = " ";
+        if (Auth::user()->n_role_user == 'ingeniero') {
+            $usuario_session = Auth::user()->k_id_user;
+            $condicion = " AND otp.k_id_user = $usuario_session ";
+        }
+        $query = $this->db->query(
+            "SELECT
+            otp.k_id_ot_padre, otp.n_nombre_cliente, otp.orden_trabajo,
+            (
+                SELECT COUNT(idreporte_info) as cant FROM reporte_info where paquete_enviados >= 1 and id_ot_padre = otp.k_id_ot_padre
+            ) AS MAIL_enviados,
+            otp.servicio, REPLACE(otp.estado_orden_trabajo,'otp_cerrada','Cerrada') AS estado_orden_trabajo, otp.fecha_programacion,
+            otp.fecha_compromiso, otp.fecha_creacion, otp.k_id_user, user.n_name_user,
+            CONCAT(user.n_name_user, ' ' , user.n_last_name_user) AS ingeniero,
+            otp.lista_observaciones, otp.observacion,
+            DATEDIFF(curdate(), otp.ultimo_envio_reporte) AS ultimo_envio,
+            CONCAT('$ ',FORMAT(oth.monto_moneda_local_arriendo + oth.monto_moneda_local_cargo_mensual,2)) AS MRC
+            FROM ot_hija oth
+            INNER JOIN ot_padre otp ON oth.nro_ot_onyx = otp.k_id_ot_padre
+            INNER JOIN user ON otp.k_id_user = user.k_id_user
+            LEFT JOIN hitos ON hitos.id_ot_padre = otp.k_id_ot_padre
+            WHERE
+            DATEDIFF(CURDATE(), otp.ultimo_envio_reporte) >= 0 AND
+            n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
+            AND otp.orden_trabajo != 'Caso de Seguimiento'
+            AND user.n_group = 'GESTION OTS ESTANDAR'
+            $condicion
+            GROUP BY nro_ot_onyx
+        ");
+        return $query->result();
     }
 }

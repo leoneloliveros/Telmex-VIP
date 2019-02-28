@@ -73,7 +73,7 @@ class OtPadre extends CI_Controller {
 
                     } else {
                         // si existe
-                        // Se valida de que time viene si es 
+                        // Se valida de que time viene si es
                         // SIEMPRE PREDOMINA EL FUERA DE TIEMPOS, POR ESO SE CAMBIA SIEMPRE A 1 (FUERA DE TIEMPO),
                         // porque con una oth que venga fuera de tiempos toda la otp queda fuera de tiempos
                         switch ($ingenieros[$general[$i]->k_id_user][$general[$i]->k_id_ot_padre]['time']) {
@@ -92,7 +92,7 @@ class OtPadre extends CI_Controller {
                                 break;
                             //-1 viene de en tiempos
                             case '-1':
-                                // tambien se cambia el time 
+                                // tambien se cambia el time
                                 $ingenieros[$general[$i]->k_id_user][$general[$i]->k_id_ot_padre]['time'] = 1;
                                 $ingenieros[$general[$i]->k_id_user]['out'] ++;
                                 $ingenieros[$general[$i]->k_id_user]['in'] --;
@@ -112,7 +112,7 @@ class OtPadre extends CI_Controller {
                         $ingenieros[$general[$i]->k_id_user]['hoy'] ++;
                         $cont_total_otp++;
                         $cont_total_hoy_otp++;
-                    } 
+                    }
 
                     // si time viene en -1 (en tiempos) se deja en 0 (hoy)
                     // porque con una oth que para hoy toda la otp queda para hoy (siempre y cuando no tenga ningna en fuera de tiempos * JERARQUIA)
@@ -160,7 +160,7 @@ class OtPadre extends CI_Controller {
                     $cont_total_ejec_otp--;
 
                 }
-            // Si está cerrada finalizada o cancelada 
+            // Si está cerrada finalizada o cancelada
             } else {
                 // si la otp no existe en el array de ejecutadas y tampoco se ha creado en el array del ingeniero la posicion de la otp
                 if (!in_array($general[$i]->k_id_ot_padre ,$ingenieros[$general[$i]->k_id_user]['ejecutadas']) && !array_key_exists($general[$i]->k_id_ot_padre, $ingenieros[$general[$i]->k_id_user] )) {
@@ -179,7 +179,7 @@ class OtPadre extends CI_Controller {
             // cuantas otp ejecuto ese ingeniero
             $ingenieros[$general[$i]->k_id_user]['cont_ejec'] = count($ingenieros[$general[$i]->k_id_user]['ejecutadas']);
         }
-        
+
         // Seccion para el tratamiento de la grafica ppalo
         $grafics = [];
 
@@ -547,7 +547,7 @@ class OtPadre extends CI_Controller {
     public function getDireccionCierreOTP($ids_in) {
         /*$detCierreOtp = $this->Dao_cierre_ots_model->getDetailsCierreOTP($ids_in);*/
         $DirCierreOTP = $this->Dao_ot_hija_model->get_direccionservicio($ids_in);
-       
+
         return array_column($DirCierreOTP, 'direccion_destino');
     }
 
@@ -585,7 +585,7 @@ class OtPadre extends CI_Controller {
             $answer = array();
             //creo el arreglo que devolveré
 
-            for ($i=0; $i < $seleccionadas; $i++) { 
+            for ($i=0; $i < $seleccionadas; $i++) {
                 if($this->Dao_ot_padre_model->getLastMailSent($idsOtp[$i])){
                     //si existe algo en la tabla reporte_info, lo pondrá en el arreglo
                     array_push($answer,$this->Dao_ot_padre_model->getLastMailSent($idsOtp[$i]));
@@ -599,12 +599,12 @@ class OtPadre extends CI_Controller {
                 }
             }
             echo json_encode($answer);
-        } 
-        
-        
-        
+        }
+
+
+
     }
-    
+
 
     //funcion que actualiza o ingresa la info. del formulario del reporte de act.
     public function saveInfoEmailReport()
@@ -618,15 +618,15 @@ class OtPadre extends CI_Controller {
         $paquete_envio = $paquete_envio[0]->paquete_enviados;
 
         $data = array(
-            'senior' => $this->input->post("senior"), 
-            'nombre_cliente'=>  $this->input->post("configuracion"), 
-            'f_entrega_servicio' => $this->input->post("entregaServicio"), 
+            'senior' => $this->input->post("senior"),
+            'nombre_cliente'=>  $this->input->post("configuracion"),
+            'f_entrega_servicio' => $this->input->post("entregaServicio"),
             'observaciones' => $this->input->post("observaciones"),
             'last_sender' => $last_sender,
             'last_f_envio' => $last_f_evio,
             'paquete_enviados' => $paquete_envio+1
         );
-        
+
         //ELIMINA LOS CAMPOS VACÍOS PARA QUE SI UN INPUT SE VA VACÍO, NO LO ACTUALICE A NULL
         foreach ($data as $key => $value) {
             if ($data[$key] == "" || $data[$key] == " " || $data[$key] == "  ") {
@@ -634,14 +634,14 @@ class OtPadre extends CI_Controller {
             }
         }
         $cant_ots = count($ots); //cuenta cuantas selecciones hay
-        for ($i=0; $i < $cant_ots; $i++) { 
+        for ($i=0; $i < $cant_ots; $i++) {
             // ya no sirve :'v
             // $exist = $this->Dao_ot_padre_model->get_email_report_by_otp($ots[$i]);
             // if ($exist) {
             //     //actualizar
             //     $data['contador_reportes'] = $exist->contador_reportes + 1;
             //     $this->Dao_ot_padre_model->updateInfoEmailDB($data,$ots[$i]);
-                
+
             // } else {
                 //inserta porque no está en db
                 $data['id_ot_padre'] = $ots[$i];
@@ -652,6 +652,13 @@ class OtPadre extends CI_Controller {
                 unset($data['servicio']);
             // }
         }
+    }
+
+    // funcion para exportar a excel todos las otp que tengan reporte de actualizacion
+    public function c_downloadAllReportAct() {
+        $this->load->helper('camilo');
+        $data['registros'] = $this->Dao_ot_padre_model->downloadAllReportAct();
+        $this->load->view('exportAllReportAct', $data);
     }
 
 
