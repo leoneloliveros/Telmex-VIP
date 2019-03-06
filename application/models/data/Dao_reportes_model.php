@@ -67,6 +67,49 @@ class Dao_reportes_model extends CI_Model {
 
         return $query->result();
     }
+
+    public function getInfoBetweenDates($id, $fInit, $fEnd,$estOT)
+    {
+        $whereIng = "";
+        if ($id != '1') {
+            $whereIng = "otp.k_id_user = $id AND";
+        }
+        $query = $this->db->query(
+            "SELECT 
+            info.k_id_ot_padre,
+            info.n_nombre_cliente,
+            info.orden_trabajo,
+            info.estado_orden_trabajo,
+            info.id_orden_trabajo_hija,
+            info.n_name_estado_ot,
+            info.ultima_fecha_modificacion,
+            info.nombreIng,
+            info.k_id_user,
+            habiles_rango(info.fecha_creacion_ot_hija, info.ultima_fecha_modificacion) AS dias_trascurridos # la fecha del primer parametro tiene que ser menor que la segunda
+            FROM (
+                SELECT
+                    otp.k_id_ot_padre,
+                    otp.n_nombre_cliente,
+                    otp.orden_trabajo,
+                    otp.estado_orden_trabajo,
+                    oth.id_orden_trabajo_hija,
+                    e.n_name_estado_ot,
+                    oth.fecha_creacion_ot_hija,
+                    CONCAT(u.n_name_user,' ',u.n_last_name_user) AS nombreIng,
+                    IF(e.n_name_estado_ot = 'Cerrada', oth.fec_actualizacion_onyx_hija, CURDATE()) AS ultima_fecha_modificacion,
+                    u.k_id_user
+                FROM
+                ot_hija oth
+                INNER JOIN ot_padre otp ON  oth.nro_ot_onyx = otp.k_id_ot_padre
+                INNER JOIN estado_ot e ON e.k_id_estado_ot = oth.k_id_estado_ot
+                INNER JOIN `user` u ON u.k_id_user = otp.k_id_user
+                WHERE $whereIng e.k_id_tipo = 1 AND oth.k_id_estado_ot IN ($estOT)
+                ) AS info 
+                WHERE DATE_FORMAT(info.ultima_fecha_modificacion,'%Y-%m-%d') BETWEEN '$fInit' AND '$fEnd' 
+        "
+        );
+        return $query->result();
+    }
 }
 
 ?>

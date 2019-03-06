@@ -219,9 +219,26 @@
 
     <script src="<?= URL::to("assets/js/modules/reporteTiemposKo.js?v=" . validarEnProduccion()) ?>"></script>
     <script src="<?= URL::to('assets/plugins/hightchart/code/themes/grid-light.js') ?>"></script> 
+    <script src="<?= URL::to("assets/plugins/sweetalert2/sweetalert2.all.js"); ?> "></script>
+
 
 <?php endif ?>
 
+<?php if ($this->uri->segment(1) == 'reporteTiemposKo' && $this->uri->segment(2) == 'viewAssociatesOTs'): ?>
+<script src="<?= URL::to('assets/plugins/datatables/DataTables-1.10.16/js/jquery.dataTables.min.js') ?>"></script>
+    <script src="<?= URL::to('assets/plugins/datatables/js/dataTables.bootstrap.js?v=1.0') ?>"></script>
+
+    <script src="<?= URL::to('assets/plugins/datatables/js/dataTables.buttons.min.js') ?>"></script>
+    <!-- PARA CARGAR BOTON DE IMPORTAR A UN EXCEL -->
+    <script src="<?= URL::to('assets/plugins/datatables/js/jszip.min.js') ?>"></script> 
+    <!-- ========================= -->
+    <script src="<?= URL::to('assets/plugins/datatables/js/buttons.html5.min.js') ?>"></script>
+    <script src="<?= URL::to('assets/plugins/datatables/js/buttons.print.min.js') ?>"></script>
+    <script src="<?= URL::to('assets/plugins/datatables/js/dataTables.select.min.js') ?>"></script>
+    <script src="<?= URL::to('assets/plugins/datatables/js/buttons.colVis.min.js') ?>"></script>
+
+    <script src="<?= URL::to("assets/js/oths_asc.js?v=" . validarEnProduccion()) ?> "></script>
+<?php endif ?>
 
 <script src="<?= URL::to('assets/plugins/select2/select2.js') ?>"></script>
 

@@ -49,7 +49,7 @@ $(function() {
             };
 
             var html = '';
-            $.each(data, function(key, value) {
+            $.each(data, function(idIng, value) {
                 var promedio_cerradas = (value.total_cerradas != 0) ? value.dia_promedio_cerrado / value.total_cerradas : 0;
                 var promedio_abiertas = (value.total_abiertas != 0) ? value.dia_promedio_abierto / value.total_abiertas : 0;
 
@@ -60,16 +60,16 @@ $(function() {
                 graficas.d_prom_cerr.push(promedio_cerradas);
                 /*FIN  ARREGLOS PARA LAS GRAFICAS*/
 
-                var clase = (key == '1') ? 'grupo-info-tiempo-ko' : 'text-right';
+                var clase = (idIng == '1') ? 'grupo-info-tiempo-ko' : 'text-right';
 
-                html += '<tr>' +
+                html += `<tr class="${idIng}">` +
                         '<td class="' + clase + '">' + value.ingeniero + '</td>' +
                         '<td>' + value.total_cerradas + '</td>' +
                         '<td>' + value.total_abiertas + '</td>' +
-                        `<td class="${vista.getColotTd(value.dia_min_cerrado)}">` + value.dia_min_cerrado + '</td>' +
-                        `<td class="${vista.getColotTd(value.dia_min_abierto)}">` + value.dia_min_abierto + '</td>' +
-                        `<td class="${vista.getColotTd(value.dia_max_cerrado)}">` + value.dia_max_cerrado + '</td>' +
-                        `<td class="${vista.getColotTd(value.dia_max_abierto)}">` + value.dia_max_abierto + '</td>' +
+                        `<td class="${vista.getColotTd(value.dia_min_cerrado)} Cerradas">` + value.dia_min_cerrado + '</td>' +
+                        `<td class="${vista.getColotTd(value.dia_min_abierto)} Abiertas">` + value.dia_min_abierto + '</td>' +
+                        `<td class="${vista.getColotTd(value.dia_max_cerrado)} Cerradas">` + value.dia_max_cerrado + '</td>' +
+                        `<td class="${vista.getColotTd(value.dia_max_abierto)} Abiertas">` + value.dia_max_abierto + '</td>' +
                         `<td class="${vista.getColotTd(promedio_cerradas)}">` + parseFloat(promedio_cerradas).toFixed(2) + '</td>' +
                         `<td class="${vista.getColotTd(promedio_abiertas)}">` + parseFloat(promedio_abiertas).toFixed(2) + '</td>' +
                         '</tr>';
@@ -80,6 +80,31 @@ $(function() {
 
 
             (data[1].total_cerradas != 0) ? vista.createGraphics(graficas) : '';
+
+            $('.Abiertas,.Cerradas').click(function(){
+                if ($(this).html() !== '0') {
+                    const seleccion = $(this);
+                    const id = seleccion.parent().attr('class');
+                    const dias = seleccion.html();
+                    const tipo = seleccion.attr('class').split(' ')[1];
+                    // $.post(baseurl + "/reporteTiemposKo/viewAssociatesOTs", {
+                    //     id : id,
+                    //     fInit:$('#f_inicio').val(),
+                    //     fEnd:$('#f_final').val(),
+                    // },
+                    //     function (data, textStatus, jqXHR) {
+                            
+                    //     },
+                    // );                    console.log('id:', id)
+                    window.open(baseurl + `/reporteTiemposKo/viewAssociatesOTs/${id}/${$('#f_inicio').val()}/${$('#f_final').val()}/${dias}/${tipo}`)
+                }else{
+                    helper.miniAlert("No hay OTs asociadas a lo seleccionado")
+                }
+                
+                
+            });
+            
+            
         },
 
         // obtener el color de la celda segun la cantidad enviada (v)

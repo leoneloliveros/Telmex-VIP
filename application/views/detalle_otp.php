@@ -1,4 +1,8 @@
 <script src="<?= URL::to("assets/plugins/sweetalert2/sweetalert2.all.js") ?> "></script>
+<?php
+if (!empty($registros['otp'])) {
+?>
+
 <h3 align="center">Tabla de Detalles OTP ING: <?= $registros['otp'][0]->nombre ?></h3>
 
 <table id="detalles_otp" class="table datatables_detalles table-hover table-bordered table-striped dataTable_camilo" width="100%">
@@ -772,3 +776,10 @@ for ($i=0; $i < count($registros['oth']); $i++) {
     $('.select2_js_detalles').select2();
 });
 </script>
+<?php
+
+} else{
+    $notp='<div class="alert alert-danger">El ingeniero seleccionado no tiene asignadas OTP</div>';
+    echo $notp;
+}
+?>
