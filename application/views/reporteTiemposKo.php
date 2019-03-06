@@ -5,6 +5,15 @@
     .rojito {
         background: #ff4a0157 ;
     }
+    .Abiertas,.Cerradas{
+        transition: .5s;
+    }
+    .Abiertas:hover,.Cerradas:hover{
+        background: #084c6f;
+        color: white;
+        font-weight: bold;
+        transition: .5s;
+    }
 </style>
 
 <h2>Reporte Tiempos Kick Off</h2>

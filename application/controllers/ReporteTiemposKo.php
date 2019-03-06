@@ -1,10 +1,12 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class ReporteTiemposKo extends CI_Controller {
+class ReporteTiemposKo extends CI_Controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->load->helper('date');
         $this->load->model('data/Dao_ot_hija_model');
@@ -12,8 +14,11 @@ class ReporteTiemposKo extends CI_Controller {
     }
 
     //Carga la vista del reporte de tiempos para las KickOff
-    public function viewReporteTiemposKo() {
-        if (!Auth::check()) {Redirect::to(URL::base());}
+    public function viewReporteTiemposKo()
+    {
+        if (!Auth::check()) {
+            Redirect::to(URL::base());
+        }
         date_default_timezone_set("America/Bogota");
         $anio_actual    = date('Y');
         $mes_actual     = date('m');
@@ -31,10 +36,11 @@ class ReporteTiemposKo extends CI_Controller {
     }
 
     //Procesa la informacion del reporte de tiempos KO
-    public function getInfoReporteTiemposKo($desde, $hasta) {
+    public function getInfoReporteTiemposKo($desde, $hasta)
+    {
         $infoReporte  = $this->Dao_reportes_model->getInfoReporteTiemposKo($desde, $hasta);
-        $reporte      = Array();
-        $reporte['1'] = Array(
+        $reporte      = array();
+        $reporte['1'] = array(
             "ingeniero"            => 'KO ESTANDAR',
             "total_cerradas"       => 0,
             "total_abiertas"       => 0,
@@ -49,7 +55,7 @@ class ReporteTiemposKo extends CI_Controller {
         foreach ($infoReporte as $key => $value) {
             //SE CREA LA PLANTILLA DE DATOS POR CADA ING
             if (!array_key_exists($value->k_id_user, $reporte)) {
-                $reporte[$value->k_id_user] = Array(
+                $reporte[$value->k_id_user] = array(
                     "ingeniero"            => $value->ingeniero,
                     "total_cerradas"       => 0,
                     "total_abiertas"       => 0,
@@ -90,7 +96,6 @@ class ReporteTiemposKo extends CI_Controller {
                 if ($value->dias_trascurridos < $reporte[1]['dia_max_cerrado']) {
                     $reporte[1]['dia_min_cerrado'] = $value->dias_trascurridos;
                 }
-
             }
             // SOLO PARA ABIERTAS
             else {
@@ -118,15 +123,14 @@ class ReporteTiemposKo extends CI_Controller {
                 if ($value->dias_trascurridos < $reporte[1]['dia_max_abierto']) {
                     $reporte[1]['dia_min_abierto'] = $value->dias_trascurridos;
                 }
-
             }
-
         }
 
         return $reporte;
     }
 
-    public function c_generateReportTimesKickOff() {
+    public function c_generateReportTimesKickOff()
+    {
         $f_inicio = $this->input->post('f_inicio');
         $f_final  = $this->input->post('f_final');
 
@@ -135,4 +139,28 @@ class ReporteTiemposKo extends CI_Controller {
         echo json_encode($return);
     }
 
+
+    public function viewAssociatesOTs($id, $fInit, $fEnd, $dias,$estadoOT)
+    {
+        $estadoOT = ($estadoOT == 'Cerradas') ? 3 : 1;
+        
+        $data = $this->Dao_reportes_model->getInfoBetweenDates($id, $fInit, $fEnd,$estadoOT);
+        foreach ($data as $key => $value) {
+            if ($value->dias_trascurridos != $dias) {
+                unset($data[$key]);
+            }
+        }
+        $this->viewAssociatesOThs($data);
+    }
+
+    public function viewAssociatesOThs($oths)
+    {
+        $data['title'] = 'OTHs Asociadas';
+        $data['oth'] = json_encode(array_values($oths));
+        $data['cantidad'] = $this->Dao_ot_hija_model->getCantUndefined();
+        $this->load->view('parts/headerF', $data);
+        $this->load->view('oths_asociadas');
+        $this->load->view('parts/footerF');
+        
+    }
 }

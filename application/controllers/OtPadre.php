@@ -564,7 +564,7 @@ class OtPadre extends CI_Controller {
         if ($seleccionadas == 1) {
             //verifica si existe en la base de datos, si no, extraerá la info de la linea base
             if ($exist) {
-                $ultimo_en_enviar = $this->Dao_ot_padre_model->getLastMailSent(implode($idsOtp,','));
+                $ultimo_en_enviar = $this->Dao_ot_padre_model->getLastMailSent(implode(',',$idsOtp));
                 echo json_encode($ultimo_en_enviar);
             }else{
                 //si no existe en la tabla de reporte_info, buscará si existe en la linea base
