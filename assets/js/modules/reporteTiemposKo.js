@@ -41,7 +41,6 @@ $(function() {
                 },
         // Organiza la informacion para poder pintarla en la vista del reporte de tiempos
         printTableReportTimesKickOff: function(data) {
-            const idsInges = Object.keys(data);
             const graficas = {
                 ingenieros: [],
                 d_min_cerr: [],

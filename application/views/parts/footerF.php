@@ -222,7 +222,6 @@
     <script src="<?= URL::to("assets/plugins/sweetalert2/sweetalert2.all.js"); ?> "></script>
 
 
-
 <?php endif ?>
 
 <?php if ($this->uri->segment(1) == 'reporteTiemposKo' && $this->uri->segment(2) == 'viewAssociatesOTs'): ?>
