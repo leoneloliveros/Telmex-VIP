@@ -266,20 +266,20 @@ $(function() {
         },
         //Eventos de la ventana.
         events: function() {
-
+        
         },
         getListOtsOtPadre: function() {
             //metodo ajax (post)
             $.post(baseurl + '/OtPadre/c_getListOtsOtPadre',
                     {
                         //parametros
-
+                        
                     },
                     // funcion que recibe los datos
                             function(data) {
                                 // convertir el json a objeto de javascript
                                 var obj = JSON.parse(data);
-                                vista.printTable(obj.data);
+                                vista.printTable(obj.data);   
                                 if (obj.cantOTPs > 0) {
                                     $('#badge_cant_total_OTP').html(obj.cantOTPs);
                                 }
@@ -303,8 +303,21 @@ $(function() {
                 {title: "Observaciónes dejadas", data: gral.inputObservaciones},
                 {title: "Recurrente", data: "MRC", visible: false},
                 {title: "ultimo envio", data: gral.cant_dias_ultimo_reporte, visible: false},
+                {title: "No. OTHs", data: vista.getColourPerOTHs},
                 {title: "Opc", data: vista.getButtonsOTP/**/},
             ]));
+            
+        },
+        
+        getColourPerOTHs: function (data){
+            let num = '';
+            if (data.cant_oths != 0) {
+                num += `<span class="styleNum" title="${data.cant_oths} OTHs Asociadas" >${data.cant_oths}</span>`;
+            } else {
+                num += `<span class="styleNum noOTHs" title="sin OTHs">${data.cant_oths}</span>`;
+            }
+            
+            return num;
         },
         // Datos de configuracion del datatable
         configTable: function(data, columns, onDraw) {
@@ -388,7 +401,12 @@ $(function() {
                         orderable: false,
                     }],
                 order: [[7, 'desc']],
-                drawCallback: onDraw
+                drawCallback: onDraw,
+                "createdRow": function(row, data, dataIndex) {
+                    if (data["cant_oths"] == 0) {
+                        $(row).css("background-color", "#f50e0e69");
+                    }
+                },
             }
         },
 

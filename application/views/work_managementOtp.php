@@ -65,6 +65,7 @@
                     <th></th>
                     <th></th>
                     <th></th>
+                    <th></th>
                     <th id="opciones"></th>
                 </tr>
             </tfoot>
