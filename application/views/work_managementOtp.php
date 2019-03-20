@@ -43,12 +43,22 @@
     <li tabla="table_list_opc" class=""><a data-toggle="tab" href="#por_lista">Por Lista</a></li>
     <li tabla="table_reporte_actualizacion" class=""><a class="clr_red" data-toggle="tab" href="#reporte_actualizacion" id="pestana_cant_report"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Enviar Reporte <span class="badge border_red bg-white" id="badge_cant_report"></span></a></li>
 </ul>
-
 <!--*********************  CONTENIDO PESTAÑAS  *********************-->
 <div class="tab-content" id="contenido_tablas">
 
     <div id="total" class="tab-pane fade in active">
-        <h3>OT Padre</h3>
+        <h3 style="margin-bottom:unset;">OT Padre</h3>
+        <?php  if (Auth::user()->n_role_user === 'administrador') : ?>
+            <div class="row" style="text-align:center; margin-bottom:1em; margin-top:unset;">
+                <h5><b>Filtrar grupo de ingenieros por...</b></h5>
+                <select id="filterGroupIng" class="sel-cris-cool">
+                    <option value="all">TODOS</option>
+                    <option value="GESTION OTS PROYECTOS">GESTION OTS PROYECTOS</option>
+                    <option value="GESTION OTS ESTANDAR">GESTION OTS ESTANDAR</option>
+                </select>
+            </div>
+            <hr>
+        <?php endif ?>
         <table id="table_otPadreList" class="table table-hover table-bordered table-striped dataTable_camilo" style="width: 100%;">
             <tfoot>
                 <tr>

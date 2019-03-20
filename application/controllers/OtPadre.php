@@ -240,7 +240,8 @@ class OtPadre extends CI_Controller {
 
     // TABLA QUE TRAE LA INFORMACION DE OTPADRE
     public function c_getListOtsOtPadre() {
-        $otPadreList = $this->Dao_ot_padre_model->getListOtsOtPadre();
+        $filtro = $this->input->post("filter");
+        $otPadreList = $this->Dao_ot_padre_model->getListOtsOtPadre($filtro);
         $data = array(
             'data' => $otPadreList->result(),
             'cantOTPs' => $otPadreList->num_rows()
