@@ -22,6 +22,17 @@ $(function() {
             $('#formModal').on('click', 'span#añadir_seccion_ref_cant', function() {
                 helper.duplicar_seccion($('#duplicar_ref_cant'), $('#aca_ref_cant'));
             })
+            $(".span_fecha_compromiso,.span_fecha_voc,.span_fecha_programacion,.span_fecha_dcoc,.span_fecha_aprobacion_coc,.span_fecha_configuracion,.span_fecha_ingenieria_detalle,.span_fecha_equipos,.span_fecha_ejecucion_obra_civil,.span_fecha_entrega_servicio,.span_fecha_empalmes").on('click',function(){
+                    if ($(this).hasClass('activeDate')) {
+                        console.log("está activo");
+                        $(this).removeClass('activeDate');
+                        $(this).addClass('inActiveDate');
+                    }else{
+                        console.log("NO está activo");
+                        $(this).removeClass('inActiveDate');
+                        $(this).addClass('activeDate');
+                    }
+                 })
 
             // funcion para remover seccion del form con el boton menos
             $('#formModal').on('click', 'span.remover_seccion', helper.remover_seccion);

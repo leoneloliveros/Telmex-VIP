@@ -124,3 +124,24 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
   50%{opacity: 0.3;}
   to{top: -20em;}
 }
+
+#general_linea_base span.activeDate {
+  background: #32a232;
+  color: white;
+  border: unset;
+  cursor: pointer;
+  transition: .5s;
+}
+#general_linea_base span.activeDate:hover{
+  background: #196419;
+}
+#general_linea_base span.inActiveDate{
+  background: #af1b34;
+  color: white;
+  border: unset;
+  cursor: pointer;
+  transition: .5s;
+}
+#general_linea_base span.inActiveDate:hover{
+  background: #470813;
+}
