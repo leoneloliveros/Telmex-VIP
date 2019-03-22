@@ -117,6 +117,7 @@ class Dao_ot_padre_model extends CI_Model {
         $query = $this->db->query("
                 SELECT
                 otp.k_id_ot_padre, otp.n_nombre_cliente, otp.orden_trabajo,
+                (SELECT COUNT(id_orden_trabajo_hija)) AS OT_Hijas,
                 otp.servicio, REPLACE(otp.estado_orden_trabajo,'otp_cerrada','Cerrada') AS estado_orden_trabajo, otp.fecha_programacion,
                 otp.fecha_compromiso, otp.fecha_creacion, otp.k_id_user, user.n_name_user,
                 CONCAT(user.n_name_user, ' ' , user.n_last_name_user) AS ingeniero,
@@ -143,6 +144,7 @@ class Dao_ot_padre_model extends CI_Model {
         $query = $this->db->query("
                 SELECT
                 otp.k_id_ot_padre, otp.n_nombre_cliente, otp.orden_trabajo,
+                (SELECT COUNT(id_orden_trabajo_hija)) AS OT_Hijas, 
                 otp.servicio, REPLACE(otp.estado_orden_trabajo,'otp_cerrada','Cerrada') AS estado_orden_trabajo, otp.fecha_programacion,
                 otp.fecha_compromiso, otp.fecha_creacion, otp.k_id_user, user.n_name_user,
                 CONCAT(user.n_name_user, ' ' , user.n_last_name_user) AS ingeniero,
@@ -191,6 +193,7 @@ class Dao_ot_padre_model extends CI_Model {
         $query = $this->db->query("
                 SELECT
                 otp.k_id_ot_padre, otp.n_nombre_cliente, otp.orden_trabajo,
+                (SELECT COUNT(id_orden_trabajo_hija)) AS OT_Hijas,
                 otp.servicio, REPLACE(otp.estado_orden_trabajo,'otp_cerrada','Cerrada') AS estado_orden_trabajo, otp.fecha_programacion,
                 otp.fecha_compromiso, otp.fecha_creacion, otp.k_id_user, user.n_name_user,
                 CONCAT(user.n_name_user, ' ' , user.n_last_name_user) AS ingeniero,
@@ -311,6 +314,7 @@ class Dao_ot_padre_model extends CI_Model {
         $query = $this->db->query(
             "SELECT
             otp.k_id_ot_padre, otp.n_nombre_cliente, otp.orden_trabajo,
+            (SELECT COUNT(id_orden_trabajo_hija)) AS OT_Hijas,
             (
                 SELECT COUNT(idreporte_info) as cant FROM reporte_info where paquete_enviados >= 1 and id_ot_padre = otp.k_id_ot_padre
             ) AS MAIL_enviados,

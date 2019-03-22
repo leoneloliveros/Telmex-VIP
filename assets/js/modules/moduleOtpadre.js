@@ -330,6 +330,16 @@ $(function() {
             
             return num;
         },
+        Color_para_OTH: function (data){
+            let num = '';
+            if (data.OT_Hijas != 0) {
+                num += `<span class="styleNum" title="${data.OT_Hijas} OTHs Asociadas" >${data.OT_Hijas}</span>`;
+            } else {
+                num += `<span class="styleNum noOTHs" title="sin OTHs">${data.OT_Hijas}</span>`;
+            }
+            
+            return num;
+        },
         // Datos de configuracion del datatable
         configTable: function(data, columns, onDraw) {
             return {
@@ -520,6 +530,7 @@ $(function() {
             hoy.table_otPadreListHoy = $('#table_otPadreListHoy').DataTable(hoy.configTable(data, [
 
                 {title: "Ot Padre", data: "k_id_ot_padre"},
+                {title: "Cant OTH", data: vista.Color_para_OTH},
                 {title: "Nombre Cliente", data: "n_nombre_cliente"},
                 {title: "Tipo", data: "orden_trabajo"},
                 {title: "Servicio", data: "servicio"},
@@ -647,6 +658,7 @@ $(function() {
             vencidas.table_otPadreListVencidas = $('#table_otPadreListVencidas').DataTable(vencidas.configTable(data, [
 
                 {title: "Ot Padre", data: "k_id_ot_padre"},
+                {title: "Cant OTH", data: vista.Color_para_OTH},
                 {title: "Nombre Cliente", data: "n_nombre_cliente"},
                 {title: "Tipo", data: "orden_trabajo"},
                 {title: "Servicio", data: "servicio"},
@@ -783,6 +795,7 @@ $(function() {
             lista.tableOpcList = $('#table_list_opc').DataTable(lista.configTable(data, [
 
                 {title: "Ot Padre", data: "k_id_ot_padre"},
+                {title: "Cant OTH", data: vista.Color_para_OTH},
                 {title: "Nombre Cliente", data: "n_nombre_cliente"},
                 {title: "Tipo", data: "orden_trabajo"},
                 {title: "Servicio", data: "servicio"},
@@ -2285,6 +2298,7 @@ $(function() {
             // nombramos la variable para la tabla y llamamos la configuiracion
             reporte_act.table_reporte_actualizacion = $('#table_reporte_actualizacion').DataTable(reporte_act.configTableEmail(data, [
                 {title: "Ot Padre", data: "k_id_ot_padre"},
+                {title: "Cant OTH", data: vista.Color_para_OTH},
                 {title: "Nombre Cliente", data: "n_nombre_cliente"},
                 {title: "Tipo", data: "orden_trabajo"},
                 {title: "Servicio", data: "servicio"},
