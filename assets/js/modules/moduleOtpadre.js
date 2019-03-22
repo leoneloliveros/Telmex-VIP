@@ -282,7 +282,7 @@ $(function() {
                                 var obj = JSON.parse(data);
                                 helper.hideLoading('.8');
                                 vista.printTable(obj.data);
-                                $('#badge_cant_total_OTP.html').html(obj.cantOTPs);
+                                $('#badge_cant_total_OTP').html(obj.cantOTPs);
                             }
                     );
                 },

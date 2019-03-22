@@ -97,3 +97,15 @@
     background: grey !important;
     color: #fff;
 }
+.selectContainer{
+    display: inline;
+}
+.numeroDias{
+    padding: 8px 16px;
+    width: 70%;
+    margin-top:20px;
+    margin-left: 15px;
+}
+.calcular{
+    margin-left: 20px;
+}

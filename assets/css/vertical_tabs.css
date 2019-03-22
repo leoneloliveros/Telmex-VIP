@@ -145,3 +145,9 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 #general_linea_base span.inActiveDate:hover{
   background: #470813;
 }
+
+#general_linea_base label{
+  width: 68%;
+  text-align: center;
+  margin-left: 13px;
+}
