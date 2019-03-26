@@ -64,10 +64,10 @@ class Dao_ot_padre_model extends CI_Model {
             $condicion = " WHERE otp.k_id_user = $usuario_session ";
         }else{
             if($fil === 'GESTION OTS PROYECTOS'){
-                $condicion = "WHERE USER.n_group = 'GESTION OTS PROYECTOS'";
+                $condicion = "WHERE `user`.n_group = 'GESTION OTS PROYECTOS'";
             }else{
                 if($fil === 'GESTION OTS ESTANDAR'){
-                    $condicion = "WHERE USER.n_group = 'GESTION OTS ESTANDAR'";
+                    $condicion = "WHERE `user`.n_group = 'GESTION OTS ESTANDAR'";
                 }
             }
         }
@@ -84,8 +84,8 @@ class Dao_ot_padre_model extends CI_Model {
             otp.fecha_compromiso,
             otp.fecha_creacion,
             otp.k_id_user,
-            USER.n_name_user,
-            CONCAT( USER.n_name_user, ' ', USER.n_last_name_user ) AS ingeniero,
+            `user`.n_name_user,
+            CONCAT( `user`.n_name_user, ' ', `user`.n_last_name_user ) AS ingeniero,
             otp.lista_observaciones,
             otp.observacion,
             IFNULL(SUM( oth.c_email ),0) AS cant_mails,
@@ -97,11 +97,11 @@ class Dao_ot_padre_model extends CI_Model {
             (SELECT COUNT(oth2.nro_ot_onyx) FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx ) AS cant_oths
             FROM ot_hija oth
             RIGHT JOIN ot_padre otp ON oth.nro_ot_onyx = otp.k_id_ot_padre
-            INNER JOIN USER ON otp.k_id_user = USER.k_id_user
+            INNER JOIN `user` ON otp.k_id_user = `user`.k_id_user
             LEFT JOIN hitos ON hitos.id_ot_padre = otp.k_id_ot_padre
             $condicion
             GROUP BY
-            nro_ot_onyx
+            otp.k_id_ot_padre
         ");
         // echo("<pre>"); print_r($this->db->last_query()); echo("</pre>");
         return $query;
