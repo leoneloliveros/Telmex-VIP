@@ -22,25 +22,6 @@ $(function() {
             $('#formModal').on('click', 'span#añadir_seccion_ref_cant', function() {
                 helper.duplicar_seccion($('#duplicar_ref_cant'), $('#aca_ref_cant'));
             })
-            $(".span_fecha_compromiso,.span_fecha_voc,.span_fecha_programacion,.span_fecha_dcoc,.span_fecha_aprobacion_coc,.span_fecha_configuracion,.span_fecha_ingenieria_detalle,.span_fecha_equipos,.span_fecha_ejecucion_obra_civil,.span_fecha_entrega_servicio,.span_fecha_empalmes").on('click',function(){
-                    let span = $(this);
-                    if (span.hasClass('activeDate')) {
-                        span.removeClass('activeDate');
-                        span.addClass('inActiveDate');
-                        span.children('i').removeClass('fa-calendar-check-o');
-                        span.children('i').addClass('fa-calendar-times-o');
-                        span.siblings().attr('disabled',true);
-                        span.siblings().css('color', "#eeeeee");
-                    }else{
-                        span.children('i').removeClass('fa-calendar-times-o');
-                        span.children('i').addClass('fa-calendar-check-o');
-                        span.removeClass('inActiveDate');
-                        span.addClass('activeDate');
-                        span.siblings().attr('disabled',false);
-                        span.siblings().css('color',"#000");
-                    }
-                formulario.calcularLineaBase();
-                 })
 
             // funcion para remover seccion del form con el boton menos
             $('#formModal').on('click', 'span.remover_seccion', helper.remover_seccion);
@@ -286,27 +267,26 @@ $(function() {
                 }).then((continuar) => {
 
                     if (continuar.value) {
-                        // valida si la opcion no tiene reporte reinicio(correo) y la dijire a otro controlador,
-                        // el cual solo actualiza la oth y no envia correo
+                        //valida si la opcion no tiene reporte reinicio(correo) y la dijire a otro controlador,
+                        //el cual solo actualiza la oth y no envia correo
                         if (val_estado ==30 || val_estado ==31) {
 
                             $('#formModal').attr('action', baseurl + '/Templates/c_updateStatusOtEspeciales');
                             $('#btnUpdOt').attr('disabled', false);
-                            $('.inActiveDate').siblings().val(null);
                             $('#formModal').submit();
 
                         } else {
-                            $('.inActiveDate').siblings().val(null);
+
                             $('#formModal').submit();
+
                         }
-                        
+
                     } else {
                         helper.miniAlert();
                         return false;
                     }
                 });
             } else {
-                $('.inActiveDate').siblings().val(null);
                 $('#formModal').submit();
             }
 
@@ -362,137 +342,26 @@ $(function() {
         // calcula la linea base de acuerdo a la fecha de cierre de KO
         calcularLineaBase: function() {
             const fecha_cierreKO = $('#lb_fecha_cierreKo').val();
-
-            var comodin = fecha_cierreKO;
-
             const fecha_compromiso = formulario.calcular_compromiso(fecha_cierreKO);
-            if ($("#lb_fecha_compromiso").siblings().hasClass("activeDate")) {
-                comodin = fecha_compromiso;
-            }
-            $('#lb_fecha_compromiso').val(fecha_compromiso);
-
-            $('#lb_fecha_programacion').val(fecha_compromiso);
-            $('#lb_fecha_entrega_servicio').val(fecha_compromiso);
-            // $('#lb_fecha_programacion').val(comodin);
-            // $('#lb_fecha_entrega_servicio').val(comodin);
-            const fecha_empalmes = formulario.calcular_nueva_fecha(fecha_compromiso, -2);
-            $('#lb_fecha_empalmes').val(fecha_empalmes);
-            // ============================= DEPENDER DE FECHA COMPROMISO
-
-
             const fecha_voc = formulario.calcular_nueva_fecha(fecha_cierreKO, 2);
-            if ($("#lb_fecha_voc").siblings().hasClass("activeDate")) {
-                comodin = fecha_voc;
-                $(".comodin").val(comodin);
-            } else {
-                comodin = fecha_cierreKO; 
-                $(".comodin").val(comodin);
-            }
-                $('#lb_fecha_voc').val(comodin);
+            const fecha_dcoc = formulario.calcular_nueva_fecha(fecha_voc, 2);
+            const fecha_aprobacion_coc = formulario.calcular_nueva_fecha(fecha_dcoc, 3);
+            const fecha_ingenieria_detalle = formulario.calcular_nueva_fecha(fecha_aprobacion_coc, 2);
+            const fecha_configuracion = formulario.calcular_nueva_fecha(fecha_aprobacion_coc, 3);
+            const fecha_ejecucion_obra_civil = formulario.calcular_nueva_fecha(fecha_aprobacion_coc, 5);
+            const fecha_empalmes = formulario.calcular_nueva_fecha(fecha_compromiso, -2);
 
-            const fecha_dcoc = formulario.calcular_nueva_fecha(comodin, 2);
-
-            if ($("#lb_fecha_dcoc").siblings().hasClass("activeDate")) {
-                comodin = fecha_dcoc;
-                $(".comodin").val(comodin);
-            } else { 
-                if ($("#lb_fecha_voc").siblings().hasClass("activeDate")) {
-                    comodin = fecha_voc;
-                }else{
-                    comodin = fecha_cierreKO;
-                }
-            }
-
-            $('#lb_fecha_dcoc').val(comodin);
-            
-            const fecha_aprobacion_coc = formulario.calcular_nueva_fecha(comodin, 3);
-            
-            if ($("#lb_fecha_aprobacion_coc").siblings().hasClass("activeDate")) {
-                comodin = fecha_aprobacion_coc;
-            } else {
-                if ($("#lb_fecha_dcoc").siblings().hasClass("activeDate")) {
-                    comodin = fecha_dcoc;
-                }else{
-                    if ($("#lb_fecha_voc").siblings().hasClass("activeDate")) {
-                        comodin = fecha_voc;
-                    }else{
-                        comodin = fecha_cierreKO;
-                    }
-                }
-            }
-
-            var comodin2 = comodin;
-            var comodin3 = comodin;
-
-            $('#lb_fecha_aprobacion_coc').val(comodin);
-
-            const fecha_configuracion = formulario.calcular_nueva_fecha(comodin, 3);
-            if ($("#lb_fecha_configuracion").siblings().hasClass("activeDate")) {
-                comodin = fecha_configuracion;
-            } else {
-                if ($("#lb_fecha_aprobacion_coc").siblings().hasClass("activeDate")) {
-                comodin = fecha_aprobacion_coc;
-            } else {
-                if ($("#lb_fecha_dcoc").siblings().hasClass("activeDate")) {
-                    comodin = fecha_dcoc;
-                } else {
-                    if ($("#lb_fecha_voc").siblings().hasClass("activeDate")) {
-                        comodin = fecha_voc;
-                    } else {
-                        comodin = fecha_cierreKO;
-                    }
-                }
-            }
-            }
-            
-            $('#lb_fecha_configuracion').val(comodin);
-
-            
-
-            const fecha_ejecucion_obra_civil = formulario.calcular_nueva_fecha(comodin2, 5);
-            if ($("#lb_fecha_ejecucion_obra_civil").siblings().hasClass("activeDate")) {
-                comodin2 = fecha_ejecucion_obra_civil;
-            }else{
-                if ($("#lb_fecha_aprobacion_coc").siblings().hasClass("activeDate")) {
-                    comodin2 = fecha_aprobacion_coc;
-                } else {
-                    if ($("#lb_fecha_dcoc").siblings().hasClass("activeDate")) {
-                        comodin2 = fecha_dcoc;
-                    } else {
-                        if ($("#lb_fecha_voc").siblings().hasClass("activeDate")) {
-                            comodin2 = fecha_voc;
-                        } else {
-                            comodin2 = fecha_cierreKO;
-                        }
-                    }
-                }
-            }
-            $('#lb_fecha_ejecucion_obra_civil').val(comodin2);
-            
-            
-            const fecha_ingenieria_detalle = formulario.calcular_nueva_fecha(comodin3, 2);
-
-            if ($("#lb_fecha_ingenieria_detalle").siblings().hasClass("activeDate")) {
-                comodin3 = fecha_ingenieria_detalle;
-            }else{
-                if ($("#lb_fecha_aprobacion_coc").siblings().hasClass("activeDate")) {
-                    comodin3 = fecha_aprobacion_coc;
-                } else {
-                    if ($("#lb_fecha_dcoc").siblings().hasClass("activeDate")) {
-                        comodin3 = fecha_dcoc;
-                    } else {
-                        if ($("#lb_fecha_voc").siblings().hasClass("activeDate")) {
-                            comodin3 = fecha_voc;
-                        } else {
-                            comodin3 = fecha_cierreKO;
-                        }
-                    }
-                }
-            }
-
-            $('#lb_fecha_ingenieria_detalle').val(comodin3);
-
+            $('#lb_fecha_compromiso').val(fecha_compromiso);
+            $('#lb_fecha_programacion').val(fecha_compromiso);
+            $('#lb_fecha_voc').val(fecha_voc);
+            $('#lb_fecha_dcoc').val(fecha_dcoc);
+            $('#lb_fecha_aprobacion_coc').val(fecha_aprobacion_coc);
+            $('#lb_fecha_ingenieria_detalle').val(fecha_ingenieria_detalle);
+            $('#lb_fecha_configuracion').val(fecha_configuracion);
             $('#lb_fecha_equipos').val(fecha_configuracion);
+            $('#lb_fecha_ejecucion_obra_civil').val(fecha_ejecucion_obra_civil);
+            $('#lb_fecha_empalmes').val(fecha_empalmes);
+            $('#lb_fecha_entrega_servicio').val(fecha_compromiso);
         },
         //retorna fecha sumando X dias habiles (la fecha base debe tener el formato yyyy-mm-dd)
         calcular_nueva_fecha: function(fecha_base, dias_h) {
