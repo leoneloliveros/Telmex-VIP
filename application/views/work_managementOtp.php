@@ -255,7 +255,7 @@
                 <tbody id="tbodyCount"></tbody>
             </table>
         </div>
-        
+
         <table id="table_reporte_actualizacion" class="table table-hover table-bordered table-striped dataTable_camilo" style="width: 100%;">
             <tfoot>
                 <tr>
@@ -1502,9 +1502,9 @@
                                                             <div class="widget bg_white m-t-25 d-inline-b cliente">
                                                                 <div class="d-inline-b">
                                                                     <fieldset class="col-md-6 m-l-200">
-                                                                        
+
                                                                         <div class="form-group">
-                                                                            <label for="lb_fecha_cierreKo" class="col-md-3 mr-1 control-label">CIERRE KICKOFF(KO):  </label>
+                                                                            <label for="lb_fecha_cierreKo" class="col-md-3 control-label">CIERRE KICKOFF(KO):</label>
                                                                             <!-- dias para OTP  #5 -->
                                                                             <input type="text" class="form-control numeroDias" placeholder="Numero De Dias" id="consultaDias"> <br>
                                                                             <div class="col-md-9 selectContainer">
@@ -1512,12 +1512,10 @@
                                                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                                                                     <input type="date" name="lb_fecha_cierreKo" id="lb_fecha_cierreKo" class="form-control validar_required">
                                                                                     <div class="input-group-btn">
+                                                                                        <button type="button" id="btnTodayDateCalculate" class="btn btn-primary" title="Fecha Actual"><i class="glyphicon glyphicon-calendar"></i></button>
 
-                                                                                        <button type="button" id="btnTodayDateCalculate" class="btn btn-primary" title="Fecha Actual"><i class="glyphicon glyphicon-calendar"></i></button>    
                                                                                     </div>
-                                                                                </div>
-                                                                                <span class="calcular">calcularLineaBase</span><i class="glyphicon glyphicon-question-sign"></i>
-                                                                                </div>
+                                                                                </div><i class="m-l-40">Calcular linea base <span class="glyphicon glyphicon-question-sign"></span></i>
                                                                             </div>
                                                                         </div>
                                                                     </fieldset>
