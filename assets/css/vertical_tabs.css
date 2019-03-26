@@ -68,3 +68,14 @@ div.bhoechie-tab-content{
 div.bhoechie-tab div.bhoechie-tab-content:not(.active){
   display: none;
 }
+
+#table_otPadreList tbody tr td{
+  vertical-align: middle !important;
+}
+.styleNum{
+  font-size: 1.8em;
+  border-radius:4px;
+  background: #2499d6db;
+  display: block;
+  color: #ffffff;
+}
