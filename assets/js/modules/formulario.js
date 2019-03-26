@@ -519,7 +519,6 @@ $(function() {
         // Calcular la fecha de compromiso (caso especial)
         calcular_compromiso: function(fecha_base){
             const consultaDias = document.getElementById('consultaDias').value;
-            // console.log(consultaDias);
             let DiasDeConsulta;
             if(consultaDias  ==  "" || consultaDias == null){
                 DiasDeConsulta = 20;
