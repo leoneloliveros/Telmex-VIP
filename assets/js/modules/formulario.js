@@ -384,9 +384,17 @@ $(function() {
             return fecha_base;
         }, 
 
+         
         // Calcular la fecha de compromiso (caso especial)
         calcular_compromiso: function(fecha_base){
-            const veinte = helper.sumar_o_restar_dias_a_fecha(fecha_base, 20);
+            const consultaDias = document.getElementById('consultaDias').value;
+            let DiasDeConsulta;
+            if(consultaDias  ==  "" || consultaDias == null){
+                DiasDeConsulta = 20;
+            } else{
+                DiasDeConsulta = consultaDias;
+            }
+            const veinte = helper.sumar_o_restar_dias_a_fecha(fecha_base, DiasDeConsulta);
             const numDiaSem = veinte.getDay();
             if (numDiaSem == 6) {
                 return helper.formatDate(helper.sumar_o_restar_dias_a_fecha(helper.formatDate(veinte), -1));
