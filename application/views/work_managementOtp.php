@@ -1504,7 +1504,7 @@
                                                                     <fieldset class="col-md-6 m-l-200">
                                                                         
                                                                         <div class="form-group">
-                                                                            <label for="lb_fecha_cierreKo" class="col-md-3 mr-1 control-label">CIERRE KICKOFF(KO):  </label> <br><br>
+                                                                            <label for="lb_fecha_cierreKo" class="col-md-3 mr-1 control-label">CIERRE KICKOFF(KO):  </label>
                                                                             <!-- dias para OTP  #5 -->
                                                                             <input type="text" class="form-control numeroDias" placeholder="Numero De Dias" id="consultaDias"> <br>
                                                                             <div class="col-md-9 selectContainer">
