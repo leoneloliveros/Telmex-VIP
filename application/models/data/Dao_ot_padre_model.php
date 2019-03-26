@@ -57,30 +57,51 @@ class Dao_ot_padre_model extends CI_Model {
     }
 
     // tabla de lista de OTS Padre
-    public function getListOtsOtPadre() {
+    public function getListOtsOtPadre($fil) {
         $condicion = " ";
         if (Auth::user()->n_role_user == 'ingeniero') {
             $usuario_session = Auth::user()->k_id_user;
             $condicion = " WHERE otp.k_id_user = $usuario_session ";
+        }else{
+            if($fil === 'GESTION OTS PROYECTOS'){
+                $condicion = "WHERE USER.n_group = 'GESTION OTS PROYECTOS'";
+            }else{
+                if($fil === 'GESTION OTS ESTANDAR'){
+                    $condicion = "WHERE USER.n_group = 'GESTION OTS ESTANDAR'";
+                }
+            }
         }
+
         $query = $this->db->query(
             "SELECT
-                otp.k_id_ot_padre, otp.n_nombre_cliente, otp.orden_trabajo,
-                (SELECT COUNT(id_ot_padre) FROM reporte_info where id_ot_padre = otp.k_id_ot_padre
-                ) AS MAIL_enviados,
-                otp.servicio, REPLACE(otp.estado_orden_trabajo,'otp_cerrada','Cerrada') AS estado_orden_trabajo, otp.fecha_programacion,
-                otp.fecha_compromiso, otp.fecha_creacion, otp.k_id_user, user.n_name_user,
-                CONCAT(user.n_name_user, ' ' , user.n_last_name_user) AS ingeniero,
-                otp.lista_observaciones, otp.observacion, IFNULL(SUM( oth.c_email ),0) AS cant_mails, hitos.id_hitos, otp.finalizo, otp.ultimo_envio_reporte,
-                CONCAT('$ ',FORMAT(oth.monto_moneda_local_arriendo + oth.monto_moneda_local_cargo_mensual,2)) AS MRC, otp.lista_observaciones,
-                (SELECT COUNT(oth2.nro_ot_onyx) FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx ) AS cant_oths
-                FROM ot_hija oth
-                -- INNER JOIN ot_padre otp ON oth.nro_ot_onyx = otp.k_id_ot_padre
-                RIGHT JOIN ot_padre otp ON oth.nro_ot_onyx = otp.k_id_ot_padre
-                INNER JOIN user ON otp.k_id_user = user.k_id_user
-                LEFT JOIN hitos ON hitos.id_ot_padre = otp.k_id_ot_padre
-                $condicion
-                GROUP BY nro_ot_onyx
+            otp.k_id_ot_padre,
+            otp.n_nombre_cliente,
+            otp.orden_trabajo,
+            ( SELECT COUNT( id_ot_padre ) FROM reporte_info WHERE id_ot_padre = otp.k_id_ot_padre ) AS MAIL_enviados,
+            otp.servicio,
+            REPLACE ( otp.estado_orden_trabajo, 'otp_cerrada', 'Cerrada' ) AS estado_orden_trabajo,
+            otp.fecha_programacion,
+            otp.fecha_compromiso,
+            otp.fecha_creacion,
+            otp.k_id_user,
+            USER.n_name_user,
+            CONCAT( USER.n_name_user, ' ', USER.n_last_name_user ) AS ingeniero,
+            otp.lista_observaciones,
+            otp.observacion,
+            IFNULL(SUM( oth.c_email ),0) AS cant_mails,
+            hitos.id_hitos,
+            otp.finalizo,
+            otp.ultimo_envio_reporte,
+            CONCAT( '$ ', FORMAT( oth.monto_moneda_local_arriendo + oth.monto_moneda_local_cargo_mensual, 2 ) ) AS MRC,
+            otp.lista_observaciones,
+            (SELECT COUNT(oth2.nro_ot_onyx) FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx ) AS cant_oths
+            FROM ot_hija oth
+            RIGHT JOIN ot_padre otp ON oth.nro_ot_onyx = otp.k_id_ot_padre
+            INNER JOIN USER ON otp.k_id_user = USER.k_id_user
+            LEFT JOIN hitos ON hitos.id_ot_padre = otp.k_id_ot_padre
+            $condicion
+            GROUP BY
+            nro_ot_onyx
         ");
         // echo("<pre>"); print_r($this->db->last_query()); echo("</pre>");
         return $query;

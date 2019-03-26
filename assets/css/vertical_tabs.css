@@ -79,3 +79,48 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
   display: block;
   color: #ffffff;
 }
+
+.loadingInfo{
+  border-bottom-left-radius: 5px;
+  position: fixed;
+  background: #0000009e;
+  width: 24%;
+  right: 0px;
+  top: 0px;
+  color: white;
+  text-align: center;
+  z-index: 30;
+  padding-bottom: 2em;
+  animation: .7s aparecer ease;
+  border: 1px solid black;
+  border-right: unset;
+  border-top: unset;
+}
+
+.loadingInfo i {
+  font-size: 6em;
+}
+
+
+.loadingInfo span{
+  display: block;
+  margin-bottom: 1.5em;
+  background: white;
+  color: black;
+  font-weight: bold;
+  padding: 1em;
+  word-break: break-word;
+}
+
+@keyframes aparecer {
+  from{right: -35em;}
+  50%{right: 3em;}
+  to{right: 0px;}
+}
+
+
+@keyframes ocultar {
+  10%{top: 4em;}
+  50%{opacity: 0.3;}
+  to{top: -20em;}
+}

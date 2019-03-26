@@ -266,20 +266,22 @@ $(function() {
         },
         //Eventos de la ventana.
         events: function() {
-        
+            $("#filterGroupIng").on('change',vista.getListOtsOtPadre);
         },
         getListOtsOtPadre: function() {
             //metodo ajax (post)
+            var filtro = $("#filterGroupIng").val();
+            (role_session === 'administrador') ? helper.showLoading('Filtrando...') : helper.showLoading();
             $.post(baseurl + '/OtPadre/c_getListOtsOtPadre',
                     {
-                        //parametros
-                        
+                        filter: filtro,
                     },
                     // funcion que recibe los datos
                             function(data) {
                                 // convertir el json a objeto de javascript
                                 var obj = JSON.parse(data);
-                                vista.printTable(obj.data);   
+                                helper.hideLoading('.8');
+                                vista.printTable(obj.data);
                                 if (obj.cantOTPs > 0) {
                                     $('#badge_cant_total_OTP').html(obj.cantOTPs);
                                 }
@@ -287,6 +289,15 @@ $(function() {
                     );
                 },
         printTable: function(data) {
+            if (vista.table_otPadreList) {
+                var tabla = vista.table_otPadreList;
+                tabla.clear().draw();
+                tabla.rows.add(data);
+                tabla.columns.adjust().draw();
+                return;
+            }
+
+
             // nombramos la variable para la tabla y llamamos la configuiracion
             vista.table_otPadreList = $('#table_otPadreList').DataTable(vista.configTable(data, [
 

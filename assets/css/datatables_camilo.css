@@ -598,3 +598,29 @@ span.verGeneral{
     transform: scale(1.5);
 
 }
+
+select.sel-cris-cool{
+    border: 2px solid #084c6f;
+    padding: 5px;
+    color: #084c6f;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .5s;
+    outline: unset;
+}
+
+select.sel-cris-cool:hover{
+    background: #084c6f;
+    color: white;
+    border-color: #15394c;
+}
+
+select.sel-cris-cool:focus{
+    box-shadow: 0 0 0 3px #25ce858f;
+}
+
+select.sel-cris-cool option{
+    background: #084c6f;
+    color: white;
+    cursor: pointer;
+}
