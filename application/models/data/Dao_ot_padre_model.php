@@ -12,13 +12,10 @@ class Dao_ot_padre_model extends CI_Model {
 
     // Retorna registro otp por id de ot padre
     public function exist_otp_by_id($id) {
-        $query = $this->db->query("
-				SELECT
-				k_id_ot_padre
-				FROM
-				ot_padre
-				WHERE
-				k_id_ot_padre = $id
+        $query = $this->db->query(
+            "SELECT k_id_ot_padre
+                FROM ot_padre
+				WHERE k_id_ot_padre = $id
 			");
         return $query->row();
     }
