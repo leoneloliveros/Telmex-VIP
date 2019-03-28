@@ -255,7 +255,7 @@
                 <tbody id="tbodyCount"></tbody>
             </table>
         </div>
-        
+
         <table id="table_reporte_actualizacion" class="table table-hover table-bordered table-striped dataTable_camilo" style="width: 100%;">
             <tfoot>
                 <tr>
@@ -1502,7 +1502,7 @@
                                                             <div class="widget bg_white m-t-25 d-inline-b cliente">
                                                                 <div class="d-inline-b">
                                                                     <fieldset class="col-md-6 m-l-200">
-                                                                        
+
                                                                         <div class="form-group">
                                                                             <label for="lb_fecha_cierreKo" class="col-md-3 control-label">CIERRE KICKOFF(KO):</label>
                                                                             <!-- dias para OTP  #5 -->

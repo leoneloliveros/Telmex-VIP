@@ -261,6 +261,7 @@ class LoadInformation extends CI_Controller {
                                 array_push($errorNoChange, array($sinCambios, $this->getValueCell($sheet, 'AW' . $row)));
                             }
                         }
+                        //print_r($updates);
                         if ($updates) {
                             $up_otp = [];
                             $up_oth = [];
@@ -313,6 +314,7 @@ class LoadInformation extends CI_Controller {
                                 'fecha_actualizacion'   => NULL,
                                 'usuario_actualizacion' => NULL,
                             );
+                            //print_r('data'.$dataotp);
                             // funcion para insertar datos otp
                             $this->Dao_ot_padre_model->insert_data_otp($dataotp);
                         }
