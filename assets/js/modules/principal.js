@@ -1,40 +1,40 @@
-$(function () {
+$(function() {
     fTiempos = {
-        init: function () {
+        init: function() {
             fTiempos.events();
             fTiempos.listOutTime();
             fTiempos.individualColumnSearching();
-          
+
         },
 
         //Eventos de la ventana.
-        events: function () {
+        events: function() {
             $('#tablaFueraTiempos').on('click', 'a.ver-det', fTiempos.onClickShowModalDet);
             $('#tablaDetalleResOutTimes').on('click', 'a.ver-det', fTiempos.onClickShowModalDet);
 
             // EVENTO DEL MENU STICKY
-            $('#btn_fixed').on('click', function () {
+            $('#btn_fixed').on('click', function() {
                 $(this).hide();
                 $('#content_fixed').removeClass('closed');
                 $('#content_fixed #menu_fixed').removeClass('hidden').hide().fadeIn(500);
             });
-            $('#btn_close_fixed').on('click', function () {
+            $('#btn_close_fixed').on('click', function() {
                 $('#content_fixed').addClass('closed');
                 $('#content_fixed #menu_fixed').hide();
                 $('#btn_fixed').fadeIn(500);
             });
         },
-        listOutTime: function () {
+        listOutTime: function() {
             $.post(baseurl + '/OtHija/c_getOtsOutTime',
                     {
                         idTipo: null // parametros que se envian
                     },
-                    function (data) {
+                    function(data) {
                         fTiempos.printTableOutTime(data);
                     });
 
         },
-        printTableOutTime: function (data) {
+        printTableOutTime: function(data) {
             ///lleno la tabla con los valores enviados
             fTiempos.tablaFueraTiempos = $('#tablaFueraTiempos').DataTable(fTiempos.configTable(data, [
                 {title: "OT Padre", data: "nro_ot_onyx"},
@@ -50,11 +50,11 @@ $(function () {
             ]));
         },
         // Datos de configuracion del datatable
-        configTable: function (data, columns, onDraw) {
+        configTable: function(data, columns, onDraw) {
             return {
-                initComplete: function () {
+                initComplete: function() {
                     var r = $('#tablaFueraTiempos tfoot tr');
-                    r.find('th').each(function () {
+                    r.find('th').each(function() {
                         $(this).css('padding', 8);
                     });
                     $('#tablaFueraTiempos thead').append(r);
@@ -64,10 +64,10 @@ $(function () {
                     var table = $('#tablaFueraTiempos').DataTable();
 
                     // Apply the search
-                    table.columns().every(function () {
+                    table.columns().every(function() {
                         var that = this;
 
-                        $('input', this.footer()).on('keyup change', function () {
+                        $('input', this.footer()).on('keyup change', function() {
                             if (that.search() !== this.value) {
                                 that.search(this.value).draw();
                             }
@@ -139,35 +139,35 @@ $(function () {
                 drawCallback: onDraw
             }
         },
-        getButtons: function (obj) {
+        getButtons: function(obj) {
             boton = '<div class="btn-group">'
                     + '<a class="btn btn-default btn-xs ver-det btn_datatable_cami" title="Editar Ots"><span class="fa fa-fw fa-eye"></span></a>'
                     + '</div>';
             return boton;
         },
-        onClickShowModalDet: function () {
+        onClickShowModalDet: function() {
             document.getElementById("formModal_detalle").reset();
             $('#title_modal').html('');
             var aLinkLog = $(this);
             var trParent = aLinkLog.parents('tr');
-            var record = tabla_cont_out.row(trParent).data();
+            var record = fTiempos.tablaFueraTiempos.row(trParent).data();
             fTiempos.fillFormModal(record);
         },
-        fillFormModal: function (registros) {
+        fillFormModal: function(registros) {
             $.post(baseurl + '/OtHija/c_fillmodals',
                     {
                         idOth: registros.id_orden_trabajo_hija // parametros que se envian
                     },
-                    function (data) {
-                       $.each(data, function (i, item) {
+                    function(data) {
+                        $.each(data, function(i, item) {
                             $('#mdl_' + i).val(item);
-                        }); 
+                        });
                     });
             $('#title_modal').html('<b>Detalle de la orden  ' + registros.id_orden_trabajo_hija + '</b>');
             $('#Modal_detalle').modal('show');
         },
-        individualColumnSearching: function () {
-            $('#tablaFueraTiempos tfoot th').each(function () {
+        individualColumnSearching: function() {
+            $('#tablaFueraTiempos tfoot th').each(function() {
                 $(this).html('<input type="text" placeholder="Buscar" />');
             });
         }
@@ -177,27 +177,27 @@ $(function () {
     /************************************************FIN HOY************************************************/
     /**********************************************INICIO NUEVAS*********************************************/
     eTiempos = {
-        init: function () {
+        init: function() {
             eTiempos.events();
             eTiempos.listInTimes();
             eTiempos.individualColumnSearching();
         },
 
         //Eventos de la ventana.
-        events: function () {
+        events: function() {
             $('#tablaEnTiempos').on('click', 'a.ver-det', eTiempos.onClickShowModalDet);
             $('#tablaDetalleResInTimes').on('click', 'a.ver-det', eTiempos.onClickShowModalDet);
         },
-        listInTimes: function () {
+        listInTimes: function() {
             $.post(baseurl + '/OtHija/c_getOtsInTimes',
                     {
                         // clave: 'valor' // parametros que se envian
                     },
-                    function (data) {
+                    function(data) {
                         eTiempos.printTableInTimes(data);
                     });
         },
-        printTableInTimes: function (data) {
+        printTableInTimes: function(data) {
             ///lleno la tabla con los valores enviados
             eTiempos.tablaEnTiempos = $('#tablaEnTiempos').DataTable(eTiempos.configTable(data, [
                 {title: "OT Padre", data: "nro_ot_onyx"},
@@ -213,11 +213,11 @@ $(function () {
             ]));
         },
         // Datos de configuracion del datatable
-        configTable: function (data, columns, onDraw) {
+        configTable: function(data, columns, onDraw) {
             return {
-                initComplete: function () {
+                initComplete: function() {
                     var r = $('#tablaEnTiempos tfoot tr');
-                    r.find('th').each(function () {
+                    r.find('th').each(function() {
                         $(this).css('padding', 8);
                     });
                     $('#tablaEnTiempos thead').append(r);
@@ -227,10 +227,10 @@ $(function () {
                     var table = $('#tablaEnTiempos').DataTable();
 
                     // Apply the search
-                    table.columns().every(function () {
+                    table.columns().every(function() {
                         var that = this;
 
-                        $('input', this.footer()).on('keyup change', function () {
+                        $('input', this.footer()).on('keyup change', function() {
                             if (that.search() !== this.value) {
                                 that.search(this.value).draw();
                             }
@@ -275,13 +275,13 @@ $(function () {
 //                 "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
 //                 ordering:false,
 //                 columnDefs: [{
-        getButtons: function (obj) {
+        getButtons: function(obj) {
             boton = '<div class="btn-group">'
                     + '<a class="btn btn-default btn-xs ver-det btn_datatable_cami" title="Editar Ots"><span class="fa fa-fw fa-eye"></span></a>'
                     + '</div>';
             return boton;
         },
-        getAlertIcon: function (obj) {
+        getAlertIcon: function(obj) {
             color = 'FFFFFF';
             if (obj.tiempo_vencer == -1 || obj.tiempo_vencer == 0) {
                 color = 'FFA500';
@@ -298,30 +298,30 @@ $(function () {
                     + obj.tiempo_vencer
                     + '</div>'
                     + '<div class="btn-group col col-md-6">'
-                    + '<div class="circulo" style="background: #' + color + ';"></div>'
+                    + '<div class="circulo-p" style="background: #' + color + ';"></div>'
                     + '</div>'
                     + '</form>';
             return boton;
         },
-        onClickShowModalDet: function () {
+        onClickShowModalDet: function() {
             document.getElementById("formModal_detalle").reset();
             // imprimir el titulo
             $('#title_modal').html('');
             var aLinkLog = $(this);
             var trParent = aLinkLog.parents('tr');
-            var record = tabla_cont_in.row(trParent).data();
+            var record = eTiempos.tablaEnTiempos.row(trParent).data();
             fTiempos.fillFormModal(record);
         },
 
-        fillFormModal: function (registros) {
-            $.each(registros, function (i, item) {
+        fillFormModal: function(registros) {
+            $.each(registros, function(i, item) {
                 $('#mdl_' + i).val(item);
             });
             $('#title_modal').html('<b>Detalle de la orden  ' + registros.id_orden_trabajo_hija + '</b>');
             $('#Modal_detalle').modal('show');
         },
-        individualColumnSearching: function () {
-            $('#tablaEnTiempos tfoot th').each(function () {
+        individualColumnSearching: function() {
+            $('#tablaEnTiempos tfoot th').each(function() {
                 $(this).html('<input type="text" placeholder="Buscar" />');
             });
         }
@@ -332,45 +332,45 @@ $(function () {
     /**********************************************INICIO TODO*********************************************/
 
     todo = {
-        init: function () {
+        init: function() {
             todo.events();
             todo.getListTotal();
             todo.individualColumnSearching();
         },
 
         //Eventos de la ventana.
-        events: function () {
+        events: function() {
             $('#tablaTodo').on('click', 'a.ver-det', todo.onClickShowModalDet);
         },
-        getListTotal: function () {
+        getListTotal: function() {
             $.post(baseurl + '/OtHija/c_getAllOtsInExecution',
                     {
                         // clave: 'valor' // parametros que se envian
                     },
-                    function (data) {
+                    function(data) {
                         todo.printTableTotal(data);
                     });
         },
-        printTableTotal: function (data) {
+        printTableTotal: function(data) {
             ///lleno la tabla con los valores enviados
             todo.tableTotal = $('#tablaTodo').DataTable(todo.configTable(data, [
                 {title: "OT Padre", data: "nro_ot_onyx"},
-                    {title: "Id Orden Trabajo Hija", data: "id_orden_trabajo_hija"},
-                    {title: "Nombre Cliente", data: "nombre_cliente"},
-                    {title: "Fecha Compromiso", data: "fecha_compromiso"},
-                    {title: "Fecha Programación", data: "fecha_programacion"},
-                    {title: "Ot Hija", data: "ot_hija"},
-                    {title: "Estado Orden Trabajo Hija", data: "estado_orden_trabajo_hija"},
-                    {title: "Ingeniero Responsable", data: "ingeniero"},
-                    {title: "Recurrente", data: "MRC"},
-                    {title: "opc", data: todo.getButtons},
+                {title: "Id Orden Trabajo Hija", data: "id_orden_trabajo_hija"},
+                {title: "Nombre Cliente", data: "nombre_cliente"},
+                {title: "Fecha Compromiso", data: "fecha_compromiso"},
+                {title: "Fecha Programación", data: "fecha_programacion"},
+                {title: "Ot Hija", data: "ot_hija"},
+                {title: "Estado Orden Trabajo Hija", data: "estado_orden_trabajo_hija"},
+                {title: "Ingeniero Responsable", data: "ingeniero"},
+                {title: "Recurrente", data: "MRC"},
+                {title: "opc", data: todo.getButtons},
             ]));
         },
-        configTable: function (data, columns, onDraw) {
+        configTable: function(data, columns, onDraw) {
             return {
-                initComplete: function () {
+                initComplete: function() {
                     var r = $('#tablaTodo tfoot tr');
-                    r.find('th').each(function () {
+                    r.find('th').each(function() {
                         $(this).css('padding', 8);
                     });
                     $('#tablaTodo thead').append(r);
@@ -380,10 +380,10 @@ $(function () {
                     var table = $('#tablaTodo').DataTable();
 
                     // Apply the search
-                    table.columns().every(function () {
+                    table.columns().every(function() {
                         var that = this;
 
-                        $('input', this.footer()).on('keyup change', function () {
+                        $('input', this.footer()).on('keyup change', function() {
                             if (that.search() !== this.value) {
                                 that.search(this.value).draw();
                             }
@@ -515,7 +515,7 @@ $(function () {
 //            };
 //        },
         // Datos de configuracion del datatable
-        onClickShowModalDet: function () {
+        onClickShowModalDet: function() {
             document.getElementById("formModal_detalle").reset();
             $('#title_modal').html('');
             var aLinkLog = $(this);
@@ -524,22 +524,22 @@ $(function () {
             $('#Modal_detalle').modal('show');
             fTiempos.fillFormModal(record);
         },
-        fillFormModal: function (registros) {
-            $.each(registros, function (i, item) {
+        fillFormModal: function(registros) {
+            $.each(registros, function(i, item) {
                 $('#mdl_' + i).val(item);
             });
             $('#title_modal').html('<b>Detalle de la orden  ' + registros.id_orden_trabajo_hija + '</b>');
             $('#Modal_detalle').modal('show');
         },
 
-        getButtons: function (obj) {
+        getButtons: function(obj) {
             boton = '<div class="btn-group">'
                     + '<a class="btn btn-default btn-xs ver-det btn_datatable_cami" title="Editar Ots"><span class="fa fa-fw fa-eye"></span></a>'
                     + '</div>';
             return boton;
         },
-        individualColumnSearching: function () {
-            $('#tablaTodo tfoot th').each(function () {
+        individualColumnSearching: function() {
+            $('#tablaTodo tfoot th').each(function() {
                 $(this).html('<input type="text" placeholder="Buscar" />');
             });
         }
@@ -551,20 +551,20 @@ $(function () {
     /************************************************INICIO GRAFICAS OTH************************************************/
     //==================================================================================================================
     graficas = {
-        init: function () {
+        init: function() {
             graficas.events();
             graficas.printGrafics(ladoA, 'grafica_a');
             graficas.printGrafics(ladoB, 'grafica_b');
-            
+
         },
 
         //Eventos de la ventana.
-        events: function () {
-            
+        events: function() {
+
         },
 
         //funcion para pintar las graficas
-        printGrafics: function(params, div){
+        printGrafics: function(params, div) {
 
             var g_tipos = $(`#${div}`);
             // definicion de algunos atributos de css
@@ -660,45 +660,44 @@ $(function () {
                     },
 
                     scales: {
-                       xAxes: [{
-                              gridLines: {
-                                display: false,
-                                color: '#ccc'
-                              },
-                            display: true,
-                            // stacked: true,
-                            scaleLabel: {
-                              display: true,
-                              labelString: 'CANTIDAD DE ORDENES'
-                            },
+                        xAxes: [{
+                                gridLines: {
+                                    display: false,
+                                    color: '#ccc'
+                                },
+                                display: true,
+                                // stacked: true,
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'CANTIDAD DE ORDENES'
+                                },
 
-
-                            ticks: {
-                                min: 0.5 // Edit the value according to what you need
-                            }
-                        }],
+                                ticks: {
+                                    min: 0.5 // Edit the value according to what you need
+                                }
+                            }],
                         yAxes: [{
-                            gridLines: {
-                                // display: false,
-                                color: '#ccc'
-                              },
-                            display: true,
-                            stacked: false,
-                            scaleLabel: {
-                              display: true,
-                              labelString: 'NOMBRE TIPO'
-                            },
-                            ticks: {
-                              // beginAtZero: true,
-                            }
-                        }]
+                                gridLines: {
+                                    // display: false,
+                                    color: '#ccc'
+                                },
+                                display: true,
+                                stacked: false,
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'NOMBRE TIPO'
+                                },
+                                ticks: {
+                                    // beginAtZero: true,
+                                }
+                            }]
                     }
                 }
             });
         },
     };
     graficas.init();
-    
+
 
 
 
@@ -714,13 +713,13 @@ function showModalDetResOutTime(idTipo) {
             {
                 idTipo: idTipo // parametros que se envian
             },
-            function (data) {
+            function(data) {
                 // limpiar y reiniciar la tabla si ya estaba inicializada
                 if (tabla_cont_out) {
-                            tabla_cont_out.clear().draw();
-                            tabla_cont_out.rows.add(data);
-                            tabla_cont_out.columns.adjust().draw();
-                            return;
+                    tabla_cont_out.clear().draw();
+                    tabla_cont_out.rows.add(data);
+                    tabla_cont_out.columns.adjust().draw();
+                    return;
                 }
 
                 tabla_cont_out = $('#tablaDetalleResOutTimes').DataTable(fTiempos.configTable(data, [
@@ -745,7 +744,7 @@ function showModalDetResInTimes(idTipo) {
             {
                 idTipo: idTipo // parametros que se envian
             },
-            function (data) {
+            function(data) {
                 // limpiar y reiniciar la tabla si ya estaba inicializada
                 if (tabla_cont_in) {
                     tabla_cont_in.clear().draw();
@@ -772,7 +771,7 @@ function showModalDetResInTimes(idTipo) {
 
 //Funcionamiento del Scroll para el segundo modal
 
-$('#Modal_detalle').on("hidden.bs.modal", function (e) {
+$('#Modal_detalle').on("hidden.bs.modal", function(e) {
     if ($('.modal:visible').length) {
         $('body').addClass('modal-open');
     }
