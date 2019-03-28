@@ -2,7 +2,7 @@
     background: #084c6f;
     font-size: 110%;
     font-family:sans-serif;
-    
+
 }
 .telmexVIP_header .home{
     background: #1e6990 !important;
@@ -35,10 +35,10 @@
 }
 
 .telmexVIP_header .dropdown-menu>li>a:hover {
-    
+
     color: #fff;
     background-color: #084c6f;
-   
+
 }
 /*css del boton para ots de mas de 15 dias*/
 .botnOtsfiteenDays{
@@ -49,9 +49,9 @@
     background-color: #fff;
     border: 1px solid #b9b3b3;
     border-radius: 15px;
-    margin: 18px 0px;   
+    margin: 18px 0px;
     padding: 25px;
- }
+}
 /* css head */
 .telmexVIP_header .tamaniomin>li>a {
     min-width: 222px;
@@ -59,18 +59,18 @@
 /*Imagen responsive para el fondo de implementacion de servicios*/
 
 .css_imagen{
-    width: 100%; 
-    height: 91%; 
-    padding: 0 !important; 
-    margin: 0; top: 53px; 
-    left: 0; 
-    right: 0; 
+    width: 100%;
+    height: 91%;
+    padding: 0 !important;
+    margin: 0; top: 53px;
+    left: 0;
+    right: 0;
     position: absolute;
 }
 /*Clase para quitar un padding inferior que genera la barra de navegacion*/
 
 .imagenfond{
-    width: 100%; 
+    width: 100%;
     height: 100%;
 }
 
@@ -111,12 +111,12 @@
     margin:0;
 }
 .circulo {
-     width: 20px;
-     height: 20px;
-     -moz-border-radius: 50%;
-     -webkit-border-radius: 50%;
-     border-radius: 50%;
-     border: 1px solid #000;
+    width: 20px;
+    height: 20px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    border: 1px solid #000;
 }
 .telmexVIP_header .badge {
     background-color: #1f4c6f;
@@ -125,7 +125,7 @@
 }
 /*ESTILOS DEL MENU STICKY*/
 
- .contenedor {
+.contenedor {
     z-index: 1;
     background-color: #fff;
     width: 150px;
@@ -142,7 +142,7 @@
     -webkit-transition: all 0.5s Out ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â· Back;
     -moz-transition: all 0.5s Out ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â· Back;
     -ms-transition: all 0.5s Out ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â· Back;
-    
+
 }
 .boton {
     display: block;
@@ -173,25 +173,25 @@
 
 
 .rotate-90{
-    
-/* Safari */
--webkit-transform: rotate(-90deg);
 
-/* Firefox */
--moz-transform: rotate(-90deg);
+    /* Safari */
+    -webkit-transform: rotate(-90deg);
 
-/* IE */
--ms-transform: rotate(-90deg);
+    /* Firefox */
+    -moz-transform: rotate(-90deg);
 
-/* Opera */
--o-transform: rotate(-90deg);
+    /* IE */
+    -ms-transform: rotate(-90deg);
 
-/* Internet Explorer */
-filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    /* Opera */
+    -o-transform: rotate(-90deg);
+
+    /* Internet Explorer */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 .contenedor.closed{
     background-color: #084c6f;
-    border-color: transparent;  
+    border-color: transparent;
     width: 30px;
     height: 180px;
     box-shadow: -1px 2px 8px #333;
@@ -200,7 +200,7 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
     transition: all .5s ease-in-out;
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
-    -ms-transition: all 0.5s ease-in-out;   
+    -ms-transition: all 0.5s ease-in-out;
 }
 .contenedor.closed:hover {
     background-color:#084c6fd4;
@@ -209,11 +209,11 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 
 #btn_fixed .text{
     margin-top: 40px;
-    display: block;     
+    display: block;
 }
 #btn_fixed{
-    width: 150px;   
-    margin-left: -60px; 
+    width: 150px;
+    margin-left: -60px;
     color: #FFF;
     text-shadow: 0px 1px 1px #0c3565;
     cursor: pointer;
@@ -280,22 +280,22 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 .ubicacionboton{
     float: right;
-   /* margin-top: 4px !important;*/
-   margin-bottom: -9% !important;
+    /* margin-top: 4px !important;*/
+    margin-bottom: -9% !important;
 
 }
 .btn_red{
     width: 30%;
-   
+
 }
 .div_Form_Modals {
-margin-left: -53%;
+    margin-left: -53%;
 }
 .div_Text_Form_modal{
     margin-right: 30%;
- }
- /**************************************************************************/
- /* The container */
+}
+/**************************************************************************/
+/* The container */
 .S_check {
     display: block;
     position: relative;
@@ -414,7 +414,7 @@ margin-left: -53%;
 /*CSS PARA LOS FFOS BOTONES QUE SE ENCUENTRAN EN EL MODAL DE HISTORIAL DEL MODULO DE CONTROL DE CAMBIO */
 
 .buttonModal {
-    border-radius: 5%;  
+    border-radius: 5%;
     position: relative;
     background-color: #084c6f;
     border: none;
@@ -448,30 +448,30 @@ margin-left: -53%;
     transition: 0s
 }
 .buttonModal span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
 }
 .buttonModal span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
 }
 .buttonModal:hover span {
-  padding-right: 25px;
+    padding-right: 25px;
 }
 .buttonModal:hover span:after {
-  opacity: 1;
-  right: 0;
+    opacity: 1;
+    right: 0;
 }
 .btn_crear_oth{
-   margin-bottom: 2% !important;
-   margin-top: 2% !important;
-   font-size: 14px !important;
+    margin-bottom: 2% !important;
+    margin-top: 2% !important;
+    font-size: 14px !important;
 }
 
 /*Quitar margin en el formulario para crear ot manualmente*/
@@ -506,7 +506,7 @@ margin-left: -53%;
     background: #084c6f;
     font-size: inherit;
     font-family:sans-serif;
-    
+
 }
 .telmexVIP_header .home{
     background: #1e6990 !important;
@@ -539,10 +539,10 @@ margin-left: -53%;
 }
 
 .telmexVIP_header .dropdown-menu>li>a:hover {
-    
+
     color: #fff;
     background-color: #084c6f;
-   
+
 }
 /*css del boton para ots de mas de 15 dias*/
 .botnOtsfiteenDays{
@@ -553,9 +553,9 @@ margin-left: -53%;
     background-color: #fff;
     border: 1px solid #b9b3b3;
     border-radius: 15px;
-    margin: 18px 0px;   
+    margin: 18px 0px;
     padding: 25px;
- }
+}
 /* css head */
 .telmexVIP_header .tamaniomin>li>a {
     min-width: 222px;
@@ -563,18 +563,18 @@ margin-left: -53%;
 /*Imagen responsive para el fondo de implementacion de servicios*/
 
 .css_imagen{
-    width: 100%; 
-    height: 91%; 
-    padding: 0 !important; 
-    margin: 0; top: 53px; 
-    left: 0; 
-    right: 0; 
+    width: 100%;
+    height: 91%;
+    padding: 0 !important;
+    margin: 0; top: 53px;
+    left: 0;
+    right: 0;
     position: absolute;
 }
 /*Clase para quitar un padding inferior que genera la barra de navegacion*/
 
 .imagenfond{
-    width: 100%; 
+    width: 100%;
     height: 100%;
 }
 
@@ -614,13 +614,13 @@ margin-left: -53%;
 .sessionmodal .form-group{
     margin:0;
 }
-.circulo {
-     width: 20px;
-     height: 20px;
-     -moz-border-radius: 50%;
-     -webkit-border-radius: 50%;
-     border-radius: 50%;
-     border: 1px solid #000;
+.circulo-p {
+    width: 20px;
+    height: 20px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    border: 1px solid #000;
 }
 .telmexVIP_header .badge {
     background-color: #1f4c6f;
@@ -629,7 +629,7 @@ margin-left: -53%;
 }
 /*ESTILOS DEL MENU STICKY*/
 
- .contenedor {
+.contenedor {
     z-index: 1;
     background-color: #fff;
     width: 150px;
@@ -646,7 +646,7 @@ margin-left: -53%;
     -webkit-transition: all 0.5s Out ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â· Back;
     -moz-transition: all 0.5s Out ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â· Back;
     -ms-transition: all 0.5s Out ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â· Back;
-    
+
 }
 .boton {
     display: block;
@@ -677,25 +677,25 @@ margin-left: -53%;
 
 
 .rotate-90{
-    
-/* Safari */
--webkit-transform: rotate(-90deg);
 
-/* Firefox */
--moz-transform: rotate(-90deg);
+    /* Safari */
+    -webkit-transform: rotate(-90deg);
 
-/* IE */
--ms-transform: rotate(-90deg);
+    /* Firefox */
+    -moz-transform: rotate(-90deg);
 
-/* Opera */
--o-transform: rotate(-90deg);
+    /* IE */
+    -ms-transform: rotate(-90deg);
 
-/* Internet Explorer */
-filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    /* Opera */
+    -o-transform: rotate(-90deg);
+
+    /* Internet Explorer */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 .contenedor.closed{
     background-color: #084c6f;
-    border-color: transparent;  
+    border-color: transparent;
     width: 30px;
     height: 180px;
     box-shadow: -1px 2px 8px #333;
@@ -704,7 +704,7 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
     transition: all .5s ease-in-out;
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
-    -ms-transition: all 0.5s ease-in-out;   
+    -ms-transition: all 0.5s ease-in-out;
 }
 .contenedor.closed:hover {
     background-color:#084c6fd4;
@@ -713,11 +713,11 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 
 #btn_fixed .text{
     margin-top: 40px;
-    display: block;     
+    display: block;
 }
 #btn_fixed{
-    width: 150px;   
-    margin-left: -60px; 
+    width: 150px;
+    margin-left: -60px;
     color: #FFF;
     text-shadow: 0px 1px 1px #0c3565;
     cursor: pointer;
@@ -784,22 +784,22 @@ filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 .ubicacionboton{
     float: right;
-   /* margin-top: 4px !important;*/
-   margin-bottom: -9% !important;
+    /* margin-top: 4px !important;*/
+    margin-bottom: -9% !important;
 
 }
 .btn_red{
     width: 30%;
-   
+
 }
 .div_Form_Modals {
-margin-left: -53%;
+    margin-left: -53%;
 }
 .div_Text_Form_modal{
     margin-right: 30%;
- }
- /**************************************************************************/
- /* The container */
+}
+/**************************************************************************/
+/* The container */
 .S_check {
     display: block;
     position: relative;
@@ -920,7 +920,7 @@ margin-left: -53%;
 /*CSS PARA LOS FFOS BOTONES QUE SE ENCUENTRAN EN EL MODAL DE HISTORIAL DEL MODULO DE CONTROL DE CAMBIO */
 
 .buttonModal {
-    border-radius: 5%;  
+    border-radius: 5%;
     position: relative;
     background-color: #084c6f;
     border: none;
@@ -954,30 +954,30 @@ margin-left: -53%;
     transition: 0s
 }
 .buttonModal span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
 }
 .buttonModal span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
 }
 .buttonModal:hover span {
-  padding-right: 25px;
+    padding-right: 25px;
 }
 .buttonModal:hover span:after {
-  opacity: 1;
-  right: 0;
+    opacity: 1;
+    right: 0;
 }
 .btn_crear_oth{
-   margin-bottom: 2% !important;
-   margin-top: 2% !important;
-   font-size: 14px !important;
+    margin-bottom: 2% !important;
+    margin-top: 2% !important;
+    font-size: 14px !important;
 }
 
 /*Quitar margin en el formulario para crear ot manualmente*/
