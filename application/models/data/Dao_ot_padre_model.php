@@ -53,6 +53,18 @@ class Dao_ot_padre_model extends CI_Model {
         return $query->result();
     }
 
+    public function validateActiveGroup($tipoFiltro, $wherorand)
+    {
+        if($tipoFiltro === 'GESTION OTS PROYECTOS'){
+            return "$wherorand `user`.n_group = 'GESTION OTS PROYECTOS'";
+        }else{
+            if($tipoFiltro === 'GESTION OTS ESTANDAR'){
+                return "$wherorand `user`.n_group = 'GESTION OTS ESTANDAR'";
+            }else{
+                return ' ';
+            }
+        }
+    }
     // tabla de lista de OTS Padre
     public function getListOtsOtPadre($fil) {
         $condicion = " ";
@@ -60,14 +72,10 @@ class Dao_ot_padre_model extends CI_Model {
             $usuario_session = Auth::user()->k_id_user;
             $condicion = " WHERE otp.k_id_user = $usuario_session ";
         }else{
-            if($fil === 'GESTION OTS PROYECTOS'){
-                $condicion = "WHERE `user`.n_group = 'GESTION OTS PROYECTOS'";
-            }else{
-                if($fil === 'GESTION OTS ESTANDAR'){
-                    $condicion = "WHERE `user`.n_group = 'GESTION OTS ESTANDAR'";
-                }
-            }
+            $condicion = $this->validateActiveGroup($fil,'WHERE');
         }
+
+
 
         $query = $this->db->query(
             "SELECT
@@ -105,40 +113,45 @@ class Dao_ot_padre_model extends CI_Model {
     }
 
     // tabla que lista las OT Padre que tengan fecha de compromiso para hoy
-    public function getListOtsOtPadreHoy() {
+    public function getListOtsOtPadreHoy($fil) {
         $condicion = " ";
         if (Auth::user()->n_role_user == 'ingeniero') {
             $usuario_session = Auth::user()->k_id_user;
             $condicion = " AND otp.k_id_user = $usuario_session ";
+        }else{
+            $condicion = $this-> validateActiveGroup($fil,'AND');
         }
-        $query = $this->db->query("
-                SELECT
-                otp.k_id_ot_padre, otp.n_nombre_cliente, otp.orden_trabajo,
-                otp.servicio, REPLACE(otp.estado_orden_trabajo,'otp_cerrada','Cerrada') AS estado_orden_trabajo, otp.fecha_programacion,
-                otp.fecha_compromiso, otp.fecha_creacion, otp.k_id_user, user.n_name_user,
-                CONCAT(user.n_name_user, ' ' , user.n_last_name_user) AS ingeniero,
-                otp.lista_observaciones, otp.observacion, SUM(oth.c_email) AS cant_mails, hitos.id_hitos, otp.finalizo, otp.ultimo_envio_reporte,
-                CONCAT('$ ',FORMAT(oth.monto_moneda_local_arriendo + oth.monto_moneda_local_cargo_mensual,2)) AS MRC, otp.lista_observaciones
-                FROM ot_hija oth
-                INNER JOIN ot_padre otp ON oth.nro_ot_onyx = otp.k_id_ot_padre
-                INNER JOIN user ON otp.k_id_user = user.k_id_user
-                LEFT JOIN hitos ON hitos.id_ot_padre = otp.k_id_ot_padre
-                WHERE otp.fecha_compromiso = CURDATE()
+        $query = $this->db->query(
+            "SELECT
+                    otp.k_id_ot_padre, otp.n_nombre_cliente, otp.orden_trabajo,
+                    otp.servicio, REPLACE(otp.estado_orden_trabajo,'otp_cerrada','Cerrada') AS estado_orden_trabajo, otp.fecha_programacion,
+                    otp.fecha_compromiso, otp.fecha_creacion, otp.k_id_user, user.n_name_user,
+                    CONCAT(user.n_name_user, ' ' , user.n_last_name_user) AS ingeniero,
+                    otp.lista_observaciones, otp.observacion, SUM(oth.c_email) AS cant_mails, hitos.id_hitos, otp.finalizo, otp.ultimo_envio_reporte,
+                    CONCAT('$ ',FORMAT(oth.monto_moneda_local_arriendo + oth.monto_moneda_local_cargo_mensual,2)) AS MRC, otp.lista_observaciones
+                    FROM ot_hija oth
+                    INNER JOIN ot_padre otp ON oth.nro_ot_onyx = otp.k_id_ot_padre
+                    INNER JOIN user ON otp.k_id_user = user.k_id_user
+                    LEFT JOIN hitos ON hitos.id_ot_padre = otp.k_id_ot_padre
+                    WHERE otp.fecha_compromiso = CURDATE()
                 $condicion
                 GROUP BY nro_ot_onyx
-    	");
+        ");
+        // echo("<pre>"); print_r($this->db->last_query()); echo("</pre>");
         return $query->result();
     }
 
     // tabla que lista las OT Padre que tengan fecha de compromiso vencida
-    public function getListOtsOtPadreVencidas() {
+    public function getListOtsOtPadreVencidas($fil) {
         $condicion = " ";
         if (Auth::user()->n_role_user == 'ingeniero') {
             $usuario_session = Auth::user()->k_id_user;
             $condicion = " AND otp.k_id_user = $usuario_session ";
+        }else{
+            $condicion = $this->validateActiveGroup($fil,'AND');
         }
-        $query = $this->db->query("
-                SELECT
+        $query = $this->db->query(
+            "SELECT
                 otp.k_id_ot_padre, otp.n_nombre_cliente, otp.orden_trabajo,
                 otp.servicio, REPLACE(otp.estado_orden_trabajo,'otp_cerrada','Cerrada') AS estado_orden_trabajo, otp.fecha_programacion,
                 otp.fecha_compromiso, otp.fecha_creacion, otp.k_id_user, user.n_name_user,
@@ -152,7 +165,8 @@ class Dao_ot_padre_model extends CI_Model {
                 WHERE otp.fecha_compromiso < CURDATE()
                 $condicion
                 GROUP BY nro_ot_onyx
-    	");
+        ");
+        // echo("<pre>"); print_r($this->db->last_query()); echo("</pre>");
         return $query->result();
     }
 
@@ -179,14 +193,16 @@ class Dao_ot_padre_model extends CI_Model {
 
     // return $query->result();
     // trae otp segun opcion de ot padre
-    public function getOtpByOpcList($opcion) {
+    public function getOtpByOpcList($opcion,$fil) {
         $condicion = " ";
         if (Auth::user()->n_role_user == 'ingeniero') {
             $usuario_session = Auth::user()->k_id_user;
             $condicion = " AND otp.k_id_user = $usuario_session ";
+        }else{
+            $condicion = $this->validateActiveGroup($fil,'AND');
         }
-        $query = $this->db->query("
-                SELECT
+        $query = $this->db->query(
+            "SELECT
                 otp.k_id_ot_padre, otp.n_nombre_cliente, otp.orden_trabajo,
                 otp.servicio, REPLACE(otp.estado_orden_trabajo,'otp_cerrada','Cerrada') AS estado_orden_trabajo, otp.fecha_programacion,
                 otp.fecha_compromiso, otp.fecha_creacion, otp.k_id_user, user.n_name_user,
@@ -202,7 +218,7 @@ class Dao_ot_padre_model extends CI_Model {
                 GROUP BY oth.nro_ot_onyx
 
         ");
-        // print_r($this->db->last_query());
+    // echo("<pre>"); print_r($this->db->last_query()); echo("</pre>");
         return $query->result();
     }
 
@@ -299,11 +315,14 @@ class Dao_ot_padre_model extends CI_Model {
     }
 
     // trae  todas las ots que tienen que enviar correo de actualizacion
-    public function getOtsPtesPorEnvioActualizacion() {
+    public function getOtsPtesPorEnvioActualizacion($fil) {
         $condicion = " ";
+        $cond2 = " ";
         if (Auth::user()->n_role_user == 'ingeniero') {
             $usuario_session = Auth::user()->k_id_user;
             $condicion = " AND otp.k_id_user = $usuario_session ";
+        }else{
+            $cond2 = $this->validateActiveGroup($fil,'AND');
         }
         $query = $this->db->query(
             "SELECT
@@ -324,13 +343,15 @@ class Dao_ot_padre_model extends CI_Model {
             DATEDIFF(CURDATE(), otp.ultimo_envio_reporte) > 7
             AND n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
             AND otp.orden_trabajo != 'Caso de Seguimiento'
-            AND user.n_group = 'GESTION OTS ESTANDAR'
+            -- AND user.n_group = 'GESTION OTS ESTANDAR'
+            $cond2
             $condicion
             GROUP BY nro_ot_onyx
         ");
+        // echo("<pre>"); print_r($this->db->last_query()); echo("</pre>") ;
         return $query;
     }
-
+    
     // obtiene las otp de una sede (pasarle el id de la sede)
     public function get_otp_by_idsede($idsede) {
         $query = $this->db->query("
@@ -605,72 +626,78 @@ class Dao_ot_padre_model extends CI_Model {
 
     // trae la cantidad de otp sin enviar correo
     // Por requerimiento se quitaron de los contadores los clientes 'BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', y 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.
-    public function getCountPtesPorEnvio() {
+    public function getCountPtesPorEnvio($fil) {
         $condicion = " ";
+        $cond2 = '';
         if (Auth::user()->n_role_user == 'ingeniero') {
             $usuario_session = Auth::user()->k_id_user;
-            $condicion = " AND u.k_id_user = $usuario_session ";
+            $condicion = " AND `user`.k_id_user = $usuario_session ";
+        }else{
+            $cond2 = $this->validateActiveGroup($fil,'AND');
         }
-        $query = $this->db->query("
-            SELECT u.k_id_user, CONCAT(u.n_name_user, ' ', u.n_last_name_user) AS ingeniero,
+        $query = $this->db->query(
+            "SELECT `user`.k_id_user, CONCAT(`user`.n_name_user, ' ', `user`.n_last_name_user) AS ingeniero,
                 (
                     SELECT COUNT(1) FROM ot_padre otp1
                     WHERE DATEDIFF(CURDATE(), otp1.ultimo_envio_reporte) <= 7
-                    AND otp1.k_id_user = u.k_id_user
+                    AND otp1.k_id_user = `user`.k_id_user
                     AND otp1.n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
                     AND otp1.orden_trabajo != 'Caso de Seguimiento'
-                    /* si solo se quiere mostrar otp que tengan oth descomentariar esta seccion
+                    -- si solo se quiere mostrar otp que tengan oth descomentariar esta seccion
                     AND EXISTS(
                         SELECT nro_ot_onyx FROM ot_hija AS oth1
                         WHERE otp1.k_id_ot_padre = oth1.nro_ot_onyx
-                    )*/
+                    )
 
                 ) AS menor_7,
                 (
                     SELECT COUNT(1) FROM ot_padre otp2
                     WHERE DATEDIFF(CURDATE(), otp2.ultimo_envio_reporte) >= 8
                     AND DATEDIFF(CURDATE(), otp2.ultimo_envio_reporte) <= 15
-                    AND otp2.k_id_user = u.k_id_user
+                    AND otp2.k_id_user = `user`.k_id_user
                     AND otp2.n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
                     AND otp2.orden_trabajo != 'Caso de Seguimiento'
-                    /* si solo se quiere mostrar otp que tengan oth descomentariar esta seccion
+                    -- si solo se quiere mostrar otp que tengan oth descomentariar esta seccion
                     AND EXISTS(
                         SELECT nro_ot_onyx FROM ot_hija AS oth2
                         WHERE otp2.k_id_ot_padre = oth2.nro_ot_onyx
-                    )*/
+                    )
 
                 ) AS entre_8_15,
                 (
                     SELECT COUNT(1) FROM ot_padre otp3
                     WHERE DATEDIFF(CURDATE(), otp3.ultimo_envio_reporte) >= 16
                     AND DATEDIFF(CURDATE(), otp3.ultimo_envio_reporte) <= 30
-                    AND otp3.k_id_user = u.k_id_user
+                    AND otp3.k_id_user = `user`.k_id_user
                     AND otp3.n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
                     AND otp3.orden_trabajo != 'Caso de Seguimiento'
-                    /* si solo se quiere mostrar otp que tengan oth descomentariar esta seccion
+                    -- si solo se quiere mostrar otp que tengan oth descomentariar esta seccion
                     AND EXISTS(
                         SELECT nro_ot_onyx FROM ot_hija AS oth3
                         WHERE otp3.k_id_ot_padre = oth3.nro_ot_onyx
-                    )*/
+                    )
 
                 ) AS entre_16_30,
                 (
                     SELECT COUNT(1) FROM ot_padre otp4
                     WHERE DATEDIFF(CURDATE(), otp4.ultimo_envio_reporte) > 30
-                    AND otp4.k_id_user = u.k_id_user
+                    AND otp4.k_id_user = `user`.k_id_user
                     AND otp4.n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
                     AND otp4.orden_trabajo != 'Caso de Seguimiento'
-                    /* si solo se quiere mostrar otp que tengan oth descomentariar esta seccion
+                    -- si solo se quiere mostrar otp que tengan oth descomentariar esta seccion
                     AND EXISTS(
                         SELECT nro_ot_onyx FROM ot_hija AS oth4
                         WHERE otp4.k_id_ot_padre = oth4.nro_ot_onyx
-                    )*/
+                    )
 
                 ) AS mayor_30
-            FROM user u
-            WHERE u.n_role_user = 'ingeniero' AND u.n_group='GESTION OTS ESTANDAR'
+            FROM user
+            WHERE `user`.n_role_user = 'ingeniero' 
+            $cond2
+            -- AND `user`.n_group='GESTION OTS ESTANDAR'
             $condicion
         ");
+        // echo("<pre>"); print_r($this->db->last_query()); echo("</pre>");
         return $query->result();
     }
 

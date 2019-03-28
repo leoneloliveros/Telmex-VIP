@@ -45,9 +45,6 @@
 </ul>
 <!--*********************  CONTENIDO PESTAÑAS  *********************-->
 <div class="tab-content" id="contenido_tablas">
-
-    <div id="total" class="tab-pane fade in active">
-        <h3 style="margin-bottom:unset;">OT Padre</h3>
         <?php  if (Auth::user()->n_role_user === 'administrador') : ?>
             <div class="row" style="text-align:center; margin-bottom:1em; margin-top:unset;">
                 <h5><b>Filtrar grupo de ingenieros por...</b></h5>
@@ -59,6 +56,9 @@
             </div>
             <hr>
         <?php endif ?>
+
+    <div id="total" class="tab-pane fade in active">
+        <h3 style="margin-bottom:unset;">OT Padre</h3>
         <table id="table_otPadreList" class="table table-hover table-bordered table-striped dataTable_camilo" style="width: 100%;">
             <tfoot>
                 <tr>

@@ -261,16 +261,15 @@ $(function() {
     vista = {
         init: function() {
             vista.events();
-            vista.getListOtsOtPadre();
+            vista.getListOtsOtPadre('all');
 
         },
         //Eventos de la ventana.
         events: function() {
-            $("#filterGroupIng").on('change',vista.getListOtsOtPadre);
+            // $("#filterGroupIng").on('change',vista.getListOtsOtPadre);
         },
-        getListOtsOtPadre: function() {
+        getListOtsOtPadre: function(filtro) {
             //metodo ajax (post)
-            var filtro = $("#filterGroupIng").val();
             (role_session === 'administrador') ? helper.showLoading('Filtrando...') : helper.showLoading();
             $.post(baseurl + '/OtPadre/c_getListOtsOtPadre',
                     {
@@ -294,7 +293,6 @@ $(function() {
                 tabla.columns.adjust().draw();
                 return;
             }
-
 
             // nombramos la variable para la tabla y llamamos la configuiracion
             vista.table_otPadreList = $('#table_otPadreList').DataTable(vista.configTable(data, [
@@ -492,18 +490,18 @@ $(function() {
     hoy = {
         init: function() {
             hoy.events();
-            hoy.getListOtsOtPadreHoy();
+            hoy.getListOtsOtPadreHoy('all');
         },
         //Eventos de la ventana.
         events: function() {
 
         },
-        getListOtsOtPadreHoy: function() {
+        getListOtsOtPadreHoy: function(filtro) {
             //metodo ajax (post)
             $.post(baseurl + '/OtPadre/c_getListOtsOtPadreHoy',
                     {
                         //parametros
-
+                        filter: filtro,
                     },
                     // funcion que recibe los datos
                             function(data) {
@@ -514,6 +512,13 @@ $(function() {
                     );
                 },
         printTable: function(data) {
+            if (hoy.table_otPadreListHoy) {
+                var tabla = hoy.table_otPadreListHoy;
+                tabla.clear().draw();
+                tabla.rows.add(data);
+                tabla.columns.adjust().draw();
+                return;
+            }
             // nombramos la variable para la tabla y llamamos la configuiracion
             hoy.table_otPadreListHoy = $('#table_otPadreListHoy').DataTable(hoy.configTable(data, [
 
@@ -619,18 +624,18 @@ $(function() {
     vencidas = {
         init: function() {
             vencidas.events();
-            vencidas.getListOtsOtPadreVencidas();
+            vencidas.getListOtsOtPadreVencidas('all');
         },
         //Eventos de la ventana.
         events: function() {
 
         },
-        getListOtsOtPadreVencidas: function() {
+        getListOtsOtPadreVencidas: function(fil) {
             //metodo ajax (post)
             $.post(baseurl + '/OtPadre/c_getListOtsOtPadreVencidas',
                     {
                         //parametros
-
+                        filter: fil
                     },
                     // funcion que recibe los datos
                             function(data) {
@@ -641,6 +646,13 @@ $(function() {
                     );
                 },
         printTable: function(data) {
+            if (vencidas.table_otPadreListVencidas) {
+                var tabla = vencidas.table_otPadreListVencidas;
+                tabla.clear().draw();
+                tabla.rows.add(data);
+                tabla.columns.adjust().draw();
+                return;
+            }
             // nombramos la variable para la tabla y llamamos la configuiracion
             vencidas.table_otPadreListVencidas = $('#table_otPadreListVencidas').DataTable(vencidas.configTable(data, [
 
@@ -746,19 +758,19 @@ $(function() {
     lista = {
         init: function() {
             lista.events();
-            lista.getOtpByOpcListJs();
+            lista.getOtpByOpcListJs(null,'all');
         },
         //Eventos de la ventana.
         events: function() {
             $('#select_filter').change(lista.cambio_opc);
         },
-        getOtpByOpcListJs: function(value = null) {
+        getOtpByOpcListJs: function(value = null,filter) {
             //metodo ajax (post)
             var opcion = (value) ? value : "CLIENTE - SIN FECHA PARA RECIBIR EL SERVICIO";
             $.post(baseurl + '/OtPadre/c_getOtpByOpcList',
                     {
-                        opcion: opcion
-
+                        opcion: opcion,
+                        filter: filter,
                     },
                     // funcion que recibe los datos
                             function(data) {
@@ -879,7 +891,7 @@ $(function() {
         // cuando se cambia de opcion
         cambio_opc: function() {
             var opcion = $('#select_filter').val();
-            lista.getOtpByOpcListJs(opcion);
+            lista.getOtpByOpcListJs(opcion, $("#filterGroupIng").val());
         },
     };
     lista.init();
@@ -925,7 +937,19 @@ $(function() {
 
             // ***************************************Fin del evento del menu sticky***************************************
 
+            $("#filterGroupIng").on('change',eventos.printNewTablesAccordingIngGroup);
         },
+
+        // vuelve a pintar todas las tablas según el grupo de ingenieros se tenga filtrado
+        printNewTablesAccordingIngGroup : function() {
+                var filtro = $("#filterGroupIng").val();
+                vista.getListOtsOtPadre(filtro);
+                hoy.getListOtsOtPadreHoy(filtro);
+                vencidas.getListOtsOtPadreVencidas(filtro);
+                lista.getOtpByOpcListJs($('#select_filter').val(),filtro);
+                reporte_act.getOtsPtesPorEnvio(filtro); 
+                reporte_act.getCountPtesPorEnvio(filtro);
+            },
 
         // dar mostrar o ocultar la columna en la sesion work managment por medio del menu stick segun el id de la tabla
         showHideTable: function() {
@@ -2253,34 +2277,39 @@ $(function() {
     reporte_act = {
         init: function() {
             reporte_act.events();
-            reporte_act.getOtsPtesPorEnvio();
-            reporte_act.getCountPtesPorEnvio();
+            reporte_act.getOtsPtesPorEnvio('all');
+            reporte_act.getCountPtesPorEnvio('all');
 
         },
         //Eventos de la ventana.
         events: function() {
 
         },
-        getOtsPtesPorEnvio: function() {
+        getOtsPtesPorEnvio: function(filtro) {
             //metodo ajax (post)
             $.post(baseurl + '/OtPadre/c_getOtsPtesPorEnvio',
                     {
                         //parametros
-
+                            filter: filtro
                     },
                     // funcion que recibe los datos
                             function(data) {
                                 // convertir el json a objeto de javascript
                                 var obj = JSON.parse(data);
                                 reporte_act.printTableReporteAtc(obj.data);
-                                if (obj.cantidad > 0) {
-                                    $('#badge_cant_report').html(obj.cantidad);
-                                }
+                                $('#badge_cant_report').html(obj.cantidad);
                             }
                     );
                 },
         printTableReporteAtc: function(data) {
             // nombramos la variable para la tabla y llamamos la configuiracion
+            if (reporte_act.table_reporte_actualizacion) {
+                var tabla = reporte_act.table_reporte_actualizacion;
+                tabla.clear().draw();
+                tabla.rows.add(data);
+                tabla.columns.adjust().draw();
+                return;
+            }
             reporte_act.table_reporte_actualizacion = $('#table_reporte_actualizacion').DataTable(reporte_act.configTableEmail(data, [
                 {title: "Ot Padre", data: "k_id_ot_padre"},
                 {title: "Nombre Cliente", data: "n_nombre_cliente"},
@@ -2372,9 +2401,10 @@ $(function() {
                 drawCallback: onDraw
             }
         },
-        getCountPtesPorEnvio: function() {
+        getCountPtesPorEnvio: function(filtro) {
             $.post(baseurl + '/OtPadre/c_getCountPtesPorEnvio', {
                 //parametros
+                filter: filtro
             },
                     function(data) {
                         var obj = JSON.parse(data);
