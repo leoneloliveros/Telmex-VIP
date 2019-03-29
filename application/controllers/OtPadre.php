@@ -270,20 +270,23 @@ class OtPadre extends CI_Controller {
 
     // TABLA QUE TRAE LA INFORMACION DE OTPADRE QUE TENGAN FECHA DE COMPROMISO PARA HOY
     public function c_getListOtsOtPadreHoy() {
-        $otPadreList = $this->Dao_ot_padre_model->getListOtsOtPadreHoy();
+        $filtro = $this->input->post('filter');
+        $otPadreList = $this->Dao_ot_padre_model->getListOtsOtPadreHoy($filtro);
         echo json_encode($otPadreList);
     }
 
 // TABLA QUE TRAE LA INFORMACION DE OTPADRE QUE TENGAN FECHA DE COMPROMISO VENCIDA
     public function c_getListOtsOtPadreVencidas() {
-        $otPadreList = $this->Dao_ot_padre_model->getListOtsOtPadreVencidas();
+        $filtro = $this->input->post('filter');
+        $otPadreList = $this->Dao_ot_padre_model->getListOtsOtPadreVencidas($filtro);
         echo json_encode($otPadreList);
     }
 
     // Trae registro otp por opcion de lista
     public function c_getOtpByOpcList() {
         $opcion = $this->input->post('opcion');
-        $otPadreList = $this->Dao_ot_padre_model->getOtpByOpcList($opcion);
+        $filtro = $this->input->post('filter');
+        $otPadreList = $this->Dao_ot_padre_model->getOtpByOpcList($opcion,$filtro);
 
         echo json_encode($otPadreList);
     }
@@ -334,7 +337,8 @@ class OtPadre extends CI_Controller {
 
     // TRAE LOS OTP QUE ESTAN PENDIENTES DE ENVIO DE CORREO DE ACTUALIZACION
     public function c_getOtsPtesPorEnvio() {
-        $otPadreList = $this->Dao_ot_padre_model->getOtsPtesPorEnvioActualizacion();
+        $filtro = $this->input->post('filter');
+        $otPadreList = $this->Dao_ot_padre_model->getOtsPtesPorEnvioActualizacion($filtro);
         $data = array(
             'data' => $otPadreList->result(),
             'cantidad' => $otPadreList->num_rows()
@@ -540,7 +544,8 @@ class OtPadre extends CI_Controller {
 
     // TRAE LOS OTP QUE ESTAN PENDIENTES DE ENVIO DE CORREO DE ACTUALIZACION
     public function c_getCountPtesPorEnvio() {
-        $otPadreCount = $this->Dao_ot_padre_model->getCountPtesPorEnvio();
+        $filtro = $this->input->post("filter");
+        $otPadreCount = $this->Dao_ot_padre_model->getCountPtesPorEnvio($filtro);
         echo json_encode($otPadreCount);
     }
 

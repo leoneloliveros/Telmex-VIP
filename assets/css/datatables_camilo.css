@@ -49,7 +49,7 @@ table.dataTable_camilo thead .sorting_desc_disabled {
 table.dataTable_camilo tbody tr {
     background-color: white; }
 table.dataTable_camilo tbody tr.selected {
-    background-color: #61a0d0eb;
+    background-color: #3f7197eb !important;
     color: #fff;
 }
 table.dataTable_camilo tbody th,
@@ -623,4 +623,4 @@ select.sel-cris-cool option{
     background: #084c6f;
     color: white;
     cursor: pointer;
-}
+}   
