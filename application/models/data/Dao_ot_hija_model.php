@@ -1458,6 +1458,28 @@ class Dao_ot_hija_model extends CI_Model {
         return $query->result_array();
     }
 
+    //retorna oth filtradas por id usuario, una otpadre, y un idtipo
+    public function getInfoCerradasZolid() {
+        $query = $this->db->query("
+            SELECT oth.k_id_estado_ot,
+                oth.nro_ot_onyx,
+                oth.id_orden_trabajo_hija,
+                otp.n_nombre_cliente AS nombre_cliente,
+                tot.n_name_tipo,
+                oth.estado_orden_trabajo_hija,
+                CONCAT(user.n_name_user, ' ', user.n_last_name_user) AS ingeniero,
+                DATE_FORMAT(otp.fecha_creacion, '%Y-%m-%d') AS fecha_creacion,
+                CONCAT('$ ',FORMAT(monto_moneda_local_arriendo + monto_moneda_local_cargo_mensual,2)) AS MRC
+            FROM ot_hija oth
+            INNER JOIN estado_ot eot ON eot.k_id_estado_ot = oth.k_id_estado_ot
+            INNER JOIN tipo_ot_hija tot ON tot.k_id_tipo = eot.k_id_tipo
+            INNER JOIN ot_padre otp ON otp.k_id_ot_padre = oth.nro_ot_onyx
+            INNER JOIN user ON user.k_id_user = otp.k_id_user
+            WHERE otp.cerrado_zolid = 'NO' AND eot.k_id_tipo = 1
+        ");
+        return $query->result();
+    }
+
 
     /*     * *********************************************************************************************************** */
     /*     * ***********************ACOSTUMBRENSE A COMENTAR TODAS LAS FUNCIONES QUE HAGAN PUTOS************************ */

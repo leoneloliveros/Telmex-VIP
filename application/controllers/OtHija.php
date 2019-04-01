@@ -112,7 +112,7 @@ class OtHija extends CI_Controller {
         // se configuro el datatables para q envie los parametros por post
         // colum_num se usa para el ordenamiento por columna dependiendo la peticion
         // $columm_num = $this->input->post('order')['0']['column'];
-        // parametros obtenidos... 
+        // parametros obtenidos...
         $parameters = array(
             'start' => $this->input->post('start'), //start se usa para la paginacion ('desde')
             'length' => $this->input->post('length'), //length para la cantidad ('cuantos')... lo controla el select de mostrar
@@ -228,7 +228,7 @@ class OtHija extends CI_Controller {
             $otHijaModel = new Dao_ot_hija_model();
             $res = $otHijaModel->getOtsOutTime($idTipo);
             // echo '<pre>'; print_r($res); echo '</pre>';
-            
+
             $this->json($res);
         } else {
             $this->json(new Response(EMessages::SESSION_INACTIVE));
@@ -293,7 +293,7 @@ class OtHija extends CI_Controller {
         $this->load->view('export', $data);
     }
 
-    // 
+    //
     public function c_fillmodalsCierre() {
         $response = null;
         if (Auth::check()) {
@@ -306,7 +306,7 @@ class OtHija extends CI_Controller {
             return;
         }
     }
-    
+
     public function c_getAllOtsInExecution() {
         $response = null;
         if (Auth::check()) {
@@ -323,7 +323,25 @@ class OtHija extends CI_Controller {
     public function c_get_newoth_table() {
         $getList_newOth_table = $this->Dao_ot_hija_model->c_get_List_OTNew_bd();
         echo json_encode($getList_newOth_table);
-    }   
+    }
+
+    //llama la vista que muestra las oth que no se cerraron por zolid
+    public function view_cerradas_zolid() {
+        if (!Auth::check()) {
+            Redirect::to(URL::base());
+        }
+        $data['title'] = 'No Cerradas ZOLID';
+        $data['cantidad'] = $this->Dao_ot_hija_model->getCantUndefined();
+        $this->load->view('parts/headerF', $data);
+        $this->load->view('cerradas_zolid');
+        $this->load->view('parts/footerF');
+    }
+
+
+    public function c_getInfoCerradasZolid(){
+        $answer = $this->Dao_ot_hija_model->getInfoCerradasZolid();
+        echo json_encode($answer);
+    }
     /*     * *********************************************************************************************************** */
     /*     * ***********************ACOSTUMBRENSE A COMENTAR TODAS LAS FUNCIONES QUE HAGAN PUTOS************************ */
     /*     * *********************************************************************************************************** */
