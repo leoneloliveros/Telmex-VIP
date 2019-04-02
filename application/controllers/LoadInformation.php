@@ -289,7 +289,16 @@ class LoadInformation extends CI_Controller {
                                 array_push($errorUpdate, array($actualizar, $this->getValueCell($sheet, 'AW' . $row)));
                             }
                         }
+
                         $col_actualizar = $this->Dao_ot_hija_model->update_ot_hija_mod(array('id_orden_trabajo_hija' => $arrayBD['id_orden_trabajo_hija'], 'actualizado' => $export + 1));
+                        
+                        if ($this->oth_cerrada_zolid($this->getValueCell($sheet, 'AV' . $row), $this->getValueCell($sheet, 'AZ' . $row))) {
+                            $data = array(
+                                'cerrado_zolid' => 'NO',
+                                'ultimo_envio_reporte'  => $this->getDatePHPExcel($sheet, 'BF' . $row),
+                            );
+                            $this->Dao_ot_padre_model->update_ot_padre($data, $this->getValueCell($sheet, 'Q' . $row));
+                        }
                     }
                     //si no existe lo inserto en la db tabla ot_hija
                     else {
@@ -321,7 +330,8 @@ class LoadInformation extends CI_Controller {
                             $this->Dao_ot_padre_model->insert_data_otp($dataotp);
                         } elseif ($this->oth_cerrada_zolid($this->getValueCell($sheet, 'AV' . $row), $this->getValueCell($sheet, 'AZ' . $row))) {
                             $data = array(
-                                'cerrado_zolid' => 'SI',
+                                'cerrado_zolid' => 'NO',
+                                'ultimo_envio_reporte'  => $this->getDatePHPExcel($sheet, 'BF' . $row),
                             );
                             $this->Dao_ot_padre_model->update_ot_padre($data, $this->getValueCell($sheet, 'Q' . $row));
                         }

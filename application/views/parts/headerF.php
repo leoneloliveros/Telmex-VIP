@@ -119,13 +119,13 @@
                                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Management<span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="<?= URL::to('managementOtp') ?>">Work Management</a></li>
-                                        <li><a href="<?= URL::to('noCerradasZolid') ?>">No cerradas ZOLID</a></li>
                                         <!--<li><a href="<?= URL::to('editarOts') ?>">Work Management OTH</a></li>
                                         <li><a href="<?= URL::to('ReporteActualizacion') ?>">Reporte de Actualización <span class="badge"><?php echo $cantidad['afeterEigtDays'][0]->cant ?></span></a></li>-->
 
                                         <?php if (Auth::user()->n_role_user == 'administrador'): ?>
                                             <li><a href="<?= URL::to('cargarOts') ?>">load information</a></li>
                                             <li><a href="<?= URL::to('Graphics/view_load_graphics') ?>">Graficas</a></li>
+                                            <li><a href="<?= URL::to('noCerradasZolid') ?>">No cerradas ZOLID</a></li>
                                         <?php endif ?>
                                     </ul>
                                 </li>
