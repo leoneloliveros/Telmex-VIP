@@ -808,7 +808,7 @@ class Dao_ot_padre_model extends CI_Model {
                 fecha_empalmes,
                 fecha_configuracion,
                 fecha_entrega_servicio')
-            ->from('linea_base lb')
+            ->from('linea_base')
             ->where('id_ot_padre',$id)
             ->order_by( 'fecha_cierre_ko', 'DESC')
             ->limit(1)
