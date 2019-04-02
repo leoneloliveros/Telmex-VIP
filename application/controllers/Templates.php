@@ -98,10 +98,9 @@ class Templates extends CI_Controller {
                 $this->session->set_flashdata('msj', $msj);
                 header('Location: ' . URL::base() . '/managementOtp');
             }
-
         } else {
             // actualizar el estado
-            $this->actualizar_oth($pt);
+                            $this->actualizar_oth($pt);
         }
 
     }
@@ -180,7 +179,7 @@ class Templates extends CI_Controller {
             $data_pr = array(
                 'ciudad_des'                   => $pt['pr_ciudad_des'],
                 'id_ot_padre_des'              => $pt['nro_ot_onyx'],
-                'direccion_des'                => $pt['pr_direccion_des'],
+                'direccion_des'                => $pt['pr_direccion_des'],  
                 'tipo_predio_des'              => $pt['pr_tipo_predio_des'],
                 'nit_cliente_des'              => $pt['pr_nit_cliente_des'],
                 'alias_lugar_des'              => $pt['pr_alias_lugar_des'],
@@ -879,10 +878,10 @@ class Templates extends CI_Controller {
             'fecha_equipos'              => $pt['lb_fecha_equipos'],
             'fecha_empalmes'             => $pt['lb_fecha_empalmes'],
             'fecha_entrega_servicio'     => $pt['lb_fecha_entrega_servicio'],
-
+            'fecha_cierre_ko'            => $pt['lb_fecha_cierreKo'],
         );
 
-        return $this->Dao_hito_model->insert_linea_base($data);
+        return $this->Dao_hito_model->insert_linea_base(array_filter($data));
 
     }
 

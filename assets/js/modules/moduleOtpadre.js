@@ -919,6 +919,7 @@ $(function() {
             $('#table_selected').on('click', 'img.quitar_fila', eventos.quitarFila);
             $('#mdl-enviar-reporte').on('click', eventos.onClickSendReportUpdate);
             $('#mdl_cierre').on("hidden.bs.modal", eventos.cleanFormReportUpdate);
+            $('#modalHitosOtp').on('hidden.bs.modal',eventos.resetHitosModal)
 
             // ***********************Inicio del evento del menu sticky******************
             $('.contenedor_sticky').on('click', function() {
@@ -984,6 +985,7 @@ $(function() {
             var trParent = aLinkLog.parents('tr');
             var tabla = aLinkLog.parents('table').attr('id');
             var record;
+
             switch (tabla) {
                 case 'table_otPadreList':
                     record = vista.table_otPadreList.row(trParent).data();
@@ -1006,7 +1008,8 @@ $(function() {
             }
 
             var btn_clas = e.currentTarget;
-
+            
+            
 
             switch (btn_clas.dataset.btn) {
                 case 'cierreKo':
@@ -1014,7 +1017,7 @@ $(function() {
                     break;
 
                 case 'hito':
-                    eventos.showModalHitosOthp(record);
+                    eventos.showModalHitosOthp(record, aLinkLog.children());
                     break;
             }
 
@@ -1509,82 +1512,442 @@ $(function() {
             $('#title_modal').html('<b>Detalle de la orden  ' + registros.id_orden_trabajo_hija + '</b>');
             $('#Modal_detalle').modal('show');
         },
-        // Muestra los hitos de la ot padre seleccionada
-        showModalHitosOthp: function(data) {
+
+        // limpia el modal de los hitos
+       resetHitosModal : function () {
             // resetea el formulario y lo deja vacio
             document.getElementById("formModalHitosOTP").reset();
-            // console.log(data);
+            $("#table_hitos_otp tbody").children().remove(); //limpia la tabla de hitos
+            $("#actividad_actual").children('.optH').remove(); //limpia el select de los hitos
+            $("#btnGuardarModalHitos").show();
+        },
+        
+        // Muestra los hitos de la ot padre seleccionada
+        showModalHitosOthp: function(datax,x) {
+            // console.log(datax);
+            if (x.hasClass('clr_lime')) {
 
-            $.post(baseurl + '/OtPadre/c_getHitosOtp',
+                $.post(baseurl + '/OtPadre/c_getLinearBaseForHitos',
                     {
-                        //WE, ESTO ENVIA EN ID DE LA OT PADRE, PARA ESO SIRVE EL POST EN EL CONTROLADOR
-                        idOtp: data.k_id_ot_padre
-                                // idOtp: "nel"
+                        idOtp: datax.k_id_ot_padre
                     },
-                    function(data) {
-                        var obj = JSON.parse(data);
+                    function (data) {
+                        const obj = JSON.parse(data);
+                        eventos.printDynamicHitosTable(obj);
+                            // si tiene hitos entrará acá y los buscará, pero si no, irá a la linea base
+                            $.post(baseurl + '/OtPadre/c_getHitosOtp',
+                                {
+                                    //WE, ESTO ENVIA EN ID DE LA OT PADRE, PARA ESO SIRVE EL POST EN EL CONTROLADOR
+                                    idOtp: datax.k_id_ot_padre
+                                },
+                                function (data) {
+                                    var obj = JSON.parse(data);
+                                    $(".timeline-badge").css("background-color", "#7c7c7c");
+                                    if (obj !== null) {
 
-                        $(".timeline-badge").css("background-color", "#7c7c7c");
-                        if (obj !== null) {
+                                        switch (obj.actividad_actual) {
+                                            case "KICK OFF":
+                                                $("#act_ko").css("background-color", "#4bd605");
+                                                break;
 
-                            switch (obj.actividad_actual) {
-                                case "KICK OFF":
-                                    $("#act_ko").css("background-color", "#4bd605");
-                                    break;
+                                            case "VISITA OBRA CIVIL":
+                                                $("#act_voc").css("background-color", "#4bd605");
+                                                break;
 
-                                case "VISITA OBRA CIVIL":
-                                    $("#act_voc").css("background-color", "#4bd605");
-                                    break;
+                                            case "VISITA OBRA CIVIL TERCEROS":
+                                                $("#act_voc").css("background-color", "#4bd605");
+                                                break;
 
-                                case "VISITA OBRA CIVIL TERCEROS":
-                                    $("#act_voc").css("background-color", "#4bd605");
-                                    break;
+                                            case "ENVIO COTIZACION":
+                                                $("#act_ec").css("background-color", "#4bd605");
+                                                break;
 
-                                case "ENVIO COTIZACION":
-                                    $("#act_ec").css("background-color", "#4bd605");
-                                    break;
+                                            case "APROBACION COTIZACION":
+                                                $("#act_ac").css("background-color", "#4bd605");
+                                                break;
 
-                                case "APROBACION COTIZACION":
-                                    $("#act_ac").css("background-color", "#4bd605");
-                                    break;
+                                            case "SOLICITUD INFORMACIÓN TECNICA":
+                                                $("#act_sit").css("background-color", "#4bd605");
+                                                break;
 
-                                case "SOLICITUD INFORMACIÓN TECNICA":
-                                    $("#act_sit").css("background-color", "#4bd605");
-                                    break;
+                                            case "VISITA EJECUCION OBRA CIVIL":
+                                                $("#act_veoc").css("background-color", "#4bd605");
+                                                break;
 
-                                case "VISITA EJECUCION OBRA CIVIL":
-                                    $("#act_veoc").css("background-color", "#4bd605");
-                                    break;
+                                            case "VISITA EJECUCION OBRA CIVIL TERCERO":
+                                                $("#act_veoc").css("background-color", "#4bd605");
+                                                break;
 
-                                case "VISITA EJECUCION OBRA CIVIL TERCERO":
-                                    $("#act_veoc").css("background-color", "#4bd605");
-                                    break;
+                                            case "CONFIGURACION RED CLARO":
+                                                $("#act_crc").css("background-color", "#4bd605");
+                                                break;
 
-                                case "CONFIGURACION RED CLARO":
-                                    $("#act_crc").css("background-color", "#4bd605");
-                                    break;
+                                            case "VISITA ENTREGA UM TERCEROS":
+                                                $("#act_veut").css("background-color", "#4bd605");
+                                                break;
+                                            case "EMPALMES":
+                                                $("#act_empalmes").css("background-color", "#4bd605");
+                                                break;
+                                        }
 
-                                case "VISITA ENTREGA UM TERCEROS":
-                                    $("#act_veut").css("background-color", "#4bd605");
-                                    break;
-                                case "EMPALMES":
-                                    $("#act_empalmes").css("background-color", "#4bd605");
-                                    break;
-                            }
+                                        $.each(obj, function (i, item) {
+                                            $('#' + i).val(item);
+                                        });
+                                    }
+                                });
+                    },
+                );
 
-                            $.each(obj, function(i, item) {
-                                $('#' + i).val(item);
-                            });
-                        }
-                    });
+                
+            }else{
+                $.post(baseurl + '/OtPadre/c_getLinearBaseForHitos',
+                    {
+                        idOtp: datax.k_id_ot_padre
+                    },
+                    function (data) {
+                        const obj = JSON.parse(data);
+                        eventos.printDynamicHitosTable(obj);
+                        
+                    },
+                );
+            }
+            
 
             //pinta el titulo del modal y cambia dependiendo de la otp seleccionada
-            $('#myModalLabelHitos').html('<strong> Hitos de la OTP N.<span id="otpHIto">' + data.k_id_ot_padre + '</span></strong>');
-            $('#servivio_hito').html('<strong> OT ' + data.k_id_ot_padre + ' - ' + data.servicio + '</strong>');
-            $('#cliente_hito').html('<strong> CLIENTE: ' + data.n_nombre_cliente + '</strong>');
+            $('#myModalLabelHitos').html('<strong> Hitos de la OTP N.<span id="otpHIto">' + datax.k_id_ot_padre + '</span></strong>');
+            $('#servivio_hito').html('<strong> OT ' + datax.k_id_ot_padre + ' - ' + datax.servicio + '</strong>');
+            $('#cliente_hito').html('<strong> CLIENTE: ' + datax.n_nombre_cliente + '</strong>');
             $('#ciudad_hito').html('<strong> CIUDAD: BARRANQUILLA - Vía Cordialidad # 8E1 - 238</strong>');
             $('#modalHitosOtp').modal('show');
         },
+
+        // según lo que se haya encontrado en la linea base, dependiendo de la fecha, pintará los campos de la tabla
+        printDynamicHitosTable : function (data) {
+            var numCampo = 1;
+            var tabla = ``;
+            var optionSelect = '';
+            if (data === null) {
+                $('#table_hitos_otp tbody').append(`<tr>
+                    <td colspan="5" style="text-align:center">Primero envíe el reporte de inicio</td>
+                </tr>`);
+                $("#btnGuardarModalHitos").hide();
+            } else {
+                $.each(data, function (campo, fecha) {
+                    if (fecha) {
+                        switch (campo) {
+                            case 'fecha_cierre_ko':
+                                optionSelect += `<option class="optH" value="KICK OFF">CIERRE KICKOFF (KO)</option>`;
+
+                                tabla += `<tr>
+                                <td>
+                                    <ul class="timeline timeline-jhon">
+                                        <li class="timeline-item">
+                                            <div class="timeline-badge" id="act_ko">${numCampo}</div>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td><span>CIERRE KICKOFF</span> (KO)</td>
+                                <td>
+                                    <input type="date" name="f_compromiso" value="${fecha}" id="f_compromiso_ko" class="form-control fechas_hitos">
+                                </td>
+                                <td>
+                                    <select name="estado" id="estado_ko" class="form-control">
+                                        <option value="">SELECCIONE...</option>
+                                        <option value="EJECUTADA">EJECUTADA</option>
+                                        <option value="ENVIADA">ENVIADA</option>
+                                        <option value="APROBADA">APROBADA</option>
+                                        <option value="CONFIGURADO">CONFIGURADO</option>
+                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="CERRADA">CERRADA</option>
+                                        <option value="NO APLICA">NO APLICA</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <textarea name="observaciones" id="observaciones_ko" rows="2"></textarea>
+                                </td>
+                            </tr>`;
+                                break;
+
+                            case 'fecha_visita_obra_civil':
+                                optionSelect += `<option class="optH" value="VISITA OBRA CIVIL">VISITA OBRA CIVIL (VOC)</option>`;
+                                tabla += `<tr>  
+                                <td>
+                                    <ul class="timeline timeline-jhon">
+                                        <li class="timeline-item">
+                                            <div class="timeline-badge" id="act_voc">${numCampo}</div>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <!--VISITA OBRA CIVIL-->
+                                    <select name="tipo_voc" id="tipo_voc" class="form-control">
+                                        <option value="VISITA OBRA CIVIL">VISITA OBRA CIVIL (VOC)</option>
+                                        <option value="VISITA OBRA CIVIL TERCEROS">VISITA OBRA CIVIL TERCEROS</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="date" name="f_compromiso" value="${fecha}" id="f_compromiso_voc" class="form-control fechas_hitos fechVoc">
+                                </td>
+                                <td>
+                                    <select name="estado" id="estado_voc" class="form-control estVoc">
+                                        <option value="">SELECCIONE...</option>
+                                        <option value="EJECUTADA">EJECUTADA</option>
+                                        <option value="ENVIADA">ENVIADA</option>
+                                        <option value="APROBADA">APROBADA</option>
+                                        <option value="CONFIGURADO">CONFIGURADO</option>
+                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="CERRADA">CERRADA</option>
+                                        <option value="NO APLICA">NO APLICA</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <textarea name="observaciones" id="observaciones_voc" rows="2" class="obsVoc"></textarea>
+                                </td>
+                            </tr>`;
+                                break;
+
+                            case 'fecha_dcoc':
+                                optionSelect += `<option class="optH" value="ENVIO COTIZACION">ENVIÓ COTIZACIÓN OC</option>`;
+                                tabla += `<tr>  
+                                <td>
+                                    <ul class="timeline timeline-jhon">
+                                        <li class="timeline-item">
+                                            <div class="timeline-badge" id="act_ec">${numCampo}</div>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td><span>ENVIÓ COTIZACIÓN</span> OC</td>
+                                <td>
+                                    <input type="date" name="f_compromiso" value="${fecha}" id="f_compromiso_ec" class="form-control fechas_hitos">
+                                </td>
+                                <td>
+                                    <select name="estado" id="estado_ec" class="form-control">
+                                        <option value="">SELECCIONE...</option>
+                                        <option value="EJECUTADA">EJECUTADA</option>
+                                        <option value="ENVIADA">ENVIADA</option>
+                                        <option value="APROBADA">APROBADA</option>
+                                        <option value="CONFIGURADO">CONFIGURADO</option>
+                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="CERRADA">CERRADA</option>
+                                        <option value="NO APLICA">NO APLICA</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <textarea name="observaciones" id="observaciones_ec" rows="2"></textarea>
+                                </td>
+                            </tr>`;
+                                break;
+
+                            case 'fecha_aprobacion_coc':
+                                optionSelect += `<option class="optH" value="APROBACION COTIZACION">APROBACION COTIZACION</option>`;
+                                tabla += `<tr>  
+                                <td>
+                                    <ul class="timeline timeline-jhon">
+                                        <li class="timeline-item">
+                                            <div class="timeline-badge" id="act_ac">${numCampo}</div>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td><span>APROBACIÓN COTIZACIÓN OC</span></td>
+                                <td>
+                                    <input type="date" name="f_compromiso" value="${fecha}" id="f_compromiso_ac" class="form-control fechas_hitos">
+                                </td>
+                                <td>
+                                    <select name="estado" id="estado_ac" class="form-control">
+                                        <option value="">SELECCIONE...</option>
+                                        <option value="EJECUTADA">EJECUTADA</option>
+                                        <option value="ENVIADA">ENVIADA</option>
+                                        <option value="APROBADA">APROBADA</option>
+                                        <option value="CONFIGURADO">CONFIGURADO</option>
+                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="CERRADA">CERRADA</option>
+                                        <option value="NO APLICA">NO APLICA</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <textarea name="observaciones" id="observaciones_ac" rows="2"></textarea>
+                                </td>
+                            </tr>`;
+                                break;
+
+                            case 'fecha_ingenieria_detalle':
+                                optionSelect += `<option class="optH" value="SOLICITUD INFORMACIÓN TECNICA">SOLICITUD INFORMACIÓN TÉCNICA</option>`;
+                                tabla += `<tr>  
+                                <td>
+                                    <ul class="timeline timeline-jhon">
+                                        <li class="timeline-item">
+                                            <div class="timeline-badge" id="act_sit">${numCampo}</div>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td><span>SOLICITUD INFORMACIÓN TÉCNICA</span></td>
+                                <td>
+                                    <input type="date" name="f_compromiso" value="${fecha}" id="f_compromiso_sit" class="form-control fechas_hitos">
+                                </td>
+                                <td>
+                                    <select name="estado" id="estado_sit" class="form-control">
+                                        <option value="">SELECCIONE...</option>
+                                        <option value="EJECUTADA">EJECUTADA</option>
+                                        <option value="ENVIADA">ENVIADA</option>
+                                        <option value="APROBADA">APROBADA</option>
+                                        <option value="CONFIGURADO">CONFIGURADO</option>
+                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="CERRADA">CERRADA</option>
+                                        <option value="NO APLICA">NO APLICA</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <textarea name="observaciones" id="observaciones_sit" rows="2"></textarea>
+                                </td>
+                            </tr>`;
+                                break;
+
+                            case 'fecha_ejecucion_obra_civil':
+                                optionSelect += `<option class="optH" value="VISITA EJECUCION OBRA CIVIL">VISITA EJECUCION OBRA CIVIL (EOC)</option>`;
+                                tabla += ` <tr> 
+                                <td>
+                                    <ul class="timeline timeline-jhon">
+                                        <li class="timeline-item">
+                                            <div class="timeline-badge" id="act_veoc">${numCampo}</div>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <!--VISITA EJECUCION OBRA CIVIL-->
+                                    <select name="tipo_veoc" id="tipo_veoc" class="form-control">
+                                        <option value="VISITA EJECUCION OBRA CIVIL">VISITA EJECUCION OBRA CIVIL (EOC)</option>
+                                        <option value="VISITA EJECUCION OBRA CIVIL TERCERO">VISITA EJECUCION OBRA CIVIL TERCERO</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="date" name="f_compromiso" value="${fecha}" id="f_compromiso_veoc" class="form-control fechas_hitos">
+                                </td>
+                                <td>
+                                    <select name="estado" id="estado_veoc" class="form-control">
+                                        <option value="">SELECCIONE...</option>
+                                        <option value="EJECUTADA">EJECUTADA</option>
+                                        <option value="ENVIADA">ENVIADA</option>
+                                        <option value="APROBADA">APROBADA</option>
+                                        <option value="CONFIGURADO">CONFIGURADO</option>
+                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="CERRADA">CERRADA</option>
+                                        <option value="NO APLICA">NO APLICA</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <textarea name="observaciones" id="observaciones_veoc" rows="2"></textarea>
+                                </td>
+                            </tr>`;
+                                break;
+
+                            case 'fecha_empalmes':
+                                optionSelect += `<option class="optH" value="EMPALMES">EMPALMES</option>`;
+                                tabla += `<tr>  
+                                <td>
+                                    <ul class="timeline timeline-jhon">
+                                        <li class="timeline-item">
+                                            <div class="timeline-badge" id="act_empalmes">${numCampo}</div>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td><span>EMPALMES</span></td>
+                                <td>
+                                    <input type="date" name="f_compromiso" value="${fecha}" id="f_compromiso_empalmes" class="form-control fechas_hitos">
+                                </td>
+                                <td>
+                                    <select name="estado" id="estado_empalmes" class="form-control">
+                                        <option value="">SELECCIONE...</option>
+                                        <option value="EJECUTADA">EJECUTADA</option>
+                                        <option value="ENVIADA">ENVIADA</option>
+                                        <option value="APROBADA">APROBADA</option>
+                                        <option value="CONFIGURADO">CONFIGURADO</option>
+                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="CERRADA">CERRADA</option>
+                                        <option value="NO APLICA">NO APLICA</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <textarea name="observaciones" id="observaciones_empalmes" rows="2"></textarea>
+                                </td>
+                            </tr>`;
+                                break;
+
+                            case 'fecha_configuracion':
+                                optionSelect += `<option class="optH" value="CONFIGURACION RED CLARO">CONFIGURACION RED CLARO</option>`;
+                                tabla += `<tr>  
+                                <td>
+                                    <ul class="timeline timeline-jhon">
+                                        <li class="timeline-item">
+                                            <div class="timeline-badge" id="act_crc">${numCampo}</div>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td><span>CONFIGURACION RED CLARO</span></td>
+                                <td>
+                                    <input type="date" name="f_compromiso" value="${fecha}" id="f_compromiso_crc" class="form-control fechas_hitos">
+                                </td>
+                                <td>
+                                    <select name="estado" id="estado_crc" class="form-control">
+                                        <option value="">SELECCIONE...</option>
+                                        <option value="EJECUTADA">EJECUTADA</option>
+                                        <option value="ENVIADA">ENVIADA</option>
+                                        <option value="APROBADA">APROBADA</option>
+                                        <option value="CONFIGURADO">CONFIGURADO</option>
+                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="CERRADA">CERRADA</option>
+                                        <option value="NO APLICA">NO APLICA</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <textarea name="observaciones" id="observaciones_crc" rows="2"></textarea>
+                                </td>
+                            </tr>`;
+                                break;
+
+                            case 'fecha_entrega_servicio':
+                                optionSelect += `<option class="optH" value="VISITA ENTREGA UM TERCEROS">VISITA ENTREGA DE SERVICIO</option> `;
+                                tabla += `<tr>  
+                                <td>
+                                    <ul class="timeline timeline-jhon">
+                                        <li class="timeline-item">
+                                            <div class="timeline-badge" id="act_veut">${numCampo}</div>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td><span>VISITA ENTREGA DE SERVICIO</span></td>
+                                <td>
+                                    <input type="date" name="f_compromiso" value="${fecha}" id="f_compromiso_veut" class="form-control fechas_hitos">
+                                </td>
+                                <td>
+                                    <select name="estado" id="estado_veut" class="form-control">
+                                        <option value="">SELECCIONE...</option>
+                                        <option value="EJECUTADA">EJECUTADA</option>
+                                        <option value="ENVIADA">ENVIADA</option>
+                                        <option value="APROBADA">APROBADA</option>
+                                        <option value="CONFIGURADO">CONFIGURADO</option>
+                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="CERRADA">CERRADA</option>
+                                        <option value="NO APLICA">NO APLICA</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <textarea name="observaciones" id="observaciones_veut" rows="2"></textarea>
+                                </td>
+                            </tr>`;
+                                break;
+
+                        }
+                        numCampo++;
+                    }
+
+                });
+            }
+            
+            $("#actividad_actual").append(optionSelect);
+            $("#table_hitos_otp tbody").append(tabla);
+        },
+        
+        
         // Muestra los hitos de la ot padre seleccionada
         onClickSaveHitosOtp: function() {
             var vacios = 0;
@@ -1595,14 +1958,36 @@ $(function() {
             });
             // console.log($("#formModalHitosOTP").serializeArray());
 
-
-
-
             if (vacios == 0) {
+                const rows = $(".timeline-badge");
+                var infox = {};
+                $.each(rows, function (ix, val) {
+                    var info = $(val).parents('td').siblings().children();
+                    $.each(info, function (i, value) {
+                        if (!$(value).is('span')) {
+                            if ($(value).attr('id') === 'tipo_voc' || $(value).attr('id') === 'tipo_veoc') {
+                                posicion = $(value).val();
+                            } else {
+                                if (infox[ posicion ] == undefined) {
+                                    infox[ posicion ] = [$(value).val()];
+                                    // infox[ posicion ] = new Object($(value).val());
+                                } else {
+                                    infox[ posicion ].push($(value).val());
+                                }
+                            }
+                        } else {
+                            posicion = $(value).html();
+                        }
+                    });
+                });
+                // console.log(infox);
+
                 $.post(baseurl + '/OtPadre/c_saveHitosOtp',
                         {
                             idOtp: $('#otpHIto').html(),
-                            formulario: $("#formModalHitosOTP").serializeArray()
+                            formulario: JSON.stringify(infox),
+                            actividadAct: $('#actividad_actual').val()
+                            // formulario: $("#formModalHitosOTP").serializeArray()
                         },
                         function(data) {
                             var obj = JSON.parse(data);
@@ -1620,7 +2005,7 @@ $(function() {
                                 swal(
                                         'Error',
                                         obj.msg,
-                                        'error'
+                                        'warning'
                                         )
                             }
 

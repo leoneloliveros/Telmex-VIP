@@ -357,8 +357,84 @@ class OtPadre extends CI_Controller {
     //Guarda la informacion de los hitos de una OTP
     public function c_saveHitosOtp() {
         $idOtp = $this->input->post('idOtp');
-        $formulario = $this->input->post('formulario');
-        $res = $this->Dao_ot_padre_model->saveHitosOtp($idOtp, $formulario);
+        $formulario = json_decode($this->input->post('formulario'));
+        $actividadActual = $this->input->post('actividadAct');
+        $newFields = array();
+        $newFields['id_ot_padre'] = $idOtp;
+        $newFields['actividad_actual'] = $actividadActual;
+
+        foreach ($formulario as $key => $value) {
+            switch ($key) {
+                case 'CIERRE KICKOFF':
+                    $newFields['f_compromiso_ko'] = $value[0];
+                    $newFields['estado_ko'] = $value[1];
+                    $newFields['observaciones_ko'] = $value[2];
+                    break;
+                
+                case 'VISITA OBRA CIVIL TERCEROS':
+                case 'VISITA OBRA CIVIL':
+                    $newFields['f_compromiso_voc'] = $value[0];
+                    $newFields['estado_voc'] = $value[1];
+                    $newFields['observaciones_voc'] = $value[2];
+                    if ($key === 'VISITA OBRA CIVIL') {
+                        $newFields['tipo_voc'] = 'VISITA OBRA CIVIL';
+                    }else{
+                        $newFields['tipo_voc'] = 'VISITA OBRA CIVIL TERCEROS';
+                    }
+                    break;
+                
+                case 'ENVIÓ COTIZACIÓN':
+                    $newFields['f_compromiso_ec'] = $value[0];
+                    $newFields['estado_ec'] = $value[1];
+                    $newFields['observaciones_ec'] = $value[2];
+                    break;
+                
+                case 'APROBACIÓN COTIZACIÓN OC':
+                    $newFields['f_compromiso_ac'] = $value[0];
+                    $newFields['estado_ac'] = $value[1];
+                    $newFields['observaciones_ac'] = $value[2];
+                    break;
+                
+                case 'SOLICITUD INFORMACIÓN TÉCNICA':
+                    $newFields['f_compromiso_sit'] = $value[0];
+                    $newFields['estado_sit'] = $value[1];
+                    $newFields['observaciones_sit'] = $value[2];
+                    break;
+                
+                case 'VISITA EJECUCION OBRA CIVIL TERCERO':
+                case 'VISITA EJECUCION OBRA CIVIL':
+                    $newFields['f_compromiso_veoc'] = $value[0];
+                    $newFields['estado_veoc'] = $value[1];
+                    $newFields['observaciones_veoc'] = $value[2];
+                    if ($key === 'VISITA EJECUCION OBRA CIVIL') {
+                        $newFields['tipo_veoc'] = 'VISITA EJECUCION OBRA CIVIL';
+                    } else {
+                        $newFields['tipo_veoc'] = 'VISITA EJECUCION OBRA CIVIL TERCERO';
+                    }
+                    
+                    break;
+                
+                case 'EMPALMES':
+                    $newFields['f_compromiso_empalmes'] = $value[0];
+                    $newFields['estado_empalmes'] = $value[1];
+                    $newFields['observaciones_empalmes'] = $value[2];
+                    break;
+                
+                case 'CONFIGURACION RED CLARO':
+                    $newFields['f_compromiso_crc'] = $value[0];
+                    $newFields['estado_crc'] = $value[1];
+                    $newFields['observaciones_crc'] = $value[2];
+                    break;
+                
+                case 'VISITA ENTREGA DE SERVICIO':
+                    $newFields['f_compromiso_veut'] = $value[0];
+                    $newFields['estado_veut'] = $value[1];
+                    $newFields['observaciones_veut'] = $value[2];
+                    break;
+            }
+        }
+
+        $res = $this->Dao_ot_padre_model->saveHitosOtp(array_filter($newFields));
         echo json_encode($res);
     }
 
@@ -667,6 +743,10 @@ class OtPadre extends CI_Controller {
         $this->load->view('exportAllReportAct', $data);
     }
 
-
+    public function c_getLinearBaseForHitos(){
+        $id = $this->input->post('idOtp');
+        $fechas = $this->Dao_ot_padre_model->getLineaBasePerOTP($id);
+        echo json_encode($fechas);
+    }
 
 }

@@ -27,6 +27,16 @@ $(function() {
                     if (span.hasClass('activeDate')) {
                         span.removeClass('activeDate');
                         span.addClass('inActiveDate');
+                        if (span.siblings().attr('id') === "lb_fecha_voc") {
+                            $("#lb_fecha_dcoc,#lb_fecha_aprobacion_coc,#lb_fecha_ejecucion_obra_civil,#lb_fecha_empalmes").attr('disabled', true);
+                            $("#lb_fecha_dcoc,#lb_fecha_aprobacion_coc,#lb_fecha_ejecucion_obra_civil,#lb_fecha_empalmes").css('color', "#eeeeee");
+                            $("#lb_fecha_dcoc,#lb_fecha_aprobacion_coc,#lb_fecha_ejecucion_obra_civil,#lb_fecha_empalmes").siblings().children('i').removeClass('fa-calendar-check-o');
+                            $("#lb_fecha_dcoc,#lb_fecha_aprobacion_coc,#lb_fecha_ejecucion_obra_civil,#lb_fecha_empalmes").siblings().children('i').addClass('fa-calendar-times-o');
+
+                            $("#lb_fecha_dcoc,#lb_fecha_aprobacion_coc,#lb_fecha_ejecucion_obra_civil,#lb_fecha_empalmes").siblings().removeClass('activeDate');
+                            $("#lb_fecha_dcoc,#lb_fecha_aprobacion_coc,#lb_fecha_ejecucion_obra_civil,#lb_fecha_empalmes").siblings().addClass('inActiveDate');
+                            
+                        }
                         span.children('i').removeClass('fa-calendar-check-o');
                         span.children('i').addClass('fa-calendar-times-o');
                         span.siblings().attr('disabled',true);
@@ -292,11 +302,15 @@ $(function() {
 
                             $('#formModal').attr('action', baseurl + '/Templates/c_updateStatusOtEspeciales');
                             $('#btnUpdOt').attr('disabled', false);
+                            $('.inActiveDate').siblings().attr("type","text");
                             $('.inActiveDate').siblings().val(null);
+                            $('.inActiveDate').siblings().attr("disabled",false);
                             $('#formModal').submit();
 
                         } else {
+                            $('.inActiveDate').siblings().attr("type","text");
                             $('.inActiveDate').siblings().val(null);
+                            $('.inActiveDate').siblings().attr("disabled",false);
                             $('#formModal').submit();
                         }
                         
@@ -306,7 +320,9 @@ $(function() {
                     }
                 });
             } else {
+                $('.inActiveDate').siblings().attr("type","text");
                 $('.inActiveDate').siblings().val(null);
+                $('.inActiveDate').siblings().attr("disabled",false);
                 $('#formModal').submit();
             }
 
@@ -420,34 +436,58 @@ $(function() {
                     }
                 }
             }
-
-            var comodin2 = comodin;
-            var comodin3 = comodin;
-
             $('#lb_fecha_aprobacion_coc').val(comodin);
 
-            const fecha_configuracion = formulario.calcular_nueva_fecha(comodin, 3);
-            if ($("#lb_fecha_configuracion").siblings().hasClass("activeDate")) {
-                comodin = fecha_configuracion;
+            var comodin2 = comodin;
+
+            const fecha_ingenieria_detalle = formulario.calcular_nueva_fecha(comodin, 2);
+
+            if ($("#lb_fecha_ingenieria_detalle").siblings().hasClass("activeDate")) {
+                comodin = fecha_ingenieria_detalle;
             } else {
                 if ($("#lb_fecha_aprobacion_coc").siblings().hasClass("activeDate")) {
-                comodin = fecha_aprobacion_coc;
-            } else {
-                if ($("#lb_fecha_dcoc").siblings().hasClass("activeDate")) {
-                    comodin = fecha_dcoc;
+                    comodin = fecha_aprobacion_coc;
                 } else {
-                    if ($("#lb_fecha_voc").siblings().hasClass("activeDate")) {
-                        comodin = fecha_voc;
+                    if ($("#lb_fecha_dcoc").siblings().hasClass("activeDate")) {
+                        comodin = fecha_dcoc;
                     } else {
-                        comodin = fecha_cierreKO;
+                        if ($("#lb_fecha_voc").siblings().hasClass("activeDate")) {
+                            comodin = fecha_voc;
+                        } else {
+                            comodin = fecha_cierreKO;
+                        }
                     }
                 }
             }
-            }
-            
-            $('#lb_fecha_configuracion').val(comodin);
 
-            
+            $('#lb_fecha_ingenieria_detalle').val(comodin);
+
+
+            const fecha_configuracion = formulario.calcular_nueva_fecha(comodin, ($("#lb_fecha_ingenieria_detalle").siblings().hasClass("activeDate"))? 3 : 1 );
+            if ($("#lb_fecha_configuracion").siblings().hasClass("activeDate")) {
+                comodin = fecha_configuracion;
+            } else {
+                if ($("#lb_fecha_ingenieria_detalle").siblings().hasClass("activeDate")) {
+                    comodin = fecha_ingenieria_detalle;
+                } else {
+                    if ($("#lb_fecha_aprobacion_coc").siblings().hasClass("activeDate")) {
+                        comodin = fecha_aprobacion_coc;
+                    } else {
+                        if ($("#lb_fecha_dcoc").siblings().hasClass("activeDate")) {
+                            comodin = fecha_dcoc;
+                        } else {
+                            if ($("#lb_fecha_voc").siblings().hasClass("activeDate")) {
+                                comodin = fecha_voc;
+                            } else {
+                                comodin = fecha_cierreKO;
+                            }
+                        }
+                    }
+
+                }
+            }
+            $('#lb_fecha_equipos').val(fecha_configuracion);
+            $('#lb_fecha_configuracion').val(comodin);
 
             const fecha_ejecucion_obra_civil = formulario.calcular_nueva_fecha(comodin2, 5);
             if ($("#lb_fecha_ejecucion_obra_civil").siblings().hasClass("activeDate")) {
@@ -470,29 +510,7 @@ $(function() {
             $('#lb_fecha_ejecucion_obra_civil').val(comodin2);
             
             
-            const fecha_ingenieria_detalle = formulario.calcular_nueva_fecha(comodin3, 2);
-
-            if ($("#lb_fecha_ingenieria_detalle").siblings().hasClass("activeDate")) {
-                comodin3 = fecha_ingenieria_detalle;
-            }else{
-                if ($("#lb_fecha_aprobacion_coc").siblings().hasClass("activeDate")) {
-                    comodin3 = fecha_aprobacion_coc;
-                } else {
-                    if ($("#lb_fecha_dcoc").siblings().hasClass("activeDate")) {
-                        comodin3 = fecha_dcoc;
-                    } else {
-                        if ($("#lb_fecha_voc").siblings().hasClass("activeDate")) {
-                            comodin3 = fecha_voc;
-                        } else {
-                            comodin3 = fecha_cierreKO;
-                        }
-                    }
-                }
-            }
-
-            $('#lb_fecha_ingenieria_detalle').val(comodin3);
-
-            $('#lb_fecha_equipos').val(fecha_configuracion);
+            
         },
         //retorna fecha sumando X dias habiles (la fecha base debe tener el formato yyyy-mm-dd)
         calcular_nueva_fecha: function(fecha_base, dias_h) {

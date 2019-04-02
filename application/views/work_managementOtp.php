@@ -1,7 +1,7 @@
 <link rel="stylesheet" type="text/css" href="<?= URL::to('assets/css/MenuStickyLeft.css') ?>">
 <!------------------------------- menu sticky para las columnas ------------------------------->
 <div class="contenedor_sticky">
-    <div id="btn_sticky_open" class="rotar" >
+    <div id="btn_sticky_open" class="rotar">
         <div class="rotar">
             <i class="glyphicon glyphicon-chevron-up">columnas</i>
         </div>
@@ -45,17 +45,17 @@
 </ul>
 <!--*********************  CONTENIDO PESTAÑAS  *********************-->
 <div class="tab-content" id="contenido_tablas">
-        <?php  if (Auth::user()->n_role_user === 'administrador') : ?>
-            <div class="row" style="text-align:center; margin-bottom:1em; margin-top:unset;">
-                <h5><b>Filtrar grupo de ingenieros por...</b></h5>
-                <select id="filterGroupIng" class="sel-cris-cool">
-                    <option value="all">TODOS</option>
-                    <option value="GESTION OTS PROYECTOS">GESTION OTS PROYECTOS</option>
-                    <option value="GESTION OTS ESTANDAR">GESTION OTS ESTANDAR</option>
-                </select>
-            </div>
-            <hr>
-        <?php endif ?>
+    <?php if (Auth::user()->n_role_user === 'administrador') : ?>
+    <div class="row" style="text-align:center; margin-bottom:1em; margin-top:unset;">
+        <h5><b>Filtrar grupo de ingenieros por...</b></h5>
+        <select id="filterGroupIng" class="sel-cris-cool">
+            <option value="all">TODOS</option>
+            <option value="GESTION OTS PROYECTOS">GESTION OTS PROYECTOS</option>
+            <option value="GESTION OTS ESTANDAR">GESTION OTS ESTANDAR</option>
+        </select>
+    </div>
+    <hr>
+    <?php endif ?>
 
     <div id="total" class="tab-pane fade in active">
         <h3 style="margin-bottom:unset;">OT Padre</h3>
@@ -138,76 +138,76 @@
                     <option value="CLIENTE - SIN FECHA PARA RECIBIR EL SERVICIO">CLIENTE - SIN FECHA PARA RECIBIR EL SERVICIO</option>
                     <option value="CLIENTE/SIN FECHA ADECUACIONES EN SEDE (ELEC/FIS)">CLIENTE/SIN FECHA ADECUACIONES EN SEDE (ELEC/FIS)</option>
                     <option value="CLIENTE/SIN DISPONIBILIDAD INFRA (PTA TELEF/LAN)">CLIENTE/SIN DISPONIBILIDAD INFRA (PTA TELEF/LAN)</option>
-                    <option value="CLIENTE/CAMBIO DE ALCANCE (CBIO  TIPO SERVICIO)">CLIENTE/CAMBIO DE ALCANCE (CBIO  TIPO SERVICIO)</option>
+                    <option value="CLIENTE/CAMBIO DE ALCANCE (CBIO  TIPO SERVICIO)">CLIENTE/CAMBIO DE ALCANCE (CBIO TIPO SERVICIO)</option>
                     <option value="CLIENTE/CAMBIO DE UBICACIÓN DE ULTIMA MILLA">CLIENTE/CAMBIO DE UBICACIÓN DE ULTIMA MILLA</option>
                     <option value="CLIENTE/NO APRUEBA COSTOS DE OBRA CIVIL">CLIENTE/NO APRUEBA COSTOS DE OBRA CIVIL</option>
                     <option value="CLIENTE/NO PERMITE CIERRE DE KO">CLIENTE/NO PERMITE CIERRE DE KO</option>
                     <option value="CLIENTE/SIN DEFINICIÓN DIR DE UBICACIÓN SERVICIO">CLIENTE/SIN DEFINICIÓN DIR DE UBICACIÓN SERVICIO</option>
                     <option value="CLIENTE/NO PERMITE PROG ACT ETAPA INICIAL VOC">CLIENTE/NO PERMITE PROG ACT ETAPA INICIAL VOC</option>
                     <option value="CLIENTE/NO PERMITE PROG ACT ETAPA INTERMEDIA EOC">CLIENTE/NO PERMITE PROG ACT ETAPA INTERMEDIA EOC</option>
-                    <option value = "CLIENTE/NO PERMITE PROG ACT ETAPA INTERMEDIA EMP">CLIENTE/NO PERMITE PROG ACT ETAPA INTERMEDIA EMP</option>
-                    <option value = "CLIENTE/NO PERMITE PROG ACT  VOC TERCERO">CLIENTE/NO PERMITE PROG ACT  VOC TERCERO</option>
-                    <option value = "CLIENTE/NO PERMITE PROG ACT ETAP INTERMEDIA UM TER">CLIENTE/NO PERMITE PROG ACT ETAP INTERMEDIA UM TER</option>
-                    <option value = "CLIENTE/NO PERMITE PROG ACT ETAPA FINAL ES">CLIENTE/NO PERMITE PROG ACT ETAPA FINAL ES</option>
-                    <option value = "CLIENTE/NO PERMITE PROG ACT ETAPA FINAL ES REQ VM">CLIENTE/NO PERMITE PROG ACT ETAPA FINAL ES REQ VM</option>
-                    <option value = "CLIENTE/SIN CONTRATO FIRMADO">CLIENTE/SIN CONTRATO FIRMADO</option>
-                    <option value = "CLIENTE/PROGRAMADA_PROXIMO PERIODO">CLIENTE/PROGRAMADA_PROXIMO PERIODO</option>
-                    <option value = "PL_ EXT/PERMISO MUNI - PERMISO ARREND INFRAESTRUC">PL_ EXT/PERMISO MUNI - PERMISO ARREND INFRAESTRUC</option>
-                    <option value = "PL_ EXT/NO VIABLE EN FACTIBILIDAD POR TERCEROS">PL_ EXT/NO VIABLE EN FACTIBILIDAD POR TERCEROS</option>
-                    <option value = "PL_ EXT/ETAPA INTERMEDIA/SIN PERSONAL  EOC/EMP">PL_ EXT/ETAPA INTERMEDIA/SIN PERSONAL  EOC/EMP</option>
-                    <option value = "PL_ EXT/SIN APROBACIÓN COSTOS TENDIDO EXTERNO">PL_ EXT/SIN APROBACIÓN COSTOS TENDIDO EXTERNO</option>
-                    <option value = "PL_ EXT/NO VIABLE EN FO - EN INSTALACIÓN POR HFC">PL_ EXT/NO VIABLE EN FO - EN INSTALACIÓN POR HFC</option>
-                    <option value = "PLANTA EXTERNA - ERROR EN LA EJECUCIÓN DE EOC">PLANTA EXTERNA - ERROR EN LA EJECUCIÓN DE EOC</option>
-                    <option value = "PL_ EXT/INCUMPLIMIENTO FE DE UM/CANCELO/REPR ES">PL_ EXT/INCUMPLIMIENTO FE DE UM/CANCELO/REPR ES</option>
-                    <option value = "PL_ EXT/EN CURSO SIN INCONVENIENTE REPORTADO">PL_ EXT/EN CURSO SIN INCONVENIENTE REPORTADO</option>
-                    <option value = "PL_ EXT/ESCALADO_IFO_RESULTADO DE ACTIVIDAD">PL_ EXT/ESCALADO_IFO_RESULTADO DE ACTIVIDAD</option>
-                    <option value = "PL_ EXT/ESCALADO_IFO_SOLICITUD DE DESBORDE">PL_ EXT/ESCALADO_IFO_SOLICITUD DE DESBORDE</option>
-                    <option value = "PL_ EXT/ESCALADO_IFO_SOLICITUD DE PERSONAL">PL_ EXT/ESCALADO_IFO_SOLICITUD DE PERSONAL</option>
-                    <option value = "PLANTA EXTERNA - EN CURSO SOBRE OTP PYMES">PLANTA EXTERNA - EN CURSO SOBRE OTP PYMES</option>
-                    <option value = "PLANTA EXTERNA - EN CURSO SOBRE OTP ASOCIADA">PLANTA EXTERNA - EN CURSO SOBRE OTP ASOCIADA</option>
-                    <option value = "TERCEROS/NO VIABLE/EN PROC CANCELACIÓN">TERCEROS/NO VIABLE/EN PROC CANCELACIÓN</option>
-                    <option value = "TERCEROS/INCUMPLIMIENTO FECHA ENTREGA UM">TERCEROS/INCUMPLIMIENTO FECHA ENTREGA UM</option>
-                    <option value = "TERCEROS/SIN AVANCE SOBRE LA FECHA ENTREGA UM">TERCEROS/SIN AVANCE SOBRE LA FECHA ENTREGA UM</option>
-                    <option value = "TERCEROS - EN CURSO SIN INCONVENIENTE REPORTADO">TERCEROS - EN CURSO SIN INCONVENIENTE REPORTADO</option>
-                    <option value = "ALIADO/SIN INFORM ENTREGADA A TERC PARA INICIAR">ALIADO/SIN INFORM ENTREGADA A TERC PARA INICIAR</option>
-                    <option value = "PREVENTA - SIN ID  FACTIBILIDAD PARA TERCEROS">PREVENTA - SIN ID  FACTIBILIDAD PARA TERCEROS</option>
-                    <option value = "PREVENTA - NO ES CLARA LA SOLUCIÓN A IMPLEMENTAR">PREVENTA - NO ES CLARA LA SOLUCIÓN A IMPLEMENTAR</option>
-                    <option value = "IMPLEMENTACIÓN - SOLUCIÓN NO ESTANDAR">IMPLEMENTACIÓN - SOLUCIÓN NO ESTANDAR</option>
-                    <option value = "COMERCIAL - ESCALADO ORDEN DE REEMPLAZO">COMERCIAL - ESCALADO ORDEN DE REEMPLAZO</option>
-                    <option value = "EQUIPOS - EN COMPRAS">EQUIPOS - EN COMPRAS</option>
-                    <option value = "EQUIPOS - DEFECTUOSOS">EQUIPOS - DEFECTUOSOS</option>
-                    <option value = "EQUIPOS - SIN CODIGO SAP PARA SOLICITUD DE EQUIPOS">EQUIPOS - SIN CODIGO SAP PARA SOLICITUD DE EQUIPOS</option>
-                    <option value = "GPC/PENDIENTE INFOR DEL CLIENTE PARA CONFIGURAR">GPC/PENDIENTE INFOR DEL CLIENTE PARA CONFIGURAR</option>
-                    <option value = "GPC/PENDIENTE ACEPTACIÓN CRONOGRAMA POR CLIENTE">GPC/PENDIENTE ACEPTACIÓN CRONOGRAMA POR CLIENTE</option>
-                    <option value = "GPC - CAMBIO DE ALCANCE ORDEN DE PEDIDO">GPC - CAMBIO DE ALCANCE ORDEN DE PEDIDO</option>
-                    <option value = "GPC - EN PROCESO DE CANCELACIÓN">GPC - EN PROCESO DE CANCELACIÓN</option>
-                    <option value = "GPC/PENDIENTE ACEPTACIÓN CRONOGRAMA POR CLIENTE">GPC/PENDIENTE ACEPTACIÓN CRONOGRAMA POR CLIENTE</option>
-                    <option value = "GPC - SIN ALCANCE PARA FABRICA">GPC - SIN ALCANCE PARA FABRICA</option>
-                    <option value = "LIDER TECNICO - PENDIENTE PLAN TECNICO">LIDER TECNICO - PENDIENTE PLAN TECNICO</option>
-                    <option value = "LIDER TECNICO - CAMBIO DE ALCANCE PLAN TECNICO">LIDER TECNICO - CAMBIO DE ALCANCE PLAN TECNICO</option>
-                    <option value = "LIDER TECNICO/SOLUCIÓN NO ESTANDAR SIN DEFINICIÓN">LIDER TECNICO/SOLUCIÓN NO ESTANDAR SIN DEFINICIÓN</option>
-                    <option value = "CONTROL DE CAMBIOS - RFC NO ESTANDAR EN APROBACIÓN">CONTROL DE CAMBIOS - RFC NO ESTANDAR EN APROBACIÓN</option>
-                    <option value = "COEX - EN PROCESO DE CONFIGURACIÓN BACKEND">COEX - EN PROCESO DE CONFIGURACIÓN BACKEND</option>
-                    <option value = "COEX -ATRASO CONFIGURACIÓN BACKEND">COEX -ATRASO CONFIGURACIÓN BACKEND</option>
-                    <option value = "ESCALADO/EN PROCESO PASO A PENDIENTE CLIENTE">ESCALADO/EN PROCESO PASO A PENDIENTE CLIENTE</option>
-                    <option value = "ENTREGA - SERVICIO_ENTREGADO_PROCESO DE CIERRE">ENTREGA - SERVICIO_ENTREGADO_PROCESO DE CIERRE</option>
-                    <option value = "ENTREGA/SIN DISPONIBILIDAD AGENDA">ENTREGA/SIN DISPONIBILIDAD AGENDA</option>
-                    <option value = "ENTREGA Y/O SOPORTE PROGRAMADO">ENTREGA Y/O SOPORTE PROGRAMADO</option>
-                    <option value = "PENDIENTE SOLICITAR ENTREGA DEL SERVICIO">PENDIENTE SOLICITAR ENTREGA DEL SERVICIO</option>
-                    <option value = "DATACENTER CLARO- CABLEADO EN CURSO">DATACENTER CLARO- CABLEADO EN CURSO</option>
-                    <option value = "DATACENTER  CLARO- CABLEADO SIN EJECUTAR">DATACENTER  CLARO- CABLEADO SIN EJECUTAR</option>
-                    <option value = "DATACENTER  CLARO- SIN CONSUMIBLES EN DATACENTER">DATACENTER  CLARO- SIN CONSUMIBLES EN DATACENTER</option>
-                    <option value = "EN PROCESO DE PASO A ESTADO PENDIENTE CLIENTE">EN PROCESO DE PASO A ESTADO PENDIENTE CLIENTE</option>
-                    <option value = "EN PROCESO DE PASO A ESTADO CANCELADO ">EN PROCESO DE PASO A ESTADO CANCELADO </option>
-                    <option value = "INCONVENIENTE TECNICO">INCONVENIENTE TECNICO</option>
-                    <option value = "KO PENDIENTE">KO PENDIENTE</option>
-                    <option value = "EN CONFIGURACIÓN">EN CONFIGURACIÓN</option>
-                    <option value = "GPC/CAMBIO DE ALCANCE ORDEN DE PEDIDO">GPC/CAMBIO DE ALCANCE ORDEN DE PEDIDO</option>
-                    <option value = "GPC/EN PROCESO DE CANCELACIÓN">GPC/EN PROCESO DE CANCELACIÓN</option>
-                    <option value = "GPC/PENDIENTE INFORM DEL CLIENTE PARA CONFIGURAR">GPC/PENDIENTE INFORM DEL CLIENTE PARA CONFIGURAR</option>
-                    <option value = "GPC/SIN ALCANCE PARA FABRICA">GPC/SIN ALCANCE PARA FABRICA</option>
-                    <option value = "ESTADO CANCELADO">ESTADO CANCELADO</option>
-                    <option value = "ESTADO PENDIENTE CLIENTE">ESTADO PENDIENTE CLIENTE</option>
+                    <option value="CLIENTE/NO PERMITE PROG ACT ETAPA INTERMEDIA EMP">CLIENTE/NO PERMITE PROG ACT ETAPA INTERMEDIA EMP</option>
+                    <option value="CLIENTE/NO PERMITE PROG ACT  VOC TERCERO">CLIENTE/NO PERMITE PROG ACT VOC TERCERO</option>
+                    <option value="CLIENTE/NO PERMITE PROG ACT ETAP INTERMEDIA UM TER">CLIENTE/NO PERMITE PROG ACT ETAP INTERMEDIA UM TER</option>
+                    <option value="CLIENTE/NO PERMITE PROG ACT ETAPA FINAL ES">CLIENTE/NO PERMITE PROG ACT ETAPA FINAL ES</option>
+                    <option value="CLIENTE/NO PERMITE PROG ACT ETAPA FINAL ES REQ VM">CLIENTE/NO PERMITE PROG ACT ETAPA FINAL ES REQ VM</option>
+                    <option value="CLIENTE/SIN CONTRATO FIRMADO">CLIENTE/SIN CONTRATO FIRMADO</option>
+                    <option value="CLIENTE/PROGRAMADA_PROXIMO PERIODO">CLIENTE/PROGRAMADA_PROXIMO PERIODO</option>
+                    <option value="PL_ EXT/PERMISO MUNI - PERMISO ARREND INFRAESTRUC">PL_ EXT/PERMISO MUNI - PERMISO ARREND INFRAESTRUC</option>
+                    <option value="PL_ EXT/NO VIABLE EN FACTIBILIDAD POR TERCEROS">PL_ EXT/NO VIABLE EN FACTIBILIDAD POR TERCEROS</option>
+                    <option value="PL_ EXT/ETAPA INTERMEDIA/SIN PERSONAL  EOC/EMP">PL_ EXT/ETAPA INTERMEDIA/SIN PERSONAL EOC/EMP</option>
+                    <option value="PL_ EXT/SIN APROBACIÓN COSTOS TENDIDO EXTERNO">PL_ EXT/SIN APROBACIÓN COSTOS TENDIDO EXTERNO</option>
+                    <option value="PL_ EXT/NO VIABLE EN FO - EN INSTALACIÓN POR HFC">PL_ EXT/NO VIABLE EN FO - EN INSTALACIÓN POR HFC</option>
+                    <option value="PLANTA EXTERNA - ERROR EN LA EJECUCIÓN DE EOC">PLANTA EXTERNA - ERROR EN LA EJECUCIÓN DE EOC</option>
+                    <option value="PL_ EXT/INCUMPLIMIENTO FE DE UM/CANCELO/REPR ES">PL_ EXT/INCUMPLIMIENTO FE DE UM/CANCELO/REPR ES</option>
+                    <option value="PL_ EXT/EN CURSO SIN INCONVENIENTE REPORTADO">PL_ EXT/EN CURSO SIN INCONVENIENTE REPORTADO</option>
+                    <option value="PL_ EXT/ESCALADO_IFO_RESULTADO DE ACTIVIDAD">PL_ EXT/ESCALADO_IFO_RESULTADO DE ACTIVIDAD</option>
+                    <option value="PL_ EXT/ESCALADO_IFO_SOLICITUD DE DESBORDE">PL_ EXT/ESCALADO_IFO_SOLICITUD DE DESBORDE</option>
+                    <option value="PL_ EXT/ESCALADO_IFO_SOLICITUD DE PERSONAL">PL_ EXT/ESCALADO_IFO_SOLICITUD DE PERSONAL</option>
+                    <option value="PLANTA EXTERNA - EN CURSO SOBRE OTP PYMES">PLANTA EXTERNA - EN CURSO SOBRE OTP PYMES</option>
+                    <option value="PLANTA EXTERNA - EN CURSO SOBRE OTP ASOCIADA">PLANTA EXTERNA - EN CURSO SOBRE OTP ASOCIADA</option>
+                    <option value="TERCEROS/NO VIABLE/EN PROC CANCELACIÓN">TERCEROS/NO VIABLE/EN PROC CANCELACIÓN</option>
+                    <option value="TERCEROS/INCUMPLIMIENTO FECHA ENTREGA UM">TERCEROS/INCUMPLIMIENTO FECHA ENTREGA UM</option>
+                    <option value="TERCEROS/SIN AVANCE SOBRE LA FECHA ENTREGA UM">TERCEROS/SIN AVANCE SOBRE LA FECHA ENTREGA UM</option>
+                    <option value="TERCEROS - EN CURSO SIN INCONVENIENTE REPORTADO">TERCEROS - EN CURSO SIN INCONVENIENTE REPORTADO</option>
+                    <option value="ALIADO/SIN INFORM ENTREGADA A TERC PARA INICIAR">ALIADO/SIN INFORM ENTREGADA A TERC PARA INICIAR</option>
+                    <option value="PREVENTA - SIN ID  FACTIBILIDAD PARA TERCEROS">PREVENTA - SIN ID FACTIBILIDAD PARA TERCEROS</option>
+                    <option value="PREVENTA - NO ES CLARA LA SOLUCIÓN A IMPLEMENTAR">PREVENTA - NO ES CLARA LA SOLUCIÓN A IMPLEMENTAR</option>
+                    <option value="IMPLEMENTACIÓN - SOLUCIÓN NO ESTANDAR">IMPLEMENTACIÓN - SOLUCIÓN NO ESTANDAR</option>
+                    <option value="COMERCIAL - ESCALADO ORDEN DE REEMPLAZO">COMERCIAL - ESCALADO ORDEN DE REEMPLAZO</option>
+                    <option value="EQUIPOS - EN COMPRAS">EQUIPOS - EN COMPRAS</option>
+                    <option value="EQUIPOS - DEFECTUOSOS">EQUIPOS - DEFECTUOSOS</option>
+                    <option value="EQUIPOS - SIN CODIGO SAP PARA SOLICITUD DE EQUIPOS">EQUIPOS - SIN CODIGO SAP PARA SOLICITUD DE EQUIPOS</option>
+                    <option value="GPC/PENDIENTE INFOR DEL CLIENTE PARA CONFIGURAR">GPC/PENDIENTE INFOR DEL CLIENTE PARA CONFIGURAR</option>
+                    <option value="GPC/PENDIENTE ACEPTACIÓN CRONOGRAMA POR CLIENTE">GPC/PENDIENTE ACEPTACIÓN CRONOGRAMA POR CLIENTE</option>
+                    <option value="GPC - CAMBIO DE ALCANCE ORDEN DE PEDIDO">GPC - CAMBIO DE ALCANCE ORDEN DE PEDIDO</option>
+                    <option value="GPC - EN PROCESO DE CANCELACIÓN">GPC - EN PROCESO DE CANCELACIÓN</option>
+                    <option value="GPC/PENDIENTE ACEPTACIÓN CRONOGRAMA POR CLIENTE">GPC/PENDIENTE ACEPTACIÓN CRONOGRAMA POR CLIENTE</option>
+                    <option value="GPC - SIN ALCANCE PARA FABRICA">GPC - SIN ALCANCE PARA FABRICA</option>
+                    <option value="LIDER TECNICO - PENDIENTE PLAN TECNICO">LIDER TECNICO - PENDIENTE PLAN TECNICO</option>
+                    <option value="LIDER TECNICO - CAMBIO DE ALCANCE PLAN TECNICO">LIDER TECNICO - CAMBIO DE ALCANCE PLAN TECNICO</option>
+                    <option value="LIDER TECNICO/SOLUCIÓN NO ESTANDAR SIN DEFINICIÓN">LIDER TECNICO/SOLUCIÓN NO ESTANDAR SIN DEFINICIÓN</option>
+                    <option value="CONTROL DE CAMBIOS - RFC NO ESTANDAR EN APROBACIÓN">CONTROL DE CAMBIOS - RFC NO ESTANDAR EN APROBACIÓN</option>
+                    <option value="COEX - EN PROCESO DE CONFIGURACIÓN BACKEND">COEX - EN PROCESO DE CONFIGURACIÓN BACKEND</option>
+                    <option value="COEX -ATRASO CONFIGURACIÓN BACKEND">COEX -ATRASO CONFIGURACIÓN BACKEND</option>
+                    <option value="ESCALADO/EN PROCESO PASO A PENDIENTE CLIENTE">ESCALADO/EN PROCESO PASO A PENDIENTE CLIENTE</option>
+                    <option value="ENTREGA - SERVICIO_ENTREGADO_PROCESO DE CIERRE">ENTREGA - SERVICIO_ENTREGADO_PROCESO DE CIERRE</option>
+                    <option value="ENTREGA/SIN DISPONIBILIDAD AGENDA">ENTREGA/SIN DISPONIBILIDAD AGENDA</option>
+                    <option value="ENTREGA Y/O SOPORTE PROGRAMADO">ENTREGA Y/O SOPORTE PROGRAMADO</option>
+                    <option value="PENDIENTE SOLICITAR ENTREGA DEL SERVICIO">PENDIENTE SOLICITAR ENTREGA DEL SERVICIO</option>
+                    <option value="DATACENTER CLARO- CABLEADO EN CURSO">DATACENTER CLARO- CABLEADO EN CURSO</option>
+                    <option value="DATACENTER  CLARO- CABLEADO SIN EJECUTAR">DATACENTER CLARO- CABLEADO SIN EJECUTAR</option>
+                    <option value="DATACENTER  CLARO- SIN CONSUMIBLES EN DATACENTER">DATACENTER CLARO- SIN CONSUMIBLES EN DATACENTER</option>
+                    <option value="EN PROCESO DE PASO A ESTADO PENDIENTE CLIENTE">EN PROCESO DE PASO A ESTADO PENDIENTE CLIENTE</option>
+                    <option value="EN PROCESO DE PASO A ESTADO CANCELADO ">EN PROCESO DE PASO A ESTADO CANCELADO </option>
+                    <option value="INCONVENIENTE TECNICO">INCONVENIENTE TECNICO</option>
+                    <option value="KO PENDIENTE">KO PENDIENTE</option>
+                    <option value="EN CONFIGURACIÓN">EN CONFIGURACIÓN</option>
+                    <option value="GPC/CAMBIO DE ALCANCE ORDEN DE PEDIDO">GPC/CAMBIO DE ALCANCE ORDEN DE PEDIDO</option>
+                    <option value="GPC/EN PROCESO DE CANCELACIÓN">GPC/EN PROCESO DE CANCELACIÓN</option>
+                    <option value="GPC/PENDIENTE INFORM DEL CLIENTE PARA CONFIGURAR">GPC/PENDIENTE INFORM DEL CLIENTE PARA CONFIGURAR</option>
+                    <option value="GPC/SIN ALCANCE PARA FABRICA">GPC/SIN ALCANCE PARA FABRICA</option>
+                    <option value="ESTADO CANCELADO">ESTADO CANCELADO</option>
+                    <option value="ESTADO PENDIENTE CLIENTE">ESTADO PENDIENTE CLIENTE</option>
                 </optgroup>
             </select>
         </div>
@@ -293,7 +293,7 @@
                         <span class="fa fa-info-circle" aria-hidden="true"></span>
                         <span>Ver historial</span>
                     </div>
-                    <table class="table table-hover table-bordered  dataTable_camilo table-striped  " id="table_oths_otp"  cellspacing="2"></table>
+                    <table class="table table-hover table-bordered  dataTable_camilo table-striped  " id="table_oths_otp" cellspacing="2"></table>
                 </form>
             </div>
 
@@ -317,7 +317,7 @@
                     <!--*********************  MODULO PESTAÑAS  *********************-->
                     <ul class="nav nav-tabs">
                         <li id="liLogHistory" class="active"><a data-toggle="tab" href="#tab_log">Historial Log</a></li>
-                        <li id="liLogReportInit" class=""><a data-toggle="tab" href="#tabLogReportInit">Historial Reporte Inicio <span style='color: #2dea29;' class='fa fa-check-circle'  aria-hidden='true'></span></a></li>
+                        <li id="liLogReportInit" class=""><a data-toggle="tab" href="#tabLogReportInit">Historial Reporte Inicio <span style='color: #2dea29;' class='fa fa-check-circle' aria-hidden='true'></span></a></li>
                         <li id="liLogReporAct" class=""><a data-toggle="tab" href="#tabLogReportAct">Historial Reporte Act. <span class='fa fa-envelope' aria-hidden='true' style='color: #e2f105;'></span></a></li>
                     </ul>
 
@@ -325,13 +325,13 @@
                     <div class="tab-content">
                         <div id="tab_log" class="tab-pane fade in active">
                             <h3>Tabla Log</h3>
-                            <table id="tableHistorialLog" class='table table-bordered table-striped  col-sm-12'  width='100%'>
+                            <table id="tableHistorialLog" class='table table-bordered table-striped  col-sm-12' width='100%'>
                                 <thead>
-                                <th>ORDEN</th>
-                                <th>ANTES</th>
-                                <th>AHORA</th>
-                                <th>COLUMNA CAMBIADA</th>
-                                <th>FECHA MODIFICACION</th>
+                                    <th>ORDEN</th>
+                                    <th>ANTES</th>
+                                    <th>AHORA</th>
+                                    <th>COLUMNA CAMBIADA</th>
+                                    <th>FECHA MODIFICACION</th>
                                 </thead>
                             </table>
                         </div>
@@ -374,7 +374,7 @@
                 </div>
             </div>
             <div class="modal-footer cssnewtypem">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar  <i class="glyphicon glyphicon-chevron-up"></i></button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar <i class="glyphicon glyphicon-chevron-up"></i></button>
             </div>
         </div>
     </div>
@@ -394,15 +394,6 @@
                         <label for="email">Actividad Actual:</label>
                         <select name="actividad_actual" id="actividad_actual" class="form-control" required>
                             <option value="">SELECCIONE...</option>
-                            <option value="KICK OFF">CIERRE KICKOFF (KO)</option>
-                            <option value="VISITA OBRA CIVIL">VISITA OBRA CIVIL (VOC)</option>
-                            <option value="ENVIO COTIZACION">ENVIÓ COTIZACIÓN OC</option>
-                            <option value="APROBACION COTIZACION">APROBACION COTIZACION</option>
-                            <option value="SOLICITUD INFORMACIÓN TECNICA">SOLICITUD INFORMACIÓN TÉCNICA</option>
-                            <option value="VISITA EJECUCION OBRA CIVIL">VISITA EJECUCION OBRA CIVIL (EOC)</option>
-                            <option value="EMPALMES">EMPALMES</option>
-                            <option value="CONFIGURACION RED CLARO">CONFIGURACION RED CLARO</option>
-                            <option value="VISITA ENTREGA UM TERCEROS">VISITA ENTREGA DE SERVICIO</option>
                         </select>
                     </div>
                     <table class="table table-hover table-bordered  dataTable_camilo table-striped  ">
@@ -412,7 +403,7 @@
                             <td><label id="ciudad_hito"></label></td>
                         </tr>
                     </table>
-                    <table class="table table-hover table-bordered  dataTable_camilo table-striped  " id="table_hitos_otp"  cellspacing="2">
+                    <table class="table table-hover table-bordered  dataTable_camilo table-striped  " id="table_hitos_otp" cellspacing="2">
                         <thead>
                             <tr>
                                 <th></th>
@@ -423,308 +414,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <ul class="timeline timeline-jhon">
-                                        <li class="timeline-item">
-                                            <div class="timeline-badge" id="act_ko">1</div>
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>CIERRE KICKOFF (KO)</td>
-                                <td>
-                                    <input type="date" name="f_compromiso" id="f_compromiso_ko" class="form-control fechas_hitos">
-                                </td>
-                                <td>
-                                    <select name="estado" id="estado_ko" class="form-control">
-                                        <option value="" >SELECCIONE...</option>
-                                        <option value="EJECUTADA" >EJECUTADA</option>
-                                        <option value="ENVIADA" >ENVIADA</option>
-                                        <option value="APROBADA" >APROBADA</option>
-                                        <option value="CONFIGURADO" >CONFIGURADO</option>
-                                        <option value="PENDIENTE" >PENDIENTE</option>
-                                        <option value="CERRADA" >CERRADA</option>
-                                        <option value="NO APLICA" >NO APLICA</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <textarea name="observaciones" id="observaciones_ko" rows="2"></textarea>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <ul class="timeline timeline-jhon">
-                                        <li class="timeline-item">
-                                            <div class="timeline-badge" id="act_voc">2</div>
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td><!--VISITA OBRA CIVIL-->
-                                    <select name="tipo_voc" id="tipo_voc" class="form-control">
-                                        <option value="VISITA OBRA CIVIL" >VISITA OBRA CIVIL (VOC)</option>
-                                        <option value="VISITA OBRA CIVIL TERCEROS" >VISITA OBRA CIVIL TERCEROS</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input type="date" name="f_compromiso" id="f_compromiso_voc" class="form-control fechas_hitos fechVoc">
-                                </td>
-                                <td>
-                                    <select name="estado" id="estado_voc" class="form-control estVoc">
-                                        <option value="" >SELECCIONE...</option>
-                                        <option value="EJECUTADA" >EJECUTADA</option>
-                                        <option value="ENVIADA" >ENVIADA</option>
-                                        <option value="APROBADA" >APROBADA</option>
-                                        <option value="CONFIGURADO" >CONFIGURADO</option>
-                                        <option value="PENDIENTE" >PENDIENTE</option>
-                                        <option value="CERRADA" >CERRADA</option>
-                                        <option value="NO APLICA" >NO APLICA</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <textarea name="observaciones" id="observaciones_voc" rows="2" class="obsVoc"></textarea>
-                                </td>
-                            </tr>
-                    <!--    <tr>
-                                <td>VISITA OBRA CIVIL TERCEROS</td>
-                                <td>
-                                    <input type="date" name="f_compromiso" id="f_compromiso_voct" class="form-control fechas_hitos">
-                                </td>
-                                <td>
-                                    <select name="estado" id="estado_voct" class="form-control">
-                                        <option value="" >SELECCIONE...</option>
-                                        <option value="EJECUTADA" >EJECUTADA</option>
-                                        <option value="ENVIADA" >ENVIADA</option>
-                                        <option value="APROBADA" >APROBADA</option>
-                                        <option value="CONFIGURADO" >CONFIGURADO</option>
-                                        <option value="PENDIENTE" >PENDIENTE</option>
-                                        <option value="CERRADA" >CERRADA</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <textarea name="observaciones" id="observaciones_voct" rows="2"></textarea>
-                                </td>
-                            </tr>-->
-                            <tr>
-                                <td>
-                                    <ul class="timeline timeline-jhon">
-                                        <li class="timeline-item">
-                                            <div class="timeline-badge" id="act_ec">3</div>
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>ENVIÓ COTIZACIÓN OC</td>
-                                <td>
-                                    <input type="date" name="f_compromiso" id="f_compromiso_ec" class="form-control fechas_hitos">
-                                </td>
-                                <td>
-                                    <select name="estado" id="estado_ec" class="form-control">
-                                        <option value="" >SELECCIONE...</option>
-                                        <option value="EJECUTADA" >EJECUTADA</option>
-                                        <option value="ENVIADA" >ENVIADA</option>
-                                        <option value="APROBADA" >APROBADA</option>
-                                        <option value="CONFIGURADO" >CONFIGURADO</option>
-                                        <option value="PENDIENTE" >PENDIENTE</option>
-                                        <option value="CERRADA" >CERRADA</option>
-                                        <option value="NO APLICA" >NO APLICA</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <textarea name="observaciones" id="observaciones_ec" rows="2"></textarea>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <ul class="timeline timeline-jhon">
-                                        <li class="timeline-item">
-                                            <div class="timeline-badge" id="act_ac">4</div>
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>APROBACIÓN COTIZACIÓN OC</td>
-                                <td>
-                                    <input type="date" name="f_compromiso" id="f_compromiso_ac" class="form-control fechas_hitos">
-                                </td>
-                                <td>
-                                    <select name="estado" id="estado_ac" class="form-control">
-                                        <option value="" >SELECCIONE...</option>
-                                        <option value="EJECUTADA" >EJECUTADA</option>
-                                        <option value="ENVIADA" >ENVIADA</option>
-                                        <option value="APROBADA" >APROBADA</option>
-                                        <option value="CONFIGURADO" >CONFIGURADO</option>
-                                        <option value="PENDIENTE" >PENDIENTE</option>
-                                        <option value="CERRADA" >CERRADA</option>
-                                        <option value="NO APLICA" >NO APLICA</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <textarea name="observaciones" id="observaciones_ac" rows="2"></textarea>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <ul class="timeline timeline-jhon">
-                                        <li class="timeline-item">
-                                            <div class="timeline-badge" id="act_sit">5</div>
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>SOLICITUD INFORMACIÓN TÉCNICA</td>
-                                <td>
-                                    <input type="date" name="f_compromiso" id="f_compromiso_sit" class="form-control fechas_hitos">
-                                </td>
-                                <td>
-                                    <select name="estado" id="estado_sit" class="form-control">
-                                        <option value="" >SELECCIONE...</option>
-                                        <option value="EJECUTADA" >EJECUTADA</option>
-                                        <option value="ENVIADA" >ENVIADA</option>
-                                        <option value="APROBADA" >APROBADA</option>
-                                        <option value="CONFIGURADO" >CONFIGURADO</option>
-                                        <option value="PENDIENTE" >PENDIENTE</option>
-                                        <option value="CERRADA" >CERRADA</option>
-                                        <option value="NO APLICA" >NO APLICA</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <textarea name="observaciones" id="observaciones_sit" rows="2"></textarea>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <ul class="timeline timeline-jhon">
-                                        <li class="timeline-item">
-                                            <div class="timeline-badge" id="act_veoc">6</div>
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td><!--VISITA EJECUCION OBRA CIVIL-->
-                                    <select name="tipo_veoc" id="tipo_veoc" class="form-control">
-                                        <option value="VISITA EJECUCION OBRA CIVIL" >VISITA EJECUCION OBRA CIVIL (EOC)</option>
-                                        <option value="VISITA EJECUCION OBRA CIVIL TERCERO" >VISITA EJECUCION OBRA CIVIL TERCERO</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input type="date" name="f_compromiso" id="f_compromiso_veoc" class="form-control fechas_hitos">
-                                </td>
-                                <td>
-                                    <select name="estado" id="estado_veoc" class="form-control">
-                                        <option value="" >SELECCIONE...</option>
-                                        <option value="EJECUTADA" >EJECUTADA</option>
-                                        <option value="ENVIADA" >ENVIADA</option>
-                                        <option value="APROBADA" >APROBADA</option>
-                                        <option value="CONFIGURADO" >CONFIGURADO</option>
-                                        <option value="PENDIENTE" >PENDIENTE</option>
-                                        <option value="CERRADA" >CERRADA</option>
-                                        <option value="NO APLICA" >NO APLICA</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <textarea name="observaciones" id="observaciones_veoc" rows="2"></textarea>
-                                </td>
-                            </tr>
-                    <!--   <tr>
-                                <td>VISITA EJECUCION OBRA CIVIL TERCERO</td>
-                                <td>
-                                    <input type="date" name="f_compromiso" id="f_compromiso_veoct" class="form-control fechas_hitos">
-                                </td>
-                                <td>
-                                    <select name="estado" id="estado_veoct" class="form-control">
-                                        <option value="" >SELECCIONE...</option>
-                                        <option value="EJECUTADA" >EJECUTADA</option>
-                                        <option value="ENVIADA" >ENVIADA</option>
-                                        <option value="APROBADA" >APROBADA</option>
-                                        <option value="CONFIGURADO" >CONFIGURADO</option>
-                                        <option value="PENDIENTE" >PENDIENTE</option>
-                                        <option value="CERRADA" >CERRADA</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <textarea name="observaciones" id="observaciones_veoct" rows="2"></textarea>
-                                </td>
-                            </tr>-->
-                            <tr>
-                                <td>
-                                    <ul class="timeline timeline-jhon">
-                                        <li class="timeline-item">
-                                            <div class="timeline-badge" id="act_empalmes">7</div>
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>EMPALMES</td>
-                                <td>
-                                    <input type="date" name="f_compromiso" id="f_compromiso_empalmes" class="form-control fechas_hitos">
-                                </td>
-                                <td>
-                                    <select name="estado" id="estado_empalmes" class="form-control">
-                                        <option value="" >SELECCIONE...</option>
-                                        <option value="EJECUTADA" >EJECUTADA</option>
-                                        <option value="ENVIADA" >ENVIADA</option>
-                                        <option value="APROBADA" >APROBADA</option>
-                                        <option value="CONFIGURADO" >CONFIGURADO</option>
-                                        <option value="PENDIENTE" >PENDIENTE</option>
-                                        <option value="CERRADA" >CERRADA</option>
-                                        <option value="NO APLICA" >NO APLICA</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <textarea name="observaciones" id="observaciones_empalmes" rows="2"></textarea>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <ul class="timeline timeline-jhon">
-                                        <li class="timeline-item">
-                                            <div class="timeline-badge" id="act_crc">8</div>
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>CONFIGURACION RED CLARO</td>
-                                <td>
-                                    <input type="date" name="f_compromiso" id="f_compromiso_crc" class="form-control fechas_hitos">
-                                </td>
-                                <td>
-                                    <select name="estado" id="estado_crc" class="form-control">
-                                        <option value="" >SELECCIONE...</option>
-                                        <option value="EJECUTADA" >EJECUTADA</option>
-                                        <option value="ENVIADA" >ENVIADA</option>
-                                        <option value="APROBADA" >APROBADA</option>
-                                        <option value="CONFIGURADO" >CONFIGURADO</option>
-                                        <option value="PENDIENTE" >PENDIENTE</option>
-                                        <option value="CERRADA" >CERRADA</option>
-                                        <option value="NO APLICA" >NO APLICA</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <textarea name="observaciones" id="observaciones_crc" rows="2"></textarea>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <ul class="timeline timeline-jhon">
-                                        <li class="timeline-item">
-                                            <div class="timeline-badge" id="act_veut">9</div>
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>VISITA ENTREGA DE SERVICIO</td>
-                                <td>
-                                    <input type="date" name="f_compromiso" id="f_compromiso_veut" class="form-control fechas_hitos">
-                                </td>
-                                <td>
-                                    <select name="estado" id="estado_veut" class="form-control">
-                                        <option value="" >SELECCIONE...</option>
-                                        <option value="EJECUTADA" >EJECUTADA</option>
-                                        <option value="ENVIADA" >ENVIADA</option>
-                                        <option value="APROBADA" >APROBADA</option>
-                                        <option value="CONFIGURADO" >CONFIGURADO</option>
-                                        <option value="PENDIENTE" >PENDIENTE</option>
-                                        <option value="CERRADA" >CERRADA</option>
-                                        <option value="NO APLICA" >NO APLICA</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <textarea name="observaciones" id="observaciones_veut" rows="2"></textarea>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </form>
@@ -740,18 +429,18 @@
 <!-------------------------------------- MODAL QUE MUESTRA TODAS LAS OTS HIJA DE LAS OTS PADRES -------------------------->
 
 <!------------------------------------------ Modal editar OTs hijas ------------------------------------------>
-<div id="modalEditTicket" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog" >
+<div id="modalEditTicket" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
     <div class="modal-dialog modal-lg2" style="width: 1200px;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close cerrar" data-dismiss="modal" aria-label="Close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                <h3 class="modal-title" id="myModalLabelEditOth">  Orden Ot Hija N <label id="id_ot_modal_edit_oth"></label></h3>
+                <h3 class="modal-title" id="myModalLabelEditOth"> Orden Ot Hija N <label id="id_ot_modal_edit_oth"></label></h3>
             </div>
             <div class="modal-body">
                 <button class="btn m-b-10" id="btn_mostrar_detalle"> ver detalle &nbsp;<img src="<?= URL::to('assets/images/plus.png'); ?>" data-simbol="plus" class="rigth"></span></button>
 
                 <div>
-                    <form class="well form-horizontal f-s-12" id="formModal" action="Templates/c_updateStatusOt" method="post" >
+                    <form class="well form-horizontal f-s-12" id="formModal" action="Templates/c_updateStatusOt" method="post">
                         <input name="id_orden_trabajo_hija" id="id_orden_trabajo_hija" type="hidden">
                         <input name="estado_orden_trabajo_hija" id="estado_orden_trabajo_hija" type="hidden">
                         <input name="k_id_estado_ot_value" id="k_id_estado_ot_value" type="hidden">
@@ -1478,20 +1167,20 @@
                                             <div class="col-xs-2 bhoechie-tab-menu">
                                                 <div class="list-group">
                                                     <a href="#" class="list-group-item active text-center">
-                                                        <h2 class="glyphicon glyphicon-resize-horizontal"></h2><br/>Linea Base
+                                                        <h2 class="glyphicon glyphicon-resize-horizontal"></h2><br />Linea Base
                                                     </a>
                                                     <a href="#" class="list-group-item text-center">
-                                                        <h2 class="glyphicon glyphicon-list"></h2><br/>Cierre de Kickoff
+                                                        <h2 class="glyphicon glyphicon-list"></h2><br />Cierre de Kickoff
                                                     </a>
                                                     <a href="#" class="list-group-item text-center" id="reporteInicioFormModal">
-                                                        <h2 class="glyphicon glyphicon-folder-open"></h2><br/>Reporte de inicio
+                                                        <h2 class="glyphicon glyphicon-folder-open"></h2><br />Reporte de inicio
                                                     </a>
                                                     <a href="#" class="list-group-item text-center" id="contentAll">
-                                                        <h2 class="glyphicon glyphicon-eye-open"></h2><br/>Ver Todo
+                                                        <h2 class="glyphicon glyphicon-eye-open"></h2><br />Ver Todo
                                                     </a>
                                                 </div>
                                             </div>
-                                            <div class="col-xs-10 bhoechie-tab" >
+                                            <div class="col-xs-10 bhoechie-tab">
 
                                                 <!-- tab1  LINEA BASE-->
                                                 <div class="bhoechie-tab-content active" id="contentTab1">
@@ -1535,7 +1224,7 @@
                                                                         </div>
                                                                         <!--*********************  INPUT DATE  *********************-->
                                                                         <div class="form-group">
-                                                                            <label for="lb_fecha_voc" class="control-label">VISITA OBRA CIVIL:</label>
+                                                                            <label for="lb_fecha_voc" class="control-label">VISITA OBRA CIVIL (VOC): </label>
                                                                             <div class="col-md-9 selectContainer">
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon activeDate span_fecha_voc"><i class="fa fa-calendar-check-o"></i></span>
@@ -1574,7 +1263,7 @@
                                                                     <fieldset class="col-md-6">
                                                                         <!--*********************  INPUT DATE  *********************-->
                                                                         <div class="form-group">
-                                                                            <label for="lb_fecha_aprobacion_coc" class="control-label">APROBACIÓN COC:</label>
+                                                                            <label for="lb_fecha_aprobacion_coc" class="control-label">APROBACIÓN COTIZACIÓN OC: </label>
                                                                             <div class="col-md-9 selectContainer">
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon activeDate span_fecha_aprobacion_coc"><i class="fa fa-calendar-check-o"></i></span>
@@ -1597,7 +1286,7 @@
                                                                     </fieldset>
                                                                     <fieldset class="col-md-6">
                                                                         <!--*********************  INPUT DATE  *********************-->
-                                                                         <div class="form-group">
+                                                                        <div class="form-group">
                                                                             <label for="lb_fecha_ingenieria_detalle" class="control-label">INGENIERÍA DETALLE:</label>
                                                                             <div class="col-md-9 selectContainer">
                                                                                 <div class="input-group">
@@ -1625,7 +1314,7 @@
                                                                     <fieldset class="col-md-6">
                                                                         <!--*********************  INPUT DATE  *********************-->
                                                                         <div class="form-group">
-                                                                            <label for="lb_fecha_ejecucion_obra_civil" class="control-label">EJECUCIÓN OBRA CIVIL:</label>
+                                                                            <label for="lb_fecha_ejecucion_obra_civil" class="control-label">VISITA EJECUCION OBRA CIVIL (EOC): </label>
                                                                             <div class="col-md-9 selectContainer">
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon activeDate span_fecha_ejecucion_obra_civil"><i class="fa fa-calendar-check-o"></i></span>
@@ -1634,8 +1323,8 @@
                                                                             </div>
                                                                         </div>
                                                                         <!--*********************  INPUT DATE  *********************-->
-                                                                       <div class="form-group">
-                                                                            <label for="lb_fecha_entrega_servicio" class="control-label">VISITA ENTREGA DE SERVICIO:</label>
+                                                                        <div class="form-group">
+                                                                            <label for="lb_fecha_entrega_servicio" class="control-label">ENTREGA DE SERVICIO:</label>
                                                                             <div class="col-md-9 selectContainer">
                                                                                 <div class="input-group">
                                                                                     <span class="input-group-addon activeDate span_fecha_entrega_servicio"><i class="fa fa-calendar-check-o"></i></span>
@@ -1669,7 +1358,7 @@
                                                 <!--tab 2 -->
                                                 <div class="bhoechie-tab-content" id="contentTab2">
                                                     <div id="general_producto">
-                                                    <!-- <h2 class="h4"><i class="fa fa-eye"></i> &nbsp; Formulario de producto</h2> -->
+                                                        <!-- <h2 class="h4"><i class="fa fa-eye"></i> &nbsp; Formulario de producto</h2> -->
                                                         <!-- llenar con formulario de producto -->
                                                     </div>
                                                 </div>
@@ -1693,8 +1382,8 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-default cerrar" id="mbtnCerrarModal" data-dismiss="modal"><i class='glyphicon glyphicon-remove'></i>&nbsp;Cancelar</button>
-                <?php if (Auth::user()->n_role_user != 'claro'): ?>
-                    <button type="button" form="formModal" class="btn btn-info" id="btnUpdOt"><i class='glyphicon glyphicon-save'></i>&nbsp;Actualizar</button>
+                <?php if (Auth::user()->n_role_user != 'claro') : ?>
+                <button type="button" form="formModal" class="btn btn-info" id="btnUpdOt"><i class='glyphicon glyphicon-save'></i>&nbsp;Actualizar</button>
                 <?php endif; ?>
             </div>
         </div>
@@ -1720,7 +1409,7 @@
                             <input type="text" class="form-control" id="seniorHitos">
                         </div>
                     </div>
-<!--                    <div class="form-group">
+                    <!--                    <div class="form-group">
                         <label for="direccionHitos" class="col-sm-2 control-label">Dirección de servicio</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="direccionHitos">
@@ -1779,22 +1468,25 @@
 
 <script src="<?= URL::to("assets/plugins/sweetalert2/sweetalert2.all.js"); ?> "></script>
 <!--<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>-->
-<?php if (isset($_GET['msj'])): ?>
-    <script>
-        var urlbase = "<?php echo URL::base(); ?>";
-        swal('OK', 'se actualizó correctamente', 'success');
-    </script>
+<?php if (isset($_GET['msj'])) : ?>
+<script>
+    var urlbase = "<?php echo URL::base(); ?>";
+    swal('OK', 'se actualizó correctamente', 'success');
+</script>
 <?php endif; ?>
 
 <?php
 $msj = $this->session->flashdata('msj');
 if ($msj == 'error') {
     ?>
-    <script>
-        swal('Intenta de nuevo', `error al actualizar los datos`, 'error');
+<script>
+    swal('Intenta de nuevo', `error al actualizar los datos`, 'error');
+</script>
+<?php 
+} else if ($msj == 'ok') { ?>
+<script>
+    swal('OK', 'se actualizó correctamente', 'success');
+</script>
+<?php
 
-    </script>
-<?php } else if ($msj == 'ok') { ?>
-    <script> swal('OK', 'se actualizó correctamente', 'success');</script>
-    <?php
 }
