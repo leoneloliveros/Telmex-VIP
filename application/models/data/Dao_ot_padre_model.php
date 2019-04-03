@@ -402,120 +402,124 @@ class Dao_ot_padre_model extends CI_Model {
     }
 
     //inserta y/o actualiza los hitos de una OTP
-    public function saveHitosOtp($idOtp, $formulario) {
+    public function saveHitosOtp($data) {
         $respuesta = array();
         $query = "";
-
-        $exist = $this->db->query("
-            SELECT id_hitos FROM hitos WHERE id_ot_padre = $idOtp
-        ");
-        // print_r($formulario);
+        $exist = $this->db->select('id_hitos')
+                    ->from('hitos')
+                    ->where('id_ot_padre',$data['id_ot_padre'])
+                    ->get();
         if ($exist->num_rows() <= 0) {
-            $query = "INSERT INTO hitos (id_ot_padre,
-                            f_compromiso_ko,
-                            estado_ko,
-                            observaciones_ko,
-                            f_compromiso_voc,
-                            estado_voc,
-                            observaciones_voc,
-                            f_compromiso_ec,
-                            estado_ec,
-                            observaciones_ec,
-                            f_compromiso_ac,
-                            estado_ac,
-                            observaciones_ac,
-                            f_compromiso_sit,
-                            estado_sit,
-                            observaciones_sit,
-                            f_compromiso_veoc,
-                            estado_veoc,
-                            observaciones_veoc,
-                            f_compromiso_empalmes,
-                            estado_empalmes,
-                            observaciones_empalmes,
-                            f_compromiso_crc,
-                            estado_crc,
-                            observaciones_crc,
-                            f_compromiso_veut,
-                            estado_veut,
-                            observaciones_veut,
-                            actividad_actual,
-                            tipo_voc,
-                            tipo_veoc)
-                        VALUES
-                            ($idOtp,
-                            '" . $formulario[1]['value'] . "',
-                            '" . $formulario[2]['value'] . "',
-                            '" . $formulario[3]['value'] . "',
-                            '" . $formulario[5]['value'] . "',
-                            '" . $formulario[6]['value'] . "',
-                            '" . $formulario[7]['value'] . "',
-                            '" . $formulario[8]['value'] . "',
-                            '" . $formulario[9]['value'] . "',
-                            '" . $formulario[10]['value'] . "',
-                            '" . $formulario[11]['value'] . "',
-                            '" . $formulario[12]['value'] . "',
-                            '" . $formulario[13]['value'] . "',
-                            '" . $formulario[14]['value'] . "',
-                            '" . $formulario[15]['value'] . "',
-                            '" . $formulario[16]['value'] . "',
-                            '" . $formulario[18]['value'] . "',
-                            '" . $formulario[19]['value'] . "',
-                            '" . $formulario[20]['value'] . "',
-                            '" . $formulario[21]['value'] . "',
-                            '" . $formulario[22]['value'] . "',
-                            '" . $formulario[23]['value'] . "',
-                            '" . $formulario[24]['value'] . "',
-                            '" . $formulario[25]['value'] . "',
-                            '" . $formulario[26]['value'] . "',
-                            '" . $formulario[27]['value'] . "',
-                            '" . $formulario[28]['value'] . "',
-                            '" . $formulario[29]['value'] . "',
-                            '" . $formulario[0]['value'] . "',
-                            '" . $formulario[4]['value'] . "',
-                            '" . $formulario[17]['value'] . "')";
+            $query = $this->db->insert('hitos', $data);
+            // echo("<pre>"); print_r($this->db->last_query()); echo("</pre>");
+            // $query = "INSERT INTO hitos (id_ot_padre,
+            //                 f_compromiso_ko,
+            //                 estado_ko,
+            //                 observaciones_ko,
+            //                 f_compromiso_voc,
+            //                 estado_voc,
+            //                 observaciones_voc,
+            //                 f_compromiso_ec,
+            //                 estado_ec,
+            //                 observaciones_ec,
+            //                 f_compromiso_ac,
+            //                 estado_ac,
+            //                 observaciones_ac,
+            //                 f_compromiso_sit,
+            //                 estado_sit,
+            //                 observaciones_sit,
+            //                 f_compromiso_veoc,
+            //                 estado_veoc,
+            //                 observaciones_veoc,
+            //                 f_compromiso_empalmes,
+            //                 estado_empalmes,
+            //                 observaciones_empalmes,
+            //                 f_compromiso_crc,
+            //                 estado_crc,
+            //                 observaciones_crc,
+            //                 f_compromiso_veut,
+            //                 estado_veut,
+            //                 observaciones_veut,
+            //                 actividad_actual,
+            //                 tipo_voc,
+            //                 tipo_veoc)
+            //             VALUES
+            //                 ($idOtp,
+            //                 '" . $formulario[1]['value'] . "',
+            //                 '" . $formulario[2]['value'] . "',
+            //                 '" . $formulario[3]['value'] . "',
+            //                 '" . $formulario[5]['value'] . "',
+            //                 '" . $formulario[6]['value'] . "',
+            //                 '" . $formulario[7]['value'] . "',
+            //                 '" . $formulario[8]['value'] . "',
+            //                 '" . $formulario[9]['value'] . "',
+            //                 '" . $formulario[10]['value'] . "',
+            //                 '" . $formulario[11]['value'] . "',
+            //                 '" . $formulario[12]['value'] . "',
+            //                 '" . $formulario[13]['value'] . "',
+            //                 '" . $formulario[14]['value'] . "',
+            //                 '" . $formulario[15]['value'] . "',
+            //                 '" . $formulario[16]['value'] . "',
+            //                 '" . $formulario[18]['value'] . "',
+            //                 '" . $formulario[19]['value'] . "',
+            //                 '" . $formulario[20]['value'] . "',
+            //                 '" . $formulario[21]['value'] . "',
+            //                 '" . $formulario[22]['value'] . "',
+            //                 '" . $formulario[23]['value'] . "',
+            //                 '" . $formulario[24]['value'] . "',
+            //                 '" . $formulario[25]['value'] . "',
+            //                 '" . $formulario[26]['value'] . "',
+            //                 '" . $formulario[27]['value'] . "',
+            //                 '" . $formulario[28]['value'] . "',
+            //                 '" . $formulario[29]['value'] . "',
+            //                 '" . $formulario[0]['value'] . "',
+            //                 '" . $formulario[4]['value'] . "',
+            //                 '" . $formulario[17]['value'] . "')";
         } else {
-            $query = "
-                UPDATE hitos SET
-                f_compromiso_ko = '" . $formulario[1]['value'] . "',
-                estado_ko = '" . $formulario[2]['value'] . "',
-                observaciones_ko = '" . $formulario[3]['value'] . "',
-                f_compromiso_voc = '" . $formulario[5]['value'] . "',
-                estado_voc = '" . $formulario[6]['value'] . "',
-                observaciones_voc = '" . $formulario[7]['value'] . "',
-                f_compromiso_ec = '" . $formulario[8]['value'] . "',
-                estado_ec = '" . $formulario[9]['value'] . "',
-                observaciones_ec = '" . $formulario[10]['value'] . "',
-                f_compromiso_ac = '" . $formulario[11]['value'] . "',
-                estado_ac = '" . $formulario[12]['value'] . "',
-                observaciones_ac = '" . $formulario[13]['value'] . "',
-                f_compromiso_sit = '" . $formulario[14]['value'] . "',
-                estado_sit = '" . $formulario[15]['value'] . "',
-                observaciones_sit = '" . $formulario[16]['value'] . "',
-                f_compromiso_veoc =' " . $formulario[18]['value'] . "',
-                estado_veoc = '" . $formulario[19]['value'] . "',
-                observaciones_veoc = '" . $formulario[20]['value'] . "',
-                f_compromiso_empalmes = '" . $formulario[21]['value'] . "',
-                estado_empalmes = '" . $formulario[22]['value'] . "',
-                observaciones_empalmes = '" . $formulario[23]['value'] . "',
-                f_compromiso_crc = '" . $formulario[24]['value'] . "',
-                estado_crc = '" . $formulario[25]['value'] . "',
-                observaciones_crc = '" . $formulario[26]['value'] . "',
-                f_compromiso_veut = '" . $formulario[27]['value'] . "',
-                estado_veut = '" . $formulario[28]['value'] . "',
-                observaciones_veut = '" . $formulario[29]['value'] . "',
-                actividad_actual = '" . $formulario[0]['value'] . "',
-                tipo_voc = '" . $formulario[4]['value'] . "',
-                tipo_veoc = '" . $formulario[17]['value'] . "'
-                WHERE id_ot_padre = $idOtp";
+            unset($data['id_ot_padre']);
+            $query = $this->db->update('hitos', $data);
+            // $query = "
+            // UPDATE hitos SET
+            // f_compromiso_ko = '" . $formulario[1]['value'] . "',
+            // estado_ko = '" . $formulario[2]['value'] . "',
+            // observaciones_ko = '" . $formulario[3]['value'] . "',
+            // f_compromiso_voc = '" . $formulario[5]['value'] . "',
+            // estado_voc = '" . $formulario[6]['value'] . "',
+            // observaciones_voc = '" . $formulario[7]['value'] . "',
+            // f_compromiso_ec = '" . $formulario[8]['value'] . "',
+            // estado_ec = '" . $formulario[9]['value'] . "',
+            // observaciones_ec = '" . $formulario[10]['value'] . "',
+            // f_compromiso_ac = '" . $formulario[11]['value'] . "',
+            // estado_ac = '" . $formulario[12]['value'] . "',
+            // observaciones_ac = '" . $formulario[13]['value'] . "',
+            // f_compromiso_sit = '" . $formulario[14]['value'] . "',
+            // estado_sit = '" . $formulario[15]['value'] . "',
+            // observaciones_sit = '" . $formulario[16]['value'] . "',
+            // f_compromiso_veoc =' " . $formulario[18]['value'] . "',
+            // estado_veoc = '" . $formulario[19]['value'] . "',
+            // observaciones_veoc = '" . $formulario[20]['value'] . "',
+            // f_compromiso_empalmes = '" . $formulario[21]['value'] . "',
+            // estado_empalmes = '" . $formulario[22]['value'] . "',
+            // observaciones_empalmes = '" . $formulario[23]['value'] . "',
+            // f_compromiso_crc = '" . $formulario[24]['value'] . "',
+            // estado_crc = '" . $formulario[25]['value'] . "',
+            // observaciones_crc = '" . $formulario[26]['value'] . "',
+            // f_compromiso_veut = '" . $formulario[27]['value'] . "',
+            // estado_veut = '" . $formulario[28]['value'] . "',
+            // observaciones_veut = '" . $formulario[29]['value'] . "',
+            // actividad_actual = '" . $formulario[0]['value'] . "',
+            // tipo_voc = '" . $formulario[4]['value'] . "',
+            // tipo_veoc = '" . $formulario[17]['value'] . "'
+            // WHERE id_ot_padre = $idOtp";
         }
 
-        if ($this->db->query($query)) {
+        if ($this->db->affected_rows()) {
             $respuesta['response'] = 'success';
             $respuesta['msg'] = 'Se actualizo correctamente';
         } else {
-            $respuesta['response'] = 'error';
-            $respuesta['msg'] = 'No se a podido actualizar correctamente loa informacion';
+            $respuesta['response'] = 'warning';
+            $respuesta['msg'] = 'No se actualizó ningún campo u ocurrió un error';
+            // $respuesta['msg'] = 'No se actualizó ningún campo o podido actualizar correctamente la informacion';
         }
         return $respuesta;
     }
@@ -793,5 +797,25 @@ class Dao_ot_padre_model extends CI_Model {
             GROUP BY nro_ot_onyx
         ");
         return $query->result();
+    }
+
+    public function getLineaBasePerOTP($id)
+    {
+        $query = $this->db->select( 'fecha_cierre_ko,fecha_visita_obra_civil,
+                fecha_dcoc,fecha_aprobacion_coc,
+                fecha_ingenieria_detalle,
+                fecha_ejecucion_obra_civil,
+                fecha_empalmes,
+                fecha_configuracion,
+                fecha_entrega_servicio')
+            ->from('linea_base lb')
+            ->where('id_ot_padre',$id)
+            ->order_by( 'fecha_cierre_ko', 'DESC')
+            ->limit(1)
+            ->get();
+
+            // echo("<pre>"); print_r($this->db->last_query()); echo("</pre>");
+            // echo("<pre>"); print_r($query->row()); echo("</pre>");
+        return $query->row_array();
     }
 }
