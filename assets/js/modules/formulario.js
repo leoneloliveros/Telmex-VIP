@@ -27,21 +27,17 @@ $(function() {
                     if (span.hasClass('activeDate')) {
                         span.removeClass('activeDate');
                         span.addClass('inActiveDate');
-                        if (span.siblings().attr('id') === "lb_fecha_voc") {
-                            $("#lb_fecha_dcoc,#lb_fecha_aprobacion_coc,#lb_fecha_ejecucion_obra_civil,#lb_fecha_empalmes").attr('disabled', true);
-                            $("#lb_fecha_dcoc,#lb_fecha_aprobacion_coc,#lb_fecha_ejecucion_obra_civil,#lb_fecha_empalmes").css('color', "#eeeeee");
-                            $("#lb_fecha_dcoc,#lb_fecha_aprobacion_coc,#lb_fecha_ejecucion_obra_civil,#lb_fecha_empalmes").siblings().children('i').removeClass('fa-calendar-check-o');
-                            $("#lb_fecha_dcoc,#lb_fecha_aprobacion_coc,#lb_fecha_ejecucion_obra_civil,#lb_fecha_empalmes").siblings().children('i').addClass('fa-calendar-times-o');
-
-                            $("#lb_fecha_dcoc,#lb_fecha_aprobacion_coc,#lb_fecha_ejecucion_obra_civil,#lb_fecha_empalmes").siblings().removeClass('activeDate');
-                            $("#lb_fecha_dcoc,#lb_fecha_aprobacion_coc,#lb_fecha_ejecucion_obra_civil,#lb_fecha_empalmes").siblings().addClass('inActiveDate');
-                            
-                        }
+                        if (span.siblings().attr('id') === "lb_fecha_voc" ) {
+                            formulario.deshabilitarFechas(true);
+                        }                        
                         span.children('i').removeClass('fa-calendar-check-o');
                         span.children('i').addClass('fa-calendar-times-o');
                         span.siblings().attr('disabled',true);
                         span.siblings().css('color', "#eeeeee");
                     }else{
+                        if (span.siblings().attr('id') === "lb_fecha_voc") {
+                            formulario.deshabilitarFechas(false);
+                        }
                         span.children('i').removeClass('fa-calendar-times-o');
                         span.children('i').addClass('fa-calendar-check-o');
                         span.removeClass('inActiveDate');
@@ -68,6 +64,31 @@ $(function() {
             $('#modalEditTicket').on('blur','input#pr_cant_servicios_trasladar,input#pr_cod_servicio_trasladar,#pr_cod_servicios_trasladar',formulario.llenarCamposTraslado);
         },
 
+        deshabilitarFechas: function(activeOrInactive){
+
+            if (activeOrInactive) {
+                var disabled = true;
+                var colLetter = '#eeeeee';
+                var removeClass = 'fa-calendar-check-o';
+                var addClass = 'fa-calendar-times-o'
+                var remove = 'activeDate';
+                var add = 'inActiveDate';
+            }else{
+                var disabled = false;
+                var colLetter = '#000';
+                var removeClass = 'fa-calendar-times-o';
+                var addClass = 'fa-calendar-check-o'
+                var remove = 'inActiveDate';
+                var add = 'activeDate';
+            }
+
+            $("#lb_fecha_dcoc,#lb_fecha_aprobacion_coc,#lb_fecha_ejecucion_obra_civil,#lb_fecha_empalmes").attr('disabled', disabled);
+            $("#lb_fecha_dcoc,#lb_fecha_aprobacion_coc,#lb_fecha_ejecucion_obra_civil,#lb_fecha_empalmes").css('color', colLetter);
+            $("#lb_fecha_dcoc,#lb_fecha_aprobacion_coc,#lb_fecha_ejecucion_obra_civil,#lb_fecha_empalmes").siblings().children('i').removeClass(removeClass);
+            $("#lb_fecha_dcoc,#lb_fecha_aprobacion_coc,#lb_fecha_ejecucion_obra_civil,#lb_fecha_empalmes").siblings().children('i').addClass(addClass);
+            $("#lb_fecha_dcoc,#lb_fecha_aprobacion_coc,#lb_fecha_ejecucion_obra_civil,#lb_fecha_empalmes").siblings().removeClass(remove);
+            $("#lb_fecha_dcoc,#lb_fecha_aprobacion_coc,#lb_fecha_ejecucion_obra_civil,#lb_fecha_empalmes").siblings().addClass(add);
+        },
         // formulario tabs vertical
         onClickTab: function(e) {
             e.preventDefault();
@@ -463,7 +484,8 @@ $(function() {
             $('#lb_fecha_ingenieria_detalle').val(comodin);
 
 
-            const fecha_configuracion = formulario.calcular_nueva_fecha(comodin, ($("#lb_fecha_ingenieria_detalle").siblings().hasClass("activeDate"))? 3 : 1 );
+            // const fecha_configuracion = formulario.calcular_nueva_fecha(comodin, ($("#lb_fecha_ingenieria_detalle").siblings().hasClass("activeDate"))? 3 : 1 );
+            const fecha_configuracion = formulario.calcular_nueva_fecha(comodin, 1 );
             if ($("#lb_fecha_configuracion").siblings().hasClass("activeDate")) {
                 comodin = fecha_configuracion;
             } else {
