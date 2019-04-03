@@ -174,6 +174,25 @@
     <script src="<?= URL::to("assets/js/modules/facturacion_ots.js?v=" . validarEnProduccion()) ?>"></script>
 <?php endif ?>
 
+<?php if ($this->uri->segment(1) == 'noCerradasZolid'): ?>
+    <script src="<?= URL::to('assets/plugins/datatables/DataTables-1.10.16/js/jquery.dataTables.min.js') ?>"></script>
+    <script src="<?= URL::to('assets/plugins/datatables/js/dataTables.bootstrap.js?v=1.0') ?>"></script>
+    <script type="text/javascript" src="<?= URL::to('assets/plugins/bootstrap/js/prettify.min.js') ?>"></script>
+    <script type="text/javascript" src="<?= URL::to('assets/plugins/bootstrap/js/bootstrap-multiselect.js') ?>"></script>
+    <script type="text/javascript" src="<?= URL::to('assets/plugins/selectize/dist/js/standalone/selectize.js') ?>"></script>
+    <script src="<?= URL::to('assets/plugins/datatables/js/dataTables.buttons.min.js') ?>"></script>
+    <script src="<?= URL::to('assets/plugins/datatables/js/jszip.min.js') ?>"></script>
+    <script src="<?= URL::to('assets/plugins/datatables/js/pdfmake.min.js') ?>"></script>
+    <script src="<?= URL::to('assets/plugins/datatables/js/vfs_fonts.js') ?>"></script>
+    <script src="<?= URL::to('assets/plugins/datatables/js/buttons.html5.min.js') ?>"></script>
+    <script src="<?= URL::to('assets/plugins/datatables/js/buttons.print.min.js') ?>"></script>
+    <script src="<?= URL::to('assets/plugins/datatables/js/dataTables.select.min.js') ?>"></script>
+    <script src="<?= URL::to('assets/plugins/datatables/js/buttons.colVis.min.js') ?>"></script>
+
+    <script src="<?= URL::to("assets/js/modules/cerradas_zolid.js?v=" . validarEnProduccion()) ?>"></script>
+
+<?php endif ?>
+
 <?php if ($this->uri->segment(1) == 'Graphics' && $this->uri->segment(2) == 'view_load_graphics'): ?>
     <script src="<?= URL::to("assets/js/modules/graficas/custom-file-input.js?v=" . validarEnProduccion()) ?>"></script>
 <?php endif ?>
@@ -211,14 +230,14 @@
 <?php if ($this->uri->segment(1) == 'reporteTiemposKo'): ?>
     <script src="<?= URL::to('assets/plugins/datatables/DataTables-1.10.16/js/jquery.dataTables.min.js') ?>"></script>
     <script src="<?= URL::to('assets/plugins/datatables/js/dataTables.bootstrap.js?v=1.0') ?>"></script>
-    
+
     <script src="<?= URL::to('assets/plugins/hightchart/code/highcharts.js') ?>"></script>
     <script src="<?= URL::to('assets/plugins/hightchart/code/highcharts-3d.js') ?>"></script>
     <script src="<?= URL::to('assets/plugins/hightchart/code/modules/exporting.js') ?>"></script>
     <script src="<?= URL::to('assets/plugins/hightchart/code/modules/export-data.js') ?>"></script>
 
     <script src="<?= URL::to("assets/js/modules/reporteTiemposKo.js?v=" . validarEnProduccion()) ?>"></script>
-    <script src="<?= URL::to('assets/plugins/hightchart/code/themes/grid-light.js') ?>"></script> 
+    <script src="<?= URL::to('assets/plugins/hightchart/code/themes/grid-light.js') ?>"></script>
     <script src="<?= URL::to("assets/plugins/sweetalert2/sweetalert2.all.js"); ?> "></script>
 
 
@@ -230,7 +249,7 @@
 
     <script src="<?= URL::to('assets/plugins/datatables/js/dataTables.buttons.min.js') ?>"></script>
     <!-- PARA CARGAR BOTON DE IMPORTAR A UN EXCEL -->
-    <script src="<?= URL::to('assets/plugins/datatables/js/jszip.min.js') ?>"></script> 
+    <script src="<?= URL::to('assets/plugins/datatables/js/jszip.min.js') ?>"></script>
     <!-- ========================= -->
     <script src="<?= URL::to('assets/plugins/datatables/js/buttons.html5.min.js') ?>"></script>
     <script src="<?= URL::to('assets/plugins/datatables/js/buttons.print.min.js') ?>"></script>
