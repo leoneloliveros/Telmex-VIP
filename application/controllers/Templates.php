@@ -1044,6 +1044,7 @@ class Templates extends CI_Controller {
 
         $data = array(
             'ultimo_envio_reporte' => date('Y-m-d'),
+            'cerrado_zolid' => 'SI',
         );
         $this->Dao_ot_padre_model->update_ot_padre($data, $otp);
     }
