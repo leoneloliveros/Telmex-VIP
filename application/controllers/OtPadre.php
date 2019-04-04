@@ -420,7 +420,7 @@ class OtPadre extends CI_Controller {
                     $newFields['observaciones_empalmes'] = $value[2];
                     break;
                 
-                case 'CONFIGURACION RED CLARO':
+                case 'CONFIGURACION':
                     $newFields['f_compromiso_crc'] = $value[0];
                     $newFields['estado_crc'] = $value[1];
                     $newFields['observaciones_crc'] = $value[2];
@@ -472,8 +472,8 @@ class OtPadre extends CI_Controller {
             'f_compromiso_ac' => $hitosotp->f_compromiso_ac,
             'f_compromiso_sit' => $hitosotp->f_compromiso_sit,
             'f_compromiso_veoc' => $hitosotp->f_compromiso_veoc,
-            'f_compromiso_empalmes' => $hitosotp->f_compromiso_empalmes,
             'f_compromiso_crc' => $hitosotp->f_compromiso_crc,
+            'f_compromiso_empalmes' => $hitosotp->f_compromiso_empalmes,
             'f_compromiso_veut' => $hitosotp->f_compromiso_veut,];
             $fechasAEnviar = array_filter($fechasAEnviar); //limpiamos las fechas que no existen, para pintar la tabla dinamicamente
             $infOtp = $this->Dao_ot_padre_model->getDetailsHitosOTP($idOtp);
@@ -484,8 +484,8 @@ class OtPadre extends CI_Controller {
                 "observaciones_ac" => $hitosotp->observaciones_ac,
                 "observaciones_sit" => $hitosotp->observaciones_sit,
                 "observaciones_veoc" => $hitosotp->observaciones_veoc,
-                "observaciones_empalmes" => $hitosotp->observaciones_empalmes,
                 "observaciones_crc" => $hitosotp->observaciones_crc,
+                "observaciones_empalmes" => $hitosotp->observaciones_empalmes,
                 "observaciones_veut" => $hitosotp->observaciones_veut,
             ];
             foreach (array_filter($obs) as $value) {
@@ -539,7 +539,7 @@ class OtPadre extends CI_Controller {
                                     case 'f_compromiso_ec':
                                         $template .= '<tr height="20" style="height:15pt">
                                         <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'ENVIO COTIZACION' ? '#4bd605' : '#7c7c7c') . ';">'.$numFila.'</div></td>
-                                        <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">ENVIÓ COTIZACIÓN</td>
+                                        <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">ENVIO COTIZACIÓN</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->f_compromiso_ec . '</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->estado_ec . '</td>
                                        </tr>';
@@ -584,7 +584,7 @@ class OtPadre extends CI_Controller {
                                     case 'f_compromiso_crc':
                                         $template .= '<tr height="20" style="height:15pt">
                                         <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'CONFIGURACION RED CLARO' ? '#4bd605' : '#7c7c7c') . ';">'.$numFila.'</div></td>
-                                        <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">CONFIGURACIÓN RED CLARO</td>
+                                        <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">CONFIGURACIÓN</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->f_compromiso_crc . '</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->estado_crc . '</td>
                                      </tr>';

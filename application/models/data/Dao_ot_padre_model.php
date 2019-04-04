@@ -391,13 +391,13 @@ class Dao_ot_padre_model extends CI_Model {
                 f_compromiso_ac, estado_ac, observaciones_ac,
                 f_compromiso_sit, estado_sit, observaciones_sit,
                 f_compromiso_veoc, estado_veoc, observaciones_veoc,
-                f_compromiso_empalmes, estado_empalmes, observaciones_empalmes,
                 f_compromiso_crc, estado_crc, observaciones_crc,
+                f_compromiso_empalmes, estado_empalmes, observaciones_empalmes,
                 f_compromiso_veut, estado_veut, observaciones_veut,
                 actividad_actual, tipo_voc, tipo_veoc
             FROM hitos WHERE id_ot_padre = $idOtp
         ");
-
+        
         return $query->row();
     }
 
@@ -805,8 +805,8 @@ class Dao_ot_padre_model extends CI_Model {
                 fecha_dcoc,fecha_aprobacion_coc,
                 fecha_ingenieria_detalle,
                 fecha_ejecucion_obra_civil,
-                fecha_empalmes,
                 fecha_configuracion,
+                fecha_empalmes,
                 fecha_entrega_servicio')
             ->from('linea_base')
             ->where('id_ot_padre',$id)

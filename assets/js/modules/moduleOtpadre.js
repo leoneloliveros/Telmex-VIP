@@ -943,6 +943,7 @@ $(function() {
 
         // vuelve a pintar todas las tablas según el grupo de ingenieros se tenga filtrado
         printNewTablesAccordingIngGroup : function() {
+                // $('#filterGroupIng').attr('disabled', true);
                 var filtro = $("#filterGroupIng").val();
                 vista.getListOtsOtPadre(filtro);
                 hoy.getListOtsOtPadreHoy(filtro);
@@ -950,6 +951,7 @@ $(function() {
                 lista.getOtpByOpcListJs($('#select_filter').val(),filtro);
                 reporte_act.getOtsPtesPorEnvio(filtro); 
                 reporte_act.getCountPtesPorEnvio(filtro);
+                // $('#filterGroupIng').attr('disabled', false);
             },
 
         // dar mostrar o ocultar la columna en la sesion work managment por medio del menu stick segun el id de la tabla
@@ -1873,7 +1875,7 @@ $(function() {
                                 break;
 
                             case 'fecha_configuracion':
-                                optionSelect += `<option class="optH" value="CONFIGURACION RED CLARO">CONFIGURACION RED CLARO</option>`;
+                                optionSelect += `<option class="optH" value="CONFIGURACION RED CLARO">CONFIGURACION</option>`;
                                 tabla += `<tr>  
                                 <td>
                                     <ul class="timeline timeline-jhon">
@@ -1882,7 +1884,7 @@ $(function() {
                                         </li>
                                     </ul>
                                 </td>
-                                <td><span>CONFIGURACION RED CLARO</span></td>
+                                <td><span>CONFIGURACION</span></td>
                                 <td>
                                     <input type="date" name="f_compromiso" value="${fecha}" id="f_compromiso_crc" class="form-control fechas_hitos">
                                 </td>
