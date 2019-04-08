@@ -602,10 +602,10 @@ class OtPadre extends CI_Controller {
                                 }
                                 $numFila++;
                             }
-                        $template.=`</tbody>
+                        $template.='</tbody>
                                     </table>
                                 </div>
-                                <br><br>`;
+                                <br><br>';
                                 
                         // echo("<pre>"); print_r($template); echo("</pre>");
         }
