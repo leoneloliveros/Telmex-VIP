@@ -495,9 +495,9 @@ table.dataTable_camilo .btn_datatable_cami:hover{
     transition: all 0.2s ease 0s;
 }
 
-.btn_check:hover{
-    /*background: #348ab7;*/
-}
+/* .btn_check:hover{
+    background: #348ab7;
+} */
 .btn_checkeado {
     color: #45EC45;
     background: #084c6f;
@@ -603,6 +603,16 @@ select.sel-cris-cool{
     border: 2px solid #084c6f;
     padding: 5px;
     color: #084c6f;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .5s;
+    outline: unset;
+}
+select.sel-cris-cool:disabled{
+    border: 2px solid #3a91bd;
+    background: #80808085 !Important;
+    padding: 5px;
+    color: #000000;
     font-weight: bold;
     cursor: pointer;
     transition: .5s;
