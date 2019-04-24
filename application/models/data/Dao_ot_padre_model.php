@@ -351,7 +351,7 @@ class Dao_ot_padre_model extends CI_Model {
         // echo("<pre>"); print_r($this->db->last_query()); echo("</pre>") ;
         return $query;
     }
-    
+
     // obtiene las otp de una sede (pasarle el id de la sede)
     public function get_otp_by_idsede($idsede) {
         $query = $this->db->query("
@@ -476,6 +476,7 @@ class Dao_ot_padre_model extends CI_Model {
             //                 '" . $formulario[4]['value'] . "',
             //                 '" . $formulario[17]['value'] . "')";
         } else {
+            $this->db->where('id_ot_padre',$data['id_ot_padre']);
             unset($data['id_ot_padre']);
             $query = $this->db->update('hitos', $data);
             // $query = "
@@ -696,7 +697,7 @@ class Dao_ot_padre_model extends CI_Model {
 
                 ) AS mayor_30
             FROM user
-            WHERE `user`.n_role_user = 'ingeniero' 
+            WHERE `user`.n_role_user = 'ingeniero'
             $cond2
             -- AND `user`.n_group='GESTION OTS ESTANDAR'
             $condicion
