@@ -261,7 +261,8 @@ class Dao_ot_hija_model extends CI_Model {
             ot.tipo_trascurrido,
             ot.ot_hija,
             e.i_orden,
-            ot.b_flag
+            ot.b_flag,
+            otp.ultimo_envio_reporte
             FROM
             ot_hija ot
             LEFT JOIN estado_ot e
