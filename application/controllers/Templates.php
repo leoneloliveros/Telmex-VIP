@@ -179,7 +179,7 @@ class Templates extends CI_Controller {
             $data_pr = array(
                 'ciudad_des'                   => $pt['pr_ciudad_des'],
                 'id_ot_padre_des'              => $pt['nro_ot_onyx'],
-                'direccion_des'                => $pt['pr_direccion_des'],  
+                'direccion_des'                => $pt['pr_direccion_des'],
                 'tipo_predio_des'              => $pt['pr_tipo_predio_des'],
                 'nit_cliente_des'              => $pt['pr_nit_cliente_des'],
                 'alias_lugar_des'              => $pt['pr_alias_lugar_des'],
@@ -1138,7 +1138,7 @@ class Templates extends CI_Controller {
         $ingeniero = Auth::user()->n_name_user . ' ' . Auth::user()->n_last_name_user;
         $celIngeniero = Auth::user()->cell_phone;
         $email = Auth::user()->n_mail_user;
-        
+
         $asunOtp = ' - ';
         $templateHitos = "";
         $ii= 0;
@@ -1146,7 +1146,7 @@ class Templates extends CI_Controller {
             $asunOtp .= $idOtp . ' - ';
             $hitosotp = $this->Dao_ot_padre_model->getHitosOtp($idOtp);
             $infOtp = $this->Dao_ot_padre_model->getDetailsHitosOTP($idOtp);
-              
+
             $templateHitos .= '
                 <div dir="ltr">
                     <table border="0" cellpadding="0" cellspacing="0" width="712" style="border-collapse:collapse;box-shadow: rgba(8, 76, 111, 0.5) 6px 7px;">
@@ -1212,7 +1212,7 @@ class Templates extends CI_Controller {
 </tr>
                         ';
                     break;
-                    
+
                     case 'f_compromiso_voc':
                         $templateHitos .= '
                                     <tr height="20" style="height:15pt">
@@ -1223,7 +1223,7 @@ class Templates extends CI_Controller {
             </tr>
                         ';
                     break;
-                    
+
                     case 'f_compromiso_ec':
                         $templateHitos .= '
                                     <tr height="20" style="height:15pt">
@@ -1234,7 +1234,7 @@ class Templates extends CI_Controller {
             </tr>
                         ';
                     break;
-                    
+
                     case 'f_compromiso_ac':
                         $templateHitos .= '
             <tr height="20" style="height:15pt">
@@ -1245,10 +1245,10 @@ class Templates extends CI_Controller {
             </tr>
                         ';
                     break;
-                    
+
                     case 'f_compromiso_sit':
                         $templateHitos .= '
-                        
+
             <tr height="20" style="height:15pt">
                 <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 21px; font-size: 22px; text-align: center; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'SOLICITUD INFORMACIÓN TECNICA' ? '#4bd605' : '#7c7c7c') . ';">'.$numFila.'</div></td>
                 <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">SOLICITUD INFORMACIÓN TÉCNICA</td>
@@ -1258,7 +1258,7 @@ class Templates extends CI_Controller {
 
                         ';
                     break;
-                    
+
                     case 'f_compromiso_veoc':
                         $templateHitos .= '
                           <tr height="20" style="height:15pt">
@@ -1293,9 +1293,9 @@ class Templates extends CI_Controller {
 
                         ';
                     break;
-                    
-                   
-                    
+
+
+
                     case 'f_compromiso_veut':
                         $templateHitos .= '
                             <tr height="20" style="height:15pt">
@@ -1312,7 +1312,7 @@ class Templates extends CI_Controller {
                 }
                 $numFila++;
             }
-              
+
             $templateHitos .= '</tbody>
                         <table>
                   </div>
@@ -1372,8 +1372,8 @@ class Templates extends CI_Controller {
 
             // echo("<pre>"); print_r($historicoMailCreado); echo("</pre>");
             $historicoMailCreado = $cabeza.$encabezado.$templateHitos.$contacto;
-            
-            echo $historicoMailCreado;      
+
+            echo $historicoMailCreado;
     }
 
 
@@ -1828,6 +1828,12 @@ class Templates extends CI_Controller {
                 'campo17' => $p['ingeniero1_email'], // EMAIL
                 'campo18' => $p['campo18'], //  OTP
                 'campo19' => $p['campo19'], //  fecha entrega
+                'campo20' => $p['ingeniero2'],
+                'campo21' => $p['ingeniero2_tel'],
+                'campo22' => $p['ingeniero2_email'],
+                'campo23' => $p['ingeniero3'],
+                'campo24' => $p['ingeniero3_tel'],
+                'campo25' => $p['ingeniero3_email'],
             );
             break;
         case ($s == 12): // Cambio de Equipos Servicio
@@ -1847,6 +1853,12 @@ class Templates extends CI_Controller {
                 'campo11' => $p['ingeniero1'], // INGENIERO IMPLEMENTACIÓN
                 'campo12' => $p['ingeniero1_tel'], // TELEFONOS DE CONTACTO
                 'campo13' => $p['ingeniero1_email'], // MAIL
+                'campo14' => $p['ingeniero2'], // INGENIERO IMPLEMENTACIÓN
+                'campo15' => $p['ingeniero2_tel'], // TELEFONOS DE CONTACTO
+                'campo16' => $p['ingeniero2_email'], // MAIL
+                'campo17' => $p['ingeniero3'], // INGENIERO IMPLEMENTACIÓN
+                'campo18' => $p['ingeniero3_tel'], // TELEFONOS DE CONTACTO
+                'campo19' => $p['ingeniero3_email'], // MAIL
             );
 
             $argumentos['campo5']['si'] = $this->si($p['campo5']);
@@ -1870,6 +1882,12 @@ class Templates extends CI_Controller {
                 'campo11' => $p['ingeniero1'], // INGENIERO IMPLEMENTACIÓN
                 'campo12' => $p['ingeniero1_tel'], // TELEFONOS DE CONTACTO
                 'campo13' => $p['ingeniero1_email'], // EMAIL
+                'campo14' => $p['ingeniero2'], // INGENIERO IMPLEMENTACIÓN
+                'campo15' => $p['ingeniero2_tel'], // TELEFONOS DE CONTACTO
+                'campo16' => $p['ingeniero2_email'], // EMAIL
+                'campo17' => $p['ingeniero3'], // INGENIERO IMPLEMENTACIÓN
+                'campo18' => $p['ingeniero3_tel'], // TELEFONOS DE CONTACTO
+                'campo19' => $p['ingeniero3_email'], // EMAIL
 
                 /*======================================================
             PREGUNTAR LA FILA DE CIUDAD PUEDE SER MAS
@@ -1890,6 +1908,12 @@ class Templates extends CI_Controller {
                 'campo9'  => $p['ingeniero1_tel'], // TELEFONOS DE CONTACTO
                 'campo10' => $p['ingeniero1_email'], // EMAIL
                 'campo11' => $p['campo11'], // Fecha de Entrega de su servicio
+                'campo12' => $p['ingeniero2'], // INGENIERO IMPLEMENTACIÓN
+                'campo13' => $p['ingeniero2_tel'], // TELEFONOS DE CONTACTO
+                'campo14' => $p['ingeniero2_email'], // EMAIL
+                'campo15' => $p['ingeniero3'], // INGENIERO IMPLEMENTACIÓN
+                'campo16' => $p['ingeniero3_tel'], // TELEFONOS DE CONTACTO
+                'campo17' => $p['ingeniero3_email'], // EMAIL
             );
 
             $list_ciudades = $this->set_cities();
@@ -1918,6 +1942,12 @@ class Templates extends CI_Controller {
                 'campo11' => $p['ingeniero1'], // INGENIERO IMPLEMENTACIÓN
                 'campo12' => $p['ingeniero1_tel'], // TELEFONOS DE CONTACTO
                 'campo13' => $p['ingeniero1_email'], // EMAIL
+                'campo14' => $p['ingeniero2'], // INGENIERO IMPLEMENTACIÓN
+                'campo15' => $p['ingeniero2_tel'], // TELEFONOS DE CONTACTO
+                'campo16' => $p['ingeniero2_email'], // EMAIL
+                'campo17' => $p['ingeniero3'], // INGENIERO IMPLEMENTACIÓN
+                'campo18' => $p['ingeniero3_tel'], // TELEFONOS DE CONTACTO
+                'campo19' => $p['ingeniero3_email'], // EMAIL
             );
 
             $argumentos['campo6']['si'] = $this->si($p['campo6']);
@@ -1953,6 +1983,12 @@ class Templates extends CI_Controller {
                 'campo18' => $p['ingeniero1'], // INGENIERO IMPLEMENTACIÓN
                 'campo19' => $p['ingeniero1_tel'], // TELEFONOS DE CONTACTO
                 'campo20' => $p['ingeniero1_email'], // EMAIL
+                'campo21' => $p['ingeniero2'], // INGENIERO IMPLEMENTACIÓN NIVEL 2
+                'campo22' => $p['ingeniero2_tel'], // TELEFONOS DE CONTACTO NIVEL 2
+                'campo23' => $p['ingeniero2_email'], // EMAIL NIVEL 2
+                'campo24' => $p['ingeniero3'], // INGENIERO IMPLEMENTACIÓN NIVEL 2
+                'campo25' => $p['ingeniero3_tel'], // TELEFONOS DE CONTACTO NIVEL 2
+                'campo26' => $p['ingeniero3_email'], // EMAIL NIVEL 2
             );
             $argumentos['campo5']['si']  = $this->si($p['campo5']);
             $argumentos['campo5']['no']  = $this->no($p['campo5']);
@@ -2028,6 +2064,12 @@ class Templates extends CI_Controller {
                 'campo39' => $p['ingeniero1_tel'], //  TELEFONOS DE CONTACTO
                 'campo40' => $p['ingeniero1_email'], //  EMAIL
                 'campo41' => $p['campo41'], //  Fecha de Entrega de su servicio
+                'campo42' => $p['ingeniero2'], //  INGENIERO IMPLEMENTACIÓN
+                'campo43' => $p['ingeniero2_tel'], //  TELEFONOS DE CONTACTO
+                'campo44' => $p['ingeniero2_email'], //  EMAIL
+                'campo45' => $p['ingeniero3'], //  INGENIERO IMPLEMENTACIÓN
+                'campo46' => $p['ingeniero3_tel'], //  TELEFONOS DE CONTACTO
+                'campo47' => $p['ingeniero3_email'], //  EMAIL
             );
 
             $argumentos['campo11']['si'] = $this->si($p['campo11']);
@@ -2076,6 +2118,12 @@ class Templates extends CI_Controller {
                 'campo9'  => $p['ingeniero1'], // INGENIERO IMPLEMENTACIÓN
                 'campo10' => $p['ingeniero1_tel'], // TELEFONOS DE CONTACTO
                 'campo11' => $p['ingeniero1_email'], //EMAIL
+                'campo12' => $p['ingeniero2'], // INGENIERO IMPLEMENTACIÓN
+                'campo13' => $p['ingeniero2_tel'], // TELEFONOS DE CONTACTO
+                'campo14' => $p['ingeniero2_email'], //EMAIL
+                'campo15' => $p['ingeniero3'], // INGENIERO IMPLEMENTACIÓN
+                'campo16' => $p['ingeniero3_tel'], // TELEFONOS DE CONTACTO
+                'campo17' => $p['ingeniero3_email'], //EMAIL
             );
 
             $list_ciudades = $this->set_cities();
@@ -2100,6 +2148,12 @@ class Templates extends CI_Controller {
                 'campo9'  => $p['ingeniero1'], // INGENIERO IMPLEMENTACIÓN
                 'campo10' => $p['ingeniero1_tel'], // TELEFONOS DE CONTACTO
                 'campo11' => $p['ingeniero1_email'], // EMAIL
+                'campo12' => $p['ingeniero2'], // INGENIERO IMPLEMENTACIÓN
+                'campo13' => $p['ingeniero2_tel'], // TELEFONOS DE CONTACTO
+                'campo14' => $p['ingeniero2_email'], // EMAIL
+                'campo15' => $p['ingeniero3'], // INGENIERO IMPLEMENTACIÓN
+                'campo16' => $p['ingeniero3_tel'], // TELEFONOS DE CONTACTO
+                'campo17' => $p['ingeniero3_email'], // EMAIL
             );
             $list_ciudades = $this->set_cities();
             foreach ($list_ciudades as $key => $ciudad) {
@@ -2123,6 +2177,12 @@ class Templates extends CI_Controller {
                 'campo9'  => $p['ingeniero1'], // INGENIERO IMPLEMENTACIÓN
                 'campo10' => $p['ingeniero1_tel'], // TELEFONOS DE CONTACTO
                 'campo11' => $p['ingeniero1_email'], // EMAIL
+                'campo12' => $p['ingeniero2'], // INGENIERO IMPLEMENTACIÓN
+                'campo13' => $p['ingeniero2_tel'], // TELEFONOS DE CONTACTO
+                'campo14' => $p['ingeniero2_email'], // EMAIL
+                'campo15' => $p['ingeniero3'], // INGENIERO IMPLEMENTACIÓN
+                'campo16' => $p['ingeniero3_tel'], // TELEFONOS DE CONTACTO
+                'campo17' => $p['ingeniero3_email'], // EMAIL
             );
             $list_ciudades = $this->set_cities();
             foreach ($list_ciudades as $key => $ciudad) {
@@ -2150,6 +2210,12 @@ class Templates extends CI_Controller {
                 'campo12' => $p['ingeniero1'], //INGENIERO IMPLEMENTACIÓN
                 'campo13' => $p['ingeniero1_tel'], //TELEFONOS DE CONTACTO
                 'campo14' => $p['ingeniero1_email'], //EMAIL
+                'campo15' => $p['ingeniero2'], //INGENIERO IMPLEMENTACIÓN
+                'campo16' => $p['ingeniero2_tel'], //TELEFONOS DE CONTACTO
+                'campo17' => $p['ingeniero2_email'], //EMAIL
+                'campo18' => $p['ingeniero3'], //INGENIERO IMPLEMENTACIÓN
+                'campo19' => $p['ingeniero3_tel'], //TELEFONOS DE CONTACTO
+                'campo20' => $p['ingeniero3_email'], //EMAIL
 
             );
             break;
@@ -2183,6 +2249,12 @@ class Templates extends CI_Controller {
                 'campo17' => $p['ingeniero1'], //INGENIERO IMPLEMENTACIÓN
                 'campo18' => $p['ingeniero1_tel'], //TELEFONOS DE CONTACTO
                 'campo19' => $p['ingeniero1_email'], //EMAIL
+                'campo20' => $p['ingeniero2'], //INGENIERO IMPLEMENTACIÓN
+                'campo21' => $p['ingeniero2_tel'], //TELEFONOS DE CONTACTO
+                'campo22' => $p['ingeniero2_email'], //EMAIL
+                'campo23' => $p['ingeniero3'], //INGENIERO IMPLEMENTACIÓN
+                'campo24' => $p['ingeniero3_tel'], //TELEFONOS DE CONTACTO
+                'campo25' => $p['ingeniero3_email'], //EMAIL
             );
 
             $argumentos['campo7']['si'] = $this->si($p['campo7']);
@@ -2219,6 +2291,12 @@ class Templates extends CI_Controller {
                 'campo15' => $p['ingeniero1'], //INGENIERO IMPLEMENTACIÓN
                 'campo16' => $p['ingeniero1_tel'], //TELEFONOS DE CONTACTO
                 'campo17' => $p['ingeniero1_email'], //EMAIL
+                'campo18' => $p['ingeniero2'], //INGENIERO IMPLEMENTACIÓN
+                'campo19' => $p['ingeniero2_tel'], //TELEFONOS DE CONTACTO
+                'campo20' => $p['ingeniero2_email'], //EMAIL
+                'campo21' => $p['ingeniero3'], //INGENIERO IMPLEMENTACIÓN
+                'campo22' => $p['ingeniero3_tel'], //TELEFONOS DE CONTACTO
+                'campo23' => $p['ingeniero3_email'], //EMAIL
             );
 
             $argumentos['campo7']['si'] = $this->si($p['campo7']);
@@ -2241,6 +2319,13 @@ class Templates extends CI_Controller {
                 'ingeniero1'       => $p['ingeniero1'],
                 'ingeniero1_tel'   => $p['ingeniero1_tel'],
                 'ingeniero1_email' => $p['ingeniero1_email'],
+                'ingeniero2'       => $p['ingeniero2'],
+                'ingeniero2_tel'   => $p['ingeniero2_tel'],
+                'ingeniero2_email' => $p['ingeniero2_email'],
+                'ingeniero3'       => $p['ingeniero3'],
+                'ingeniero3_tel'   => $p['ingeniero3_tel'],
+                'ingeniero3_email' => $p['ingeniero3_email'],
+
             );
             break;
 
@@ -9320,41 +9405,107 @@ class Templates extends CI_Controller {
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="color:rgb(31,73,125)">&nbsp;</span></p>
 
-        <table class="m_-3467023647703346101gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
-         <tbody><tr style="height:29.05pt">
-          <td width="330" valign="top" style="width:247.7pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO</span></b></p>
-          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-          <hr size="2" width="100%" align="center">
-          </span></b></div>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b></p>
-          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-          <hr size="2" width="100%" align="center">
-          </span></b></div>
-          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b></p>
-          </td>
-         </tr>
-         <tr style="height:14.3pt">
-          <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">INGENIERO IMPLEMENTACIÓN</span></b><b><span lang="ES" style="font-size:10pt;font-family:Arial,sans-serif"></span></b></p>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">' . $argumentos['campo15'] . '</td>
-         </tr>
-         <tr style="height:12.5pt">
-          <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">TELEFONOS DE CONTACTO</span></b></p>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">' . $argumentos['campo16'] . '</td>
-         </tr>
-         <tr style="height:12.5pt">
-          <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">EMAIL </span></b></p>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">' . $argumentos['campo17'] . '</td>
-         </tr>
-        </tbody></table></div>';
+        <table class="m_5089500533639821532gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
+           <tbody><tr style="height:29.05pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO<span></span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 1<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:<span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo15'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="151" colspan="2" valign="top" style="width:113.2pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="161" colspan="2" valign="top" style="width:120.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo16'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo17'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 2<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo20'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo21'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo22'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 3</span></b><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo23'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo24'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo25'] . '</span></span></b></p>
+            </td>
+           </tr>
+          </tbody></table></div>';
 
     }
 
@@ -9610,47 +9761,108 @@ class Templates extends CI_Controller {
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="color:rgb(31,73,125)">&nbsp;</span><span lang="ES-CO"></span></p>
 
-        <table class="m_-8853427311147278176gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
-         <tbody><tr style="height:29.05pt">
-          <td width="330" valign="top" style="width:247.7pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO</span></b><span lang="ES-CO"></span></p>
-          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-          <hr size="2" width="100%" align="center">
-          </span></b></div>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b><span lang="ES-CO"></span></p>
-          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-          <hr size="2" width="100%" align="center">
-          </span></b></div>
-          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b><span lang="ES-CO"></span></p>
-          </td>
-         </tr>
-         <tr style="height:14.3pt">
-          <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">INGENIERO IMPLEMENTACIÓN</span></b><span lang="ES-CO"></span></p>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-          <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo11'] . '</span></b><span lang="ES-CO"></span></p>
-          </td>
-         </tr>
-         <tr style="height:12.5pt">
-          <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">TELEFONOS DE CONTACTO</span></b><span lang="ES-CO"></span></p>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo12'] . '</span></b><span lang="ES-CO"></span></p>
-          </td>
-         </tr>
-         <tr style="height:12.5pt">
-          <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">EMAIL </span></b><span lang="ES-CO"></span></p>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo13'] . '</span></b><span lang="ES-CO"></span></p>
-          </td>
-         </tr>
-        </tbody></table>
+        <table class="m_5089500533639821532gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
+           <tbody><tr style="height:29.05pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO<span></span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 1<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:<span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo11'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="151" colspan="2" valign="top" style="width:113.2pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="161" colspan="2" valign="top" style="width:120.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo12'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo13'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 2<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo14'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo15'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo16'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 3</span></b><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo17'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo18'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo19'] . '</span></span></b></p>
+            </td>
+           </tr>
+          </tbody></table>
+
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX">&nbsp;</span></b><span lang="ES-CO"></span></p>
 
@@ -10313,47 +10525,107 @@ class Templates extends CI_Controller {
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="color:rgb(31,73,125)">&nbsp;</span><span lang="ES-CO"></span></p>
 
-        <table class="m_-4704238337818717427gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
-         <tbody><tr style="height:29.05pt">
-          <td width="330" valign="top" style="width:247.7pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO</span></b><span lang="ES-CO"></span></p>
-          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-          <hr size="2" width="100%" align="center">
-          </span></b></div>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b><span lang="ES-CO"></span></p>
-          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-          <hr size="2" width="100%" align="center">
-          </span></b></div>
-          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b><span lang="ES-CO"></span></p>
-          </td>
-         </tr>
-         <tr style="height:14.3pt">
-          <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">INGENIERO IMPLEMENTACIÓN</span></b><span lang="ES-CO"></span></p>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-          <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo11'] . '</span></b><span lang="ES-CO"></span></p>
-          </td>
-         </tr>
-         <tr style="height:12.5pt">
-          <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">TELEFONOS DE CONTACTO</span></b><span lang="ES-CO"></span></p>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo12'] . '</span></b><span lang="ES-CO"></span></p>
-          </td>
-         </tr>
-         <tr style="height:12.5pt">
-          <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">EMAIL </span></b><span lang="ES-CO"></span></p>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo13'] . '</span></b><span lang="ES-CO"></span></p>
-          </td>
-         </tr>
-        </tbody></table>
+        <table class="m_5089500533639821532gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
+           <tbody><tr style="height:29.05pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO<span></span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 1<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:<span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo11'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="151" colspan="2" valign="top" style="width:113.2pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="161" colspan="2" valign="top" style="width:120.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo12'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo13'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 2<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo14'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo15'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo16'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 3</span></b><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo17'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo18'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo19'] . '</span></span></b></p>
+            </td>
+           </tr>
+          </tbody></table>
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX">&nbsp;</span></b><span lang="ES-CO"></span></p>
 
@@ -11056,47 +11328,107 @@ class Templates extends CI_Controller {
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="color:rgb(31,73,125)">&nbsp;</span><span lang="ES-CO"></span></p>
 
-        <table class="m_6978153820883452763gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
-         <tbody><tr style="height:29.05pt">
-          <td width="330" valign="top" style="width:247.7pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO</span></b><span lang="ES-CO"></span></p>
-          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-          <hr size="2" width="100%" align="center">
-          </span></b></div>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b><span lang="ES-CO"></span></p>
-          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-          <hr size="2" width="100%" align="center">
-          </span></b></div>
-          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b><span lang="ES-CO"></span></p>
-          </td>
-         </tr>
-         <tr style="height:14.3pt">
-          <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">INGENIERO IMPLEMENTACIÓN</span></b><span lang="ES-CO"></span></p>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-          <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo8'] . '</span></b><span lang="ES-CO"></span></p>
-          </td>
-         </tr>
-         <tr style="height:12.5pt">
-          <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">TELEFONOS DE CONTACTO</span></b><span lang="ES-CO"></span></p>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo9'] . '</span></b><span lang="ES-CO"></span></p>
-          </td>
-         </tr>
-         <tr style="height:12.5pt">
-          <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">EMAIL </span></b><span lang="ES-CO"></span></p>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo10'] . '</span></b><span lang="ES-CO"></span></p>
-          </td>
-         </tr>
-        </tbody></table>
+        <table class="m_5089500533639821532gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
+           <tbody><tr style="height:29.05pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO<span></span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 1<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:<span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo8'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="151" colspan="2" valign="top" style="width:113.2pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="161" colspan="2" valign="top" style="width:120.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo9'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo10'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 2<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo12'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo13'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo14'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 3</span></b><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo15'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo16'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo17'] . '</span></span></b></p>
+            </td>
+           </tr>
+          </tbody></table>
 
         <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX">&nbsp;</span></p>
 
@@ -11474,50 +11806,107 @@ class Templates extends CI_Controller {
 
                 <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="color:rgb(31,73,125)">&nbsp;</span><span lang="ES-CO"></span></p>
 
-                <table class="m_-2942958292281350867gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
-                 <tbody><tr style="height:29.05pt">
-                  <td width="330" valign="top" style="width:247.7pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-                  <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO</span></b><span lang="ES-CO"></span></p>
-                  <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-                  <hr size="2" width="100%" align="center">
-                  </span></b></div>
-                  </td>
-                  <td width="265" valign="top" style="width:198.45pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-                  <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b><span lang="ES-CO"></span></p>
-                  <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-                  <hr size="2" width="100%" align="center">
-                  </span></b></div>
-                  <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b><span lang="ES-CO"></span></p>
-                  </td>
-                 </tr>
-                 <tr style="height:14.3pt">
-                  <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-                  <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO">INGENIERO
-                  IMPLEMENTACIÓN</span></b><span lang="ES-CO"></span></p>
-                  </td>
-                  <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-                  <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo11'] . '</span></b><span lang="ES-CO"></span></p>
-                  </td>
-                 </tr>
-                 <tr style="height:12.5pt">
-                  <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-                  <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO">TELEFONOS
-                  DE CONTACTO</span></b><span lang="ES-CO"></span></p>
-                  </td>
-                  <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-                  <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo12'] . '</span></b><span lang="ES-CO"></span></p>
-                  </td>
-                 </tr>
-                 <tr style="height:12.5pt">
-                  <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-                  <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO">EMAIL
-                  </span></b><span lang="ES-CO"></span></p>
-                  </td>
-                  <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-                  <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo13'] . '</span></b><span lang="ES-CO"></span></p>
-                  </td>
-                 </tr>
-                </tbody></table>
+                <table class="m_5089500533639821532gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
+                <tbody><tr style="height:29.05pt">
+                 <td width="227" colspan="3" valign="top" style="width:6cm;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+                 <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO<span></span></span></b></p>
+                 <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">
+                 <hr size="2" width="100%" align="center">
+                 </span></b></div>
+                 </td>
+                 <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+                 <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+                 <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+                 <hr size="2" width="100%" align="center">
+                 </span></b></div>
+                 <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+                 </td>
+                </tr>
+                <tr style="height:14.3pt">
+                 <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:14.3pt">
+                 <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 1<span></span></span></b></p>
+                 </td>
+                </tr>
+                <tr style="height:14.3pt">
+                 <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:14.3pt">
+                 <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:<span></span></span></b></p>
+                 </td>
+                 <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm 5.4pt;height:14.3pt">
+                 <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo11'] . '</span></span></b></p>
+                 </td>
+                </tr>
+                <tr style="height:12.5pt">
+                 <td width="151" colspan="2" valign="top" style="width:113.2pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+                 <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+                 Contacto:<span></span></span></b></p>
+                 </td>
+                 <td width="161" colspan="2" valign="top" style="width:120.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+                 <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo12'] . '</span></span></b></p>
+                 </td>
+                 <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+                 <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+                 </td>
+                 <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+                 <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo13'] . '</span></span></b></p>
+                 </td>
+                </tr>
+                <tr style="height:12.5pt">
+                 <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+                 <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 2<span></span></span></b></p>
+                 </td>
+                </tr>
+                <tr style="height:12.5pt">
+                 <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+                 <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+                 </td>
+                 <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+                 <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo14'] . '</span></span></b></p>
+                 </td>
+                </tr>
+                <tr style="height:12.5pt">
+                 <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+                 <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+                 Contacto:<span></span></span></b></p>
+                 </td>
+                 <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+                 <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo15'] . '</span></span></b></p>
+                 </td>
+                 <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+                 <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+                 </td>
+                 <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+                 <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo16'] . '</span></span></b></p>
+                 </td>
+                </tr>
+                <tr style="height:12.5pt">
+                 <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+                 <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 3</span></b><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+                 </td>
+                </tr>
+                <tr style="height:12.5pt">
+                 <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+                 <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+                 </td>
+                 <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+                 <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo17'] . '</span></span></b></p>
+                 </td>
+                </tr>
+                <tr style="height:12.5pt">
+                 <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+                 <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+                 Contacto:<span></span></span></b></p>
+                 </td>
+                 <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+                 <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo18'] . '</span></span></b></p>
+                 </td>
+                 <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+                 <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+                 </td>
+                 <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+                 <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo19'] . '</span></span></b></p>
+                 </td>
+                </tr>
+               </tbody></table>
 
                 <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX">&nbsp;</span></p>
 
@@ -11928,50 +12317,107 @@ class Templates extends CI_Controller {
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="color:rgb(31,73,125)">&nbsp;</span><span lang="ES-CO"></span></p>
 
-        <table class="m_7626555847956450472gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
-        <tbody><tr style="height:29.05pt">
-        <td width="330" valign="top" style="width:247.7pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-        <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO</span></b><span lang="ES-CO"></span></p>
-        <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-        <hr size="2" width="100%" align="center">
-        </span></b></div>
-        </td>
-        <td width="265" valign="top" style="width:198.45pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-        <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b><span lang="ES-CO"></span></p>
-        <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-        <hr size="2" width="100%" align="center">
-        </span></b></div>
-        <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b><span lang="ES-CO"></span></p>
-        </td>
-        </tr>
-        <tr style="height:14.3pt">
-        <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-        <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO">INGENIERO
-        IMPLEMENTACIÓN</span></b><span lang="ES-CO"></span></p>
-        </td>
-        <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-        <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo18'] . '</span></b><span lang="ES-CO"></span></p>
-        </td>
-        </tr>
-        <tr style="height:12.5pt">
-        <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-        <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO">TELEFONOS
-        DE CONTACTO</span></b><span lang="ES-CO"></span></p>
-        </td>
-        <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-        <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo19'] . '</span></b><span lang="ES-CO"></span></p>
-        </td>
-        </tr>
-        <tr style="height:12.5pt">
-        <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-        <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO">EMAIL
-        </span></b><span lang="ES-CO"></span></p>
-        </td>
-        <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-        <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo20'] . '</span></b><span lang="ES-CO"></span></p>
-        </td>
-        </tr>
-        </tbody></table>
+        <table class="m_5089500533639821532gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
+           <tbody><tr style="height:29.05pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO<span></span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 1<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:<span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo18'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="151" colspan="2" valign="top" style="width:113.2pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="161" colspan="2" valign="top" style="width:120.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo19'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo20'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 2<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo21'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo22'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo23'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 3</span></b><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo24'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo25'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo26'] . '</span></span></b></p>
+            </td>
+           </tr>
+          </tbody></table>
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX">&nbsp;</span></b><span lang="ES-CO"></span></p>
 
@@ -12800,47 +13246,107 @@ class Templates extends CI_Controller {
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:12pt;font-family:Arial,sans-serif">Durante todo el Proceso de Instalación puede
         contactar a:</span></p>
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="color:rgb(31,73,125)">&nbsp;</span></p>
-        <table class="m_-6239452084292799827gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
-        <tbody><tr style="height:29.05pt">
-        <td width="330" valign="top" style="width:247.7pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-        <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO</span></b></p>
-        <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-        <hr size="2" width="100%" align="center">
-        </span></b></div>
-        </td>
-        <td width="265" valign="top" style="width:198.45pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-        <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b></p>
-        <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-        <hr size="2" width="100%" align="center">
-        </span></b></div>
-        <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b></p>
-        </td>
-        </tr>
-        <tr style="height:14.3pt">
-        <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-        <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">INGENIERO IMPLEMENTACIÓN</span></b><b><span lang="ES" style="font-size:10pt;font-family:Arial,sans-serif"></span></b></p>
-        </td>
-        <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-        <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo38'] . '</span></b></p>
-        </td>
-        </tr>
-        <tr style="height:12.5pt">
-        <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-        <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">TELEFONOS DE CONTACTO</span></b></p>
-        </td>
-        <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-        <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo39'] . '</span></b></p>
-        </td>
-        </tr>
-        <tr style="height:12.5pt">
-        <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-        <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">EMAIL </span></b></p>
-        </td>
-        <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-        <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo40'] . '</span></b></p>
-        </td>
-        </tr>
-        </tbody></table>
+        <table class="m_5089500533639821532gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
+           <tbody><tr style="height:29.05pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO<span></span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 1<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:<span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo38'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="151" colspan="2" valign="top" style="width:113.2pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="161" colspan="2" valign="top" style="width:120.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo39'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo40'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 2<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo42'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo43'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo44'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 3</span></b><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo45'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo46'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo47'] . '</span></span></b></p>
+            </td>
+           </tr>
+          </tbody></table>
         <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX">&nbsp;</span></p>
         <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX">&nbsp;</span></p>
         <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX">&nbsp;</span></p>
@@ -13695,47 +14201,107 @@ class Templates extends CI_Controller {
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:12pt;font-family:Arial,sans-serif">Durante todo el Proceso de Instalación puede
         contactar a:</span></p>
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="color:rgb(31,73,125)">&nbsp;</span></p>
-        <table class="m_-8871254775591508622gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
-        <tbody><tr style="height:29.05pt">
-        <td width="330" valign="top" style="width:247.7pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-        <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO</span></b></p>
-        <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-        <hr size="2" width="100%" align="center">
-        </span></b></div>
-        </td>
-        <td width="265" valign="top" style="width:198.45pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-        <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b></p>
-        <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-        <hr size="2" width="100%" align="center">
-        </span></b></div>
-        <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b></p>
-        </td>
-        </tr>
-        <tr style="height:14.3pt">
-        <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-        <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">INGENIERO IMPLEMENTACIÓN</span></b><b><span lang="ES" style="font-size:10pt;font-family:Arial,sans-serif"></span></b></p>
-        </td>
-        <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-        <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo9'] . '</span></b></p>
-        </td>
-        </tr>
-        <tr style="height:12.5pt">
-        <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-        <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">TELEFONOS DE CONTACTO</span></b></p>
-        </td>
-        <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-        <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo10'] . '</span></b></p>
-        </td>
-        </tr>
-        <tr style="height:12.5pt">
-        <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-        <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">EMAIL </span></b></p>
-        </td>
-        <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-        <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo11'] . '</span></b></p>
-        </td>
-        </tr>
-        </tbody></table>
+        <table class="m_5089500533639821532gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
+           <tbody><tr style="height:29.05pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO<span></span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 1<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:<span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo9'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="151" colspan="2" valign="top" style="width:113.2pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="161" colspan="2" valign="top" style="width:120.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo10'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo11'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 2<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo12'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo13'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo14'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 3</span></b><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo15'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo16'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo17'] . '</span></span></b></p>
+            </td>
+           </tr>
+          </tbody></table>
         <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX">&nbsp;</span></p>
         <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX">&nbsp;</span></p>
         <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX">&nbsp;</span></p>
@@ -14450,47 +15016,107 @@ class Templates extends CI_Controller {
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="color:rgb(31,73,125)">&nbsp;</span></p>
 
-        <table class="m_8506094506989360803gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
-         <tbody><tr style="height:29.05pt">
-          <td width="330" valign="top" style="width:247.7pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO</span></b></p>
-          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-          <hr size="2" width="100%" align="center">
-          </span></b></div>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b></p>
-          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-          <hr size="2" width="100%" align="center">
-          </span></b></div>
-          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b></p>
-          </td>
-         </tr>
-         <tr style="height:14.3pt">
-          <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">INGENIERO IMPLEMENTACIÓN</span></b><b><span lang="ES" style="font-size:10pt;font-family:Arial,sans-serif"></span></b></p>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-          <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo9'] . '</span></b></p>
-          </td>
-         </tr>
-         <tr style="height:12.5pt">
-          <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">TELEFONOS DE CONTACTO</span></b></p>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo10'] . '</span></b></p>
-          </td>
-         </tr>
-         <tr style="height:12.5pt">
-          <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">EMAIL </span></b></p>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo11'] . '</span></b></p>
-          </td>
-         </tr>
-        </tbody></table>
+        <table class="m_5089500533639821532gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
+           <tbody><tr style="height:29.05pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO<span></span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 1<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:<span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo9'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="151" colspan="2" valign="top" style="width:113.2pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="161" colspan="2" valign="top" style="width:120.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo10'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo11'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 2<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo12'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo13'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo14'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 3</span></b><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo15'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo16'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo17'] . '</span></span></b></p>
+            </td>
+           </tr>
+          </tbody></table>
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX">&nbsp;</span></b></p>
 
@@ -15216,47 +15842,107 @@ class Templates extends CI_Controller {
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="color:rgb(31,73,125)">&nbsp;</span></p>
 
-        <table class="m_2340718961542773961gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
-         <tbody><tr style="height:29.05pt">
-          <td width="330" valign="top" style="width:247.7pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO</span></b></p>
-          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-          <hr size="2" width="100%" align="center">
-          </span></b></div>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b></p>
-          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-          <hr size="2" width="100%" align="center">
-          </span></b></div>
-          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b></p>
-          </td>
-         </tr>
-         <tr style="height:14.3pt">
-          <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">INGENIERO IMPLEMENTACIÓN</span></b><b><span lang="ES" style="font-size:10pt;font-family:Arial,sans-serif"></span></b></p>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-          <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo9'] . '</span></b></p>
-          </td>
-         </tr>
-         <tr style="height:12.5pt">
-          <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">TELEFONOS DE CONTACTO</span></b></p>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo10'] . '</span></b></p>
-          </td>
-         </tr>
-         <tr style="height:12.5pt">
-          <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">EMAIL </span></b></p>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo11'] . '</span></b></p>
-          </td>
-         </tr>
-        </tbody></table>
+        <table class="m_5089500533639821532gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
+           <tbody><tr style="height:29.05pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO<span></span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 1<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:<span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo9'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="151" colspan="2" valign="top" style="width:113.2pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="161" colspan="2" valign="top" style="width:120.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo10'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo11'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 2<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo12'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo13'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo14'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 3</span></b><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo15'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo16'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo17'] . '</span></span></b></p>
+            </td>
+           </tr>
+          </tbody></table>
 
         <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX">&nbsp;</span></p></div>';
 
@@ -15895,47 +16581,107 @@ class Templates extends CI_Controller {
 
             <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="color:rgb(31,73,125)">&nbsp;</span></p>
 
-            <table class="m_-5674245180645535859gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
-             <tbody><tr style="height:29.05pt">
-              <td width="330" valign="top" style="width:247.7pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-              <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO</span></b></p>
-              <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-              <hr size="2" width="100%" align="center">
-              </span></b></div>
-              </td>
-              <td width="265" valign="top" style="width:198.45pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-              <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b></p>
-              <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-              <hr size="2" width="100%" align="center">
-              </span></b></div>
-              <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b></p>
-              </td>
-             </tr>
-             <tr style="height:14.3pt">
-              <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO">INGENIERO
-              IMPLEMENTACIÓN</span></b><b><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif"></span></b></p>
-              </td>
-              <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">' . $argumentos['campo12'] . '
+            <table class="m_5089500533639821532gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
+           <tbody><tr style="height:29.05pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO<span></span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
             </td>
-             </tr>
-             <tr style="height:12.5pt">
-              <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO">TELEFONOS
-              DE CONTACTO</span></b></p>
-              </td>
-              <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">' . $argumentos['campo13'] . '
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
             </td>
-             </tr>
-             <tr style="height:12.5pt">
-              <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO">EMAIL
-              </span></b></p>
-              </td>
-              <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">' . $argumentos['campo14'] . '
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 1<span></span></span></b></p>
             </td>
-             </tr>
-            </tbody></table>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:<span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo12'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="151" colspan="2" valign="top" style="width:113.2pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="161" colspan="2" valign="top" style="width:120.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo13'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo14'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 2<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo15'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo16'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo17'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 3</span></b><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo18'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo19'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo20'] . '</span></span></b></p>
+            </td>
+           </tr>
+          </tbody></table>
 
             <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX">&nbsp;</span></b></p>
 
