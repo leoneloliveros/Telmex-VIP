@@ -370,7 +370,7 @@ class OtPadre extends CI_Controller {
                     $newFields['estado_ko'] = $value[1];
                     $newFields['observaciones_ko'] = $value[2];
                     break;
-                
+
                 case 'VISITA OBRA CIVIL TERCEROS':
                 case 'VISITA OBRA CIVIL':
                     $newFields['f_compromiso_voc'] = $value[0];
@@ -382,25 +382,25 @@ class OtPadre extends CI_Controller {
                         $newFields['tipo_voc'] = 'VISITA OBRA CIVIL TERCEROS';
                     }
                     break;
-                
+
                 case 'ENVIÓ COTIZACIÓN':
                     $newFields['f_compromiso_ec'] = $value[0];
                     $newFields['estado_ec'] = $value[1];
                     $newFields['observaciones_ec'] = $value[2];
                     break;
-                
+
                 case 'APROBACIÓN COTIZACIÓN OC':
                     $newFields['f_compromiso_ac'] = $value[0];
                     $newFields['estado_ac'] = $value[1];
                     $newFields['observaciones_ac'] = $value[2];
                     break;
-                
+
                 case 'SOLICITUD INFORMACIÓN TÉCNICA':
                     $newFields['f_compromiso_sit'] = $value[0];
                     $newFields['estado_sit'] = $value[1];
                     $newFields['observaciones_sit'] = $value[2];
                     break;
-                
+
                 case 'VISITA EJECUCION OBRA CIVIL TERCERO':
                 case 'VISITA EJECUCION OBRA CIVIL':
                     $newFields['f_compromiso_veoc'] = $value[0];
@@ -411,21 +411,21 @@ class OtPadre extends CI_Controller {
                     } else {
                         $newFields['tipo_veoc'] = 'VISITA EJECUCION OBRA CIVIL TERCERO';
                     }
-                    
+
                     break;
-                
+
                 case 'EMPALMES':
                     $newFields['f_compromiso_empalmes'] = $value[0];
                     $newFields['estado_empalmes'] = $value[1];
                     $newFields['observaciones_empalmes'] = $value[2];
                     break;
-                
+
                 case 'CONFIGURACION':
                     $newFields['f_compromiso_crc'] = $value[0];
                     $newFields['estado_crc'] = $value[1];
                     $newFields['observaciones_crc'] = $value[2];
                     break;
-                
+
                 case 'VISITA ENTREGA DE SERVICIO':
                     $newFields['f_compromiso_veut'] = $value[0];
                     $newFields['estado_veut'] = $value[1];
@@ -460,6 +460,7 @@ class OtPadre extends CI_Controller {
        exit();*/
 
         foreach ($ids_otp as $idOtp) {
+            $observaciones = '';
             //actualizar la ultima fecha de envio de reporte de loa ot padre (CAMILO)
             $this->Dao_ot_padre_model->update_ot_padre(array('ultimo_envio_reporte' => date('Y-m-d')), $idOtp);
 
@@ -526,7 +527,7 @@ class OtPadre extends CI_Controller {
                                         <td colspan="2" rowspan="'.count($fechasAEnviar).'" class="m_-7809522729103588979gmail-xl75" style="border-width:0.5pt;border-style:solid;border-color:windowtext black black windowtext;text-align:left;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $observaciones . '</td>
                                         </tr>';
                                         break;
-                                    
+
                                     case 'f_compromiso_voc':
                                         $template .= '<tr height="20" style="height:15pt">
                                         <td height="15" class="m_-7809522729103588979gmail-xl67" style="height:30pt;border-top:none;text-align:center;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . (($hitosotp->actividad_actual == 'VISITA OBRA CIVIL' || $hitosotp->actividad_actual == 'VISITA OBRA CIVIL TERCEROS') ? '#4bd605' : '#7c7c7c') . ';">'.$numFila.'</div></td>
@@ -535,7 +536,7 @@ class OtPadre extends CI_Controller {
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->estado_voc . '</td>
                                      </tr>';
                                         break;
-                                    
+
                                     case 'f_compromiso_ec':
                                         $template .= '<tr height="20" style="height:15pt">
                                         <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'ENVIO COTIZACION' ? '#4bd605' : '#7c7c7c') . ';">'.$numFila.'</div></td>
@@ -544,7 +545,7 @@ class OtPadre extends CI_Controller {
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->estado_ec . '</td>
                                        </tr>';
                                         break;
-                                    
+
                                     case 'f_compromiso_ac':
                                         $template .= '<tr height="20" style="height:15pt">
                                         <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'APROBACION COTIZACION' ? '#4bd605' : '#7c7c7c') . ';">'.$numFila.'</div></td>
@@ -553,7 +554,7 @@ class OtPadre extends CI_Controller {
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->estado_ac . '</td>
                                      </tr>';
                                         break;
-                                    
+
                                     case 'f_compromiso_sit':
                                         $template .= '<tr height="20" style="height:15pt">
                                         <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'SOLICITUD INFORMACIÓN TECNICA' ? '#4bd605' : '#7c7c7c') . ';">'.$numFila.'</div></td>
@@ -562,7 +563,7 @@ class OtPadre extends CI_Controller {
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->estado_sit . '</td>
                                        </tr>';
                                         break;
-                                    
+
                                     case 'f_compromiso_veoc':
                                         $template .= '<tr height="20" style="height:15pt">
                                         <td height="15" class="m_-7809522729103588979gmail-xl73" style="border-bottom:0.5pt solid black;height:30pt;border-top:none;text-align:center;border-right:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'VISITA EJECUCION OBRA CIVIL' || $hitosotp->actividad_actual == 'VISITA EJECUCION OBRA CIVIL TERCERO' ? '#4bd605' : '#7c7c7c') . ';">'.$numFila.'</div></td>
@@ -571,7 +572,7 @@ class OtPadre extends CI_Controller {
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->estado_veoc . '</td>
                                      </tr>';
                                         break;
-                                    
+
                                     case 'f_compromiso_empalmes':
                                         $template .= '<tr height="20" style="height:15pt">
                                         <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'EMPALMES' ? '#4bd605' : '#7c7c7c') . ';">'.$numFila.'</div></td>
@@ -580,7 +581,7 @@ class OtPadre extends CI_Controller {
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->estado_empalmes . '</td>
                                         </tr>';
                                             break;
-                                    
+
                                     case 'f_compromiso_crc':
                                         $template .= '<tr height="20" style="height:15pt">
                                         <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'CONFIGURACION RED CLARO' ? '#4bd605' : '#7c7c7c') . ';">'.$numFila.'</div></td>
@@ -589,7 +590,7 @@ class OtPadre extends CI_Controller {
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->estado_crc . '</td>
                                      </tr>';
                                         break;
-                                    
+
                                     case 'f_compromiso_veut':
                                         $template .= '<tr height="20" style="height:15pt">
                                         <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'VISITA ENTREGA UM TERCEROS' ? '#4bd605' : '#7c7c7c') . ';">'.$numFila.'</div></td>
@@ -598,15 +599,15 @@ class OtPadre extends CI_Controller {
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->estado_veut . '</td>
                                         </tr>';
                                     break;
-                                    
+
                                 }
                                 $numFila++;
                             }
-                        $template.=`</tbody>
+                        $template.='</tbody>
                                     </table>
                                 </div>
-                                <br><br>`;
-                                
+                                <br><br>';
+
                         // echo("<pre>"); print_r($template); echo("</pre>");
         }
 
@@ -649,9 +650,9 @@ class OtPadre extends CI_Controller {
             <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Correo: <span style="color:#4f81bd"> <a href="mailto:alejandra.rendon.ext@claro.com.co" target="_blank"><span style="color:#4f81bd">alejandra.rendon.ext@claro.<wbr>com.co</span></a> </span></span><u></u><u></u></p>
             <p class="MsoNormal"><u></u>&nbsp;<u></u></p>
             <p class="m_-5751456617445139844xmsonormal" style="text-align:justify"><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Nivel de Contacto 3:</span></strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;"> En caso de que no se obtenga respuesta por parte del Nivel de Contacto &nbsp;1.</span><u></u><u></u></p>
-            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Coordinador Estándar: &nbsp;Maria Marcela Rojas<u></u><u></u></span></p>
-            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Teléfono.7500300&nbsp; Ext 83037 &nbsp;&nbsp;Celular 3133337675<u></u><u></u></span></p>
-            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Correo: <a href="mailto:maria.rojasa@claro.com.co" target="_blank"> maria.rojasa@claro.com.co</a><u></u><u></u></span></p>
+            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Coordinador Estándar: &nbsp;Angelica Palomino<u></u><u></u></span></p>
+            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Teléfono.7500300&nbsp; Ext 83746 &nbsp;&nbsp;Celular 3202750048<u></u><u></u></span></p>
+            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Correo: <span style="color:#4f81bd"> <a href="mailto:angelica.palomino@claro.com.co" target="_blank"><span style="color:#4f81bd">angelica.palomino@claro.<wbr>com.co</span></a> </span></span><u></u><u></u></p>
             <p class="MsoNormal"><u></u>&nbsp;<u></u></p>
 
             <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont; color: rgb(31, 73, 125);">&nbsp;</span></p>

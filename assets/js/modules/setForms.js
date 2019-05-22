@@ -14,12 +14,12 @@ $(function() {
             // primera seccion, la dejo true porque no se si hay plantillas que no necesite la primera seccion
 
             if (servicio_val === '30' || servicio_val === '31') {
-				$("#reporteInicioFormModal").hide();
-				form += setForm.noNecesitaReporteInicio();
-            }else{
-				$("#reporteInicioFormModal").show();
-				form += setForm.primeraSeccionServicio(nombre_cliente, servicio_nombre);
-			}
+                $("#reporteInicioFormModal").hide();
+                form += setForm.noNecesitaReporteInicio();
+            } else {
+                $("#reporteInicioFormModal").show();
+                form += setForm.primeraSeccionServicio(nombre_cliente, servicio_nombre);
+            }
 
             switch (servicio_val) {
                 case '1': // internet dedicado empresarial
@@ -52,10 +52,10 @@ $(function() {
                 case '10': // MPLS Transaccional 3G
                     form += setForm.MPLS_Transaccional_3G(direccion_destino);
                     break;
-					/*plantillas nuevas*/
+                    /*plantillas nuevas*/
                 case '11': // Adición Marquillas Aeropuerto el Dorado Opain
                     form += setForm.adicion_marquillas_aeropuerto_el_dorado_opain(direccion_destino, arg.otp);
-					break;
+                    break;
                 case '12': // Cambio de Equipos Servicio
                     form += setForm.cambio_de_equipos_servicio(direccion_destino, arg.otp);
                     break;
@@ -93,21 +93,21 @@ $(function() {
                     form += setForm.cambio_de_equipo(direccion_destino);
                     break;
                 case '24'://  PL ETHERNET
-                    form +=setForm.pl_ethernet(direccion_destino);
+                    form += setForm.pl_ethernet(direccion_destino);
             }
 
-            if (servicio_val === '30' || servicio_val === '31') {
-				//nada alert("aa")
-			}else form += setForm.ultimaSeccionServicio(servicio_val);
+            if (servicio_val !== '30' || servicio_val !== '31') {
+                form += setForm.ultimaSeccionServicio(servicio_val)
+            }
 
             return form;
 
-		},
+        },
 
-		//retorna msg de que tal servicio no tiene reporte de inicio
-		noNecesitaReporteInicio: function(){
-			return "<fieldset class='widget'><h5><b>Este servicio no contiene reporte de inicio</b></h5></fieldset>";
-		},
+        //retorna msg de que tal servicio no tiene reporte de inicio
+        noNecesitaReporteInicio: function() {
+            return "<fieldset class='widget'><h5><b>Este servicio no contiene reporte de inicio</b></h5></fieldset>";
+        },
         // retorna la primera seccion de los formularios de servicio
         primeraSeccionServicio: function(nombre_cliente, servicio_nombre) {
             // comentariada la seccion de elegir a quien va dirigido
@@ -862,7 +862,7 @@ $(function() {
         // ultima seccion de servicios
         ultimaSeccionServicio: function(num_service) {
             let cadena = '';
-             cadena += `<div class="widget bg_white m-t-25 d-inline-b cliente">
+            cadena += `<div class="widget bg_white m-t-25 d-inline-b cliente">
 					    <fieldset class="col-md-6">
 					        <div class="form-group ingeniero1">
 					            <label for="proveedor_ultima_milla" class="col-md-3 control-label">Ingeniero 1: &nbsp;</label>
@@ -895,9 +895,9 @@ $(function() {
 					        </div>
 					    </fieldset>
 					    <!--  fin seccion izquierda form---->`;
-					if (num_service <= 10) {
+//            if (num_service <= 10) {
 
-					   cadena += `
+            cadena += `
 					   <!--  inicio seccion derecha form---->
 					    <fieldset class="col-md-6">
 					        <div class="form-group ingeniero2 ">
@@ -965,10 +965,10 @@ $(function() {
 					            </div>
 					        </div>
 					    </fieldset>`;
-					}
+//            }
 
-					cadena += `</div>`;
-					return cadena;
+            cadena += `</div>`;
+            return cadena;
         },
 
         /*PLANTILLAS DE SERVICIO NUEVAS*/
@@ -2693,8 +2693,8 @@ $(function() {
             `;
         },
         //opcion servicio 24
-        pl_ethernet: function(direccion_destino){
-        	return `
+        pl_ethernet: function(direccion_destino) {
+            return `
 				<div class="widget bg_white m-t-25 d-inline-b cliente">
 				    <fieldset class="col-md-6">
 						<!--*********************  INPUT TEXT  *********************-->
@@ -2801,12 +2801,12 @@ $(function() {
 
                     break;
                 case '30': // CASO ESPECIAL PRODUCCTO PRIVATE LINE
-                form += setForm.formProduct_private_line(arg.otp);
-                	break;
+                    form += setForm.formProduct_private_line(arg.otp);
+                    break;
 
                 case '31': // CASO ESPECIAL PRODUCCTO LAN ADMINISTRADA
-                form += setForm.formProduct_lan_administrada(arg.otp);
-                	break;
+                    form += setForm.formProduct_lan_administrada(arg.otp);
+                    break;
             }
             return form;
         },
@@ -11596,8 +11596,8 @@ $(function() {
         },
 
         //PRIVATE LINE
-	    formProduct_private_line: function(otp){
-	    	return `
+        formProduct_private_line: function(otp) {
+            return `
 	    		<legend class="f-s-15"><strong>¿Es un cliente nuevo?</strong>
             		<div class="btn-cami_cool max-w_border-n">
             		 	<span>NO</span><label class="switch">
@@ -12227,11 +12227,11 @@ $(function() {
 	        	<div class="tab-pane fade" id="mpls_punto_origen"></div>
 	        </div>
 	           	`;
-   		},
+        },
 
         //PRIVATE LINE ORIGEN
-        formProduct_private_line_origen: function (otp){
-        	return `
+        formProduct_private_line_origen: function(otp) {
+            return `
 	          	<!--*********************  PUNTO DE ORIGEN  *********************-->
 					<h3>
 					PUNTO DE ORIGEN
@@ -13196,8 +13196,8 @@ $(function() {
         },
 
         //LAN ADMINISTRADA
-	    formProduct_lan_administrada: function(otp){
-	    	return `
+        formProduct_lan_administrada: function(otp) {
+            return `
 	    	<h2 class="h4"><i class="fa fa-eye"></i> &nbsp; Formulario Cierre de Kickoff  <small>LAN ADMINISTRADA</small></h2>
 			<div class="widget bg_white m-t-25 d-inline-b cliente">
 
@@ -13602,7 +13602,7 @@ $(function() {
 				</div>
 			</div>
 			    	`;
-	    }
+        }
     };
     setForm.init();
 });
