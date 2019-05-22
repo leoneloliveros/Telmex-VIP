@@ -1916,14 +1916,17 @@ class Templates extends CI_Controller {
                 'campo17' => $p['ingeniero3_email'], // EMAIL
             );
 
-            $list_ciudades = $this->set_cities();
-            foreach ($list_ciudades as $key => $ciudad) {
-                if (in_array($ciudad, $p['campo6'])) {
-                    $argumentos['campo6'][$ciudad] = 'X';
-                } else {
-                    $argumentos['campo6'][$ciudad] = '';
+            if (isset($p['campo6'])) {
+                $list_ciudades = $this->set_cities();
+                foreach ($list_ciudades as $key => $ciudad) {
+                    if (in_array($ciudad, $p['campo6'])) {
+                        $argumentos['campo6'][$ciudad] = 'X';
+                    } else {
+                        $argumentos['campo6'][$ciudad] = '';
+                    }
                 }
             }
+
 
             break;
         case ($s == 15): // Traslado Externo Servicio
@@ -2126,12 +2129,14 @@ class Templates extends CI_Controller {
                 'campo17' => $p['ingeniero3_email'], //EMAIL
             );
 
-            $list_ciudades = $this->set_cities();
-            foreach ($list_ciudades as $key => $ciudad) {
-                if (in_array($ciudad, $p['campo6'])) {
-                    $argumentos['campo6'][$ciudad] = 'X';
-                } else {
-                    $argumentos['campo6'][$ciudad] = '';
+            if (isset($p['campo6'])) {
+                $list_ciudades = $this->set_cities();
+                foreach ($list_ciudades as $key => $ciudad) {
+                    if (in_array($ciudad, $p['campo6'])) {
+                        $argumentos['campo6'][$ciudad] = 'X';
+                    } else {
+                        $argumentos['campo6'][$ciudad] = '';
+                    }
                 }
             }
             break;
@@ -2142,7 +2147,7 @@ class Templates extends CI_Controller {
                 'campo3'  => $p['servicio'], // servicio
                 'campo4'  => $p['campo4'], // Dirección Destino
                 'campo5'  => $p['campo5'], // Cantidad de DID
-                'campo6'  => $p['campo6'], // ciudades
+                // 'campo6'  => $p['campo6'], // ciudades
                 'campo7'  => $fActual, // inicio al Proceso de instalación del Servicio
                 'campo8'  => $p['campo8'], // Fecha de Entrega de su servicio
                 'campo9'  => $p['ingeniero1'], // INGENIERO IMPLEMENTACIÓN
@@ -2155,12 +2160,14 @@ class Templates extends CI_Controller {
                 'campo16' => $p['ingeniero3_tel'], // TELEFONOS DE CONTACTO
                 'campo17' => $p['ingeniero3_email'], // EMAIL
             );
-            $list_ciudades = $this->set_cities();
-            foreach ($list_ciudades as $key => $ciudad) {
-                if (in_array($ciudad, $p['campo6'])) {
-                    $argumentos['campo6'][$ciudad] = 'X';
-                } else {
-                    $argumentos['campo6'][$ciudad] = '';
+            if (isset($p['campo6'])) {
+                $list_ciudades = $this->set_cities();
+                foreach ($list_ciudades as $key => $ciudad) {
+                    if (in_array($ciudad, $p['campo6'])) {
+                        $argumentos['campo6'][$ciudad] = 'X';
+                    } else {
+                        $argumentos['campo6'][$ciudad] = '';
+                    }
                 }
             }
             break;
@@ -2171,9 +2178,9 @@ class Templates extends CI_Controller {
                 'campo3'  => $p['servicio'], // servicio
                 'campo4'  => $p['campo4'], // Dirección Destino
                 'campo5'  => $p['campo5'], // Cantidad de DID
-                'campo6'  => $p['campo6'], // ciudades
+                // 'campo6'  => $p['campo6'], // ciudades
                 'campo7'  => $fActual, // inicio al Proceso de instalación del Servicio
-                'campo8'  => $p['campo8'], // Fecha de Entrega de su servicio
+                'campo8'  => ((isset($p['campo8'])) ? $p['campo8'] : ''), // Fecha de Entrega de su servicio
                 'campo9'  => $p['ingeniero1'], // INGENIERO IMPLEMENTACIÓN
                 'campo10' => $p['ingeniero1_tel'], // TELEFONOS DE CONTACTO
                 'campo11' => $p['ingeniero1_email'], // EMAIL
@@ -2184,12 +2191,14 @@ class Templates extends CI_Controller {
                 'campo16' => $p['ingeniero3_tel'], // TELEFONOS DE CONTACTO
                 'campo17' => $p['ingeniero3_email'], // EMAIL
             );
-            $list_ciudades = $this->set_cities();
-            foreach ($list_ciudades as $key => $ciudad) {
-                if (in_array($ciudad, $p['campo6'])) {
-                    $argumentos['campo6'][$ciudad] = 'X';
-                } else {
-                    $argumentos['campo6'][$ciudad] = '';
+            if (isset($p['campo6'])) {
+                $list_ciudades = $this->set_cities();
+                foreach ($list_ciudades as $key => $ciudad) {
+                    if (in_array($ciudad, $p['campo6'])) {
+                        $argumentos['campo6'][$ciudad] = 'X';
+                    } else {
+                        $argumentos['campo6'][$ciudad] = '';
+                    }
                 }
             }
             break;
@@ -2274,7 +2283,7 @@ class Templates extends CI_Controller {
                 'campo3'  => $p['servicio'], //servicio
                 'campo4'  => $p['campo4'], //Dirección Sede
                 'campo5'  => $p['campo5'], //BW Actual
-                'campo6'  => $p['campo6'], //BW Nuevo
+                'campo6'  => (isset($p['campo6']) ? $p['campo6'] : ''), //BW Nuevo
                 // 'campo7' => $p['campo7'], //Requiere Cambio de equipo (si)
                 // 'campo7' => $p['campo7'], //Requiere Cambio de equipo (no)
                 // 'campo8' => $p['campo8'], //Existen otros Servicios a Modificar(si)
@@ -10758,127 +10767,127 @@ class Templates extends CI_Controller {
          </tr>
          <tr style="height:16.45pt">
           <td width="127" style="width:95.25pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0in;height:16.45pt">
-          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Bogota: &nbsp;(' . $argumentos['campo6']['Bogota'] . '&nbsp;
+          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Bogota: &nbsp;(' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Bogota'] : '') . '&nbsp;
           )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Yopal: (&nbsp;' . $argumentos['campo6']['Yopal'] . ' )</span></b><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Yopal: (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Yopal'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" colspan="2" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Neiva:&nbsp; (&nbsp;
-         ' . $argumentos['campo6']['Neiva'] . ' )</span></b><span lang="ES-CO"></span></p>
+         ' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Neiva'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" colspan="2" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Montería:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Montería'] . ' )</span></b><span lang="ES-CO"></span></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Montería'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Manizales:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Manizales'] . ' )</span></b><span lang="ES-CO"></span></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Manizales'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Sogamoso:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Sogamoso'] . ' )</span></b><span lang="ES-CO"></span></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Sogamoso'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
          </tr>
          <tr style="height:16.45pt">
           <td width="127" style="width:95.25pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0in;height:16.45pt">
-          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Tunja:&nbsp; (&nbsp;' . $argumentos['campo6']['Tunja'] . ')</span></b><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Tunja:&nbsp; (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Tunja'] : '') . ')</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Cali:&nbsp; (&nbsp;' . $argumentos['campo6']['Cali'] . ' )</span></b><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Cali:&nbsp; (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Cali'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" colspan="2" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Medellín:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Medellín'] . ' )</span></b><span lang="ES-CO"></span></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Medellín'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" colspan="2" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Valledupar:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Valledupar'] . ' )</span></b><span lang="ES-CO"></span></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Valledupar'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Ibagué:&nbsp; (&nbsp;' . $argumentos['campo6']['Ibagué'] . '
+          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Ibagué:&nbsp; (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Ibagué'] : '') . '
           )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Flandes:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Flandes'] . ' )</span></b><span lang="ES-CO"></span></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Flandes'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
          </tr>
          <tr style="height:16.45pt">
           <td width="127" style="width:95.25pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Villavicencio:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Villavicencio'] . ')</span></b><span lang="ES-CO"></span></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Villavicencio'] : '') . ')</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Buenaventura:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Buenaventura'] . ' )</span></b><span lang="ES-CO"></span></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Buenaventura'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" colspan="2" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Barranquilla:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Barranquilla'] . ' )</span></b><span lang="ES-CO"></span></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Barranquilla'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" colspan="2" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Sincelejo:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Sincelejo'] . ' )</span></b><span lang="ES-CO"></span></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Sincelejo'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Cúcuta:&nbsp; (&nbsp;
-        ' . $argumentos['campo6']['Cúcuta'] . ' )</span></b><span lang="ES-CO"></span></p>
+        ' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Cúcuta'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Rivera:&nbsp; (&nbsp;' . $argumentos['campo6']['Rivera'] . '
+          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Rivera:&nbsp; (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Rivera'] : '') . '
           )</span></b><span lang="ES-CO"></span></p>
           </td>
          </tr>
          <tr style="height:16.45pt">
           <td width="127" style="width:95.25pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Facatativá:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Facatativá'] . ')</span></b><span lang="ES-CO"></span></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Facatativá'] : '') . ')</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Pasto:&nbsp; (&nbsp;
-        ' . $argumentos['campo6']['Pasto'] . '  )</span></b><span lang="ES-CO"></span></p>
+        ' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Pasto'] : '') . '  )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" colspan="2" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Cartagena:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Cartagena'] . ' )</span></b><span lang="ES-CO"></span></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Cartagena'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" colspan="2" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Pereira:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Pereira'] . ' )</span></b><span lang="ES-CO"></span></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Pereira'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Bucaramanga:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Bucaramanga'] . ' )</span></b><span lang="ES-CO"></span></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Bucaramanga'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Aipe:&nbsp; (&nbsp;' . $argumentos['campo6']['Aipe'] . ' )</span></b><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Aipe:&nbsp; (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Aipe'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
          </tr>
          <tr style="height:16.45pt">
           <td width="127" style="width:95.25pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Girardot:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Girardot'] . ' )</span></b><span lang="ES-CO"></span></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Girardot'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Popayán:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Popayán'] . ' )</span></b><span lang="ES-CO"></span></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Popayán'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" colspan="2" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Santa Marta:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Santa_Marta'] . ' )</span></b><span lang="ES-CO"></span></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Santa_Marta'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" colspan="2" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Armenia:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Armenia'] . ' )</span></b><span lang="ES-CO"></span></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Armenia'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Duitama:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Duitama'] . ' )</span></b><span lang="ES-CO"></span></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Duitama'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Lebrija: (&nbsp;' . $argumentos['campo6']['Lebrija'] . ' )</span></b><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Lebrija: (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Lebrija'] : '') . ' )</span></b><span lang="ES-CO"></span></p>
           </td>
          </tr>
          <tr>
@@ -13476,128 +13485,128 @@ class Templates extends CI_Controller {
         </tr>
         <tr style="height:16.45pt">
         <td width="127" style="width:95.25pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0in;height:16.45pt">
-        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Bogota: &nbsp;(&nbsp;' . $argumentos['campo6']['Bogota'] . '
+        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Bogota: &nbsp;(&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Bogota'] : '') . '
         )</span></b></p>
         </td>
         <td width="127" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Yopal: (&nbsp;' . $argumentos['campo6']['Yopal'] . ' )</span></b></p>
+        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Yopal: (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Yopal'] : '') . ' )</span></b></p>
         </td>
         <td width="127" colspan="2" style="width:95.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Neiva:&nbsp; (&nbsp;' . $argumentos['campo6']['Neiva'] . '
+        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Neiva:&nbsp; (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Neiva'] : '') . '
         )</span></b></p>
         </td>
         <td width="127" colspan="2" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Montería:&nbsp;
-        (&nbsp;' . $argumentos['campo6']['Montería'] . ' )</span></b></p>
+        (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Montería'] : '') . ' )</span></b></p>
         </td>
         <td width="127" style="width:95.2pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Manizales:&nbsp;
-        (&nbsp;' . $argumentos['campo6']['Manizales'] . ' )</span></b></p>
+        (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Manizales'] : '') . ' )</span></b></p>
         </td>
         <td width="127" style="width:95.2pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Sogamoso:&nbsp;
-        (&nbsp;' . $argumentos['campo6']['Sogamoso'] . ' )</span></b></p>
+        (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Sogamoso'] : '') . ' )</span></b></p>
         </td>
         </tr>
         <tr style="height:16.45pt">
         <td width="127" style="width:95.25pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0in;height:16.45pt">
-        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Tunja:&nbsp; (&nbsp;' . $argumentos['campo6']['Tunja'] . '
+        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Tunja:&nbsp; (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Tunja'] : '') . '
         )</span></b></p>
         </td>
         <td width="127" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Cali:&nbsp; (&nbsp;' . $argumentos['campo6']['Cali'] . ' )</span></b></p>
+        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Cali:&nbsp; (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Cali'] : '') . ' )</span></b></p>
         </td>
         <td width="127" colspan="2" style="width:95.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Medellín:&nbsp;
-        (&nbsp;' . $argumentos['campo6']['Medellín'] . ' )</span></b></p>
+        (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Medellín'] : '') . ' )</span></b></p>
         </td>
         <td width="127" colspan="2" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Valledupar:&nbsp;
-        (&nbsp;' . $argumentos['campo6']['Valledupar'] . ' )</span></b></p>
+        (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Valledupar'] : '') . ' )</span></b></p>
         </td>
         <td width="127" style="width:95.2pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Ibagué:&nbsp; (&nbsp;' . $argumentos['campo6']['Ibagué'] . '
+        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Ibagué:&nbsp; (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Ibagué'] : '') . '
         )</span></b></p>
         </td>
         <td width="127" style="width:95.2pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Flandes:&nbsp;
-        (&nbsp;' . $argumentos['campo6']['Flandes'] . ' )</span></b></p>
+        (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Flandes'] : '') . ' )</span></b></p>
         </td>
         </tr>
         <tr style="height:16.45pt">
         <td width="127" style="width:95.25pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0in;height:16.45pt">
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Villavicencio:&nbsp;
-        (&nbsp;' . $argumentos['campo6']['Villavicencio'] . ' )</span></b></p>
+        (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Villavicencio'] : '') . ' )</span></b></p>
         </td>
         <td width="127" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Buenaventura:&nbsp;
-        (&nbsp;' . $argumentos['campo6']['Buenaventura'] . ' )</span></b></p>
+        (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Buenaventura'] : '') . ' )</span></b></p>
         </td>
         <td width="127" colspan="2" style="width:95.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Barranquilla:&nbsp;
-        (&nbsp;' . $argumentos['campo6']['Barranquilla'] . ' )</span></b></p>
+        (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Barranquilla'] : '') . ' )</span></b></p>
         </td>
         <td width="127" colspan="2" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Sincelejo:&nbsp;
-        (&nbsp;' . $argumentos['campo6']['Sincelejo'] . ' )</span></b></p>
+        (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Sincelejo'] : '') . ' )</span></b></p>
         </td>
         <td width="127" style="width:95.2pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Cúcuta:&nbsp; (&nbsp;' . $argumentos['campo6']['Cúcuta'] . '
+        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Cúcuta:&nbsp; (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Cúcuta'] : '') . '
         )</span></b></p>
         </td>
         <td width="127" style="width:95.2pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Rivera:&nbsp; (&nbsp;' . $argumentos['campo6']['Rivera'] . '
+        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Rivera:&nbsp; (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Rivera'] : '') . '
         )</span></b></p>
         </td>
         </tr>
         <tr style="height:16.45pt">
         <td width="127" style="width:95.25pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0in;height:16.45pt">
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Facatativá:&nbsp;
-        (&nbsp;' . $argumentos['campo6']['Facatativá'] . ' )</span></b></p>
+        (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Facatativá'] : '') . ' )</span></b></p>
         </td>
         <td width="127" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Pasto:&nbsp; (&nbsp;' . $argumentos['campo6']['Pasto'] . '
+        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Pasto:&nbsp; (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Pasto'] : '') . '
         )</span></b></p>
         </td>
         <td width="127" colspan="2" style="width:95.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Cartagena:&nbsp;
-        (&nbsp;' . $argumentos['campo6']['Cartagena'] . ' )</span></b></p>
+        (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Cartagena'] : '') . ' )</span></b></p>
         </td>
         <td width="127" colspan="2" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Pereira:&nbsp;
-        (&nbsp;' . $argumentos['campo6']['Pereira'] . ' )</span></b></p>
+        (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Pereira'] : '') . ' )</span></b></p>
         </td>
         <td width="127" style="width:95.2pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Bucaramanga:&nbsp;
-        (&nbsp;' . $argumentos['campo6']['Bucaramanga'] . ' )</span></b></p>
+        (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Bucaramanga'] : '') . ' )</span></b></p>
         </td>
         <td width="127" style="width:95.2pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Aipe:&nbsp; (&nbsp;' . $argumentos['campo6']['Aipe'] . ' )</span></b></p>
+        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Aipe:&nbsp; (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Aipe'] : '') . ' )</span></b></p>
         </td>
         </tr>
         <tr style="height:16.45pt">
         <td width="127" style="width:95.25pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0in;height:16.45pt">
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Girardot:&nbsp;
-        (&nbsp;' . $argumentos['campo6']['Girardot'] . ' )</span></b></p>
+        (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Girardot'] : '') . ' )</span></b></p>
         </td>
         <td width="127" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Popayán:&nbsp;
-        (&nbsp;' . $argumentos['campo6']['Popayán'] . ' )</span></b></p>
+        (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Popayán'] : '') . ' )</span></b></p>
         </td>
         <td width="127" colspan="2" style="width:95.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Santa Marta:&nbsp;
-        (&nbsp;' . $argumentos['campo6']['Santa_Marta'] . ' )</span></b></p>
+        (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Santa_Marta'] : '') . ' )</span></b></p>
         </td>
         <td width="127" colspan="2" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Armenia:&nbsp;
-        (&nbsp;' . $argumentos['campo6']['Armenia'] . ' )</span></b></p>
+        (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Armenia'] : '') . ' )</span></b></p>
         </td>
         <td width="127" style="width:95.2pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Duitama:&nbsp;
-        (&nbsp;' . $argumentos['campo6']['Duitama'] . ' )</span></b></p>
+        (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Duitama'] : '') . ' )</span></b></p>
         </td>
         <td width="127" style="width:95.2pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Lebrija: (&nbsp;' . $argumentos['campo6']['Lebrija'] . ' )</span></b></p>
+        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Lebrija: (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Lebrija'] : '') . ' )</span></b></p>
         </td>
         </tr>
         <tr>
@@ -14442,127 +14451,127 @@ class Templates extends CI_Controller {
          <tr style="height:16.45pt">
           <td width="127" style="width:95.25pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Bogota: &nbsp;(&nbsp;
-         ' . $argumentos['campo6']['Bogota'] . ' )</span></b></p>
+         ' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Bogota'] : ''). ' )</span></b></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Yopal: (&nbsp; ' . $argumentos['campo6']['Yopal'] . ')</span></b></p>
+          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Yopal: (&nbsp; ' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Yopal'] : ''). ')</span></b></p>
           </td>
           <td width="127" colspan="2" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Neiva:&nbsp; (&nbsp;
-         ' . $argumentos['campo6']['Neiva'] . ' )</span></b></p>
+         ' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Neiva'] : ''). ' )</span></b></p>
           </td>
           <td width="127" colspan="2" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Montería:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Montería'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Montería'] : ''). ' )</span></b></p>
           </td>
           <td width="127" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Manizales:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Manizales'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Manizales'] : ''). ' )</span></b></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Sogamoso:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Sogamoso'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Sogamoso'] : ''). ' )</span></b></p>
           </td>
          </tr>
          <tr style="height:16.45pt">
           <td width="127" style="width:95.25pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Tunja:&nbsp; (&nbsp;
-         ' . $argumentos['campo6']['Tunja'] . ' )</span></b></p>
+         ' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Tunja'] : ''). ' )</span></b></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Cali:&nbsp; (&nbsp;' . $argumentos['campo6']['Cali'] . ' )</span></b></p>
+          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Cali:&nbsp; (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Cali'] : ''). ' )</span></b></p>
           </td>
           <td width="127" colspan="2" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Medellín:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Medellín'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Medellín'] : ''). ' )</span></b></p>
           </td>
           <td width="127" colspan="2" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Valledupar:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Valledupar'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Valledupar'] : ''). ' )</span></b></p>
           </td>
           <td width="127" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Ibagué:&nbsp; (&nbsp;
-         ' . $argumentos['campo6']['Ibagué'] . ' )</span></b></p>
+         ' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Ibagué'] : ''). ' )</span></b></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Flandes:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Flandes'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Flandes'] : ''). ' )</span></b></p>
           </td>
          </tr>
          <tr style="height:16.45pt">
           <td width="127" style="width:95.25pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Villavicencio:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Villavicencio'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Villavicencio'] : ''). ' )</span></b></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Buenaventura:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Buenaventura'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Buenaventura'] : ''). ' )</span></b></p>
           </td>
           <td width="127" colspan="2" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Barranquilla:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Barranquilla'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Barranquilla'] : ''). ' )</span></b></p>
           </td>
           <td width="127" colspan="2" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Sincelejo:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Sincelejo'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Sincelejo'] : ''). ' )</span></b></p>
           </td>
           <td width="127" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Cúcuta:&nbsp; (&nbsp;
-         ' . $argumentos['campo6']['Cúcuta'] . ' )</span></b></p>
+         ' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Cúcuta'] : ''). ' )</span></b></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Rivera:&nbsp; (&nbsp;
-         ' . $argumentos['campo6']['Rivera'] . ' )</span></b></p>
+         ' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Rivera'] : ''). ' )</span></b></p>
           </td>
          </tr>
          <tr style="height:16.45pt">
           <td width="127" style="width:95.25pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Facatativá:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Facatativá'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Facatativá'] : ''). ' )</span></b></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Pasto:&nbsp; (&nbsp;
-         ' . $argumentos['campo6']['Pasto'] . ' )</span></b></p>
+         ' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Pasto'] : ''). ' )</span></b></p>
           </td>
           <td width="127" colspan="2" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Cartagena:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Cartagena'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Cartagena'] : ''). ' )</span></b></p>
           </td>
           <td width="127" colspan="2" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Pereira:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Pereira'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Pereira'] : ''). ' )</span></b></p>
           </td>
           <td width="127" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Bucaramanga:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Bucaramanga'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Bucaramanga'] : ''). ' )</span></b></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Aipe:&nbsp; (&nbsp;' . $argumentos['campo6']['Aipe'] . ' )</span></b></p>
+          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Aipe:&nbsp; (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Aipe'] : ''). ' )</span></b></p>
           </td>
          </tr>
          <tr style="height:16.45pt">
           <td width="127" style="width:95.25pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Girardot:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Girardot'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Girardot'] : ''). ' )</span></b></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Popayán:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Popayán'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Popayán'] : ''). ' )</span></b></p>
           </td>
           <td width="127" colspan="2" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Santa Marta:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Santa_Marta'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Santa_Marta'] : ''). ' )</span></b></p>
           </td>
           <td width="127" colspan="2" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Armenia:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Armenia'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Armenia'] : ''). ' )</span></b></p>
           </td>
           <td width="127" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Duitama:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Duitama'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Duitama'] : ''). ' )</span></b></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Lebrija: (&nbsp;' . $argumentos['campo6']['Lebrija'] . ' )</span></b></p>
+          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Lebrija: (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Lebrija'] : ''). ' )</span></b></p>
           </td>
          </tr>
          <tr>
@@ -15276,127 +15285,127 @@ class Templates extends CI_Controller {
          <tr style="height:16.45pt">
           <td width="127" style="width:95.25pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Bogota: &nbsp;(&nbsp;
-         ' . $argumentos['campo6']['Bogota'] . ' )</span></b></p>
+         ' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Bogota'] : '') . ' )</span></b></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Yopal: (&nbsp;' . $argumentos['campo6']['Yopal'] . ' )</span></b></p>
+          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Yopal: (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Yopal'] : '') . ' )</span></b></p>
           </td>
           <td width="127" colspan="2" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Neiva:&nbsp; (&nbsp;
-         ' . $argumentos['campo6']['Neiva'] . ' )</span></b></p>
+         ' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Neiva'] : '') . ' )</span></b></p>
           </td>
           <td width="127" colspan="2" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Montería:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Montería'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Montería'] : '') . ' )</span></b></p>
           </td>
           <td width="127" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Manizales:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Manizales'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Manizales'] : '') . ' )</span></b></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Sogamoso:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Sogamoso'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Sogamoso'] : '') . ' )</span></b></p>
           </td>
          </tr>
          <tr style="height:16.45pt">
           <td width="127" style="width:95.25pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Tunja:&nbsp; (&nbsp;
-         ' . $argumentos['campo6']['Tunja'] . ' )</span></b></p>
+         ' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Tunja'] : '') . ' )</span></b></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Cali:&nbsp; (&nbsp;' . $argumentos['campo6']['Cali'] . ' )</span></b></p>
+          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Cali:&nbsp; (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Cali'] : '') . ' )</span></b></p>
           </td>
           <td width="127" colspan="2" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Medellín:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Medellín'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Medellín'] : '') . ' )</span></b></p>
           </td>
           <td width="127" colspan="2" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Valledupar:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Valledupar'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Valledupar'] : '') . ' )</span></b></p>
           </td>
           <td width="127" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Ibagué:&nbsp; (&nbsp;
-         ' . $argumentos['campo6']['Ibagué'] . ' )</span></b></p>
+         ' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Ibagué'] : '') . ' )</span></b></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Flandes:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Flandes'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Flandes'] : '') . ' )</span></b></p>
           </td>
          </tr>
          <tr style="height:16.45pt">
           <td width="127" style="width:95.25pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Villavicencio:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Villavicencio'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Villavicencio'] : '') . ' )</span></b></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Buenaventura:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Buenaventura'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Buenaventura'] : '') . ' )</span></b></p>
           </td>
           <td width="127" colspan="2" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Barranquilla:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Barranquilla'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Barranquilla'] : '') . ' )</span></b></p>
           </td>
           <td width="127" colspan="2" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Sincelejo:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Sincelejo'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Sincelejo'] : '') . ' )</span></b></p>
           </td>
           <td width="127" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Cúcuta:&nbsp; (&nbsp;
-         ' . $argumentos['campo6']['Cúcuta'] . ' )</span></b></p>
+         ' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Cúcuta'] : '') . ' )</span></b></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Rivera:&nbsp; (&nbsp;
-         ' . $argumentos['campo6']['Rivera'] . ' )</span></b></p>
+         ' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Rivera'] : '') . ' )</span></b></p>
           </td>
          </tr>
          <tr style="height:16.45pt">
           <td width="127" style="width:95.25pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Facatativá:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Facatativá'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Facatativá'] : '') . ' )</span></b></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Pasto:&nbsp; (&nbsp;
-         ' . $argumentos['campo6']['Pasto'] . ' )</span></b></p>
+         ' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Pasto'] : '') . ' )</span></b></p>
           </td>
           <td width="127" colspan="2" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Cartagena:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Cartagena'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Cartagena'] : '') . ' )</span></b></p>
           </td>
           <td width="127" colspan="2" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Pereira:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Pereira'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Pereira'] : '') . ' )</span></b></p>
           </td>
           <td width="127" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Bucaramanga:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Bucaramanga'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Bucaramanga'] : '') . ' )</span></b></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Aipe:&nbsp; (&nbsp;' . $argumentos['campo6']['Aipe'] . ' )</span></b></p>
+          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Aipe:&nbsp; (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Aipe'] : '') . ' )</span></b></p>
           </td>
          </tr>
          <tr style="height:16.45pt">
           <td width="127" style="width:95.25pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Girardot:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Girardot'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Girardot'] : '') . ' )</span></b></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Popayán:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Popayán'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Popayán'] : '') . ' )</span></b></p>
           </td>
           <td width="127" colspan="2" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Santa Marta:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Santa_Marta'] . ')</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Santa_Marta'] : '') . ')</span></b></p>
           </td>
           <td width="127" colspan="2" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Armenia:&nbsp;
-          (&nbsp;' . $argumentos['campo6']['Armenia'] . ' )</span></b></p>
+          (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Armenia'] : '') . ' )</span></b></p>
           </td>
           <td width="127" style="width:95.25pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Duitama:&nbsp; (&nbsp;
-         ' . $argumentos['campo6']['Duitama'] . ' )</span></b></p>
+         ' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Duitama'] : '') . ' )</span></b></p>
           </td>
           <td width="127" style="width:95.3pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0in;height:16.45pt">
-          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Lebrija: (&nbsp;' . $argumentos['campo6']['Lebrija'] . ' )</span></b></p>
+          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">Lebrija: (&nbsp;' . ((array_key_exists('campo6',$argumentos)) ? $argumentos['campo6']['Lebrija'] : '') . ' )</span></b></p>
           </td>
          </tr>
          <tr>
@@ -17125,47 +17134,107 @@ class Templates extends CI_Controller {
 
         <p class="MsoNormal" style="text-align: justify; margin: 0in 0in 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif;"><span lang="ES-MX" style="color: rgb(31, 73, 125);">&nbsp;</span><span lang="ES-CO"></span></p>
 
-        <table class="gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width: 446.15pt; border-collapse: collapse;">
-         <tbody><tr style="height: 29.05pt;">
-          <td width="330" valign="top" style="width: 247.7pt; border: 1pt solid rgb(192, 0, 0); background: rgb(192, 0, 0); padding: 0in 5.4pt; height: 29.05pt;">
-          <p class="MsoNormal" align="center" style="text-align: center; margin: 0in 0in 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="ES" style="font-size: 12pt; font-family: Arial, sans-serif; color: white;">INFORMACIÓN CONTACTO</span></b><span lang="ES-CO"></span></p>
-          <div class="MsoNormal" align="center" style="text-align: center; margin: 0in 0in 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="ES" style="font-size: 12pt; font-family: Arial, sans-serif; color: white;">
-          <hr size="2" width="100%" align="center">
-          </span></b></div>
-          </td>
-          <td width="265" valign="top" style="width: 198.45pt; border-top: 1pt solid rgb(192, 0, 0); border-right: 1pt solid rgb(192, 0, 0); border-bottom: 1pt solid rgb(192, 0, 0); border-image: initial; border-left: none; background: rgb(192, 0, 0); padding: 0in 5.4pt; height: 29.05pt;">
-          <p class="MsoNormal" align="center" style="text-align: center; margin: 0in 0in 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="ES" style="font-size: 12pt; font-family: Arial, sans-serif; color: white;">&nbsp;</span></b><span lang="ES-CO"></span></p>
-          <div class="MsoNormal" align="center" style="text-align: center; margin: 0in 0in 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="ES" style="font-size: 12pt; font-family: Arial, sans-serif; color: white;">
-          <hr size="2" width="100%" align="center">
-          </span></b></div>
-          <p class="MsoNormal" align="center" style="text-align: center; margin: 0in 0in 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="ES" style="font-size: 12pt; font-family: Arial, sans-serif; color: white;">&nbsp;</span></b><span lang="ES-CO"></span></p>
-          </td>
-         </tr>
-         <tr style="height: 14.3pt;">
-          <td width="330" valign="top" style="width: 247.7pt; border-right: 1pt solid rgb(192, 0, 0); border-bottom: 1pt solid rgb(192, 0, 0); border-left: 1pt solid rgb(192, 0, 0); border-image: initial; border-top: none; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; padding: 0in 5.4pt; height: 14.3pt;">
-          <p class="MsoNormal" style="margin: 0in 0in 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="ES">INGENIERO IMPLEMENTACIÓN</span></b><span lang="ES-CO"></span></p>
-          </td>
-          <td width="265" valign="top" style="width: 198.45pt; border-top: none; border-left: none; border-bottom: 1pt solid rgb(192, 0, 0); border-right: 1pt solid rgb(192, 0, 0); background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; padding: 0in 5.4pt; height: 14.3pt;">
-          <p class="MsoNormal" style="margin: 0in 0in 6pt; text-align: justify; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="ES-MX" style="font-size: 9pt; font-family: Arial, sans-serif;">' . $argumentos['campo17'] . '</span></b><span lang="ES-CO"></span></p>
-          </td>
-         </tr>
-         <tr style="height: 12.5pt;">
-          <td width="330" valign="top" style="width: 247.7pt; border-right: 1pt solid rgb(192, 0, 0); border-bottom: 1pt solid rgb(192, 0, 0); border-left: 1pt solid rgb(192, 0, 0); border-image: initial; border-top: none; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; padding: 0in 5.4pt; height: 12.5pt;">
-          <p class="MsoNormal" style="margin: 0in 0in 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="ES">TELEFONOS DE CONTACTO</span></b><span lang="ES-CO"></span></p>
-          </td>
-          <td width="265" valign="top" style="width: 198.45pt; border-top: none; border-left: none; border-bottom: 1pt solid rgb(192, 0, 0); border-right: 1pt solid rgb(192, 0, 0); background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; padding: 0in 5.4pt; height: 12.5pt;">
-          <p class="MsoNormal" style="margin: 0in 0in 6pt 0.25in; text-align: justify; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="ES-MX" style="font-size: 9pt; font-family: Arial, sans-serif;">' . $argumentos['campo18'] . '</span></b><span lang="ES-CO"></span></p>
-          </td>
-         </tr>
-         <tr style="height: 12.5pt;">
-          <td width="330" valign="top" style="width: 247.7pt; border-right: 1pt solid rgb(192, 0, 0); border-bottom: 1pt solid rgb(192, 0, 0); border-left: 1pt solid rgb(192, 0, 0); border-image: initial; border-top: none; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; padding: 0in 5.4pt; height: 12.5pt;">
-          <p class="MsoNormal" style="margin: 0in 0in 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="ES">EMAIL </span></b><span lang="ES-CO"></span></p>
-          </td>
-          <td width="265" valign="top" style="width: 198.45pt; border-top: none; border-left: none; border-bottom: 1pt solid rgb(192, 0, 0); border-right: 1pt solid rgb(192, 0, 0); background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; padding: 0in 5.4pt; height: 12.5pt;">
-          <p class="MsoNormal" style="margin: 0in 0in 6pt 0.25in; text-align: justify; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="ES-MX" style="font-size: 9pt; font-family: Arial, sans-serif;">' . $argumentos['campo19'] . '</span></b><span lang="ES-CO"></span></p>
-          </td>
-         </tr>
-        </tbody></table>
+        <table class="m_5089500533639821532gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
+           <tbody><tr style="height:29.05pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO<span></span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 1<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:<span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo17'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="151" colspan="2" valign="top" style="width:113.2pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="161" colspan="2" valign="top" style="width:120.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo18'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo19'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 2<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo20'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo21'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo22'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 3</span></b><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo23'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo24'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo25'] . '</span></span></b></p>
+            </td>
+           </tr>
+          </tbody></table>
 
         <p class="MsoNormal" style="text-align: justify; margin: 0in 0in 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif;"><b><span lang="ES-MX">&nbsp;</span></b><span lang="ES-CO"></span></p>
 
@@ -17606,47 +17675,107 @@ class Templates extends CI_Controller {
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="color:rgb(31,73,125)">&nbsp;</span><span lang="ES-CO"></span></p>
 
-        <table class="m_4201575670114597249gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
-         <tbody><tr style="height:29.05pt">
-          <td width="330" valign="top" style="width:247.7pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO</span></b><span lang="ES-CO"></span></p>
-          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-          <hr size="2" width="100%" align="center">
-          </span></b></div>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
-          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b><span lang="ES-CO"></span></p>
-          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
-          <hr size="2" width="100%" align="center">
-          </span></b></div>
-          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></b><span lang="ES-CO"></span></p>
-          </td>
-         </tr>
-         <tr style="height:14.3pt">
-          <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">INGENIERO IMPLEMENTACIÓN</span></b><span lang="ES-CO"></span></p>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:14.3pt">
-          <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo15'] . '</span></b><span lang="ES-CO"></span></p>
-          </td>
-         </tr>
-         <tr style="height:12.5pt">
-          <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">TELEFONOS DE CONTACTO</span></b><span lang="ES-CO"></span></p>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo16'] . '</span></b><span lang="ES-CO"></span></p>
-          </td>
-         </tr>
-         <tr style="height:12.5pt">
-          <td width="330" valign="top" style="width:247.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES">EMAIL </span></b><span lang="ES-CO"></span></p>
-          </td>
-          <td width="265" valign="top" style="width:198.45pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:12.5pt">
-          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">' . $argumentos['campo17'] . '</span></b><span lang="ES-CO"></span></p>
-          </td>
-         </tr>
-        </tbody></table>
+        <table class="m_5089500533639821532gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
+           <tbody><tr style="height:29.05pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO<span></span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 1<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:<span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo17'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="151" colspan="2" valign="top" style="width:113.2pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="161" colspan="2" valign="top" style="width:120.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo18'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo19'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 2<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo20'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo21'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo22'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 3</span></b><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo23'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo24'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo25'] . '</span></span></b></p>
+            </td>
+           </tr>
+          </tbody></table>
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX">&nbsp;</span></b><span lang="ES-CO"></span></p>
 
@@ -17750,7 +17879,107 @@ class Templates extends CI_Controller {
                     <tr style="box-sizing:border-box;height:29.05pt;outline:0px">
                         <td width="444" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:332.75pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:29.05pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Atraso en la instalación por Inconvenientes de &nbsp;Acceso al Predio en las Visitas Programadas</span></i></span><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">.<span style="box-sizing:border-box;outline:0px"></span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;color:white;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-size:10pt;outline:0px"><img border="0" width="420" height="110" id="m_731751854839756828gmail-Imagen_x0020_5" src="' . URL::base() . '/assets/img/PL_ETHERNET/subimagenA.png" alt="cid:image004.jpg@01D1E9CC.D23369C0" style="box-sizing:border-box;vertical-align:middle;outline:0px" class="CToWUd"></span><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;color:white;outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></i></p></td><td width="274" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:205.5pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:29.05pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;margin-right:0cm;margin-bottom:6pt;margin-left:18pt;min-height:14px;text-align:justify;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;margin-right:0cm;margin-bottom:6pt;margin-left:18pt;min-height:14px;text-align:justify;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">1.</span></i><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-family:&quot;Times New Roman&quot;,serif;outline:0px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span></span></i><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">Gestión temprana de los permisos de acceso a Zonas Comunes en la sede donde se va a realizar la Instalación.<span style="box-sizing:border-box;outline:0px"></span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;margin-right:0cm;margin-bottom:6pt;margin-left:18pt;min-height:14px;text-align:justify;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">2.</span></i><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-family:&quot;Times New Roman&quot;,serif;outline:0px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span></span></i><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">Confirmación de la documentación que debe portar el personal de Claro para efectuar las actividades.<span style="box-sizing:border-box;outline:0px"></span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;margin-right:0cm;margin-bottom:6pt;margin-left:18pt;min-height:14px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">3.</span><span lang="ES-MX" style="box-sizing:border-box;font-family:&quot;Times New Roman&quot;,serif;outline:0px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span></span><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">Confirmación de horario de trabajos permitidos para Zonas Comunes.</span></i><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></p></td>
                     </tr><tr style="box-sizing:border-box;height:29.05pt;outline:0px"><td width="444" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:332.75pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:29.05pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Atraso en Instalación por falta de Aprobación de los Costos de la Cotización de Obra Civil.<span style="box-sizing:border-box;outline:0px"></span></span></i></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;color:rgb(31,73,125);outline:0px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</span></i><span style="box-sizing:border-box;font-size:10pt;outline:0px"><img border="0" width="251" height="134" id="m_731751854839756828gmail-Imagen_x0020_11" src="' . URL::base() . '/assets/img/PL_ETHERNET/subimagenB.png" alt="cid:image005.jpg@01D1E9CC.D23369C0" style="box-sizing:border-box;vertical-align:middle;outline:0px" class="CToWUd"></span><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></i></p></td><td width="274" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:205.5pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:29.05pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;margin-bottom:6pt;min-height:14px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p><p class="m_731751854839756828gmail-MsoListParagraph" style="box-sizing:border-box;margin:0px 0cm 6pt 18pt;min-height:14px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">1.</span><span lang="ES-MX" style="box-sizing:border-box;font-family:&quot;Times New Roman&quot;,serif;outline:0px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span></span><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">Pre aprobación de<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span><span style="box-sizing:border-box;font-weight:700;outline:0px">Cotización de Obra Civil</span><span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span>desde la venta o Kickoff.<span style="box-sizing:border-box;outline:0px"></span></span></i></p><p class="m_731751854839756828gmail-MsoListParagraph" style="box-sizing:border-box;margin:0px 0cm 6pt 18pt;min-height:14px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">2.</span><span lang="ES-MX" style="box-sizing:border-box;font-family:&quot;Times New Roman&quot;,serif;outline:0px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span></span><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">Aprobación de los Costos y el Plano enviado máximo 3 días Calendario después de recibida la cotización de Obra Civil<span style="box-sizing:border-box;outline:0px"></span></span></i></p></td></tr><tr style="box-sizing:border-box;height:29.05pt;outline:0px"><td width="444" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:332.75pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:29.05pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Atraso en Instalación por falta de &nbsp;envió de la información técnica de la sede para la configuración del servicio.<span style="box-sizing:border-box;outline:0px"></span></span></i></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-size:10pt;outline:0px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<wbr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img border="0" width="187" height="117" id="m_731751854839756828gmail-Imagen_x0020_3" src="'.URL::base().'/assets/img/PL_ETHERNET/subimagenC.png" alt="cid:image006.jpg@01D1E9CC.D23369C0" style="box-sizing:border-box;vertical-align:middle;outline:0px" class="CToWUd"></span><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></i></p></td><td width="274" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:205.5pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:29.05pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;margin-bottom:6pt;min-height:14px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p><p class="m_731751854839756828gmail-MsoListParagraph" style="box-sizing:border-box;margin:0px 0cm 6pt 18pt;min-height:14px;text-align:justify;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">1.</span></i><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-family:&quot;Times New Roman&quot;,serif;outline:0px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span></span></i><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">Respuesta a la información solicitada en este correo máximo 8 días después de la fecha reportada como inicio de actividades.<span style="box-sizing:border-box;outline:0px"></span></span></i></p></td></tr><tr style="box-sizing:border-box;height:29.05pt;outline:0px"><td width="444" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:332.75pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:29.05pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Atraso en la adecuación de la sede con los requisitos mínimos de condiciones eléctricas y ambientales para instalar los equipos.<span style="box-sizing:border-box;outline:0px"></span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;outline:0px"><img border="0" width="369" height="166" id="m_731751854839756828gmail-Imagen_x0020_1" src="'.URL::base().'/assets/img/PL_ETHERNET/subimagenD.png" alt="cid:image007.jpg@01D1E9CC.D23369C0" style="box-sizing:border-box;vertical-align:middle;outline:0px" class="CToWUd a6T" tabindex="0"><div class="a6S" dir="ltr" style="opacity: 0.01; left: 329.188px; top: 3842.33px;"><div id=":z0" class="T-I J-J5-Ji aQv T-I-ax7 L3 a5q" title="Descargar" role="button" tabindex="0" aria-label="Descargar el archivo adjunto " data-tooltip-class="a1V"><div class="aSK J-J5-Ji aYr"></div></div></div></span><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></i></p></td><td width="274" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:205.5pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:29.05pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="m_731751854839756828gmail-MsoListParagraph" style="box-sizing:border-box;margin:0px 0cm 6pt 17.4pt;min-height:14px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p><p class="m_731751854839756828gmail-MsoListParagraph" style="box-sizing:border-box;margin:0px 0cm 6pt 17.4pt;min-height:14px;text-align:justify;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">1.</span></i><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-family:&quot;Times New Roman&quot;,serif;outline:0px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span></span></i><i style="box-sizing:border-box;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px">Las condiciones de instalación deben estar listas a más tardar el día de la<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span><span style="box-sizing:border-box;font-weight:700;outline:0px">Visita de habilitación de Medio.</span><span style="box-sizing:border-box;outline:0px"></span></span></i></p></td></tr></tbody></table>
-                    <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px">Durante todo el Proceso de Instalación puede contactar a:<span style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p><table class="m_731751854839756828gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="box-sizing:border-box;border-spacing:0px;border-collapse:collapse;font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;color:rgb(46,49,51);font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;width:446.15pt;outline:0px"><tbody style="box-sizing:border-box;outline:0px"><tr style="box-sizing:border-box;height:29.05pt;outline:0px"><td width="330" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:247.7pt;border:1pt solid rgb(192,0,0);height:29.05pt;background:rgb(192,0,0);outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px">INFORMACIÓN CONTACTO<span style="box-sizing:border-box;outline:0px"></span></span></span></p><div class="MsoNormal" align="center" style="box-sizing:border-box;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px"><hr size="2" width="100%" align="center" style="box-sizing:content-box;height:0px;margin-top:20px;margin-bottom:20px;border-right-width:0px;border-bottom-width:0px;border-left-width:0px;border-top-style:solid;border-top-color:rgb(238,238,238);outline:0px"></span></span></div></td><td width="265" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:7cm;border-style:solid solid solid none;border-top-color:rgb(192,0,0);border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-top-width:1pt;border-right-width:1pt;border-bottom-width:1pt;height:29.05pt;background:rgb(192,0,0);outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p><div class="MsoNormal" align="center" style="box-sizing:border-box;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px"><hr size="2" width="100%" align="center" style="box-sizing:content-box;height:0px;margin-top:20px;margin-bottom:20px;border-right-width:0px;border-bottom-width:0px;border-left-width:0px;border-top-style:solid;border-top-color:rgb(238,238,238);outline:0px"></span></span></div><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:white;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p></td></tr><tr style="box-sizing:border-box;height:14.3pt;outline:0px"><td width="330" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:247.7pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:14.3pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;outline:0px">INGENIERO IMPLEMENTACIÓN</span></span><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="265" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:7cm;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:14.3pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;margin-bottom:6pt;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;color:black;outline:0px">'.$argumentos['ingeniero1'].'<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr><tr style="box-sizing:border-box;height:12.5pt;outline:0px"><td width="330" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:247.7pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:12.5pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;outline:0px">TELEFONOS DE CONTACTO<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="265" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:7cm;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:12.5pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;margin-bottom:6pt;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;color:black;outline:0px">'.$argumentos['ingeniero1_tel'].'<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr><tr style="box-sizing:border-box;height:12.5pt;outline:0px"><td width="330" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:247.7pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:12.5pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;outline:0px">EMAIL<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="265" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:7cm;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:12.5pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;margin-bottom:6pt;min-height:14px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px"><a style="box-sizing:border-box;color:rgb(0,0,255);text-decoration-line:underline;background-color:transparent;outline:0px">'.$argumentos['ingeniero1_email'].'</a><span style="box-sizing:border-box;outline:0px"></span></span></span></p></td></tr></tbody></table><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p><p class="MsoNormal" style="box-sizing:border-box;margin-bottom:10pt;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:13.8px;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:12pt;line-height:18.4px;font-family:Arial,sans-serif;outline:0px"></span></p></div>';
+                    <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px">Durante todo el Proceso de Instalación puede contactar a:<span style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px"></span></span></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p><table class="m_5089500533639821532gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="595" style="width:446.15pt;border-collapse:collapse">
+           <tbody><tr style="height:29.05pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">INFORMACIÓN CONTACTO<span></span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0cm 5.4pt;height:29.05pt">
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            <div class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+            <hr size="2" width="100%" align="center">
+            </span></b></div>
+            <p class="MsoNormal" align="center" style="text-align:center;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:12pt;font-family:Arial,sans-serif;color:white"><span>&nbsp;</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 1<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:14.3pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:<span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm 5.4pt;height:14.3pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['ingeniero1'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="151" colspan="2" valign="top" style="width:113.2pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="161" colspan="2" valign="top" style="width:120.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['ingeniero1_tel'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['ingeniero1_email'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 2<span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['ingeniero2'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:white;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['ingeniero2_tel'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background:white;padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span>' . $argumentos['ingeniero2_email'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="595" colspan="6" valign="top" style="width:446.15pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background:rgb(217,217,217);padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">NIVEL 3</span></b><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="227" colspan="3" valign="top" style="width:6cm;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="font-size:10pt;font-family:Arial,sans-serif">INGENIERO:</span></b><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span></span></span></b></p>
+            </td>
+            <td width="368" colspan="3" valign="top" style="width:276.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['ingeniero3'] . '</span></span></b></p>
+            </td>
+           </tr>
+           <tr style="height:12.5pt">
+            <td width="149" valign="top" style="width:111.7pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;padding:0cm 5.4pt;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif">Teléfono
+            Contacto:<span></span></span></b></p>
+            </td>
+            <td width="163" colspan="3" valign="top" style="width:122.05pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt 18pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['ingeniero3_tel'] . '</span></span></b></p>
+            </td>
+            <td width="66" valign="top" style="width:49.55pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Email:<span></span></span></b></p>
+            </td>
+            <td width="217" valign="top" style="width:162.85pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);padding:0cm;height:12.5pt">
+            <p class="MsoNormal" style="margin:0cm 0cm 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-MX" style="font-size:10pt;font-family:Arial,sans-serif"><span>' . $argumentos['campo25'] . '</span></span></b></p>
+            </td>
+           </tr>
+          </tbody></table><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p><p class="MsoNormal" style="box-sizing:border-box;margin-bottom:10pt;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:13.8px;outline:0px"><span lang="ES-MX" style="box-sizing:border-box;font-size:12pt;line-height:18.4px;font-family:Arial,sans-serif;outline:0px"></span></p></div>';
     }
 
 }
