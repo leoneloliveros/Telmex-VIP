@@ -397,7 +397,7 @@ class Dao_ot_padre_model extends CI_Model {
                 actividad_actual, tipo_voc, tipo_veoc
             FROM hitos WHERE id_ot_padre = $idOtp
         ");
-        
+
         return $query->row();
     }
 
@@ -644,7 +644,7 @@ class Dao_ot_padre_model extends CI_Model {
             "SELECT `user`.k_id_user, CONCAT(`user`.n_name_user, ' ', `user`.n_last_name_user) AS ingeniero,
                 (
                     SELECT COUNT(1) FROM ot_padre otp1
-                    WHERE DATEDIFF(CURDATE(), otp1.ultimo_envio_reporte) <= 7
+                    WHERE DATEDIFF(CURDATE(), otp1.ultimo_envio_reporte) <= 6
                     AND otp1.k_id_user = `user`.k_id_user
                     AND otp1.n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
                     AND otp1.orden_trabajo != 'Caso de Seguimiento'
@@ -657,8 +657,8 @@ class Dao_ot_padre_model extends CI_Model {
                 ) AS menor_7,
                 (
                     SELECT COUNT(1) FROM ot_padre otp2
-                    WHERE DATEDIFF(CURDATE(), otp2.ultimo_envio_reporte) >= 8
-                    AND DATEDIFF(CURDATE(), otp2.ultimo_envio_reporte) <= 15
+                    WHERE DATEDIFF(CURDATE(), otp2.ultimo_envio_reporte) >= 7
+                    AND DATEDIFF(CURDATE(), otp2.ultimo_envio_reporte) <= 14
                     AND otp2.k_id_user = `user`.k_id_user
                     AND otp2.n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
                     AND otp2.orden_trabajo != 'Caso de Seguimiento'
@@ -671,7 +671,7 @@ class Dao_ot_padre_model extends CI_Model {
                 ) AS entre_8_15,
                 (
                     SELECT COUNT(1) FROM ot_padre otp3
-                    WHERE DATEDIFF(CURDATE(), otp3.ultimo_envio_reporte) >= 16
+                    WHERE DATEDIFF(CURDATE(), otp3.ultimo_envio_reporte) >= 15
                     AND DATEDIFF(CURDATE(), otp3.ultimo_envio_reporte) <= 30
                     AND otp3.k_id_user = `user`.k_id_user
                     AND otp3.n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
