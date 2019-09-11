@@ -7,13 +7,13 @@ class Dao_ot_padre_model extends CI_Model {
     protected $session;
 
     public function __construct() {
-
+        
     }
 
     // Retorna registro otp por id de ot padre
     public function exist_otp_by_id($id) {
         $query = $this->db->query(
-            "SELECT k_id_ot_padre
+                "SELECT k_id_ot_padre
                 FROM ot_padre
 				WHERE k_id_ot_padre = $id
 			");
@@ -53,32 +53,32 @@ class Dao_ot_padre_model extends CI_Model {
         return $query->result();
     }
 
-    public function validateActiveGroup($tipoFiltro, $wherorand)
-    {
-        if($tipoFiltro === 'GESTION OTS PROYECTOS'){
+    public function validateActiveGroup($tipoFiltro, $wherorand) {
+        if ($tipoFiltro === 'GESTION OTS PROYECTOS') {
             return "$wherorand `user`.n_group = 'GESTION OTS PROYECTOS'";
-        }else{
-            if($tipoFiltro === 'GESTION OTS ESTANDAR'){
+        } else {
+            if ($tipoFiltro === 'GESTION OTS ESTANDAR') {
                 return "$wherorand `user`.n_group = 'GESTION OTS ESTANDAR'";
-            }else{
+            } else {
                 return ' ';
             }
         }
     }
+
     // tabla de lista de OTS Padre
     public function getListOtsOtPadre($fil) {
         $condicion = " ";
         if (Auth::user()->n_role_user == 'ingeniero') {
             $usuario_session = Auth::user()->k_id_user;
             $condicion = " WHERE otp.k_id_user = $usuario_session ";
-        }else{
-            $condicion = $this->validateActiveGroup($fil,'WHERE');
+        } else {
+            $condicion = $this->validateActiveGroup($fil, 'WHERE');
         }
 
 
 
         $query = $this->db->query(
-            "SELECT
+                "SELECT
             otp.k_id_ot_padre,
             otp.n_nombre_cliente,
             otp.orden_trabajo,
@@ -99,7 +99,9 @@ class Dao_ot_padre_model extends CI_Model {
             otp.ultimo_envio_reporte,
             CONCAT( '$ ', FORMAT( oth.monto_moneda_local_arriendo + oth.monto_moneda_local_cargo_mensual, 2 ) ) AS MRC,
             otp.lista_observaciones,
-            (SELECT COUNT(oth2.nro_ot_onyx) FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx ) AS cant_oths
+            (SELECT COUNT(oth2.nro_ot_onyx) FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx ) AS cant_oths,
+            (SELECT IF(oth2.direccion_origen = '', oth2.alias_enlace, oth2.direccion_origen) FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx limit 1) AS direccion,
+            (SELECT oth2.ciudad FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx limit 1) AS ciudad
             FROM ot_hija oth
             RIGHT JOIN ot_padre otp ON oth.nro_ot_onyx = otp.k_id_ot_padre
             INNER JOIN `user` ON otp.k_id_user = `user`.k_id_user
@@ -118,17 +120,19 @@ class Dao_ot_padre_model extends CI_Model {
         if (Auth::user()->n_role_user == 'ingeniero') {
             $usuario_session = Auth::user()->k_id_user;
             $condicion = " AND otp.k_id_user = $usuario_session ";
-        }else{
-            $condicion = $this-> validateActiveGroup($fil,'AND');
+        } else {
+            $condicion = $this->validateActiveGroup($fil, 'AND');
         }
         $query = $this->db->query(
-            "SELECT
+                "SELECT
                     otp.k_id_ot_padre, otp.n_nombre_cliente, otp.orden_trabajo,
                     otp.servicio, REPLACE(otp.estado_orden_trabajo,'otp_cerrada','Cerrada') AS estado_orden_trabajo, otp.fecha_programacion,
                     otp.fecha_compromiso, otp.fecha_creacion, otp.k_id_user, user.n_name_user,
                     CONCAT(user.n_name_user, ' ' , user.n_last_name_user) AS ingeniero,
                     otp.lista_observaciones, otp.observacion, SUM(oth.c_email) AS cant_mails, hitos.id_hitos, otp.finalizo, otp.ultimo_envio_reporte,
-                    CONCAT('$ ',FORMAT(oth.monto_moneda_local_arriendo + oth.monto_moneda_local_cargo_mensual,2)) AS MRC, otp.lista_observaciones
+                    CONCAT('$ ',FORMAT(oth.monto_moneda_local_arriendo + oth.monto_moneda_local_cargo_mensual,2)) AS MRC, otp.lista_observaciones,
+                    (SELECT IF(oth2.direccion_origen = '', oth2.alias_enlace, oth2.direccion_origen) FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx limit 1) AS direccion,
+                    (SELECT oth2.ciudad FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx limit 1) AS ciudad
                     FROM ot_hija oth
                     INNER JOIN ot_padre otp ON oth.nro_ot_onyx = otp.k_id_ot_padre
                     INNER JOIN user ON otp.k_id_user = user.k_id_user
@@ -147,17 +151,19 @@ class Dao_ot_padre_model extends CI_Model {
         if (Auth::user()->n_role_user == 'ingeniero') {
             $usuario_session = Auth::user()->k_id_user;
             $condicion = " AND otp.k_id_user = $usuario_session ";
-        }else{
-            $condicion = $this->validateActiveGroup($fil,'AND');
+        } else {
+            $condicion = $this->validateActiveGroup($fil, 'AND');
         }
         $query = $this->db->query(
-            "SELECT
+                "SELECT
                 otp.k_id_ot_padre, otp.n_nombre_cliente, otp.orden_trabajo,
                 otp.servicio, REPLACE(otp.estado_orden_trabajo,'otp_cerrada','Cerrada') AS estado_orden_trabajo, otp.fecha_programacion,
                 otp.fecha_compromiso, otp.fecha_creacion, otp.k_id_user, user.n_name_user,
                 CONCAT(user.n_name_user, ' ' , user.n_last_name_user) AS ingeniero,
                 otp.lista_observaciones, otp.observacion, SUM(oth.c_email) AS cant_mails, hitos.id_hitos, otp.finalizo, otp.ultimo_envio_reporte,
-                CONCAT('$ ',FORMAT(oth.monto_moneda_local_arriendo + oth.monto_moneda_local_cargo_mensual,2)) AS MRC, otp.lista_observaciones
+                CONCAT('$ ',FORMAT(oth.monto_moneda_local_arriendo + oth.monto_moneda_local_cargo_mensual,2)) AS MRC, otp.lista_observaciones,
+                (SELECT IF(oth2.direccion_origen = '', oth2.alias_enlace, oth2.direccion_origen) FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx limit 1) AS direccion,
+		(SELECT oth2.ciudad FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx limit 1) AS ciudad
                 FROM ot_hija oth
                 INNER JOIN ot_padre otp ON oth.nro_ot_onyx = otp.k_id_ot_padre
                 INNER JOIN user ON otp.k_id_user = user.k_id_user
@@ -193,22 +199,24 @@ class Dao_ot_padre_model extends CI_Model {
 
     // return $query->result();
     // trae otp segun opcion de ot padre
-    public function getOtpByOpcList($opcion,$fil) {
+    public function getOtpByOpcList($opcion, $fil) {
         $condicion = " ";
         if (Auth::user()->n_role_user == 'ingeniero') {
             $usuario_session = Auth::user()->k_id_user;
             $condicion = " AND otp.k_id_user = $usuario_session ";
-        }else{
-            $condicion = $this->validateActiveGroup($fil,'AND');
+        } else {
+            $condicion = $this->validateActiveGroup($fil, 'AND');
         }
         $query = $this->db->query(
-            "SELECT
+                "SELECT
                 otp.k_id_ot_padre, otp.n_nombre_cliente, otp.orden_trabajo,
                 otp.servicio, REPLACE(otp.estado_orden_trabajo,'otp_cerrada','Cerrada') AS estado_orden_trabajo, otp.fecha_programacion,
                 otp.fecha_compromiso, otp.fecha_creacion, otp.k_id_user, user.n_name_user,
                 CONCAT(user.n_name_user, ' ' , user.n_last_name_user) AS ingeniero,
                 otp.lista_observaciones, otp.observacion, SUM(oth.c_email) AS cant_mails, hitos.id_hitos, otp.finalizo, otp.ultimo_envio_reporte,
-                CONCAT('$ ',FORMAT(oth.monto_moneda_local_arriendo + oth.monto_moneda_local_cargo_mensual,2)) AS MRC, otp.lista_observaciones
+                CONCAT('$ ',FORMAT(oth.monto_moneda_local_arriendo + oth.monto_moneda_local_cargo_mensual,2)) AS MRC, otp.lista_observaciones,
+                (SELECT IF(oth2.direccion_origen = '', oth2.alias_enlace, oth2.direccion_origen) FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx limit 1) AS direccion,
+		(SELECT oth2.ciudad FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx limit 1) AS ciudad
                 FROM ot_hija oth
                 INNER JOIN ot_padre otp ON oth.nro_ot_onyx = otp.k_id_ot_padre
                 INNER JOIN user ON otp.k_id_user = user.k_id_user
@@ -218,7 +226,7 @@ class Dao_ot_padre_model extends CI_Model {
                 GROUP BY oth.nro_ot_onyx
 
         ");
-    // echo("<pre>"); print_r($this->db->last_query()); echo("</pre>");
+        // echo("<pre>"); print_r($this->db->last_query()); echo("</pre>");
         return $query->result();
     }
 
@@ -321,11 +329,11 @@ class Dao_ot_padre_model extends CI_Model {
         if (Auth::user()->n_role_user == 'ingeniero') {
             $usuario_session = Auth::user()->k_id_user;
             $condicion = " AND otp.k_id_user = $usuario_session ";
-        }else{
-            $cond2 = $this->validateActiveGroup($fil,'AND');
+        } else {
+            $cond2 = $this->validateActiveGroup($fil, 'AND');
         }
         $query = $this->db->query(
-            "SELECT
+                "SELECT
             otp.k_id_ot_padre, otp.n_nombre_cliente, otp.orden_trabajo,
             (
                 SELECT COUNT(idreporte_info) as cant FROM reporte_info where paquete_enviados >= 1 and id_ot_padre = otp.k_id_ot_padre
@@ -334,13 +342,15 @@ class Dao_ot_padre_model extends CI_Model {
             otp.fecha_compromiso, otp.fecha_creacion, otp.k_id_user, user.n_name_user,
             CONCAT(user.n_name_user, ' ' , user.n_last_name_user) AS ingeniero,
             otp.lista_observaciones, otp.observacion, SUM(oth.c_email) AS cant_mails, hitos.id_hitos, otp.finalizo, otp.ultimo_envio_reporte,
-            CONCAT('$ ',FORMAT(oth.monto_moneda_local_arriendo + oth.monto_moneda_local_cargo_mensual,2)) AS MRC
+            CONCAT('$ ',FORMAT(oth.monto_moneda_local_arriendo + oth.monto_moneda_local_cargo_mensual,2)) AS MRC,
+            (SELECT IF(oth2.direccion_origen = '', oth2.alias_enlace, oth2.direccion_origen) FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx limit 1) AS direccion,
+            (SELECT oth2.ciudad FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx limit 1) AS ciudad
             FROM ot_hija oth
             INNER JOIN ot_padre otp ON oth.nro_ot_onyx = otp.k_id_ot_padre
             INNER JOIN user ON otp.k_id_user = user.k_id_user
             LEFT JOIN hitos ON hitos.id_ot_padre = otp.k_id_ot_padre
             WHERE
-            DATEDIFF(CURDATE(), otp.ultimo_envio_reporte) > 7
+            DATEDIFF(CURDATE(), otp.ultimo_envio_reporte) > 6
             AND n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
             AND otp.orden_trabajo != 'Caso de Seguimiento'
             -- AND user.n_group = 'GESTION OTS ESTANDAR'
@@ -406,9 +416,9 @@ class Dao_ot_padre_model extends CI_Model {
         $respuesta = array();
         $query = "";
         $exist = $this->db->select('id_hitos')
-                    ->from('hitos')
-                    ->where('id_ot_padre',$data['id_ot_padre'])
-                    ->get();
+                ->from('hitos')
+                ->where('id_ot_padre', $data['id_ot_padre'])
+                ->get();
         if ($exist->num_rows() <= 0) {
             $query = $this->db->insert('hitos', $data);
             // echo("<pre>"); print_r($this->db->last_query()); echo("</pre>");
@@ -476,7 +486,7 @@ class Dao_ot_padre_model extends CI_Model {
             //                 '" . $formulario[4]['value'] . "',
             //                 '" . $formulario[17]['value'] . "')";
         } else {
-            $this->db->where('id_ot_padre',$data['id_ot_padre']);
+            $this->db->where('id_ot_padre', $data['id_ot_padre']);
             unset($data['id_ot_padre']);
             $query = $this->db->update('hitos', $data);
             // $query = "
@@ -637,11 +647,11 @@ class Dao_ot_padre_model extends CI_Model {
         if (Auth::user()->n_role_user == 'ingeniero') {
             $usuario_session = Auth::user()->k_id_user;
             $condicion = " AND `user`.k_id_user = $usuario_session ";
-        }else{
-            $cond2 = $this->validateActiveGroup($fil,'AND');
+        } else {
+            $cond2 = $this->validateActiveGroup($fil, 'AND');
         }
         $query = $this->db->query(
-            "SELECT `user`.k_id_user, CONCAT(`user`.n_name_user, ' ', `user`.n_last_name_user) AS ingeniero,
+                "SELECT `user`.k_id_user, CONCAT(`user`.n_name_user, ' ', `user`.n_last_name_user) AS ingeniero,
                 (
                     SELECT COUNT(1) FROM ot_padre otp1
                     WHERE DATEDIFF(CURDATE(), otp1.ultimo_envio_reporte) <= 6
@@ -706,20 +716,17 @@ class Dao_ot_padre_model extends CI_Model {
         return $query->result();
     }
 
-
     //consulto si existe algo en la tabla reporte info
-    public function getInfoEmailReport($id)
-    {
+    public function getInfoEmailReport($id) {
         $this->db->where_in('id_ot_padre', $id);
-        $this->db->select(["senior","nombre_cliente","f_entrega_servicio","observaciones"]);
+        $this->db->select(["senior", "nombre_cliente", "f_entrega_servicio", "observaciones"]);
         $query = $this->db->get('reporte_info');
         return $query->row();
     }
 
-   //guarda la informacion del form. en la tabla reporte info
-    public function saveInfoEmailDB($data)
-    {
-        $this->db->insert('reporte_info',$data);
+    //guarda la informacion del form. en la tabla reporte info
+    public function saveInfoEmailDB($data) {
+        $this->db->insert('reporte_info', $data);
     }
 
     //actualiza la inf. de la tabla reporte_info
@@ -729,36 +736,29 @@ class Dao_ot_padre_model extends CI_Model {
     //     $this->db->where('id_ot_padre',$ids);
     //     $this->db->update('reporte_info',$data);
     // }
-
     // trae registro de la tabla reporte_info mediante otp
     // public function get_email_report_by_otp($otp)
     // {
     //     $query = $this->db->get_where('reporte_info', array('id_ot_padre' => $otp));
     //     return $query->row();
     // }
-
-
     //extrae la fecha de linea base si no existe en la tabla reporte_info
-    public function getFechaLineaBaseEmailReport($id)
-    {
+    public function getFechaLineaBaseEmailReport($id) {
         $this->db->where_in('id_ot_padre', $id);
         $query = $this->db->get('linea_base');
         return $query->row();
     }
 
     // obtiene el mayor numero de paquete de envio de la tabla reporte info para poder aumentarlo cuando se guarde o actualice
-    public function getMaxPaqueteEnvío()
-    {
+    public function getMaxPaqueteEnvío() {
         $this->db->select_max("paquete_enviados");
         $query = $this->db->get('reporte_info');
         return $query->result();
     }
 
-
-    public function getLastMailSent($ids)
-    {
+    public function getLastMailSent($ids) {
         $query = $this->db->query(
-        "SELECT senior,nombre_cliente,f_entrega_servicio,observaciones
+                "SELECT senior,nombre_cliente,f_entrega_servicio,observaciones
          FROM reporte_info
          WHERE id_ot_padre IN ($ids)
          ORDER BY senior DESC LIMIT 1;");
@@ -774,7 +774,7 @@ class Dao_ot_padre_model extends CI_Model {
             $condicion = " AND otp.k_id_user = $usuario_session ";
         }
         $query = $this->db->query(
-            "SELECT
+                "SELECT
             otp.k_id_ot_padre, otp.n_nombre_cliente, otp.orden_trabajo,
             (
                 SELECT COUNT(idreporte_info) as cant FROM reporte_info where paquete_enviados >= 1 and id_ot_padre = otp.k_id_ot_padre
@@ -800,23 +800,36 @@ class Dao_ot_padre_model extends CI_Model {
         return $query->result();
     }
 
-    public function getLineaBasePerOTP($id)
-    {
-        $query = $this->db->select( 'fecha_cierre_ko,fecha_visita_obra_civil,
+    public function getLineaBasePerOTP($id) {
+        $query = $this->db->select('fecha_cierre_ko,fecha_visita_obra_civil,
                 fecha_dcoc,fecha_aprobacion_coc,
                 fecha_ingenieria_detalle,
                 fecha_ejecucion_obra_civil,
                 fecha_configuracion,
                 fecha_empalmes,
                 fecha_entrega_servicio')
-            ->from('linea_base')
-            ->where('id_ot_padre',$id)
-            ->order_by( 'fecha_cierre_ko', 'DESC')
-            ->limit(1)
-            ->get();
+                ->from('linea_base')
+                ->where('id_ot_padre', $id)
+                ->order_by('fecha_cierre_ko', 'DESC')
+                ->limit(1)
+                ->get();
 
-            // echo("<pre>"); print_r($this->db->last_query()); echo("</pre>");
-            // echo("<pre>"); print_r($query->row()); echo("</pre>");
+        // echo("<pre>"); print_r($this->db->last_query()); echo("</pre>");
+        // echo("<pre>"); print_r($query->row()); echo("</pre>");
         return $query->row_array();
     }
+    
+    public function getInfoHitosByOtp($idOtp) {
+        $query = $this->db->query("
+                SELECT f_voc, n_estado_voc,
+                    f_eoc, estado_eoc,
+                    f_em, estado_em,
+                    f_entrega_servicio, estado_entrega_servicio,
+                    observaciones_genrales, actividad_actual
+                    FROM hitos
+                    WHERE id_ot_padre = $idOtp
+        ");
+        return $query->result();
+    }
+
 }

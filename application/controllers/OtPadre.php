@@ -32,7 +32,7 @@ class OtPadre extends CI_Controller {
         $general = $this->Dao_ot_hija_model->get_ots_times(); // consulta de todas las ots_hijas y sus tiempos
         $total_reg = count($general);
         // array para descartar los estados ya ejecutados
-        $estados_arr = ['Cancelada','Cerrada','3- Terminada'];
+        $estados_arr = ['Cancelada', 'Cerrada', '3- Terminada'];
 
         // Contadores generales
         $cont_total_in_otp = 0;
@@ -41,8 +41,8 @@ class OtPadre extends CI_Controller {
         $cont_total_ejec_otp = 0;
         $cont_total_otp = 0;
         // fin contadores generales
-        $otp_ejecutadas = [];// array para contar las otp ejecutadas
-        $ingenieros = [];// objetro final
+        $otp_ejecutadas = []; // array para contar las otp ejecutadas
+        $ingenieros = []; // objetro final
         $x = 0;
 
         // recorrer los registros
@@ -55,7 +55,6 @@ class OtPadre extends CI_Controller {
                 $ingenieros[$general[$i]->k_id_user]['hoy'] = 0;
                 $ingenieros[$general[$i]->k_id_user]['all'] = 0;
                 $ingenieros[$general[$i]->k_id_user]['ejecutadas'] = [];
-
             }
 
             // validamos si la oth esta en alguno de los estados ejecutados ('Cancelada','Cerrada','3- Terminada')
@@ -70,7 +69,6 @@ class OtPadre extends CI_Controller {
                         $ingenieros[$general[$i]->k_id_user]['out'] ++;
                         $cont_total_out_otp++;
                         $cont_total_otp++;
-
                     } else {
                         // si existe
                         // Se valida de que time viene si es
@@ -127,7 +125,7 @@ class OtPadre extends CI_Controller {
                 }
 
                 if ($general[$i]->tiempo < 0) {
-                      // se valida si el index de la otp ya fue creada dentro del array del ingeniero
+                    // se valida si el index de la otp ya fue creada dentro del array del ingeniero
                     if (!array_key_exists($general[$i]->k_id_ot_padre, $ingenieros[$general[$i]->k_id_user])) {
                         $ingenieros[$general[$i]->k_id_user][$general[$i]->k_id_ot_padre] = array('time' => -1, "cliente" => $general[$i]->n_nombre_cliente);
                         ;
@@ -140,37 +138,29 @@ class OtPadre extends CI_Controller {
                 // *************************************inicio calculo de color de los botones*************************************
                 if ($ingenieros[$general[$i]->k_id_user]['out'] > 0) {
                     $ingenieros[$general[$i]->k_id_user]['color'] = "btn_red";
-                }
-
-                else if ($ingenieros[$general[$i]->k_id_user]['hoy'] > 0) {
+                } else if ($ingenieros[$general[$i]->k_id_user]['hoy'] > 0) {
                     $ingenieros[$general[$i]->k_id_user]['color'] = "btn_orange";
-                }
-
-                else {
+                } else {
                     $ingenieros[$general[$i]->k_id_user]['color'] = "btn_green";
                 }
                 // *************************************fin calculo colores*************************************
-
-
                 // Si entra en este bloque la ot padre no tiene que estar en el arreglo de ejecutadas
-                if ( in_array($general[$i]->k_id_ot_padre , $ingenieros[$general[$i]->k_id_user]['ejecutadas'])) {
+                if (in_array($general[$i]->k_id_ot_padre, $ingenieros[$general[$i]->k_id_user]['ejecutadas'])) {
                     // si existe se elimina del array y se decrementas los contadores
                     $ingenieros[$general[$i]->k_id_user]['ejecutadas'] = array_values(array_diff($ingenieros[$general[$i]->k_id_user]['ejecutadas'], array($general[$i]->k_id_ot_padre)));
                     $cont_total_otp--;
                     $cont_total_ejec_otp--;
-
                 }
-            // Si está cerrada finalizada o cancelada
+                // Si está cerrada finalizada o cancelada
             } else {
                 // si la otp no existe en el array de ejecutadas y tampoco se ha creado en el array del ingeniero la posicion de la otp
-                if (!in_array($general[$i]->k_id_ot_padre ,$ingenieros[$general[$i]->k_id_user]['ejecutadas']) && !array_key_exists($general[$i]->k_id_ot_padre, $ingenieros[$general[$i]->k_id_user] )) {
+                if (!in_array($general[$i]->k_id_ot_padre, $ingenieros[$general[$i]->k_id_user]['ejecutadas']) && !array_key_exists($general[$i]->k_id_ot_padre, $ingenieros[$general[$i]->k_id_user])) {
                     // se inserta la otp en el array de ejecutadas para al final ser contadas cuantas ejecutó ese ingeniero
                     array_push($ingenieros[$general[$i]->k_id_user]['ejecutadas'], $general[$i]->k_id_ot_padre);
 
                     // se incrementas los contadores de total y general ejecutadas
                     $cont_total_otp++;
                     $cont_total_ejec_otp++;
-
                 }
             }
 
@@ -286,7 +276,7 @@ class OtPadre extends CI_Controller {
     public function c_getOtpByOpcList() {
         $opcion = $this->input->post('opcion');
         $filtro = $this->input->post('filter');
-        $otPadreList = $this->Dao_ot_padre_model->getOtpByOpcList($opcion,$filtro);
+        $otPadreList = $this->Dao_ot_padre_model->getOtpByOpcList($opcion, $filtro);
 
         echo json_encode($otPadreList);
     }
@@ -359,77 +349,109 @@ class OtPadre extends CI_Controller {
         $idOtp = $this->input->post('idOtp');
         $formulario = json_decode($this->input->post('formulario'));
         $actividadActual = $this->input->post('actividadAct');
+        $obsGeneral = $this->input->post('obsGeneral');
         $newFields = array();
         $newFields['id_ot_padre'] = $idOtp;
         $newFields['actividad_actual'] = $actividadActual;
+        $newFields['observaciones_genrales'] = $obsGeneral;
+
+        /*
+          foreach ($formulario as $key => $value) {
+          switch ($key) {
+          case 'CIERRE KICKOFF':
+          $newFields['f_compromiso_ko'] = $value[0];
+          $newFields['estado_ko'] = $value[1];
+          $newFields['observaciones_ko'] = $value[2];
+          break;
+
+          case 'VISITA OBRA CIVIL TERCEROS':
+          case 'VISITA OBRA CIVIL':
+          $newFields['f_compromiso_voc'] = $value[0];
+          $newFields['estado_voc'] = $value[1];
+          $newFields['observaciones_voc'] = $value[2];
+          if ($key === 'VISITA OBRA CIVIL') {
+          $newFields['tipo_voc'] = 'VISITA OBRA CIVIL';
+          }else{
+          $newFields['tipo_voc'] = 'VISITA OBRA CIVIL TERCEROS';
+          }
+          break;
+
+          case 'ENVIÓ COTIZACIÓN':
+          $newFields['f_compromiso_ec'] = $value[0];
+          $newFields['estado_ec'] = $value[1];
+          $newFields['observaciones_ec'] = $value[2];
+          break;
+
+          case 'APROBACIÓN COTIZACIÓN OC':
+          $newFields['f_compromiso_ac'] = $value[0];
+          $newFields['estado_ac'] = $value[1];
+          $newFields['observaciones_ac'] = $value[2];
+          break;
+
+          case 'SOLICITUD INFORMACIÓN TÉCNICA':
+          $newFields['f_compromiso_sit'] = $value[0];
+          $newFields['estado_sit'] = $value[1];
+          $newFields['observaciones_sit'] = $value[2];
+          break;
+
+          case 'VISITA EJECUCION OBRA CIVIL TERCERO':
+          case 'VISITA EJECUCION OBRA CIVIL':
+          $newFields['f_compromiso_veoc'] = $value[0];
+          $newFields['estado_veoc'] = $value[1];
+          $newFields['observaciones_veoc'] = $value[2];
+          if ($key === 'VISITA EJECUCION OBRA CIVIL') {
+          $newFields['tipo_veoc'] = 'VISITA EJECUCION OBRA CIVIL';
+          } else {
+          $newFields['tipo_veoc'] = 'VISITA EJECUCION OBRA CIVIL TERCERO';
+          }
+
+          break;
+
+          case 'EMPALMES':
+          $newFields['f_compromiso_empalmes'] = $value[0];
+          $newFields['estado_empalmes'] = $value[1];
+          $newFields['observaciones_empalmes'] = $value[2];
+          break;
+
+          case 'CONFIGURACION':
+          $newFields['f_compromiso_crc'] = $value[0];
+          $newFields['estado_crc'] = $value[1];
+          $newFields['observaciones_crc'] = $value[2];
+          break;
+
+          case 'VISITA ENTREGA DE SERVICIO':
+          $newFields['f_compromiso_veut'] = $value[0];
+          $newFields['estado_veut'] = $value[1];
+          $newFields['observaciones_veut'] = $value[2];
+          break;
+          }
+          }
+         */
 
         foreach ($formulario as $key => $value) {
             switch ($key) {
-                case 'CIERRE KICKOFF':
-                    $newFields['f_compromiso_ko'] = $value[0];
-                    $newFields['estado_ko'] = $value[1];
-                    $newFields['observaciones_ko'] = $value[2];
+                case 'VOC':
+                    $newFields['f_voc'] = $value[0];
+                    $newFields['n_estado_voc'] = $value[1];
                     break;
 
-                case 'VISITA OBRA CIVIL TERCEROS':
-                case 'VISITA OBRA CIVIL':
-                    $newFields['f_compromiso_voc'] = $value[0];
-                    $newFields['estado_voc'] = $value[1];
-                    $newFields['observaciones_voc'] = $value[2];
-                    if ($key === 'VISITA OBRA CIVIL') {
-                        $newFields['tipo_voc'] = 'VISITA OBRA CIVIL';
-                    }else{
-                        $newFields['tipo_voc'] = 'VISITA OBRA CIVIL TERCEROS';
-                    }
+                case 'EOC':
+                    $newFields['f_eoc'] = $value[0];
+                    $newFields['estado_eoc'] = $value[1];
                     break;
 
-                case 'ENVIÓ COTIZACIÓN':
-                    $newFields['f_compromiso_ec'] = $value[0];
-                    $newFields['estado_ec'] = $value[1];
-                    $newFields['observaciones_ec'] = $value[2];
+                case 'EM':
+                    $newFields['f_em'] = $value[0];
+                    $newFields['estado_em'] = $value[1];
                     break;
 
-                case 'APROBACIÓN COTIZACIÓN OC':
-                    $newFields['f_compromiso_ac'] = $value[0];
-                    $newFields['estado_ac'] = $value[1];
-                    $newFields['observaciones_ac'] = $value[2];
+                case 'ENTREGA SERVICIO':
+                    $newFields['f_entrega_servicio'] = $value[0];
+                    $newFields['estado_entrega_servicio'] = $value[1];
                     break;
 
-                case 'SOLICITUD INFORMACIÓN TÉCNICA':
-                    $newFields['f_compromiso_sit'] = $value[0];
-                    $newFields['estado_sit'] = $value[1];
-                    $newFields['observaciones_sit'] = $value[2];
-                    break;
-
-                case 'VISITA EJECUCION OBRA CIVIL TERCERO':
-                case 'VISITA EJECUCION OBRA CIVIL':
-                    $newFields['f_compromiso_veoc'] = $value[0];
-                    $newFields['estado_veoc'] = $value[1];
-                    $newFields['observaciones_veoc'] = $value[2];
-                    if ($key === 'VISITA EJECUCION OBRA CIVIL') {
-                        $newFields['tipo_veoc'] = 'VISITA EJECUCION OBRA CIVIL';
-                    } else {
-                        $newFields['tipo_veoc'] = 'VISITA EJECUCION OBRA CIVIL TERCERO';
-                    }
-
-                    break;
-
-                case 'EMPALMES':
-                    $newFields['f_compromiso_empalmes'] = $value[0];
-                    $newFields['estado_empalmes'] = $value[1];
-                    $newFields['observaciones_empalmes'] = $value[2];
-                    break;
-
-                case 'CONFIGURACION':
-                    $newFields['f_compromiso_crc'] = $value[0];
-                    $newFields['estado_crc'] = $value[1];
-                    $newFields['observaciones_crc'] = $value[2];
-                    break;
-
-                case 'VISITA ENTREGA DE SERVICIO':
-                    $newFields['f_compromiso_veut'] = $value[0];
-                    $newFields['estado_veut'] = $value[1];
-                    $newFields['observaciones_veut'] = $value[2];
+                case 'OBSERVACIONES':
+                    $newFields['observaciones_genrales'] = $value[0];
                     break;
             }
         }
@@ -453,11 +475,11 @@ class OtPadre extends CI_Controller {
         $observaciones = '';
         $asunOtp = ' - ';
         $ids_in = implode(",", $ids_otp);
-        $direccionCierreOtp = implode(',' , $this->getDireccionCierreOTP($ids_in));
+        $direccionCierreOtp = implode(',', $this->getDireccionCierreOTP($ids_in));
         $detCierreOtp = $this->Dao_cierre_ots_model->getDetailsCierreOTP($ids_in);
 
-        /*print_r($direccionCierreOtp);
-       exit();*/
+        /* print_r($direccionCierreOtp);
+          exit(); */
 
         foreach ($ids_otp as $idOtp) {
             $observaciones = '';
@@ -467,15 +489,15 @@ class OtPadre extends CI_Controller {
             $asunOtp .= $idOtp . ' - ';
             $hitosotp = $this->Dao_ot_padre_model->getHitosOtp($idOtp);
             $fechasAEnviar = [
-            'f_compromiso_ko' => $hitosotp->f_compromiso_ko,
-            'f_compromiso_voc' => $hitosotp->f_compromiso_voc,
-            'f_compromiso_ec' => $hitosotp->f_compromiso_ec,
-            'f_compromiso_ac' => $hitosotp->f_compromiso_ac,
-            'f_compromiso_sit' => $hitosotp->f_compromiso_sit,
-            'f_compromiso_veoc' => $hitosotp->f_compromiso_veoc,
-            'f_compromiso_crc' => $hitosotp->f_compromiso_crc,
-            'f_compromiso_empalmes' => $hitosotp->f_compromiso_empalmes,
-            'f_compromiso_veut' => $hitosotp->f_compromiso_veut,];
+                'f_compromiso_ko' => $hitosotp->f_compromiso_ko,
+                'f_compromiso_voc' => $hitosotp->f_compromiso_voc,
+                'f_compromiso_ec' => $hitosotp->f_compromiso_ec,
+                'f_compromiso_ac' => $hitosotp->f_compromiso_ac,
+                'f_compromiso_sit' => $hitosotp->f_compromiso_sit,
+                'f_compromiso_veoc' => $hitosotp->f_compromiso_veoc,
+                'f_compromiso_crc' => $hitosotp->f_compromiso_crc,
+                'f_compromiso_empalmes' => $hitosotp->f_compromiso_empalmes,
+                'f_compromiso_veut' => $hitosotp->f_compromiso_veut,];
             $fechasAEnviar = array_filter($fechasAEnviar); //limpiamos las fechas que no existen, para pintar la tabla dinamicamente
             $infOtp = $this->Dao_ot_padre_model->getDetailsHitosOTP($idOtp);
             $obs = [
@@ -490,7 +512,7 @@ class OtPadre extends CI_Controller {
                 "observaciones_veut" => $hitosotp->observaciones_veut,
             ];
             foreach (array_filter($obs) as $value) {
-                $observaciones .= $value. '<br><br>';
+                $observaciones .= $value . '<br><br>';
             }
             // echo("<pre>"); print_r( $observaciones); echo("</pre>");
             $template .= '
@@ -514,101 +536,100 @@ class OtPadre extends CI_Controller {
                                 <td class="m_-7809522729103588979gmail-xl70" style="border-top:none;border-left:none;text-align:center;vertical-align:middle;border-right: 0.5pt solid #ffff;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color: #ffffff;font-size:11pt;font-family:Calibri,sans-serif;white-space:nowrap;font-weight: bold;">ESTADO</td>
                                 <td colspan="2" class="m_-7809522729103588979gmail-xl70" style="border-left:none;text-align:center;vertical-align:middle;border-top:0.5pt solid windowtext;border-right: 0.5pt solid #ffff;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color: #ffffff;font-size:11pt;font-family:Calibri,sans-serif;white-space:nowrap;font-weight: bold;">OBSERVACIONES</td>
                             </tr>';
-                            $numFila = 1;
-                            foreach ($fechasAEnviar as $key => $val) {
-                                switch ($key) {
-                                    case 'f_compromiso_ko':
-                                        $template .= '<tr height="20" style="height:15pt">
-                                        <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'KICK OFF' ? '#4bd605' : '#7c7c7c') . ';">'.$numFila.'</div></td>
+            $numFila = 1;
+            foreach ($fechasAEnviar as $key => $val) {
+                switch ($key) {
+                    case 'f_compromiso_ko':
+                        $template .= '<tr height="20" style="height:15pt">
+                                        <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'KICK OFF' ? '#4bd605' : '#7c7c7c') . ';">' . $numFila . '</div></td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">KICK OFF</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;box-sizing:content-box;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->f_compromiso_ko . '</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->estado_ko . '</td>
 
-                                        <td colspan="2" rowspan="'.count($fechasAEnviar).'" class="m_-7809522729103588979gmail-xl75" style="border-width:0.5pt;border-style:solid;border-color:windowtext black black windowtext;text-align:left;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $observaciones . '</td>
+                                        <td colspan="2" rowspan="' . count($fechasAEnviar) . '" class="m_-7809522729103588979gmail-xl75" style="border-width:0.5pt;border-style:solid;border-color:windowtext black black windowtext;text-align:left;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $observaciones . '</td>
                                         </tr>';
-                                        break;
+                        break;
 
-                                    case 'f_compromiso_voc':
-                                        $template .= '<tr height="20" style="height:15pt">
-                                        <td height="15" class="m_-7809522729103588979gmail-xl67" style="height:30pt;border-top:none;text-align:center;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . (($hitosotp->actividad_actual == 'VISITA OBRA CIVIL' || $hitosotp->actividad_actual == 'VISITA OBRA CIVIL TERCEROS') ? '#4bd605' : '#7c7c7c') . ';">'.$numFila.'</div></td>
+                    case 'f_compromiso_voc':
+                        $template .= '<tr height="20" style="height:15pt">
+                                        <td height="15" class="m_-7809522729103588979gmail-xl67" style="height:30pt;border-top:none;text-align:center;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . (($hitosotp->actividad_actual == 'VISITA OBRA CIVIL' || $hitosotp->actividad_actual == 'VISITA OBRA CIVIL TERCEROS') ? '#4bd605' : '#7c7c7c') . ';">' . $numFila . '</div></td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">' . $hitosotp->tipo_voc . '</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->f_compromiso_voc . '</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->estado_voc . '</td>
                                      </tr>';
-                                        break;
+                        break;
 
-                                    case 'f_compromiso_ec':
-                                        $template .= '<tr height="20" style="height:15pt">
-                                        <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'ENVIO COTIZACION' ? '#4bd605' : '#7c7c7c') . ';">'.$numFila.'</div></td>
+                    case 'f_compromiso_ec':
+                        $template .= '<tr height="20" style="height:15pt">
+                                        <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'ENVIO COTIZACION' ? '#4bd605' : '#7c7c7c') . ';">' . $numFila . '</div></td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">ENVIO COTIZACIÓN</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->f_compromiso_ec . '</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->estado_ec . '</td>
                                        </tr>';
-                                        break;
+                        break;
 
-                                    case 'f_compromiso_ac':
-                                        $template .= '<tr height="20" style="height:15pt">
-                                        <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'APROBACION COTIZACION' ? '#4bd605' : '#7c7c7c') . ';">'.$numFila.'</div></td>
+                    case 'f_compromiso_ac':
+                        $template .= '<tr height="20" style="height:15pt">
+                                        <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'APROBACION COTIZACION' ? '#4bd605' : '#7c7c7c') . ';">' . $numFila . '</div></td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">APROBACIÓN COTIZACIÓN</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->f_compromiso_ac . '</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->estado_ac . '</td>
                                      </tr>';
-                                        break;
+                        break;
 
-                                    case 'f_compromiso_sit':
-                                        $template .= '<tr height="20" style="height:15pt">
-                                        <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'SOLICITUD INFORMACIÓN TECNICA' ? '#4bd605' : '#7c7c7c') . ';">'.$numFila.'</div></td>
+                    case 'f_compromiso_sit':
+                        $template .= '<tr height="20" style="height:15pt">
+                                        <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'SOLICITUD INFORMACIÓN TECNICA' ? '#4bd605' : '#7c7c7c') . ';">' . $numFila . '</div></td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">SOLICITUD INFORMACIÓN TÉCNICA</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->f_compromiso_sit . '</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->estado_sit . '</td>
                                        </tr>';
-                                        break;
+                        break;
 
-                                    case 'f_compromiso_veoc':
-                                        $template .= '<tr height="20" style="height:15pt">
-                                        <td height="15" class="m_-7809522729103588979gmail-xl73" style="border-bottom:0.5pt solid black;height:30pt;border-top:none;text-align:center;border-right:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'VISITA EJECUCION OBRA CIVIL' || $hitosotp->actividad_actual == 'VISITA EJECUCION OBRA CIVIL TERCERO' ? '#4bd605' : '#7c7c7c') . ';">'.$numFila.'</div></td>
+                    case 'f_compromiso_veoc':
+                        $template .= '<tr height="20" style="height:15pt">
+                                        <td height="15" class="m_-7809522729103588979gmail-xl73" style="border-bottom:0.5pt solid black;height:30pt;border-top:none;text-align:center;border-right:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'VISITA EJECUCION OBRA CIVIL' || $hitosotp->actividad_actual == 'VISITA EJECUCION OBRA CIVIL TERCERO' ? '#4bd605' : '#7c7c7c') . ';">' . $numFila . '</div></td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">' . $hitosotp->tipo_veoc . '</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->f_compromiso_veoc . '</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->estado_veoc . '</td>
                                      </tr>';
-                                        break;
+                        break;
 
-                                    case 'f_compromiso_empalmes':
-                                        $template .= '<tr height="20" style="height:15pt">
-                                        <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'EMPALMES' ? '#4bd605' : '#7c7c7c') . ';">'.$numFila.'</div></td>
+                    case 'f_compromiso_empalmes':
+                        $template .= '<tr height="20" style="height:15pt">
+                                        <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'EMPALMES' ? '#4bd605' : '#7c7c7c') . ';">' . $numFila . '</div></td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">EMPALMES</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->f_compromiso_empalmes . '</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->estado_empalmes . '</td>
                                         </tr>';
-                                            break;
+                        break;
 
-                                    case 'f_compromiso_crc':
-                                        $template .= '<tr height="20" style="height:15pt">
-                                        <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'CONFIGURACION RED CLARO' ? '#4bd605' : '#7c7c7c') . ';">'.$numFila.'</div></td>
+                    case 'f_compromiso_crc':
+                        $template .= '<tr height="20" style="height:15pt">
+                                        <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'CONFIGURACION RED CLARO' ? '#4bd605' : '#7c7c7c') . ';">' . $numFila . '</div></td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">CONFIGURACIÓN</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->f_compromiso_crc . '</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->estado_crc . '</td>
                                      </tr>';
-                                        break;
+                        break;
 
-                                    case 'f_compromiso_veut':
-                                        $template .= '<tr height="20" style="height:15pt">
-                                        <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'VISITA ENTREGA UM TERCEROS' ? '#4bd605' : '#7c7c7c') . ';">'.$numFila.'</div></td>
+                    case 'f_compromiso_veut':
+                        $template .= '<tr height="20" style="height:15pt">
+                                        <td height="15" class="m_-7809522729103588979gmail-xl65" style="height:15pt;border-top:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap"><div style="color: #fff; width: 30px; height: 30px; line-height: 30px; font-size: 22px; text-align: center; top: 18px; left: 50%; margin-left: -25px; border: 3px solid #ffffff; z-index: 100; border-top-right-radius: 50%; border-top-left-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; background-color: ' . ($hitosotp->actividad_actual == 'VISITA ENTREGA UM TERCEROS' ? '#4bd605' : '#7c7c7c') . ';">' . $numFila . '</div></td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">ENTREGA SERVICIO</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->f_compromiso_veut . '</td>
                                         <td class="m_-7809522729103588979gmail-xl65" style="border-top:none;border-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:middle;white-space:nowrap">&nbsp;' . $hitosotp->estado_veut . '</td>
                                         </tr>';
-                                    break;
-
-                                }
-                                $numFila++;
-                            }
-                        $template.='</tbody>
+                        break;
+                }
+                $numFila++;
+            }
+            $template .= '</tbody>
                                     </table>
                                 </div>
                                 <br><br>';
 
-                        // echo("<pre>"); print_r($template); echo("</pre>");
+            // echo("<pre>"); print_r($template); echo("</pre>");
         }
 
         $encabezado = '
@@ -680,15 +701,13 @@ class OtPadre extends CI_Controller {
 
     //Trae la dirrecion de cierre de la otp
     public function getDireccionCierreOTP($ids_in) {
-        /*$detCierreOtp = $this->Dao_cierre_ots_model->getDetailsCierreOTP($ids_in);*/
+        /* $detCierreOtp = $this->Dao_cierre_ots_model->getDetailsCierreOTP($ids_in); */
         $DirCierreOTP = $this->Dao_ot_hija_model->get_direccionservicio($ids_in);
 
         return array_column($DirCierreOTP, 'direccion_destino');
     }
 
-
-    public function c_getInfoEmailreport()
-    {
+    public function c_getInfoEmailreport() {
         $idsOtp = $this->input->post("idsOtp");
 
         //cuenta cuantas filas están seleccionadas
@@ -699,52 +718,46 @@ class OtPadre extends CI_Controller {
         if ($seleccionadas == 1) {
             //verifica si existe en la base de datos, si no, extraerá la info de la linea base
             if ($exist) {
-                $ultimo_en_enviar = $this->Dao_ot_padre_model->getLastMailSent(implode(',',$idsOtp));
+                $ultimo_en_enviar = $this->Dao_ot_padre_model->getLastMailSent(implode(',', $idsOtp));
                 echo json_encode($ultimo_en_enviar);
-            }else{
+            } else {
                 //si no existe en la tabla de reporte_info, buscará si existe en la linea base
                 $fLineaBase = $this->Dao_ot_padre_model->getFechaLineaBaseEmailReport($idsOtp);
                 if ($fLineaBase) {
                     $answer['fecha_compromiso'] = $fLineaBase->fecha_compromiso;
                     echo json_encode($answer);
-                }else{
+                } else {
 
                     //si no retorna sin data
                     echo json_encode('sin data');
                 }
             }
-        }
-        else{
+        } else {
             //entra si hay más de una seleccion
 
             $answer = array();
             //creo el arreglo que devolveré
 
-            for ($i=0; $i < $seleccionadas; $i++) {
-                if($this->Dao_ot_padre_model->getLastMailSent($idsOtp[$i])){
+            for ($i = 0; $i < $seleccionadas; $i++) {
+                if ($this->Dao_ot_padre_model->getLastMailSent($idsOtp[$i])) {
                     //si existe algo en la tabla reporte_info, lo pondrá en el arreglo
-                    array_push($answer,$this->Dao_ot_padre_model->getLastMailSent($idsOtp[$i]));
-                }else if($this->Dao_ot_padre_model->getFechaLineaBaseEmailReport($idsOtp[$i])){
+                    array_push($answer, $this->Dao_ot_padre_model->getLastMailSent($idsOtp[$i]));
+                } else if ($this->Dao_ot_padre_model->getFechaLineaBaseEmailReport($idsOtp[$i])) {
                     //si no, intentará obtener si existe algo en la linea base
                     $flb['fecha_compromiso'] = $this->Dao_ot_padre_model->getFechaLineaBaseEmailReport($idsOtp[$i])->fecha_compromiso;
-                    array_push($answer,$flb);
-                }else{
+                    array_push($answer, $flb);
+                } else {
                     // si no, retornará sin data y seguira iterando
-                    array_push($answer,"sin data");
+                    array_push($answer, "sin data");
                 }
             }
             echo json_encode($answer);
         }
-
-
-
     }
 
-
     //funcion que actualiza o ingresa la info. del formulario del reporte de act.
-    public function saveInfoEmailReport()
-    {
-        $ots = $this->input->post("ids_otp");// ids seleccionadas;
+    public function saveInfoEmailReport() {
+        $ots = $this->input->post("ids_otp"); // ids seleccionadas;
         $servicios = $this->input->post("servicios");
         $last_sender = Auth::user()->k_id_user; //captura quién envió el reporte
 
@@ -754,12 +767,12 @@ class OtPadre extends CI_Controller {
 
         $data = array(
             'senior' => $this->input->post("senior"),
-            'nombre_cliente'=>  $this->input->post("configuracion"),
+            'nombre_cliente' => $this->input->post("configuracion"),
             'f_entrega_servicio' => $this->input->post("entregaServicio"),
             'observaciones' => $this->input->post("observaciones"),
             'last_sender' => $last_sender,
             'last_f_envio' => $last_f_evio,
-            'paquete_enviados' => $paquete_envio+1
+            'paquete_enviados' => $paquete_envio + 1
         );
 
         //ELIMINA LOS CAMPOS VACÍOS PARA QUE SI UN INPUT SE VA VACÍO, NO LO ACTUALICE A NULL
@@ -769,22 +782,21 @@ class OtPadre extends CI_Controller {
             }
         }
         $cant_ots = count($ots); //cuenta cuantas selecciones hay
-        for ($i=0; $i < $cant_ots; $i++) {
+        for ($i = 0; $i < $cant_ots; $i++) {
             // ya no sirve :'v
             // $exist = $this->Dao_ot_padre_model->get_email_report_by_otp($ots[$i]);
             // if ($exist) {
             //     //actualizar
             //     $data['contador_reportes'] = $exist->contador_reportes + 1;
             //     $this->Dao_ot_padre_model->updateInfoEmailDB($data,$ots[$i]);
-
             // } else {
-                //inserta porque no está en db
-                $data['id_ot_padre'] = $ots[$i];
-                $data['servicio'] = $servicios[$i];
-                $this->Dao_ot_padre_model->saveInfoEmailDB($data);
-                // los elimino para que en la siguiente iteracion sólo exista el que debe insertarse
-                unset($data['id_ot_padre']);
-                unset($data['servicio']);
+            //inserta porque no está en db
+            $data['id_ot_padre'] = $ots[$i];
+            $data['servicio'] = $servicios[$i];
+            $this->Dao_ot_padre_model->saveInfoEmailDB($data);
+            // los elimino para que en la siguiente iteracion sólo exista el que debe insertarse
+            unset($data['id_ot_padre']);
+            unset($data['servicio']);
             // }
         }
     }
@@ -796,10 +808,200 @@ class OtPadre extends CI_Controller {
         $this->load->view('exportAllReportAct', $data);
     }
 
-    public function c_getLinearBaseForHitos(){
+    public function c_getLinearBaseForHitos() {
         $id = $this->input->post('idOtp');
         $fechas = $this->Dao_ot_padre_model->getLineaBasePerOTP($id);
         echo json_encode($fechas);
+    }
+
+    public function c_getInfoHitosByOtp() {
+        $idOtp = $this->input->post("idOtp");
+        $hitosList = $this->Dao_ot_padre_model->getInfoHitosByOtp($idOtp);
+        echo json_encode($hitosList);
+    }
+
+    public function c_sendReportUpdateV2() {
+        $ids_otp = $this->input->post('ids_otp');
+        $senior = $this->input->post('senior');
+        $configuracion = $this->input->post('configuracion');
+        $entregaServicio = $this->input->post('entregaServicio');
+        $observacionesEmail = $this->input->post('observaciones');
+        $direccionEmail = $this->input->post('direccion');
+        $email = Auth::user()->n_mail_user;
+        $ingeniero = Auth::user()->n_name_user . ' ' . Auth::user()->n_last_name_user;
+        $celIngeniero = Auth::user()->cell_phone;
+
+        $template = '';
+        $timeline = '';
+        $observaciones = '';
+        $asunOtp = ' - ';
+        $ids_in = implode(",", $ids_otp);
+        $direccionCierreOtp = implode(',', $this->getDireccionCierreOTP($ids_in));
+        $detCierreOtp = $this->Dao_cierre_ots_model->getDetailsCierreOTP($ids_in);
+
+        /* print_r($direccionCierreOtp);exit(); */
+
+        $template .= '
+                <div dir="ltr">
+                    <table class="x_m_-1360814042998563018MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="1660" style="width: 829.95pt; border-collapse: collapse; transform: scale(0.779982, 0.779982); transform-origin: left top;" min-scale="0.7799819657348963">
+                        <tbody>
+                            <tr style="height:45.0pt">
+                                <td width="156" nowrap="" style="width:78.0pt; border:solid windowtext 1.0pt; background:#c00000; padding:0cm 3.5pt 0cm 3.5pt; height:45.0pt">
+                                    <p class="x_MsoNormal" align="center" style="text-align:center"><b><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:white">OT
+                                    <u></u><u></u></span></b></p>
+                                </td>
+                                <td width="154" nowrap="" style="width:77.0pt; border:solid windowtext 1.0pt; border-left:none; background:#c00000; padding:0cm 3.5pt 0cm 3.5pt; height:45.0pt">
+                                    <p class="x_MsoNormal" align="center" style="text-align:center"><b><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:white">CODIGO SERVICIO &nbsp;<u></u><u></u></span></b></p>
+                                </td>
+                                <td width="124" style="width:62.05pt; border:solid windowtext 1.0pt; border-left:none; background:#c00000; padding:0cm 3.5pt 0cm 3.5pt; height:45.0pt">
+                                    <p class="x_MsoNormal" align="center" style="text-align:center"><b><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:white">CIUDAD / MUNICIPIO
+                                <u></u><u></u></span></b></p>
+                                </td>
+                                <td width="218" nowrap="" style="width:108.75pt; border:solid windowtext 1.0pt; border-left:none; background:#c00000; padding:0cm 3.5pt 0cm 3.5pt; height:45.0pt">
+                                    <p class="x_MsoNormal" align="center" style="text-align:center"><b><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:white">DIRECCIÓN
+                                    <u></u><u></u></span></b></p>
+                                </td>
+                                <td width="150" nowrap="" style="width:75.0pt; border:solid windowtext 1.0pt; border-left:none; background:#c00000; padding:0cm 3.5pt 0cm 3.5pt; height:45.0pt">
+                                    <p class="x_MsoNormal" align="center" style="text-align:center"><b><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:white">VOC
+                                    <u></u><u></u></span></b></p>
+                                </td>
+                                <td width="170" nowrap="" style="width:85.15pt; border:solid windowtext 1.0pt; border-left:none; background:#c00000; padding:0cm 3.5pt 0cm 3.5pt; height:45.0pt">
+                                    <p class="x_MsoNormal" align="center" style="text-align:center"><b><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:white">EOC<u></u><u></u></span></b></p>
+                                </td>
+                                <td width="150" nowrap="" style="width:75.0pt; border:solid windowtext 1.0pt; border-left:none; background:#c00000; padding:0cm 3.5pt 0cm 3.5pt; height:45.0pt">
+                                    <p class="x_MsoNormal" align="center" style="text-align:center"><b><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:white">EM<u></u><u></u></span></b></p>
+                                </td>
+                                <td width="178" nowrap="" style="width:89.0pt; border:solid windowtext 1.0pt; border-left:none; background:#c00000; padding:0cm 3.5pt 0cm 3.5pt; height:45.0pt">
+                                    <p class="x_MsoNormal" align="center" style="text-align:center"><b><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:white">Entrega servicio<u></u><u></u></span></b></p>
+                                </td>
+                                <td width="360" nowrap="" style="width:180.0pt; border:solid windowtext 1.0pt; border-left:none; background:#c00000; padding:0cm 3.5pt 0cm 3.5pt; height:45.0pt">
+                                    <p class="x_MsoNormal" align="center" style="text-align:center"><b><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:white">OBSERVACIONES
+                                    <u></u><u></u></span></b></p>
+                                </td>
+                            </tr>';
+
+        foreach ($ids_otp as $idOtp) {
+            $observaciones = '';
+            //actualizar la ultima fecha de envio de reporte de loa ot padre (CAMILO)
+            $this->Dao_ot_padre_model->update_ot_padre(array('ultimo_envio_reporte' => date('Y-m-d')), $idOtp);
+
+            $asunOtp .= $idOtp . ' - ';
+            $hitosotp = $this->Dao_ot_padre_model->getInfoHitosByOtp($idOtp);
+            $infOtp = $this->Dao_ot_padre_model->getDetailsHitosOTP($idOtp);
+           
+            $template .= '
+                        <tr>
+                            <td width="156" nowrap="" valign="bottom" style="width:78.0pt; border:solid windowtext 1.0pt; border-top:none; padding:0cm 3.5pt 0cm 3.5pt; height:60.0pt">
+                                <p class="x_MsoNormal" align="right" style="text-align:right"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">' . $idOtp . '<u></u><u></u></span></p>
+                            </td>
+                            <td width="154" nowrap="" valign="bottom" style="width:77.0pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 3.5pt 0cm 3.5pt; height:60.0pt">
+                                <p class="x_MsoNormal" align="right" style="text-align:right"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">' . $infOtp->servicio . '<u></u><u></u></span></p>
+                            </td>
+                            <td width="124" nowrap="" valign="bottom" style="width:62.05pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 3.5pt 0cm 3.5pt; height:60.0pt">
+                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">' . $infOtp->ciudad . '
+                            <u></u><u></u></span></p>
+                            </td>
+                            <td width="218" valign="bottom" style="width:108.75pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 3.5pt 0cm 3.5pt; height:60.0pt">
+                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">' . $infOtp->direccion . '<u></u><u></u></span></p>
+                            </td>
+                            <td width="150" valign="bottom" style="width:75.0pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 3.5pt 0cm 3.5pt; height:60.0pt">
+                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">' . $hitosotp[0]->n_estado_voc . ' <br>' . $hitosotp[0]->f_voc . '<u></u><u></u></span></p>
+                            </td>
+                            <td width="170" valign="bottom" style="width:85.15pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 3.5pt 0cm 3.5pt; height:60.0pt">
+                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">' . $hitosotp[0]->estado_eoc . ' <br>' . $hitosotp[0]->f_eoc . '
+                                <u></u><u></u></span></p>
+                            </td>
+                            <td width="150" valign="bottom" style="width:75.0pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 3.5pt 0cm 3.5pt; height:60.0pt">
+                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">&nbsp; ' . $hitosotp[0]->estado_em . ' <br>' . $hitosotp[0]->f_em . '
+                                <u></u><u></u></span></p>
+                            </td>
+                            <td width="178" valign="bottom" style="width:89.0pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 3.5pt 0cm 3.5pt; height:60.0pt">
+                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">&nbsp; ' . $hitosotp[0]->estado_entrega_servicio . ' <br>' . $hitosotp[0]->f_entrega_servicio . '
+                                <u></u><u></u></span></p>
+                            </td>
+                            <td width="360" valign="bottom" style="width:180.0pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 3.5pt 0cm 3.5pt; height:60.0pt">
+                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">' . $hitosotp[0]->observaciones_genrales . '
+                                <u></u><u></u></span></p>
+                            </td>
+                        </tr>';
+            
+            $timeline .= '<div dir="ltr">
+                            <ul style="font-family:Calibri,Helvetica,sans-serif; margin-bottom:0cm">
+                                <li><span style="font-family:&quot;Berlin Sans FB&quot;,sans-serif; color:black; background:white">OT</span>
+                                <span style="font-size:10.0pt; color:black; border:none windowtext 1.0pt; padding:0cm">
+                                ' . $idOtp . ' – ' . $infOtp->direccion . '</span></li>
+                            </ul>
+                            <p style="font-family:Calibri,sans-serif; margin:0cm 0cm 0.0001pt 36pt; font-size:11pt; line-height:normal">
+                                <span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif"></span>
+                            </p>
+                            <ul style="margin-bottom:0cm">
+                            <ul style="font-family:Calibri,Helvetica,sans-serif; margin-bottom:0cm">
+                            <li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Visita obra civil<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </span>' . (($hitosotp[0]->n_estado_voc != '') ? (($hitosotp[0]->n_estado_voc != 'NO APLICA') ? 'Realizada' : 'No aplica') : 'Pendiente') . '</span></li><li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Visita ejecución obra civil<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </span>' . (($hitosotp[0]->estado_eoc != '') ? (($hitosotp[0]->estado_eoc != 'NO APLICA') ? 'Realizada' : 'No aplica') : 'Pendiente') . '</span></li><li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Empalmes<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </span>' . (($hitosotp[0]->estado_em != '') ? (($hitosotp[0]->estado_em != 'NO APLICA') ? 'Realizada' : 'No aplica') : 'Pendiente') . '</span></li><li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Entrega servicio<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </span>' . (($hitosotp[0]->estado_entrega_servicio != '') ? (($hitosotp[0]->estado_entrega_servicio != 'No aplica') ? 'Realizada' : 'No aplica') : 'Pendiente') . '</span></li></ul>
+                            </ul>
+                        </div>
+                        <br><br>
+                        ';
+           
+        }
+
+        $template .= '</tbody>
+                </table>
+            </div>
+            <br><br>';
+        
+//        echo("<pre>"); print_r($template); echo("</pre>");exit();
+
+        $encabezado = '
+            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Cordial Saludo</span></p>
+            <!--<p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Señor(a):</span></p>
+            <p class="x_MsoNormal" style="text-align:justify"><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $senior . '</span></strong></p>-->
+            <p class="x_MsoNormal" style="text-align:justify"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>
+            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Comprometidos con el servicio y el cumplimiento de sus solicitudes me permito notificar los avances de los asuntos en curso. Es de suma importancia que sea revisado y nos retroalimente con &nbsp;sus comentarios, ya que al término de 2 días hábiles este reporte se dará por aceptado.</span></p>
+            <!--<p class="x_MsoNormal">&nbsp;</p>-->
+            <!--<p class="x_MsoListParagraph" style="text-indent:-18.0pt; text-autospace:none"><span style="font-family: Symbol, serif, EmojiFont;"><span style=""><span style="font: 7pt &quot;Times New Roman&quot;, serif, EmojiFont;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><strong><span lang="EN-US" style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;OT DESTINO &nbsp;</span></strong><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . substr($asunOtp, 0, -2) . '</span></strong><strong><span lang="EN-US" style="font-family: Arial, sans-serif, serif, EmojiFont;">: </span></strong><span lang="EN-US" style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $infOtp->servicio . ' </span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"><strong></strong></span></p>
+            <p class="x_MsoNormal" style="text-autospace:none"><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Ciudad: </span></strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $infOtp->ciudad . '</span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"></span></p>
+            <p class="x_MsoNormal" style="text-autospace:none"><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Dirección de servicio: </span></strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $direccionCierreOtp . '&nbsp; </span><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;"></span></strong></p>
+            <p class="x_MsoNormal"><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Cliente: &nbsp;</span></strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $configuracion . '<strong></strong></span></p>
+            <p class="x_MsoNormal"><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Entrega del servicio:</span></strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;"> ' . $entregaServicio . ' </span><span lang="ES" style="font-family: Arial, sans-serif, serif, EmojiFont;">(Fecha sujeta a cambios en caso de tener algún inconveniente o adelantos en el proceso de instalación). </span><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>
+            <p class="x_MsoNormal" style="text-align:justify"><span style="text-decoration:underline"><span lang="ES" style="font-family: Arial, sans-serif, serif, EmojiFont;">De acuerdo a lo anterior, solicitamos de su colaboración confirmado la siguiente información:</span></span></p>
+            <p class="x_MsoListParagraph" style="text-indent:-18.0pt"><span style="font-family: Symbol, serif, EmojiFont;"><span style="">·<span style="font: 7pt &quot;Times New Roman&quot;, serif, EmojiFont;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"><br><b>Observaciones: </b>&nbsp;' . $observacionesEmail . '</span></p>
+            <p class="x_MsoListParagraph"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>-->
+            <br><br>';
+
+        $contacto = '
+            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Durante todo el Proceso de Instalación puede contactar a:</span></p>
+            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>
+            <p class="x_MsoNormal"><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Nivel de Contacto 1:</span></strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;"> Para cualquier duda o inquietud sobre el proceso.</span></p>
+            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Ingeniero Implementación Responsable Cuenta: &nbsp;' . $ingeniero . '</span></p>
+            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Ingeniero Aprovisionamiento Estándar</span></p>
+            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Celular: </span><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $celIngeniero . '</span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"></span></p>
+            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Correo electrónico: </span><span style="font-family: Arial, sans-serif, serif, EmojiFont; color: rgb(79, 129, 189);"><a href="mailto:' . $email . '" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable"><span style="color:#4F81BD">' . $email . '</span></a></span><span style="font-family: Arial, sans-serif, serif, EmojiFont; color: black;">&nbsp;</span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"></span></p>
+            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>
+
+
+            <p class="m_-5751456617445139844xmsonormal" style="text-align:justify"><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Nivel de Contacto 2:</span></strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;"> En caso de que no se obtenga respuesta por parte del Nivel de Contacto &nbsp;1.</span><u></u><u></u></p>
+
+            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Coordinador Estándar: <span style="color:#1f497d">&nbsp;</span>Alejandra Rendon Calderon &nbsp;</span><u></u><u></u></p>
+            <p class="MsoNormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Teléfono. 7569858 Ext &nbsp;2008 Celular:</span> 3102129290<u></u><u></u></p>
+            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Correo: <span style="color:#4f81bd"> <a href="mailto:alejandra.rendon.ext@claro.com.co" target="_blank"><span style="color:#4f81bd">alejandra.rendon.ext@claro.<wbr>com.co</span></a> </span></span><u></u><u></u></p>
+            <p class="MsoNormal"><u></u>&nbsp;<u></u></p>
+            <!--<p class="m_-5751456617445139844xmsonormal" style="text-align:justify"><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Nivel de Contacto 3:</span></strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;"> En caso de que no se obtenga respuesta por parte del Nivel de Contacto &nbsp;1.</span><u></u><u></u></p>
+            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Coordinador Estándar: &nbsp;Angelica Palomino<u></u><u></u></span></p>
+            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Teléfono.7500300&nbsp; Ext 83746 &nbsp;&nbsp;Celular 3202750048<u></u><u></u></span></p>
+            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Correo: <span style="color:#4f81bd"> <a href="mailto:angelica.palomino@claro.com.co" target="_blank"><span style="color:#4f81bd">angelica.palomino@claro.<wbr>com.co</span></a> </span></span><u></u><u></u></p>
+            <p class="MsoNormal"><u></u>&nbsp;<u></u></p>-->
+
+            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont; color: rgb(31, 73, 125);">&nbsp;</span></p>
+            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Gracias por la atención prestada y quedo atento a sus comentarios.</span></p>
+            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>';
+
+        $res = $this->Dao_email_model->h_enviarCorreo($encabezado . $template . $timeline . $contacto, $email, 'REPORTE DE ACTUALIZACION DE ACTIVIDADES ' . strtoupper((isset($detCierreOtp->servicio) ? $detCierreOtp->servicio : $infOtp->servicio)) . ' - ' . $infOtp->n_nombre_cliente . ' / OT ' . substr($asunOtp, 0, -2));
+        echo json_encode($res);
     }
 
 }

@@ -1,26 +1,26 @@
 // *******************************************TABLAS de OT PADRE ***************************
-$(function() {
+$(function () {
 
     gral = {
-        init: function() {
+        init: function () {
             gral.events();
 
         },
 
         //Eventos de la ventana.
-        events: function() {
+        events: function () {
             //funciones para guardar los codigos de resolucion
             $('body').on('change', 'select.cod_resolucion', gral.guardar_codigo_observacion);
             $('body').on('blur', 'textarea.obs_cod_resolucion', gral.guardar_codigo_observacion);
             // boton para refrescar la pantalla
-            $('body').on('click', 'a#reload', function() {
+            $('body').on('click', 'a#reload', function () {
                 location.reload();
             });
 
         },
 
         // Guarda el codigo de resolucion y su observacion cuandocambie el select o el textarea
-        guardar_codigo_observacion: function() {
+        guardar_codigo_observacion: function () {
             var input = $(this);
             var trParent = input.parents('tr');
             var tabla = input.parents('table').attr('id');
@@ -60,7 +60,7 @@ $(function() {
                         lista: val_select,
                         observacion: val_observacion
                     },
-                    function(data) {
+                    function (data) {
                         var res = JSON.parse(data);
                         // if (res == true) {
                         //     swal(
@@ -79,7 +79,7 @@ $(function() {
         },
 
         // Retorna cantidad de dias desde el ultimo reporte
-        cant_dias_ultimo_reporte: function(obj) {
+        cant_dias_ultimo_reporte: function (obj) {
 
             if (obj.ultimo_envio_reporte) {
                 const hoy = new Date(formato_fecha.getFullYear(), formato_fecha.getMonth(), formato_fecha.getDate());
@@ -93,14 +93,14 @@ $(function() {
         },
 
         // Retorna un input con las observaciones dejadas de la lista
-        inputObservaciones: function(obj) {
+        inputObservaciones: function (obj) {
             // console.log("obj", obj);
             const observacion = (obj.observacion == null) ? '' : obj.observacion;
             return `<textarea class="obs_cod_resolucion" spellcheck="false">${observacion}</textarea>`;
         },
 
         // retorna select con la lista de observaciones
-        listaObservaciones: function(obj) {
+        listaObservaciones: function (obj) {
             const seleccionada = (obj.lista_observaciones == null) ? `<option value=""></option>` : `<option value="${obj.lista_observaciones}" style="color: blue;">${obj.lista_observaciones.toLowerCase()}</option>`;
             const select = `
                 <select class="cod_resolucion">
@@ -259,16 +259,16 @@ $(function() {
 
 //table_otPadreList
     vista = {
-        init: function() {
+        init: function () {
             vista.events();
             vista.getListOtsOtPadre('all');
 
         },
         //Eventos de la ventana.
-        events: function() {
+        events: function () {
             // $("#filterGroupIng").on('change',vista.getListOtsOtPadre);
         },
-        getListOtsOtPadre: function(filtro) {
+        getListOtsOtPadre: function (filtro) {
             //metodo ajax (post)
             (role_session === 'administrador') ? helper.showLoading('Filtrando...') : helper.showLoading();
             $.post(baseurl + '/OtPadre/c_getListOtsOtPadre',
@@ -276,7 +276,7 @@ $(function() {
                         filter: filtro,
                     },
                     // funcion que recibe los datos
-                            function(data) {
+                            function (data) {
                                 // convertir el json a objeto de javascript
                                 var obj = JSON.parse(data);
                                 helper.hideLoading('.8');
@@ -285,7 +285,7 @@ $(function() {
                             }
                     );
                 },
-        printTable: function(data) {
+        printTable: function (data) {
             if (vista.table_otPadreList) {
                 var tabla = vista.table_otPadreList;
                 tabla.clear().draw();
@@ -316,7 +316,7 @@ $(function() {
 
         },
 
-        getColourPerOTHs: function(data) {
+        getColourPerOTHs: function (data) {
             let num = '';
             if (data.cant_oths != 0) {
                 num += `<span class="styleNum" title="${data.cant_oths} OTHs Asociadas" >${data.cant_oths}</span>`;
@@ -327,17 +327,17 @@ $(function() {
             return num;
         },
         // Datos de configuracion del datatable
-        configTable: function(data, columns, onDraw) {
+        configTable: function (data, columns, onDraw) {
             return {
-                initComplete: function() {
+                initComplete: function () {
 
                     // $('.cod_resolucion').selectize();
 
-                    $('#table_otPadreList tfoot th').each(function() {
+                    $('#table_otPadreList tfoot th').each(function () {
                         $(this).html('<input type="text" placeholder="Buscar" />');
                     });
                     var r = $('#table_otPadreList tfoot tr');
-                    r.find('th').each(function() {
+                    r.find('th').each(function () {
                         $(this).css('padding', 8);
                     });
                     $('#table_otPadreList thead').append(r);
@@ -347,10 +347,10 @@ $(function() {
                     var table = $('#table_otPadreList').DataTable();
 
                     // Apply the search
-                    table.columns().every(function() {
+                    table.columns().every(function () {
                         var that = this;
 
-                        $('input', this.footer()).on('keyup change', function() {
+                        $('input', this.footer()).on('keyup change', function () {
                             if (that.search() !== this.value) {
                                 that.search(this.value).draw();
                             }
@@ -366,7 +366,7 @@ $(function() {
 
                 // Este callback se ejecuta cada vex que hay cambio de pagina, ordenamiento, o cambio en cantidad de registros a mostrar
                 // o un cambio especifico en la pagina
-                fnInfoCallback: function(oSettings, iStart, iEnd, iMax, iTotal, sPre) {
+                fnInfoCallback: function (oSettings, iStart, iEnd, iMax, iTotal, sPre) {
 
 
                 },
@@ -409,7 +409,7 @@ $(function() {
                     }],
                 order: [[7, 'desc']],
                 drawCallback: onDraw,
-                "createdRow": function(row, data, dataIndex) {
+                "createdRow": function (row, data, dataIndex) {
                     if (data["cant_oths"] == 0) {
                         $(row).css("background-color", "#f50e0e69");
                     }
@@ -418,7 +418,7 @@ $(function() {
         },
 
         // observacion con funcion de mostrar mas
-        getObservacionTotal: function(obj) {
+        getObservacionTotal: function (obj) {
 
             if (typeof obj.observacion == 'string') {
                 var array_cadena = obj.observacion.split(" ");
@@ -438,7 +438,7 @@ $(function() {
             return obj.observacion;
         },
 
-        getButtonsOTP/**/: function(obj) {
+        getButtonsOTP/**/: function (obj) {
             var span = '';
             var title = '';
             var cierreKo = '';
@@ -488,15 +488,15 @@ $(function() {
 
     /**********************TABLA OT PADRES CON FECHA COMPROMISO EN HOY**************************/
     hoy = {
-        init: function() {
+        init: function () {
             hoy.events();
             hoy.getListOtsOtPadreHoy('all');
         },
         //Eventos de la ventana.
-        events: function() {
+        events: function () {
 
         },
-        getListOtsOtPadreHoy: function(filtro) {
+        getListOtsOtPadreHoy: function (filtro) {
             //metodo ajax (post)
             $.post(baseurl + '/OtPadre/c_getListOtsOtPadreHoy',
                     {
@@ -504,14 +504,14 @@ $(function() {
                         filter: filtro,
                     },
                     // funcion que recibe los datos
-                            function(data) {
+                            function (data) {
                                 // convertir el json a objeto de javascript
                                 var obj = JSON.parse(data);
                                 hoy.printTable(obj);
                             }
                     );
                 },
-        printTable: function(data) {
+        printTable: function (data) {
             if (hoy.table_otPadreListHoy) {
                 var tabla = hoy.table_otPadreListHoy;
                 tabla.clear().draw();
@@ -539,14 +539,14 @@ $(function() {
             ]));
         },
         // Datos de configuracion del datatable
-        configTable: function(data, columns, onDraw) {
+        configTable: function (data, columns, onDraw) {
             return {
-                initComplete: function() {
-                    $('#table_otPadreListHoy tfoot th').each(function() {
+                initComplete: function () {
+                    $('#table_otPadreListHoy tfoot th').each(function () {
                         $(this).html('<input type="text" placeholder="Buscar" />');
                     });
                     var r = $('#table_otPadreListHoy tfoot tr');
-                    r.find('th').each(function() {
+                    r.find('th').each(function () {
                         $(this).css('padding', 8);
                     });
                     $('#table_otPadreListHoy thead').append(r);
@@ -556,10 +556,10 @@ $(function() {
                     var table = $('#table_otPadreListHoy').DataTable();
 
                     // Apply the search
-                    table.columns().every(function() {
+                    table.columns().every(function () {
                         var that = this;
 
-                        $('input', this.footer()).on('keyup change', function() {
+                        $('input', this.footer()).on('keyup change', function () {
                             if (that.search() !== this.value) {
                                 that.search(this.value).draw();
                             }
@@ -574,7 +574,7 @@ $(function() {
                 },
                 // Este callback se ejecuta cada vex que hay cambio de pagina, ordenamiento, o cambio en cantidad de registros a mostrar
                 // o un cambio especifico en la pagina
-                fnInfoCallback: function(oSettings, iStart, iEnd, iMax, iTotal, sPre) {
+                fnInfoCallback: function (oSettings, iStart, iEnd, iMax, iTotal, sPre) {
                     // $('#table_otPadreListHoy .cod_resolucion').selectize();
                 },
                 data: data,
@@ -622,15 +622,15 @@ $(function() {
 
     /**********************TABLA OT PADRES CON FECHA COMPROMISO VENCIDA**************************/
     vencidas = {
-        init: function() {
+        init: function () {
             vencidas.events();
             vencidas.getListOtsOtPadreVencidas('all');
         },
         //Eventos de la ventana.
-        events: function() {
+        events: function () {
 
         },
-        getListOtsOtPadreVencidas: function(fil) {
+        getListOtsOtPadreVencidas: function (fil) {
             //metodo ajax (post)
             $.post(baseurl + '/OtPadre/c_getListOtsOtPadreVencidas',
                     {
@@ -638,14 +638,14 @@ $(function() {
                         filter: fil
                     },
                     // funcion que recibe los datos
-                            function(data) {
+                            function (data) {
                                 // convertir el json a objeto de javascript
                                 var obj = JSON.parse(data);
                                 vencidas.printTable(obj);
                             }
                     );
                 },
-        printTable: function(data) {
+        printTable: function (data) {
             if (vencidas.table_otPadreListVencidas) {
                 var tabla = vencidas.table_otPadreListVencidas;
                 tabla.clear().draw();
@@ -673,14 +673,14 @@ $(function() {
             ]));
         },
         // Datos de configuracion del datatable
-        configTable: function(data, columns, onDraw) {
+        configTable: function (data, columns, onDraw) {
             return {
-                initComplete: function() {
-                    $('#table_otPadreListVencidas tfoot th').each(function() {
+                initComplete: function () {
+                    $('#table_otPadreListVencidas tfoot th').each(function () {
                         $(this).html('<input type="text" placeholder="Buscar" />');
                     });
                     var r = $('#table_otPadreListVencidas tfoot tr');
-                    r.find('th').each(function() {
+                    r.find('th').each(function () {
                         $(this).css('padding', 8);
                     });
                     $('#table_otPadreListVencidas thead').append(r);
@@ -690,10 +690,10 @@ $(function() {
                     var table = $('#table_otPadreListVencidas').DataTable();
 
                     // Apply the search
-                    table.columns().every(function() {
+                    table.columns().every(function () {
                         var that = this;
 
-                        $('input', this.footer()).on('keyup change', function() {
+                        $('input', this.footer()).on('keyup change', function () {
                             if (that.search() !== this.value) {
                                 that.search(this.value).draw();
                             }
@@ -708,7 +708,7 @@ $(function() {
                 },
                 // Este callback se ejecuta cada vex que hay cambio de pagina, ordenamiento, o cambio en cantidad de registros a mostrar
                 // o un cambio especifico en la pagina
-                fnInfoCallback: function(oSettings, iStart, iEnd, iMax, iTotal, sPre) {
+                fnInfoCallback: function (oSettings, iStart, iEnd, iMax, iTotal, sPre) {
                     // $('#table_otPadreListVencidas .cod_resolucion').selectize();
                 },
                 data: data,
@@ -756,15 +756,15 @@ $(function() {
 
     /**********************TABLA OT PADRES PARA FILTRO POR OPC DE LISTA**************************/
     lista = {
-        init: function() {
+        init: function () {
             lista.events();
             lista.getOtpByOpcListJs(null, 'all');
         },
         //Eventos de la ventana.
-        events: function() {
+        events: function () {
             $('#select_filter').change(lista.cambio_opc);
         },
-        getOtpByOpcListJs: function(value = null, filter) {
+        getOtpByOpcListJs: function (value = null, filter) {
             //metodo ajax (post)
             var opcion = (value) ? value : "CLIENTE - SIN FECHA PARA RECIBIR EL SERVICIO";
             $.post(baseurl + '/OtPadre/c_getOtpByOpcList',
@@ -773,7 +773,7 @@ $(function() {
                         filter: filter,
                     },
                     // funcion que recibe los datos
-                            function(data) {
+                            function (data) {
                                 // convertir el json a objeto de javascript
                                 var obj = JSON.parse(data);
                                 lista.printTable(obj);
@@ -781,7 +781,7 @@ $(function() {
                     );
                 },
 
-        printTable: function(data) {
+        printTable: function (data) {
             if (lista.tableOpcList) {
                 var tabla = lista.tableOpcList;
                 tabla.clear().draw();
@@ -809,14 +809,14 @@ $(function() {
             ]));
         },
         // Datos de configuracion del datatable
-        configTable: function(data, columns, onDraw) {
+        configTable: function (data, columns, onDraw) {
             return {
-                initComplete: function() {
-                    $('#table_list_opc tfoot th').each(function() {
+                initComplete: function () {
+                    $('#table_list_opc tfoot th').each(function () {
                         $(this).html('<input type="text" placeholder="Buscar" />');
                     });
                     var r = $('#table_list_opc tfoot tr');
-                    r.find('th').each(function() {
+                    r.find('th').each(function () {
                         $(this).css('padding', 8);
                     });
                     $('#table_list_opc thead').append(r);
@@ -826,10 +826,10 @@ $(function() {
                     var table = $('#table_list_opc').DataTable();
 
                     // Apply the search
-                    table.columns().every(function() {
+                    table.columns().every(function () {
                         var that = this;
 
-                        $('input', this.footer()).on('keyup change', function() {
+                        $('input', this.footer()).on('keyup change', function () {
                             if (that.search() !== this.value) {
                                 that.search(this.value).draw();
                             }
@@ -844,7 +844,7 @@ $(function() {
                 },
                 // Este callback se ejecuta cada vex que hay cambio de pagina, ordenamiento, o cambio en cantidad de registros a mostrar
                 // o un cambio especifico en la pagina
-                fnInfoCallback: function(oSettings, iStart, iEnd, iMax, iTotal, sPre) {
+                fnInfoCallback: function (oSettings, iStart, iEnd, iMax, iTotal, sPre) {
                     // $('#table_list_opc .cod_resolucion').selectize();
                 },
                 data: data,
@@ -889,7 +889,7 @@ $(function() {
         },
 
         // cuando se cambia de opcion
-        cambio_opc: function() {
+        cambio_opc: function () {
             var opcion = $('#select_filter').val();
             lista.getOtpByOpcListJs(opcion, $("#filterGroupIng").val());
         },
@@ -898,12 +898,12 @@ $(function() {
 
     // *******************************************EVENTOS ***************************
     eventos = {
-        init: function() {
+        init: function () {
             eventos.events();
         },
 
         //Eventos de la ventana.
-        events: function() {
+        events: function () {
             $('#contenido_tablas').on('click', 'a.product-otp', eventos.onClickBtnCloseOtp);
             $('#contenido_tablas').on('click', 'a.edit-otp', eventos.onClickBtnEditOtp);
             // $('#table_oths_otp').on('click', 'a.ver-log', eventos.onClickShowEmailOth); //fue remplazado por el botón general
@@ -919,14 +919,14 @@ $(function() {
             $('#table_selected').on('click', 'img.quitar_fila', eventos.quitarFila);
             $('#mdl-enviar-reporte').on('click', eventos.onClickSendReportUpdate);
             $('#mdl_cierre').on("hidden.bs.modal", eventos.cleanFormReportUpdate);
-            $('#modalHitosOtp').on('hidden.bs.modal', eventos.resetHitosModal)
+//            $('#modalHitosOtp').on('hidden.bs.modal', eventos.resetHitosModal)
 
             // ***********************Inicio del evento del menu sticky******************
-            $('.contenedor_sticky').on('click', function() {
+            $('.contenedor_sticky').on('click', function () {
                 $(this).hide();
                 $('.contenedor_menu_sticky').show(300);
             });
-            $('.btn_cerrar_sticky').on('click', function() {
+            $('.btn_cerrar_sticky').on('click', function () {
                 $('.contenedor_menu_sticky').hide(300);
                 $('.contenedor_sticky').show(300);
             });
@@ -942,7 +942,7 @@ $(function() {
         },
 
         // vuelve a pintar todas las tablas según el grupo de ingenieros se tenga filtrado
-        printNewTablesAccordingIngGroup: function() {
+        printNewTablesAccordingIngGroup: function () {
             // $('#filterGroupIng').attr('disabled', true);
             var filtro = $("#filterGroupIng").val();
             vista.getListOtsOtPadre(filtro);
@@ -955,7 +955,7 @@ $(function() {
         },
 
         // dar mostrar o ocultar la columna en la sesion work managment por medio del menu stick segun el id de la tabla
-        showHideTable: function() {
+        showHideTable: function () {
             let icono = $(this).children('i');
             if ($(this).hasClass('inactive')) {
                 $(this).removeClass('inactive');
@@ -976,13 +976,13 @@ $(function() {
         },
 
         // funcion para correcion modal sobre modal
-        modal_sobre_modal: function(event) {
+        modal_sobre_modal: function (event) {
             if ($('.modal:visible').length) {
                 $('body').addClass('modal-open');
             }
         },
 
-        onClickBtnCloseOtp: function(e) {
+        onClickBtnCloseOtp: function (e) {
             var aLinkLog = $(this);
             var trParent = aLinkLog.parents('tr');
             var tabla = aLinkLog.parents('table').attr('id');
@@ -1025,7 +1025,7 @@ $(function() {
 
         },
 
-        showDetailsCierreKo: function(data) {
+        showDetailsCierreKo: function (data) {
             var s = data.finalizo;
             var flag = false;
             var form = setForm.returnFormularyProduct(s);
@@ -1041,9 +1041,9 @@ $(function() {
                         id_otp: data.k_id_ot_padre,
                         num_servicio: data.finalizo
                     },
-                    function(data) {
+                    function (data) {
                         var obj = JSON.parse(data);
-                        $.each(obj, function(i, item) {
+                        $.each(obj, function (i, item) {
 
                             var $el = $('#pr_' + i);
                             $el.replaceWith($('<input />').attr({
@@ -1072,7 +1072,7 @@ $(function() {
 
             $('#mdl_cierreKo').modal('show');
         },
-        onClickBtnEditOtp: function() {
+        onClickBtnEditOtp: function () {
             var btn_obs = $(this);
             var tr = btn_obs.parents('tr');
             var id_otp = tr.find('td').eq(0).html();
@@ -1084,7 +1084,7 @@ $(function() {
                 showCancelButton: true,
                 progressSteps: ['1', '2'],
                 //option group
-                onOpen: function() {
+                onOpen: function () {
                     var lista = $('.select-sweet option');
                     console.log(lista[1]);
                     lista[1].setAttribute("disabled", true);
@@ -1093,7 +1093,7 @@ $(function() {
                     lista[74].setAttribute("disabled", true);
                     lista[74].style.background = "#3085d6";
                     lista[74].style.color = "white";
-                    $.each(lista, function(i, option) {
+                    $.each(lista, function (i, option) {
                         if (i < 74 && i > 1) {
                             option.style.background = "#add8e6";
                             option.style.color = "black";
@@ -1293,7 +1293,7 @@ $(function() {
                                             lista: result.value[0],
                                             observacion: result.value[1]
                                         },
-                                        function(data) {
+                                        function (data) {
                                             var res = JSON.parse(data);
                                             if (res == true) {
                                                 swal(
@@ -1346,14 +1346,14 @@ $(function() {
         // },
 
         //evento que pintará la tabla log mail y historial mail
-        showEmailOthGeneral: function() {
+        showEmailOthGeneral: function () {
             var tabla = $("#table_oths_otp");
             var OTHs = tabla.find("tbody tr td.sorting_1");
             //seleccionamos las OTHs de la OTP seleccionada
             var valorOTHs = new Array;
             var OTP = $("#NroOTPSelect").html();
             //creamos el arreglo para enviarlo por ajax
-            $.each(OTHs, function(i, item) {
+            $.each(OTHs, function (i, item) {
                 valorOTHs.push(item.innerHTML)
             })
 
@@ -1362,14 +1362,14 @@ $(function() {
                         valOTHs: valorOTHs,
                         OTP: OTP,
                     },
-                    function(data) {
+                    function (data) {
                         var obj = JSON.parse(data);
                         eventos.showModalHistorial(obj, OTP);
                     });
         },
 
         // Muestra modal detalle historial log por id
-        showModalHistorial: function(obj, OTP) {
+        showModalHistorial: function (obj, OTP) {
             $('#ModalHistorialLog').modal('show');
             $('#titleEventHistory').html('Historial Cambios de OTP N.' + OTP + '');
             // la pestaña de log historial mail reporte act. estará escondida por defecto
@@ -1383,7 +1383,7 @@ $(function() {
             eventos.printTableLogMailReportInit(obj.mail);
         },
         //pintamos la tabla de log
-        printTableHistory: function(data) {
+        printTableHistory: function (data) {
             // limpio el cache si ya habia pintado otra tabla
             if (eventos.tableModalHistory) {
                 //si ya estaba inicializada la tabla la destruyo
@@ -1400,7 +1400,7 @@ $(function() {
         },
 
         //pintamos la tabla de log de correos
-        printTableLogMailReportInit: function(data) {
+        printTableLogMailReportInit: function (data) {
             // limpio el cache si ya habia pintado otra tabla
             if (eventos.tableModalLogMailReportInit) {
                 //si ya estaba inicializada la tabla la destruyo
@@ -1418,7 +1418,7 @@ $(function() {
             ]));
         },
 
-        printTableLogMailAct: function(data) {
+        printTableLogMailAct: function (data) {
 
             if (eventos.tableModalLogReportAct) {
                 //si ya estaba inicializada la tabla la destruyo
@@ -1438,7 +1438,7 @@ $(function() {
         },
 
         // creamos los botones para imprimir el correo enviado
-        getButonsViewEmail: function(obj) {
+        getButonsViewEmail: function (obj) {
             if (obj.paquete_enviados) {
                 var button = '<button class="btn btn-default btn-xs ver-mail act btn_datatable_cami" title="ver correo"><span class="fa fa-fw fa-print"></span></button>'
             } else {
@@ -1448,7 +1448,7 @@ $(function() {
             return button;
         },
 
-        onClickVerLogMailOTP: function() {
+        onClickVerLogMailOTP: function () {
             var tr = $(this).parents('tr');
             if ($(this).hasClass("init")) {
                 var record = eventos.tableModalLogMailReportInit.row(tr).data();
@@ -1459,7 +1459,7 @@ $(function() {
         },
 
         // generar pdf redireccionar
-        generarPDF: function(data) {
+        generarPDF: function (data) {
             if (!data.paquete_enviados) {
                 // entra si el reporte es de inicio
                 var funcionControlador = 'generatePDF'
@@ -1473,7 +1473,7 @@ $(function() {
                     {
                         data: data
                     },
-                    function(data) {
+                    function (data) {
                         if (funcionControlador === 'generatePDF')
                             var plantilla = JSON.parse(data);
                         $('body').append(
@@ -1493,7 +1493,7 @@ $(function() {
 
         },
 
-        onClickShowModalDetEvent: function() {
+        onClickShowModalDetEvent: function () {
             document.getElementById("formModal_detalle").reset();
             $('#title_modal').html('');
             var aLinkLog = $(this);
@@ -1501,13 +1501,13 @@ $(function() {
             var record = listoth.table_oths_otp.row(trParent).data();
             eventos.fillFormModalDetEvent(record);
         },
-        fillFormModalDetEvent: function(registros) {
+        fillFormModalDetEvent: function (registros) {
             $.post(baseurl + '/OtHija/c_fillmodals',
                     {
                         idOth: registros.id_orden_trabajo_hija // parametros que se envian
                     },
-                    function(data) {
-                        $.each(data, function(i, item) {
+                    function (data) {
+                        $.each(data, function (i, item) {
                             $('#mdl_' + i).val(item);
                         });
                     });
@@ -1516,7 +1516,7 @@ $(function() {
         },
 
         // limpia el modal de los hitos
-        resetHitosModal: function() {
+        resetHitosModal: function () {
             // resetea el formulario y lo deja vacio
             document.getElementById("formModalHitosOTP").reset();
             $("#table_hitos_otp tbody").children().remove(); //limpia la tabla de hitos
@@ -1525,106 +1525,120 @@ $(function() {
         },
 
         // Muestra los hitos de la ot padre seleccionada
-        showModalHitosOthp: function(datax, x) {
-            // console.log(datax);
-            if (x.hasClass('clr_lime')) {
-
-                $.post(baseurl + '/OtPadre/c_getLinearBaseForHitos',
-                        {
-                            idOtp: datax.k_id_ot_padre
-                        },
-                        function(data) {
-                            const obj = JSON.parse(data);
-                            eventos.printDynamicHitosTable(obj);
-                            // si tiene hitos entrará acá y los buscará, pero si no, irá a la linea base
-                            $.post(baseurl + '/OtPadre/c_getHitosOtp',
-                                    {
-                                        //WE, ESTO ENVIA EN ID DE LA OT PADRE, PARA ESO SIRVE EL POST EN EL CONTROLADOR
-                                        idOtp: datax.k_id_ot_padre
-                                    },
-                                    function(data) {
-                                        var obj = JSON.parse(data);
-                                        $(".timeline-badge").css("background-color", "#7c7c7c");
-                                        if (obj !== null) {
-
-                                            switch (obj.actividad_actual) {
-                                                case "KICK OFF":
-                                                    $("#act_ko").css("background-color", "#4bd605");
-                                                    break;
-
-                                                case "VISITA OBRA CIVIL":
-                                                    $("#act_voc").css("background-color", "#4bd605");
-                                                    break;
-
-                                                case "VISITA OBRA CIVIL TERCEROS":
-                                                    $("#act_voc").css("background-color", "#4bd605");
-                                                    break;
-
-                                                case "ENVIO COTIZACION":
-                                                    $("#act_ec").css("background-color", "#4bd605");
-                                                    break;
-
-                                                case "APROBACION COTIZACION":
-                                                    $("#act_ac").css("background-color", "#4bd605");
-                                                    break;
-
-                                                case "SOLICITUD INFORMACIÓN TECNICA":
-                                                    $("#act_sit").css("background-color", "#4bd605");
-                                                    break;
-
-                                                case "VISITA EJECUCION OBRA CIVIL":
-                                                    $("#act_veoc").css("background-color", "#4bd605");
-                                                    break;
-
-                                                case "VISITA EJECUCION OBRA CIVIL TERCERO":
-                                                    $("#act_veoc").css("background-color", "#4bd605");
-                                                    break;
-
-                                                case "CONFIGURACION RED CLARO":
-                                                    $("#act_crc").css("background-color", "#4bd605");
-                                                    break;
-
-                                                case "VISITA ENTREGA UM TERCEROS":
-                                                    $("#act_veut").css("background-color", "#4bd605");
-                                                    break;
-                                                case "EMPALMES":
-                                                    $("#act_empalmes").css("background-color", "#4bd605");
-                                                    break;
-                                            }
-
-                                            $.each(obj, function(i, item) {
-                                                $('#' + i).val(item);
-                                            });
-                                        }
-                                    });
-                        },
-                        );
-
-
-            } else {
-                $.post(baseurl + '/OtPadre/c_getLinearBaseForHitos',
-                        {
-                            idOtp: datax.k_id_ot_padre
-                        },
-                        function(data) {
-                            const obj = JSON.parse(data);
-                            eventos.printDynamicHitosTable(obj);
-
-                        },
-                        );
-            }
-
-
+        showModalHitosOthp: function (datax, x) {
+            /*
+             if (x.hasClass('clr_lime')) {
+             
+             $.post(baseurl + '/OtPadre/c_getLinearBaseForHitos',
+             {
+             idOtp: datax.k_id_ot_padre
+             },
+             function(data) {
+             const obj = JSON.parse(data);
+             eventos.printDynamicHitosTable(obj);
+             // si tiene hitos entrará acá y los buscará, pero si no, irá a la linea base
+             $.post(baseurl + '/OtPadre/c_getHitosOtp',
+             {
+             //WE, ESTO ENVIA EN ID DE LA OT PADRE, PARA ESO SIRVE EL POST EN EL CONTROLADOR
+             idOtp: datax.k_id_ot_padre
+             },
+             function(data) {
+             var obj = JSON.parse(data);
+             $(".timeline-badge").css("background-color", "#7c7c7c");
+             if (obj !== null) {
+             
+             switch (obj.actividad_actual) {
+             case "KICK OFF":
+             $("#act_ko").css("background-color", "#4bd605");
+             break;
+             
+             case "VISITA OBRA CIVIL":
+             $("#act_voc").css("background-color", "#4bd605");
+             break;
+             
+             case "VISITA OBRA CIVIL TERCEROS":
+             $("#act_voc").css("background-color", "#4bd605");
+             break;
+             
+             case "ENVIO COTIZACION":
+             $("#act_ec").css("background-color", "#4bd605");
+             break;
+             
+             case "APROBACION COTIZACION":
+             $("#act_ac").css("background-color", "#4bd605");
+             break;
+             
+             case "SOLICITUD INFORMACIÓN TECNICA":
+             $("#act_sit").css("background-color", "#4bd605");
+             break;
+             
+             case "VISITA EJECUCION OBRA CIVIL":
+             $("#act_veoc").css("background-color", "#4bd605");
+             break;
+             
+             case "VISITA EJECUCION OBRA CIVIL TERCERO":
+             $("#act_veoc").css("background-color", "#4bd605");
+             break;
+             
+             case "CONFIGURACION RED CLARO":
+             $("#act_crc").css("background-color", "#4bd605");
+             break;
+             
+             case "VISITA ENTREGA UM TERCEROS":
+             $("#act_veut").css("background-color", "#4bd605");
+             break;
+             case "EMPALMES":
+             $("#act_empalmes").css("background-color", "#4bd605");
+             break;
+             }
+             
+             $.each(obj, function(i, item) {
+             $('#' + i).val(item);
+             });
+             }
+             });
+             },
+             );
+             
+             
+             } else {
+             $.post(baseurl + '/OtPadre/c_getLinearBaseForHitos',
+             {
+             idOtp: datax.k_id_ot_padre
+             },
+             function(data) {
+             const obj = JSON.parse(data);
+             eventos.printDynamicHitosTable(obj);
+             
+             },
+             );
+             }
+             */
+            reporte_act.resetFormHitos();
+            $.post(baseurl + '/OtPadre/c_getInfoHitosByOtp',
+                    {
+                        idOtp: datax.k_id_ot_padre // parametros que se envian
+                    },
+                    function (data) {
+                        var obj = JSON.parse(data);
+                        if (obj.length > 0) {
+                            $.each(obj, function (i, item) {
+                                $.each(item, function (i2, item2) {
+                                    $('#' + i2).val(item2);
+                                });
+                            });
+                        }                        
+                    });
             //pinta el titulo del modal y cambia dependiendo de la otp seleccionada
             $('#myModalLabelHitos').html('<strong> Hitos de la OTP N.<span id="otpHIto">' + datax.k_id_ot_padre + '</span></strong>');
             $('#servivio_hito').html('<strong> OT ' + datax.k_id_ot_padre + ' - ' + datax.servicio + '</strong>');
             $('#cliente_hito').html('<strong> CLIENTE: ' + datax.n_nombre_cliente + '</strong>');
-            $('#ciudad_hito').html('<strong> CIUDAD: BARRANQUILLA - Vía Cordialidad # 8E1 - 238</strong>');
+            $('#ciudad_hito').html('<strong> CIUDAD: ' + datax.ciudad + ' - ' + datax.direccion + '</strong>');
             $('#modalHitosOtp').modal('show');
         },
 
         // según lo que se haya encontrado en la linea base, dependiendo de la fecha, pintará los campos de la tabla
-        printDynamicHitosTable: function(data) {
+        printDynamicHitosTable: function (data) {
             var numCampo = 1;
             var tabla = ``;
             var optionSelect = '';
@@ -1904,7 +1918,7 @@ $(function() {
                 optionSelect += `<option class="optH" value="VISITA ENTREGA UM TERCEROS">VISITA ENTREGA DE SERVICIO</option> `;
 //                $("#btnGuardarModalHitos").hide();
             } else {
-                $.each(data, function(campo, fecha) {
+                $.each(data, function (campo, fecha) {
                     if (fecha) {
                         switch (campo) {
                             case 'fecha_cierre_ko':
@@ -2220,9 +2234,9 @@ $(function() {
         },
 
         // Muestra los hitos de la ot padre seleccionada
-        onClickSaveHitosOtp: function() {
+        onClickSaveHitosOtp: function () {
             var vacios = 0;
-            $('.fechas_hitos').each(function() {
+            $('.fechas_hitos').each(function () {
                 if ($(this).val() == '') {
                     vacios++;
                 }
@@ -2232,9 +2246,9 @@ $(function() {
             if (vacios == 0) {
                 const rows = $(".timeline-badge");
                 var infox = {};
-                $.each(rows, function(ix, val) {
+                $.each(rows, function (ix, val) {
                     var info = $(val).parents('td').siblings().children();
-                    $.each(info, function(i, value) {
+                    $.each(info, function (i, value) {
                         if (!$(value).is('span')) {
                             if ($(value).attr('id') === 'tipo_voc' || $(value).attr('id') === 'tipo_veoc') {
                                 posicion = $(value).val();
@@ -2257,10 +2271,11 @@ $(function() {
                         {
                             idOtp: $('#otpHIto').html(),
                             formulario: JSON.stringify(infox),
-                            actividadAct: $('#actividad_actual').val()
+                            actividadAct: $('#actividad_actual').val(),
+                            obsGeneral: $('#observaciones_genrales').val()
                                     // formulario: $("#formModalHitosOTP").serializeArray()
                         },
-                        function(data) {
+                        function (data) {
                             var obj = JSON.parse(data);
                             if (obj.response == 'success') {
                                 swal({
@@ -2291,9 +2306,9 @@ $(function() {
 
 
         },
-        clean: function(names) {
+        clean: function (names) {
             let unique = {};
-            names.forEach(function(i) {
+            names.forEach(function (i) {
                 if (!unique[i]) {
                     unique[i] = true;
                 }
@@ -2301,7 +2316,7 @@ $(function() {
             return Object.keys(unique);
         },
         // muestra las otp seleccionadas dependiendo la tabla
-        otp_seleccionadas: function() {
+        otp_seleccionadas: function () {
             var tabla = $('ul#pestania').find('li.active').attr('tabla');
             ;
             var record;
@@ -2347,7 +2362,7 @@ $(function() {
                 $('#mdl-title-cierre').html(`<b>${cuantas}</b> ORDENES SELECCIONADAS`);
                 $('#mdl_cierre').modal('show');
                 $.post(baseurl + '/OtPadre/c_getInfoEmailreport', {idsOtp: ids},
-                        function(data) {
+                        function (data) {
                             data = JSON.parse(data);
                             // console.log('data:',data);
 
@@ -2380,7 +2395,7 @@ $(function() {
                                 const lineabasearr = [];
 
                                 //ESTE EACH LLENA LA INFORMACION A VALIDAR Y LOS PONE EN DISTINTOS ARREGLOS
-                                $.each(data, function(i, item) {
+                                $.each(data, function (i, item) {
 
                                     if (item['fecha_compromiso']) {
                                         //entra si los datos es igual a la fehca de compromiso de la linea base
@@ -2449,10 +2464,10 @@ $(function() {
 
         },
         //validará qué campos son iguales y cuales no
-        validarIgualesReporteAct: function(obj, ids, lineabasearr) {
+        validarIgualesReporteAct: function (obj, ids, lineabasearr) {
 
             //se crea el arreglo que devolverá las opc. del selectInfo en caso que no todas las selecciones sean iguales
-            $.each(obj, function(i) {
+            $.each(obj, function (i) {
                 //se hace para poder ingresar algo al arreglo normal de fechas y así entre a crear el select
                 if (lineabasearr.length > 1 && ids[i] == 'entregaServicioHitos') {
                     obj[i].push("msg");
@@ -2493,7 +2508,7 @@ $(function() {
                     divPadre.append(`<div class="col-sm-3 borrar">
                         <select class="form-control select${i}" onchange="eventos.changeInput(this,${ids[i]})")>
                           <option value="">Seleccione</option>`);
-                    $.each(obj[i], function(ii, valor) {
+                    $.each(obj[i], function (ii, valor) {
                         $('.select' + i).append("<option value='" + valor + "'>" + valor + "</option>");
                     });
                     divPadre.append(`
@@ -2506,7 +2521,7 @@ $(function() {
 
                     //las agrego
                     $('.select' + i).append("<optgroup class='lbopt' label='fechas de línea base' >");
-                    $.each(lineabasearr, function(ii, valor) {
+                    $.each(lineabasearr, function (ii, valor) {
                         $('.select' + i).append("<option class='lbopt' value='" + valor + "'>" + valor + "</option>");
                     });
 
@@ -2520,12 +2535,12 @@ $(function() {
             })
         },
 
-        changeInput: function(elemento, vall) {
+        changeInput: function (elemento, vall) {
             var valor = elemento.value;
             $(vall).val(valor);
         },
 
-        modalSeleccionadas: function(data) {
+        modalSeleccionadas: function (data) {
             if (eventos.table_selected) {
                 var tabla = eventos.table_selected;
                 tabla.clear().draw();
@@ -2548,7 +2563,7 @@ $(function() {
 
         },
 
-        configTableSelect: function(data, columns, onDraw) {
+        configTableSelect: function (data, columns, onDraw) {
             return {
                 data: data,
                 columns: columns,
@@ -2562,7 +2577,7 @@ $(function() {
                     }],
                 order: [[3, 'asc']],
                 drawCallback: onDraw,
-                "createdRow": function(row, data, dataIndex) {
+                "createdRow": function (row, data, dataIndex) {
                     if (data["id_hitos"] == null) {
                         $(row).css("background-color", "#ff000087");
                     }
@@ -2573,12 +2588,12 @@ $(function() {
             }
         },
         // retorna el boton para quitar registro
-        getButtonQuitar: function(obj) {
+        getButtonQuitar: function (obj) {
             const button = `<img src="${baseurl}/assets/images/minus.png" alt="quitar" class="quitar_fila"/>`;
             return button;
         },
         // elimina la fila
-        quitarFila: function(e) {
+        quitarFila: function (e) {
             eventos.table_selected.row($(this).parents('tr')).remove().draw();// remover de la tabla modal
             var cuantas = eventos.table_selected.rows().count();
             $('#mdl-title-cierre').html(`<b>${cuantas}</b> ORDENES SELECCIONADAS`);
@@ -2586,7 +2601,7 @@ $(function() {
         },
         ya_se_envio: true,
         //Envia el reporte de actualizacion dependiendo de las OTP seleccionadas
-        onClickSendReportUpdate: function() {
+        onClickSendReportUpdate: function () {
 
             if (eventos.ya_se_envio) {
 
@@ -2597,7 +2612,7 @@ $(function() {
                 var servicios = []
                 // console.log(tableSelected);
 
-                tableSelected.each(function(otp) {
+                tableSelected.each(function (otp) {
                     servicios.push(otp.servicio)
                     ids_otp.push(otp.k_id_ot_padre);
                     if (otp.id_hitos === null) {
@@ -2618,11 +2633,11 @@ $(function() {
                                 entregaServicio: $('#entregaServicioHitos').val(),
                                 observaciones: $('#observacionesHitos').val(),
                                 servicios: servicios,
-                            }, function(data) {
+                            }, function (data) {
                         //no necesita hacer nada
                     });
                     helper.alertLoading('Enviando Email...', 'Por favor espere.');
-                    $.post(baseurl + '/OtPadre/c_sendReportUpdate',
+                    $.post(baseurl + '/OtPadre/c_sendReportUpdateV2',
                             {
                                 ids_otp: ids_otp,
                                 senior: $('#seniorHitos').val(),
@@ -2630,7 +2645,7 @@ $(function() {
                                 entregaServicio: $('#entregaServicioHitos').val(),
                                 observaciones: $('#observacionesHitos').val()
                             },
-                            function(data) {
+                            function (data) {
                                 swal.close();
                                 var obj = JSON.parse(data);
                                 swal({
@@ -2655,7 +2670,7 @@ $(function() {
                             );
                 }
                 eventos.ya_se_envio = false;
-                setTimeout(function() {
+                setTimeout(function () {
                     eventos.ya_se_envio = true;
                 }, 3000);
 
@@ -2663,7 +2678,7 @@ $(function() {
 
         },
         //limpia el formulario, colores y selects aparecidos en el reporte de act.
-        cleanFormReportUpdate: function() {
+        cleanFormReportUpdate: function () {
             $("#formEmail")[0].reset();
             $("#seniorHitos, #configuracionHitos, #entregaServicioHitos, #observacionesHitos").css({"border-color": "#ccc",
                 "background-color": "white"});
@@ -2673,7 +2688,7 @@ $(function() {
             $("b.vieneDeLineaBase").remove();
         },
 
-        limpiarLogs: function() {
+        limpiarLogs: function () {
             $("li#liLogHistory").addClass("active")
             $("#tab_log").addClass("active").addClass("in");
             $("#tabLogReportInit, #tabLogReportAct, #liLogReportInit, #liLogReporAct").removeClass("active").removeClass("in");
@@ -2685,18 +2700,18 @@ $(function() {
 
     listoth = {
 
-        init: function() {
+        init: function () {
             listoth.events();
             //listoth.getothofothp();
         },
         //Eventos de la ventana.
-        events: function() {
+        events: function () {
             // al darle clic al boton de opciones traiga el modal
             $('#contenido_tablas').on('click', 'a.btnoths', listoth.onClickShowModal);
 
         },
 
-        onClickShowModal: function() {
+        onClickShowModal: function () {
             var aLinkLog = $(this);
             var trParent = aLinkLog.parents('tr');
             var tabla = aLinkLog.parents('table').attr('id');
@@ -2725,14 +2740,14 @@ $(function() {
             listoth.showModalOthDeOthp(record);
         },
 
-        getothofothp: function(obj) {
+        getothofothp: function (obj) {
             //metodo ajax (post)
             $.post(baseurl + '/OtPadre/c_getOthOfOtp',
                     {
                         idOtp: obj.k_id_ot_padre
                     },
                     // funcion que recibe los datos
-                            function(data) {
+                            function (data) {
                                 // convertir el json a objeto de javascript
                                 var obj = JSON.parse(data);
                                 listoth.printTable(obj);
@@ -2741,7 +2756,7 @@ $(function() {
                 },
 
         // Muestra modal con todas las ots hija de la otp seleccionada
-        showModalOthDeOthp: function(data) {
+        showModalOthDeOthp: function (data) {
             listoth.getothofothp(data);
             // resetea el formulario y lo deja vacio
             document.getElementById("formModalOTHS").reset();
@@ -2750,7 +2765,7 @@ $(function() {
             $('#modalOthDeOtp').modal('show');
         },
         //pintar tabla
-        printTable: function(data) {
+        printTable: function (data) {
             //funcion para limpiar el modal
             if (listoth.table_oths_otp) {
                 var tabla = listoth.table_oths_otp;
@@ -2773,7 +2788,7 @@ $(function() {
             ]));
         },
         // Datos de configuracion del datatable
-        configTable: function(data, columns, onDraw) {
+        configTable: function (data, columns, onDraw) {
             return {
                 data: data,
                 columns: columns,
@@ -2790,7 +2805,7 @@ $(function() {
                 drawCallback: onDraw
             }
         },
-        getButtonsOth: function(obj) {
+        getButtonsOth: function (obj) {
             var botones = '<div class="btn-group" style="display: inline-flex;">';
             botones += '<a class="btn btn-default btn-xs ver-det btn_datatable_cami" title="Editar Oth"><span class="fa fa-fw fa-edit"></span></a>';
             // este era el botón privado de cada oth
@@ -2931,17 +2946,17 @@ $(function() {
 
     //*********************************** lista las ot padres conreporte de actualizacion pendiente para hoy
     reporte_act = {
-        init: function() {
+        init: function () {
             reporte_act.events();
             reporte_act.getOtsPtesPorEnvio('all');
             reporte_act.getCountPtesPorEnvio('all');
 
         },
         //Eventos de la ventana.
-        events: function() {
+        events: function () {
 
         },
-        getOtsPtesPorEnvio: function(filtro) {
+        getOtsPtesPorEnvio: function (filtro) {
             //metodo ajax (post)
             $.post(baseurl + '/OtPadre/c_getOtsPtesPorEnvio',
                     {
@@ -2949,7 +2964,7 @@ $(function() {
                         filter: filtro
                     },
                     // funcion que recibe los datos
-                            function(data) {
+                            function (data) {
                                 // convertir el json a objeto de javascript
                                 var obj = JSON.parse(data);
                                 reporte_act.printTableReporteAtc(obj.data);
@@ -2957,7 +2972,7 @@ $(function() {
                             }
                     );
                 },
-        printTableReporteAtc: function(data) {
+        printTableReporteAtc: function (data) {
             // nombramos la variable para la tabla y llamamos la configuiracion
             if (reporte_act.table_reporte_actualizacion) {
                 var tabla = reporte_act.table_reporte_actualizacion;
@@ -2984,14 +2999,14 @@ $(function() {
             ]));
         },
         // Datos de configuracion del datatable
-        configTableEmail: function(data, columns, onDraw) {
+        configTableEmail: function (data, columns, onDraw) {
             return {
-                initComplete: function() {
-                    $('#table_reporte_actualizacion tfoot th').each(function() {
+                initComplete: function () {
+                    $('#table_reporte_actualizacion tfoot th').each(function () {
                         $(this).html('<input type="text" placeholder="Buscar" />');
                     });
                     var r = $('#table_reporte_actualizacion tfoot tr');
-                    r.find('th').each(function() {
+                    r.find('th').each(function () {
                         $(this).css('padding', 8);
                     });
                     $('#table_reporte_actualizacion thead').append(r);
@@ -3001,10 +3016,10 @@ $(function() {
                     var table = $('#table_reporte_actualizacion').DataTable();
 
                     // Apply the search
-                    table.columns().every(function() {
+                    table.columns().every(function () {
                         var that = this;
 
-                        $('input', this.footer()).on('keyup change', function() {
+                        $('input', this.footer()).on('keyup change', function () {
                             if (that.search() !== this.value) {
                                 that.search(this.value).draw();
                             }
@@ -3057,18 +3072,18 @@ $(function() {
                 drawCallback: onDraw
             }
         },
-        getCountPtesPorEnvio: function(filtro) {
+        getCountPtesPorEnvio: function (filtro) {
             $.post(baseurl + '/OtPadre/c_getCountPtesPorEnvio', {
                 //parametros
                 filter: filtro
             },
-                    function(data) {
+                    function (data) {
                         var obj = JSON.parse(data);
                         reporte_act.printTableCountPtesPorEnvio(obj);
                     }
             );
         },
-        printTableCountPtesPorEnvio: function(data) {
+        printTableCountPtesPorEnvio: function (data) {
 
             let html = '';
             for (var i = 0; i < data.length; i += 2) {
@@ -3092,9 +3107,22 @@ $(function() {
             }
             $('#tbodyCount').html(html);
         },
-        downloadAllReportAct: function() {
+        downloadAllReportAct: function () {
             window.location.href = baseurl + "/OtPadre/c_downloadAllReportAct";
         },
+        
+        resetFormHitos: function () {
+            $('#actividad_actual').val('');
+            $('#f_voc').val('');
+            $('#n_estado_voc').val('');
+            $('#f_eoc').val('');
+            $('#estado_eoc').val('');
+            $('#f_em').val('');
+            $('#estado_em').val('');
+            $('#f_entrega_servicio').val('');
+            $('#estado_entrega_servicio').val('');
+            $('#observaciones_genrales').val('');
+        }
     };
     reporte_act.init();
 
