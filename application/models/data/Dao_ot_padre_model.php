@@ -821,13 +821,55 @@ class Dao_ot_padre_model extends CI_Model {
     
     public function getInfoHitosByOtp($idOtp) {
         $query = $this->db->query("
-                SELECT f_voc, n_estado_voc,
-                    f_eoc, estado_eoc,
-                    f_em, estado_em,
-                    f_entrega_servicio, estado_entrega_servicio,
-                    observaciones_genrales, actividad_actual
-                    FROM hitos
-                    WHERE id_ot_padre = $idOtp
+                SELECT f_voc, n_estado_voc, n_observaciones_voc, no_aplica_voc,
+                    f_eoc, estado_eoc, observaciones_eoc, no_aplica_eoc,
+                    f_em, estado_em, observaciones_em, no_aplica_em,
+                    f_entrega_servicio, estado_entrega_servicio, no_aplica_entrega,
+                    observaciones_genrales, actividad_actual, observaciones_entrega_servicio
+                FROM hitos
+                WHERE id_ot_padre = $idOtp
+        ");
+        return $query->result();
+    }
+    
+    //inserta en la tabla de log-hitos los hitos de una OTP
+    public function saveLogHitosOtp($data) {
+        $respuesta = array();
+        
+        date_default_timezone_set("America/Bogota");
+        $data['fehca_modificacion'] = date('Y-m-d H:i:s');
+        $data['usuario_sesion'] = Auth::user()->k_id_user;
+        
+        $query = $this->db->insert('log_hitos', $data);
+
+        if ($this->db->affected_rows()) {
+            $respuesta['response'] = 'success';
+            $respuesta['msg'] = 'Se actualizo correctamente';
+        } else {
+            $respuesta['response'] = 'warning';
+            $respuesta['msg'] = 'No se actualizó ningún campo u ocurrió un error';
+            // $respuesta['msg'] = 'No se actualizó ningún campo o podido actualizar correctamente la informacion';
+        }
+        return $respuesta;
+    }
+    
+    public function getInfoHitosByOtpEmail($idOtp) {
+        $query = $this->db->query("
+            SELECT IF(no_aplica_voc = 'aplica', f_voc, '') AS f_voc,
+                IF(no_aplica_voc = 'aplica', n_estado_voc, '') AS n_estado_voc,
+                IF(no_aplica_voc = 'aplica', n_observaciones_voc, '') AS n_observaciones_voc,
+                IF(no_aplica_eoc = 'aplica', f_eoc, '') AS f_eoc,
+                IF(no_aplica_eoc = 'aplica', estado_eoc, '') AS estado_eoc,
+                IF(no_aplica_eoc = 'aplica', observaciones_eoc, '') AS observaciones_eoc,
+                IF(no_aplica_em = 'aplica', f_em, '') AS f_em,
+                IF(no_aplica_em = 'aplica', estado_em, '') AS estado_em,
+                IF(no_aplica_em = 'aplica', observaciones_em, '') AS observaciones_em,
+                IF(no_aplica_entrega = 'aplica', f_entrega_servicio, '') AS f_entrega_servicio,
+                IF(no_aplica_entrega = 'aplica', estado_entrega_servicio, '') AS estado_entrega_servicio,
+                IF(no_aplica_entrega = 'aplica', observaciones_entrega_servicio, '') AS observaciones_entrega_servicio,
+                observaciones_genrales, actividad_actual
+            FROM hitos
+            WHERE id_ot_padre = $idOtp
         ");
         return $query->result();
     }

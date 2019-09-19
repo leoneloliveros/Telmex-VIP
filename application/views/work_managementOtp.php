@@ -414,7 +414,8 @@
                                 <th>ACTIVIDAD</th>
                                 <th>FECHA</th>
                                 <th>ESTADO</th>
-                                <!--<th>OBSERVACIONES</th>-->
+                                <th>OBSERVACIONES</th>
+                                <th>NO APLICA</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -426,7 +427,7 @@
                                         </li>
                                     </ul>
                                 </td>
-                                <td><span>VOC</span></td>
+                                <td><span>VISITA OBRA CIVIL</span></td>
                                 <td>
                                     <input type="date" name="f_compromiso" id="f_voc" class="form-control fechas_hitos">
                                 </td>
@@ -442,6 +443,12 @@
                                         <option value="NO APLICA">NO APLICA</option>
                                     </select>
                                 </td>
+                                <td>
+                                    <textarea name="observaciones" id="n_observaciones_voc" rows="2"></textarea>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="check_na" id="no_aplica_voc" class="form-control">
+                                </td>
                             </tr>
                             <tr>
                                 <td>
@@ -451,7 +458,7 @@
                                         </li>
                                     </ul>
                                 </td>
-                                <td><span>EOC</span></td>
+                                <td><span>VISITA EJECUCION OBRA CIVIL</span></td>
                                 <td>
                                     <input type="date" name="f_compromiso" id="f_eoc" class="form-control fechas_hitos">
                                 </td>
@@ -467,6 +474,12 @@
                                         <option value="NO APLICA">NO APLICA</option>
                                     </select>
                                 </td>
+                                <td>
+                                    <textarea name="observaciones" id="observaciones_eoc" rows="2"></textarea>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="check_na" id="no_aplica_eoc" class="form-control">
+                                </td>
                             </tr>
                             <tr>
                                 <td>
@@ -476,7 +489,7 @@
                                         </li>
                                     </ul>
                                 </td>
-                                <td><span>EM</span></td>
+                                <td><span>EMPALMES</span></td>
                                 <td>
                                     <input type="date" name="f_compromiso" id="f_em" class="form-control fechas_hitos">
                                 </td>
@@ -491,6 +504,12 @@
                                         <option value="CERRADA">CERRADA</option>
                                         <option value="NO APLICA">NO APLICA</option>
                                     </select>
+                                </td>
+                                <td>
+                                    <textarea name="observaciones" id="observaciones_em" rows="2"></textarea>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="check_na" id="no_aplica_em" class="form-control">
                                 </td>
                             </tr>
                             <tr>
@@ -517,10 +536,16 @@
                                         <option value="NO APLICA">NO APLICA</option>
                                     </select>
                                 </td>
+                                <td>
+                                    <textarea name="observaciones" id="observaciones_entrega_servicio" rows="2"></textarea>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="check_na" id="no_aplica_entrega" class="form-control">
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="timeline-badge"><span>OBSERVACIONES</span></td>
-                                <td colspan="2">
+                                <td colspan="4">
                                     <textarea name="observaciones" id="observaciones_genrales" rows="2" cols="100"></textarea>
                                 </td>
                             </tr>

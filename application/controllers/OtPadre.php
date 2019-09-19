@@ -428,26 +428,35 @@ class OtPadre extends CI_Controller {
           }
          */
 
+//        print_r($formulario);exit();
         foreach ($formulario as $key => $value) {
             switch ($key) {
-                case 'VOC':
+                case 'VISITA OBRA CIVIL':
                     $newFields['f_voc'] = $value[0];
                     $newFields['n_estado_voc'] = $value[1];
+                    $newFields['n_observaciones_voc'] = $value[2];
+                    $newFields['no_aplica_voc'] = $value[3];
                     break;
 
-                case 'EOC':
+                case 'VISITA EJECUCION OBRA CIVIL':
                     $newFields['f_eoc'] = $value[0];
                     $newFields['estado_eoc'] = $value[1];
+                    $newFields['observaciones_eoc'] = $value[2];
+                    $newFields['no_aplica_eoc'] = $value[3];
                     break;
 
-                case 'EM':
+                case 'EMPALMES':
                     $newFields['f_em'] = $value[0];
                     $newFields['estado_em'] = $value[1];
+                    $newFields['observaciones_em'] = $value[2];
+                    $newFields['no_aplica_em'] = $value[3];
                     break;
 
                 case 'ENTREGA SERVICIO':
                     $newFields['f_entrega_servicio'] = $value[0];
                     $newFields['estado_entrega_servicio'] = $value[1];
+                    $newFields['observaciones_entrega_servicio'] = $value[2];
+                    $newFields['no_aplica_entrega'] = $value[3];
                     break;
 
                 case 'OBSERVACIONES':
@@ -457,6 +466,7 @@ class OtPadre extends CI_Controller {
         }
 
         $res = $this->Dao_ot_padre_model->saveHitosOtp(array_filter($newFields));
+        $res2 = $this->Dao_ot_padre_model->saveLogHitosOtp(array_filter($newFields));
         echo json_encode($res);
     }
 
@@ -881,13 +891,30 @@ class OtPadre extends CI_Controller {
                             </tr>';
 
         foreach ($ids_otp as $idOtp) {
-            $observaciones = '';
             //actualizar la ultima fecha de envio de reporte de loa ot padre (CAMILO)
             $this->Dao_ot_padre_model->update_ot_padre(array('ultimo_envio_reporte' => date('Y-m-d')), $idOtp);
 
             $asunOtp .= $idOtp . ' - ';
-            $hitosotp = $this->Dao_ot_padre_model->getInfoHitosByOtp($idOtp);
+            $hitosotp = $this->Dao_ot_padre_model->getInfoHitosByOtpEmail($idOtp);
             $infOtp = $this->Dao_ot_padre_model->getDetailsHitosOTP($idOtp);
+            
+            switch ($hitosotp[0]->actividad_actual) {
+                case 'VISITA OBRA CIVIL':
+                    $observaciones = $hitosotp[0]->n_observaciones_voc;
+                    break;
+
+                case 'VISITA EJECUCION OBRA CIVIL':
+                    $observaciones = $hitosotp[0]->observaciones_eoc;
+                    break;
+                
+                case 'EMPALMES':
+                    $observaciones = $hitosotp[0]->observaciones_em;
+                    break;
+                
+                case 'ENTREGA SERVICIO':
+                    $observaciones = $hitosotp[0]->observaciones_entrega_servicio;
+                    break;
+            }
            
             $template .= '
                         <tr>
@@ -920,11 +947,11 @@ class OtPadre extends CI_Controller {
                                 <u></u><u></u></span></p>
                             </td>
                             <td width="360" valign="bottom" style="width:180.0pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 3.5pt 0cm 3.5pt; height:60.0pt">
-                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">' . $hitosotp[0]->observaciones_genrales . '
+                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">' . $observaciones . '
                                 <u></u><u></u></span></p>
                             </td>
                         </tr>';
-            
+//            print_r($hitosotp[0]->estado_entrega_servicio == '');exit();
             $timeline .= '<div dir="ltr">
                             <ul style="font-family:Calibri,Helvetica,sans-serif; margin-bottom:0cm">
                                 <li><span style="font-family:&quot;Berlin Sans FB&quot;,sans-serif; color:black; background:white">OT</span>
@@ -936,11 +963,11 @@ class OtPadre extends CI_Controller {
                             </p>
                             <ul style="margin-bottom:0cm">
                             <ul style="font-family:Calibri,Helvetica,sans-serif; margin-bottom:0cm">
-                            <li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Visita obra civil<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            </span>' . (($hitosotp[0]->n_estado_voc != '') ? (($hitosotp[0]->n_estado_voc != 'NO APLICA') ? 'Realizada' : 'No aplica') : 'Pendiente') . '</span></li><li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Visita ejecución obra civil<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            </span>' . (($hitosotp[0]->estado_eoc != '') ? (($hitosotp[0]->estado_eoc != 'NO APLICA') ? 'Realizada' : 'No aplica') : 'Pendiente') . '</span></li><li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Empalmes<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            </span>' . (($hitosotp[0]->estado_em != '') ? (($hitosotp[0]->estado_em != 'NO APLICA') ? 'Realizada' : 'No aplica') : 'Pendiente') . '</span></li><li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Entrega servicio<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            </span>' . (($hitosotp[0]->estado_entrega_servicio != '') ? (($hitosotp[0]->estado_entrega_servicio != 'No aplica') ? 'Realizada' : 'No aplica') : 'Pendiente') . '</span></li></ul>
+                            ' . (($hitosotp[0]->n_estado_voc == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Visita obra civil<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->n_estado_voc . '</span></li>') . '
+                            ' . (($hitosotp[0]->estado_eoc == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Visita ejecución obra civil<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->estado_eoc . '</span></li>') . '
+                            ' . (($hitosotp[0]->estado_em == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Empalmes<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->estado_em . '</span></li>') . '
+                            ' . (($hitosotp[0]->estado_entrega_servicio == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Entrega servicio<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->estado_entrega_servicio . '</span></li>') . '
+                            </ul>
                             </ul>
                         </div>
                         <br><br>

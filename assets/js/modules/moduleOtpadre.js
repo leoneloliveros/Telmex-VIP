@@ -1624,7 +1624,11 @@ $(function () {
                         if (obj.length > 0) {
                             $.each(obj, function (i, item) {
                                 $.each(item, function (i2, item2) {
-                                    $('#' + i2).val(item2);
+                                    if ($('#' + i2).attr('type') == 'checkbox' && item2 == 'no aplica') {
+                                        $('#' + i2).prop( "checked", true );
+                                    } else {
+                                        $('#' + i2).val(item2);
+                                    }
                                 });
                             });
                         }                        
@@ -2254,10 +2258,18 @@ $(function () {
                                 posicion = $(value).val();
                             } else {
                                 if (infox[ posicion ] == undefined) {
-                                    infox[ posicion ] = [$(value).val()];
-                                    // infox[ posicion ] = new Object($(value).val());
+                                    if ($(value).attr('type') == "checkbox") {
+                                        infox[ posicion ] = ($(value).prop('checked')) ? 'no aplica' : 'aplica';
+                                    } else {
+                                        infox[ posicion ] = [$(value).val()];
+                                        // infox[ posicion ] = new Object($(value).val());
+                                    }
                                 } else {
-                                    infox[ posicion ].push($(value).val());
+                                    if ($(value).attr('type') == "checkbox") {
+                                        infox[ posicion ].push(($(value).prop('checked')) ? 'no aplica' : 'aplica');
+                                    } else {
+                                        infox[ posicion ].push($(value).val());
+                                    }
                                 }
                             }
                         } else {
@@ -3112,6 +3124,10 @@ $(function () {
         },
         
         resetFormHitos: function () {
+            $("#modalHitosOtp input[type='checkbox']").each(function () {
+                $(this).prop( "checked", false );
+            });
+            
             $('#actividad_actual').val('');
             $('#f_voc').val('');
             $('#n_estado_voc').val('');
