@@ -2241,7 +2241,7 @@ $(function () {
         onClickSaveHitosOtp: function () {
             var vacios = 0;
             $('.fechas_hitos').each(function () {
-                if ($(this).val() == '') {
+                if ($(this).val() == '' && $("[data-check='" + $(this).attr('id') + "']").prop('checked') == false) {
                     vacios++;
                 }
             });
@@ -2705,6 +2705,40 @@ $(function () {
             $("#tab_log").addClass("active").addClass("in");
             $("#tabLogReportInit, #tabLogReportAct, #liLogReportInit, #liLogReporAct").removeClass("active").removeClass("in");
         },
+        
+        onChangeStatusHitos: function (hito) {
+            var select = '';
+            var check = '';
+            switch (hito) {
+                case 'voc':
+                    select = 'n_estado_voc';
+                    check = 'no_aplica_voc';
+                    break;
+                
+                case 'eoc':
+                    select = 'estado_eoc';
+                    check = 'no_aplica_eoc';
+                    break;
+                    
+                case 'em':
+                    select = 'estado_em';
+                    check = 'no_aplica_em';
+                    break;
+                
+                case 'entrega':
+                    select = 'estado_entrega_servicio';
+                    check = 'no_aplica_entrega';
+                    break;
+            }
+            
+            if ($('#' + select).val() == 'NO APLICA') {
+                $("#" + check).prop( "checked", true);
+            } else {
+                $("#" + check).prop( "checked", false);
+            }
+        }
+        
+        
     };
     eventos.init();
 
@@ -3131,12 +3165,16 @@ $(function () {
             $('#actividad_actual').val('');
             $('#f_voc').val('');
             $('#n_estado_voc').val('');
+            $('#n_observaciones_voc').val('');
             $('#f_eoc').val('');
             $('#estado_eoc').val('');
+            $('#observaciones_eoc').val('');
             $('#f_em').val('');
             $('#estado_em').val('');
+            $('#observaciones_em').val('');
             $('#f_entrega_servicio').val('');
             $('#estado_entrega_servicio').val('');
+            $('#observaciones_entrega_servicio').val('');
             $('#observaciones_genrales').val('');
         }
     };

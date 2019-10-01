@@ -59,6 +59,12 @@
 
     <div id="total" class="tab-pane fade in active">
         <h3 style="margin-bottom:unset;">OT Padre</h3>
+        <?php
+//        $this->datatables->generate('table_otPadreList');
+//
+//        // Add this line after you load jquery from code.jquery.com
+//        $this->datatables->jquery('table_otPadreList');
+        ?>
         <table id="table_otPadreList" class="table table-hover table-bordered table-striped dataTable_camilo" style="width: 100%;">
             <tfoot>
                 <tr>
@@ -398,6 +404,7 @@
                             <option class="optH" value="VISITA EJECUCION OBRA CIVIL">VISITA EJECUCION OBRA CIVIL (EOC)</option>
                             <option class="optH" value="EMPALMES">EMPALMES (EM)</option>
                             <option class="optH" value="ENTREGA SERVICIO">ENTREGA SERVICIO</option>
+                            <option class="optH" value="PENDIENTE CLIENTE">PENDIENTE CLIENTE</option>
                         </select>
                     </div>
                     <table class="table table-hover table-bordered  dataTable_camilo table-striped  ">
@@ -432,7 +439,7 @@
                                     <input type="date" name="f_compromiso" id="f_voc" class="form-control fechas_hitos">
                                 </td>
                                 <td>
-                                    <select name="estado" id="n_estado_voc" class="form-control">
+                                    <select name="estado" id="n_estado_voc" class="form-control" onchange="eventos.onChangeStatusHitos('voc');">
                                         <option value="">SELECCIONE...</option>
                                         <option value="EJECUTADA">EJECUTADA</option>
                                         <option value="ENVIADA">ENVIADA</option>
@@ -447,7 +454,7 @@
                                     <textarea name="observaciones" id="n_observaciones_voc" rows="2"></textarea>
                                 </td>
                                 <td>
-                                    <input type="checkbox" name="check_na" id="no_aplica_voc" class="form-control">
+                                    <input type="checkbox" name="check_na" id="no_aplica_voc" class="form-control" data-check="f_voc">
                                 </td>
                             </tr>
                             <tr>
@@ -463,7 +470,7 @@
                                     <input type="date" name="f_compromiso" id="f_eoc" class="form-control fechas_hitos">
                                 </td>
                                 <td>
-                                    <select name="estado" id="estado_eoc" class="form-control">
+                                    <select name="estado" id="estado_eoc" class="form-control" onchange="eventos.onChangeStatusHitos('eoc');">
                                         <option value="">SELECCIONE...</option>
                                         <option value="EJECUTADA">EJECUTADA</option>
                                         <option value="ENVIADA">ENVIADA</option>
@@ -478,7 +485,7 @@
                                     <textarea name="observaciones" id="observaciones_eoc" rows="2"></textarea>
                                 </td>
                                 <td>
-                                    <input type="checkbox" name="check_na" id="no_aplica_eoc" class="form-control">
+                                    <input type="checkbox" name="check_na" id="no_aplica_eoc" class="form-control" data-check="f_eoc">
                                 </td>
                             </tr>
                             <tr>
@@ -494,7 +501,7 @@
                                     <input type="date" name="f_compromiso" id="f_em" class="form-control fechas_hitos">
                                 </td>
                                 <td>
-                                    <select name="estado" id="estado_em" class="form-control">
+                                    <select name="estado" id="estado_em" class="form-control" onchange="eventos.onChangeStatusHitos('em');">
                                         <option value="">SELECCIONE...</option>
                                         <option value="EJECUTADA">EJECUTADA</option>
                                         <option value="ENVIADA">ENVIADA</option>
@@ -509,7 +516,7 @@
                                     <textarea name="observaciones" id="observaciones_em" rows="2"></textarea>
                                 </td>
                                 <td>
-                                    <input type="checkbox" name="check_na" id="no_aplica_em" class="form-control">
+                                    <input type="checkbox" name="check_na" id="no_aplica_em" class="form-control" data-check="f_em">
                                 </td>
                             </tr>
                             <tr>
@@ -525,7 +532,7 @@
                                     <input type="date" name="f_compromiso" id="f_entrega_servicio" class="form-control fechas_hitos">
                                 </td>
                                 <td>
-                                    <select name="estado" id="estado_entrega_servicio" class="form-control">
+                                    <select name="estado" id="estado_entrega_servicio" class="form-control" onchange="eventos.onChangeStatusHitos('entrega');">
                                         <option value="">SELECCIONE...</option>
                                         <option value="EJECUTADA">EJECUTADA</option>
                                         <option value="ENVIADA">ENVIADA</option>
@@ -540,7 +547,7 @@
                                     <textarea name="observaciones" id="observaciones_entrega_servicio" rows="2"></textarea>
                                 </td>
                                 <td>
-                                    <input type="checkbox" name="check_na" id="no_aplica_entrega" class="form-control">
+                                    <input type="checkbox" name="check_na" id="no_aplica_entrega" class="form-control" data-check="f_entrega_servicio">
                                 </td>
                             </tr>
                             <tr>

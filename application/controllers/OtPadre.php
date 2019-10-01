@@ -214,6 +214,430 @@ class OtPadre extends CI_Controller {
         if (!Auth::check()) {
             Redirect::to(URL::base());
         }
+        
+        /*Datatables server site*/
+        /*
+        $this->load->library('Datatables');
+        
+        $condicion = " ";
+        if (Auth::user()->n_role_user == 'ingeniero') {
+            $usuario_session = Auth::user()->k_id_user;
+            $condicion = " WHERE otp.k_id_user = $usuario_session ";
+        } else {
+            $condicion = " WHERE `user`.n_group = 'GESTION OTS PROYECTOS'";
+        }
+        
+        $ListOtPadre_table = $this->datatables->init();
+        $ListOtPadre_table->query("
+            SELECT
+                otp.k_id_ot_padre,
+                otp.n_nombre_cliente,
+                otp.orden_trabajo,
+                (SELECT COUNT(id_ot_padre) FROM reporte_info WHERE id_ot_padre = otp.k_id_ot_padre) AS MAIL_enviados,
+                otp.servicio,
+                REPLACE (otp.estado_orden_trabajo, 'otp_cerrada', 'Cerrada') AS estado_orden_trabajo,
+                otp.fecha_programacion,
+                otp.fecha_compromiso,
+                otp.fecha_creacion,
+                otp.k_id_user,
+                `user`.n_name_user,
+                CONCAT( `user`.n_name_user, ' ', `user`.n_last_name_user ) AS ingeniero,
+                otp.lista_observaciones,
+                otp.observacion,
+                IFNULL(SUM( oth.c_email ),0) AS cant_mails,
+                hitos.id_hitos,
+                otp.finalizo,
+                otp.ultimo_envio_reporte,
+                CONCAT('$ ', FORMAT(oth.monto_moneda_local_arriendo + oth.monto_moneda_local_cargo_mensual, 2)) AS MRC,
+                (SELECT COUNT(oth2.nro_ot_onyx) FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx) AS cant_oths,
+                (SELECT IF(oth2.direccion_origen = '', oth2.alias_enlace, oth2.direccion_origen) FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx limit 1) AS direccion,
+                (SELECT oth2.ciudad FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx limit 1) AS ciudad
+            FROM ot_hija oth
+            RIGHT JOIN ot_padre otp ON oth.nro_ot_onyx = otp.k_id_ot_padre
+            INNER JOIN `user` ON otp.k_id_user = `user`.k_id_user
+            LEFT JOIN hitos ON hitos.id_ot_padre = otp.k_id_ot_padre
+            $condicion
+            GROUP BY
+            otp.k_id_ot_padre ",
+            "otp.k_id_ot_padre*
+            otp.n_nombre_cliente*
+            otp.orden_trabajo*
+            otp.servicio*
+            estado_orden_trabajo*
+            otp.fecha_programacion*
+            otp.fecha_compromiso*
+            otp.fecha_creacion*
+            ingeniero*
+            MRC*
+            otp.lista_observaciones*
+            MAIL_enviados*
+            otp.k_id_user*
+            n_name_user*
+            cant_mails*
+            hitos.id_hitos*
+            otp.finalizo*
+            direccion*
+            ciudad*
+            otp.observacion*
+            otp.ultimo_envio_reporte*
+            cant_oths*");
+        
+        $ListOtPadre_table->set_options('dom',"'frtiS'")
+                        ->set_options('scrollY','500')
+                        ->set_options('scrollX', '0')
+                        ->set_options('columnDefs','[
+                            {
+                              "targets": [ 9 ],
+                              "visible": false
+                            },
+                            {
+                              "targets": [ 10 ],
+                              "visible": false
+                            },
+                            {
+                              "targets": [ 11 ],
+                              "visible": false
+                            },
+                            {
+                              "targets": [ 12 ],
+                              "visible": false
+                            },
+                            {
+                              "targets": [ 13 ],
+                              "visible": false
+                            },
+                            {
+                              "targets": [ 14 ],
+                              "visible": false
+                            },
+                            {
+                              "targets": [ 15 ],
+                              "visible": false
+                            },
+                            {
+                              "targets": [ 16 ],
+                              "visible": false
+                            },
+                            {
+                              "targets": [ 17 ],
+                              "visible": false
+                            },
+                            {
+                              "targets": [ 18 ],
+                              "visible": false
+                            },
+                            {
+                              "targets": [ 19 ],
+                              "visible": false
+                            },
+                            {
+                              "targets": [ 20 ],
+                              "visible": false
+                            },
+                            {
+                              "targets": [ 21 ],
+                              "visible": false
+                            }
+                            ]')
+                        ->set_options('bFilter','true')
+                        ->set_options('initComplete','function activar(){
+                                    scripPlus.init();
+                                    $("#table_otPadreList").click(function(){
+                                      $(".btnoths ").off(\'click\');
+                                      $(".hitos-otp").off(\'click\');
+                                      scripPlus.events();
+                                    });
+                                  }')
+                        ->set_options('scroller','{
+                            loadingIndicator: true
+                          }')
+                          ->set_options('"createdRow"','function(row, data, dataIndex) {
+                                if (data["cant_oths"] == 0) {
+                                    $(row).css("background-color", "#f50e0e69");
+                                }
+                            }')
+                          ->set_options('select','true');
+
+        $ListOtPadre_table->delimitador("where");
+        $ListOtPadre_table
+                ->style(array(
+                    'class' => 'table table-striped table-bordered dataTable_camilo',
+                ))
+                ->column('Ot Padre', 'k_id_ot_padre')//0
+                ->column('Nombre Cliente', 'n_nombre_cliente')//1
+                ->column('Tipo', 'orden_trabajo')//2
+                ->column('Servicio', 'servicio')//3
+                ->column('Estado OT Padre', 'estado_orden_trabajo')//4
+                ->column('Fecha Programación', 'fecha_programacion')//5
+                ->column('Fecha Compromiso', 'fecha_compromiso')//6
+                ->column('Fecha Creación', 'fecha_creacion')//7
+                ->column('Ingeniero', 'ingeniero')//8
+                ->column('Recurrente', 'MRC')//9--
+                ->column('Lista', 'lista_observaciones')//10--
+                ->column('Mails Enviados', 'MAIL_enviados')//11--
+                ->column('Id Usuario', 'k_id_user')//12--
+                ->column('Nombre Usuario', 'n_name_user')//13--
+                ->column('Cantidad Mails', 'cant_mails')//14--
+                ->column('Id Hitos', 'id_hitos')//15--
+                ->column('Finalización', 'finalizo')//16--
+                ->column('Dirección', 'direccion')//17--
+                ->column('Ciudad', 'ciudad')//18--
+                ->column('Observacion', 'observacion')//19--
+                ->column('Ultimo Reporte Enviado', 'ultimo_envio_reporte')//20--
+                ->column('Cantidad OTH', 'cant_oths')//21--
+                ->column('Observaciónes dejadas', 'observacion', function($data, $row){
+                    $observacion = ($data->observacion == null) ? '' : $data->observacion;
+                    $input = "<textarea class=\"obs_cod_resolucion\" spellcheck=\"false\">$observacion</textarea>";
+                    return $input;
+                })//22
+//                ->column('ultimo envio', function($data){
+//                    $inicio = strtotime(date('Y-m-d'));
+//                    $fin = strtotime($data->ultimo_envio_reporte);
+//                    $dif = $fin - $inicio;
+//                    $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
+//                    return ceil($diasFalt);
+//                })//23
+//                ->column('No. OTHs', function($data){
+//                    $num = '';
+//                    if ($data->cant_oths != 0) {
+//                        $num += `<span class="styleNum" title="$data->cant_oths OTHs Asociadas" >$data->cant_oths</span>`;
+//                    } else {
+//                        $num += `<span class="styleNum noOTHs" title="sin OTHs">$data->cant_oths</span>`;
+//                    }
+//                    return $num;
+//                })//24
+//                ->column('Opc', function($data){
+//                    $span = '';
+//                    $title = '';
+//                    $cierreKo = '';
+//                    $icon = '';
+//                    $reportInicio = ''; //si tiene reporte de inicio y tiene emails enviados
+//
+//                    //si existe una OTP con contador de reportes enviados, aparecerá, de lo contrario, pondrá el icono del ojo
+//                    if ($data->MAIL_enviados) {
+//                        if ($data->MAIL_enviados != 0) {
+//                            $reportInicio = ($data->cant_mails != 0) ? "<span class='fa fa-fw '>| &nbsp" . $data->cant_mails . "</span> <span style='color: #7eec7c;' class='fa fa-check-circle'  aria-hidden='true'></span>" : '';
+//                            $span = "<span class='fa fa-fw'>" . $data->MAIL_enviados . "</span>";
+//                            $icon = "<span class='fa fa-envelope' aria-hidden='true' style='color: #fff700;'></span>";
+//                            $title = ($data->MAIL_enviados == 1) ? $data->MAIL_enviados . " correo enviado" : $data->MAIL_enviados . " correos enviados";
+//                        } else if ($data->cant_mails != 0) {
+//                            $span = "<span class='fa fa-fw '>" . $data->cant_mails . "</span>";
+//                            $reportInicio = "<span style='color: #7eec7c;' class='fa fa-check-circle' aria-hidden='true'></span>";
+//                            $title = ($data->cant_mails == 1) ? $data->cant_mails . " correo enviado" : $data->cant_mails . " correos enviados";
+//                        } else {
+//                            $span = "<span class='fa fa-fw fa-eye'></span>";
+//                            $title = "ver OT Hijas";
+//                        }
+//                    } else {
+//                        //SI no es reporte de act. entra acá, pero si lo es, entrará arriba
+//                        if ($data->cant_mails != 0) {
+//                            $span = "<span class='fa fa-fw '>" . $data->cant_mails . "</span>";
+//                            $title = ($data->cant_mails == 1) ? $data->cant_mails . " correo enviado" : $data->cant_mails . " correos enviados";
+//                        } else {
+//                            $span = "<span class='fa fa-fw fa-eye'></span>";
+//                            $title = "ver OT Hijas";
+//                        }
+//                    }
+//                    if ($data->finalizo != null) {
+//                        $cierreKo = "<a class='btn btn-default btn-xs product-otp btn_datatable_cami' data-btn='cierreKo' title='Ver Detalle Cierre KO'><span class='fa fa-fw fa-info-circle'></span></a>";
+//                    }
+//
+//                    $color = ($data->id_hitos) ? 'clr_lime' : '';
+//                    $botones = "<div class='btn-group-vertical' style=''>"
+//                            . "<a class='btn btn-default btn-xs btnoths btn_datatable_cami' title='" . $title . "'>" . $icon . $span . $reportInicio . "</a>"
+//                            // + "<a class='btn btn-default btn-xs edit-otp btn_datatable_cami' title='Editar Ots'><span class='glyphicon glyphicon-save'></span></a>"
+//                            . "<a class='btn btn-default btn-xs hitos-otp btn_datatable_cami' data-btn='hito' title='Hitos Ots'><span class='glyphicon glyphicon-header " . $color . "'></span></a>"
+//                            . $cierreKo
+//                            . "</div>";
+//                    return $botones;
+//                })//25
+                ;
+        $ListOtPadre_table->script("<script type=\"text/javascript\" defer=\"defer\">
+                                    scripPlus = {
+                                        init: function() {
+                                            scripPlus.events();
+                                        },
+                                        events: function() {
+                                            $('#contenido_tablas').on('click', 'a.btnoths', scripPlus.onClickShowModal);
+                                            $('#contenido_tablas').on('click', 'a.hitos-otp', scripPlus.onClickBtnCloseOtp);
+                                            $('#contenido_tablas').on('click', 'a.product-otp', scripPlus.onClickBtnCloseOtp);
+                                        },
+                                        onClickShowModal: function () {
+                                                var aLinkLog = $(this);
+                                                var trParent = aLinkLog.parents('tr');
+                                                var tabla = aLinkLog.parents('table').attr('id');
+                                                var record;
+                                                switch (tabla) {
+                                                    case 'table_otPadreList':
+                                                        record = vista.table_otPadreList.row(trParent).data();
+                                                        break;
+                                                    case 'table_otPadreListHoy':
+                                                        record = hoy.table_otPadreListHoy.row(trParent).data();
+                                                        break;
+                                                    case 'table_otPadreListVencidas':
+                                                        record = vencidas.table_otPadreListVencidas.row(trParent).data();
+                                                        break;
+                                                    case 'table_list_opc':
+                                                        record = lista.tableOpcList.row(trParent).data();
+                                                        break;
+                                                    case 'table_otPadreListEmails':
+                                                        record = emails.table_otPadreListEmails.row(trParent).data();
+                                                        break;
+                                                    case 'table_reporte_actualizacion':
+                                                        record = reporte_act.table_reporte_actualizacion.row(trParent).data();
+                                                        break;
+                                                }
+
+                                                scripPlus.showModalOthDeOthp(record);
+                                        },
+                                        showModalOthDeOthp: function (data) {
+                                            listoth.getothofothp(data);
+                                            // resetea el formulario y lo deja vacio
+                                            document.getElementById(\"formModalOTHS\").reset();
+                                            //pinta el titulo del modal y cambia dependiendo de la otp seleccionada
+                                            $('#myModalLabel').html('<strong> Lista OTH de la OTP N.<span id=\"NroOTPSelect\">' + data.k_id_ot_padre + '</span></strong>');
+                                            $('#modalOthDeOtp').modal('show');
+                                        },
+                                        getothofothp: function (obj) {
+                                            //metodo ajax (post)
+                                            $.post(baseurl + '/OtPadre/c_getOthOfOtp',
+                                                    {
+                                                        idOtp: obj.k_id_ot_padre
+                                                    },
+                                                    // funcion que recibe los datos
+                                                            function (data) {
+                                                                // convertir el json a objeto de javascript
+                                                                var obj = JSON.parse(data);
+                                                                listoth.printTable(obj);
+                                                            }
+                                                    );
+                                                },
+                                        onClickBtnCloseOtp: function (e) {
+                                            var aLinkLog = $(this);
+                                            var trParent = aLinkLog.parents('tr');
+                                            var tabla = aLinkLog.parents('table').attr('id');
+                                            var record;
+
+                                            switch (tabla) {
+                                                case 'table_otPadreList':
+                                                    record = vista.table_otPadreList.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListHoy':
+                                                    record = hoy.table_otPadreListHoy.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListVencidas':
+                                                    record = vencidas.table_otPadreListVencidas.row(trParent).data();
+                                                    break;
+                                                case 'table_list_opc':
+                                                    record = lista.tableOpcList.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListEmails':
+                                                    record = emails.table_otPadreListEmails.row(trParent).data();
+                                                    break;
+                                                case 'table_reporte_actualizacion':
+                                                    record = reporte_act.table_reporte_actualizacion.row(trParent).data();
+                                                    break;
+                                            }
+
+                                            var btn_clas = e.currentTarget;
+
+                                            switch (btn_clas.dataset.btn) {
+                                                case 'cierreKo':
+                                                    eventos.showDetailsCierreKo(record);
+                                                    break;
+
+                                                case 'hito':
+                                                    eventos.showModalHitosOthp(record, aLinkLog.children());
+                                                    break;
+                                            }
+                                        },
+                                        showDetailsCierreKo: function (data) {
+                                            var s = data.finalizo;
+                                            var flag = false;
+                                            var form = setForm.returnFormularyProduct(s);
+                                            if (s == 3 || s == 4 || s == 5 || s == 6 || s == 7 || s == 8 || s == 9 || s == 10) {
+                                                form += setForm.formProduct_mpls_form_origen();
+                                                flag = true;
+                                            }
+                                            $(\"#form_cierreKo\").html(form);
+                                            $('.max-w_border-n').remove();
+
+                                            $.post(baseurl + '/OtPadre/c_getProductByOtp',
+                                                    {
+                                                        id_otp: data.k_id_ot_padre,
+                                                        num_servicio: data.finalizo
+                                                    },
+                                                    function (data) {
+                                                        var obj = JSON.parse(data);
+                                                        $.each(obj, function (i, item) {
+
+                                                            var el = $('#pr_' + i);
+                                                            el.replaceWith($('<input />').attr({
+                                                                type: 'text',
+                                                                id: el.attr('id'),
+                                                                name: el.attr('name'),
+                                                                class: el.attr('class'),
+                                                                value: el.val(),
+                                                                readonly: true,
+                                                                style: 'font-size: 12px;'
+                                                            }));
+                                                            $('#pr_' + i).val(item);
+                                                        });
+
+                                                        if (flag && obj.ciudad_ori == null) {
+                                                            $('#seccion_mpls_ori').remove();
+                                                        }
+
+                                                        $(\"#mdl_cierreKo #id_ot_padre\").val(obj.id_ot_padre);
+                                                        $(\"#mdl_cierreKo #id_ot_padre_ori\").val(obj.id_ot_padre);
+                                                        $(\"#mdl_cierreKo #id_ot_padre_des\").val(obj.id_ot_padre);
+                                                        $(\"#mdl_cierreKo\").css(\"font-size\", \"12px\");
+                                                        $(\"#mdl_cierreKo label\").css(\"width\", \"150px\");
+                                                        $(\"#mdl_cierreKo .selectContainer\").css(\"margin-bottom\", \"5px\");
+                                                    });
+
+                                            $('#mdl_cierreKo').modal('show');
+                                        },
+                                        
+                                        // Muestra los hitos de la ot padre seleccionada
+                                        showModalHitosOthp: function (datax, x) {
+                                            reporte_act.resetFormHitos();
+                                            $.post(baseurl + '/OtPadre/c_getInfoHitosByOtp',
+                                                    {
+                                                        idOtp: datax.k_id_ot_padre // parametros que se envian
+                                                    },
+                                                    function (data) {
+                                                        var obj = JSON.parse(data);
+                                                        if (obj.length > 0) {
+                                                            $.each(obj, function (i, item) {
+                                                                $.each(item, function (i2, item2) {
+                                                                    if ($('#' + i2).attr('type') == 'checkbox' && item2 == 'no aplica') {
+                                                                        $('#' + i2).prop( \"checked\", true );
+                                                                    } else {
+                                                                        $('#' + i2).val(item2);
+                                                                    }
+                                                                });
+                                                            });
+                                                        }                        
+                                                    });
+                                            //pinta el titulo del modal y cambia dependiendo de la otp seleccionada
+                                            $('#myModalLabelHitos').html('<strong> Hitos de la OTP N.<span id=\"otpHIto\">' + datax.k_id_ot_padre + '</span></strong>');
+                                            $('#servivio_hito').html('<strong> OT ' + datax.k_id_ot_padre + ' - ' + datax.servicio + '</strong>');
+                                            $('#cliente_hito').html('<strong> CLIENTE: ' + datax.n_nombre_cliente + '</strong>');
+                                            $('#ciudad_hito').html('<strong> CIUDAD: ' + datax.ciudad + ' - ' + datax.direccion + '</strong>');
+                                            $('#modalHitosOtp').modal('show');
+                                        },
+                                        
+                                    };
+
+                                    scripPlus.init();
+
+                                </script>");
+                
+        $this->datatables->create('table_otPadreList', $ListOtPadre_table);
+        */                  
+        /*Fin Datatables server site*/
+        
         $data['cantidad'] = $this->Dao_ot_hija_model->getCantUndefined();
         $data['title'] = 'Work Management OTP';
         $this->load->view('parts/headerF', $data);
@@ -962,12 +1386,13 @@ class OtPadre extends CI_Controller {
                                 <span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif"></span>
                             </p>
                             <ul style="margin-bottom:0cm">
-                            <ul style="font-family:Calibri,Helvetica,sans-serif; margin-bottom:0cm">
-                            ' . (($hitosotp[0]->n_estado_voc == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Visita obra civil<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->n_estado_voc . '</span></li>') . '
-                            ' . (($hitosotp[0]->estado_eoc == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Visita ejecución obra civil<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->estado_eoc . '</span></li>') . '
-                            ' . (($hitosotp[0]->estado_em == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Empalmes<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->estado_em . '</span></li>') . '
-                            ' . (($hitosotp[0]->estado_entrega_servicio == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Entrega servicio<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->estado_entrega_servicio . '</span></li>') . '
-                            </ul>
+                                <ul style="font-family:Calibri,Helvetica,sans-serif; margin-bottom:0cm">
+                                    ' . (($hitosotp[0]->n_estado_voc == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Visita obra civil<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->n_estado_voc . '</span></li>') . '
+                                    ' . (($hitosotp[0]->estado_eoc == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Visita ejecución obra civil<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->estado_eoc . '</span></li>') . '
+                                    ' . (($hitosotp[0]->estado_em == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Empalmes<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->estado_em . '</span></li>') . '
+                                    ' . (($hitosotp[0]->estado_entrega_servicio == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Entrega servicio<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->estado_entrega_servicio . '</span></li>') . '
+                                    <li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Observaciones<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->observaciones_genrales . '</span></li>
+                                </ul>
                             </ul>
                         </div>
                         <br><br>
@@ -977,6 +1402,16 @@ class OtPadre extends CI_Controller {
 
         $template .= '</tbody>
                 </table>
+            </div>
+            <br>
+            <div dir="ltr">
+                <ul style="font-family:Calibri,Helvetica,sans-serif; margin-bottom:0cm">
+                    <li>
+                        <span style="font-size:10.0pt; color:black; border:none windowtext 1.0pt; padding:0cm">
+                            ' . $observacionesEmail . '
+                        </span>
+                    </li>
+                </ul>
             </div>
             <br><br>';
         
@@ -989,7 +1424,7 @@ class OtPadre extends CI_Controller {
             <p class="x_MsoNormal" style="text-align:justify"><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $senior . '</span></strong></p>-->
             <p class="x_MsoNormal" style="text-align:justify"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>
             <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Comprometidos con el servicio y el cumplimiento de sus solicitudes me permito notificar los avances de los asuntos en curso. Es de suma importancia que sea revisado y nos retroalimente con &nbsp;sus comentarios, ya que al término de 2 días hábiles este reporte se dará por aceptado.</span></p>
-            <!--<p class="x_MsoNormal">&nbsp;</p>-->
+            <p class="x_MsoNormal">&nbsp;</p>
             <!--<p class="x_MsoListParagraph" style="text-indent:-18.0pt; text-autospace:none"><span style="font-family: Symbol, serif, EmojiFont;"><span style=""><span style="font: 7pt &quot;Times New Roman&quot;, serif, EmojiFont;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><strong><span lang="EN-US" style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;OT DESTINO &nbsp;</span></strong><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . substr($asunOtp, 0, -2) . '</span></strong><strong><span lang="EN-US" style="font-family: Arial, sans-serif, serif, EmojiFont;">: </span></strong><span lang="EN-US" style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $infOtp->servicio . ' </span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"><strong></strong></span></p>
             <p class="x_MsoNormal" style="text-autospace:none"><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Ciudad: </span></strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $infOtp->ciudad . '</span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"></span></p>
             <p class="x_MsoNormal" style="text-autospace:none"><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Dirección de servicio: </span></strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $direccionCierreOtp . '&nbsp; </span><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;"></span></strong></p>
@@ -1013,15 +1448,14 @@ class OtPadre extends CI_Controller {
 
             <p class="m_-5751456617445139844xmsonormal" style="text-align:justify"><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Nivel de Contacto 2:</span></strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;"> En caso de que no se obtenga respuesta por parte del Nivel de Contacto &nbsp;1.</span><u></u><u></u></p>
 
-            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Coordinador Estándar: <span style="color:#1f497d">&nbsp;</span>Alejandra Rendon Calderon &nbsp;</span><u></u><u></u></p>
-            <p class="MsoNormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Teléfono. 7569858 Ext &nbsp;2008 Celular:</span> 3102129290<u></u><u></u></p>
+            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Coordinador Estándar: <span style="color:#1f497d">&nbsp;</span>Gustavo Gonzalez &nbsp;</span><u></u><u></u></p>
+            <p class="MsoNormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Celular:</span> 3142197626 - 3203278451<u></u><u></u></p>
+            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Correo: <span style="color:#4f81bd"> <a href="mailto:gustavo.gonzalez.ext@claro.com.co" target="_blank"><span style="color:#4f81bd">gustavo.gonzalez.ext@claro.<wbr>com.co</span></a> </span></span><u></u><u></u></p>
+            <p class="MsoNormal"><u></u>&nbsp;<u></u></p>
+            <p class="m_-5751456617445139844xmsonormal" style="text-align:justify"><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Nivel de Contacto 3:</span></strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;"> En caso de que no se obtenga respuesta por parte del Nivel de Contacto &nbsp;1.</span><u></u><u></u></p>
+            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Coordinador Estándar: &nbsp;Alejandra Rendon Calderon<u></u><u></u></span></p>
             <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Correo: <span style="color:#4f81bd"> <a href="mailto:alejandra.rendon.ext@claro.com.co" target="_blank"><span style="color:#4f81bd">alejandra.rendon.ext@claro.<wbr>com.co</span></a> </span></span><u></u><u></u></p>
             <p class="MsoNormal"><u></u>&nbsp;<u></u></p>
-            <!--<p class="m_-5751456617445139844xmsonormal" style="text-align:justify"><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Nivel de Contacto 3:</span></strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;"> En caso de que no se obtenga respuesta por parte del Nivel de Contacto &nbsp;1.</span><u></u><u></u></p>
-            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Coordinador Estándar: &nbsp;Angelica Palomino<u></u><u></u></span></p>
-            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Teléfono.7500300&nbsp; Ext 83746 &nbsp;&nbsp;Celular 3202750048<u></u><u></u></span></p>
-            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Correo: <span style="color:#4f81bd"> <a href="mailto:angelica.palomino@claro.com.co" target="_blank"><span style="color:#4f81bd">angelica.palomino@claro.<wbr>com.co</span></a> </span></span><u></u><u></u></p>
-            <p class="MsoNormal"><u></u>&nbsp;<u></u></p>-->
 
             <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont; color: rgb(31, 73, 125);">&nbsp;</span></p>
             <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Gracias por la atención prestada y quedo atento a sus comentarios.</span></p>
