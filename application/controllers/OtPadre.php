@@ -386,7 +386,7 @@ class OtPadre extends CI_Controller {
                 ->column('Ultimo Reporte Enviado', 'ultimo_envio_reporte')//20--
                 ->column('Cantidad OTH', 'cant_oths')//21--
                 ->column('Observaciónes dejadas', 'observacion', function($data, $row){
-                    $observacion = ($data->observacion == null) ? '' : $data->observacion;
+                    $observacion = ($row->observacion == null) ? '' : $data->observacion;
                     $input = "<textarea class=\"obs_cod_resolucion\" spellcheck=\"false\">$observacion</textarea>";
                     return $input;
                 })//22
