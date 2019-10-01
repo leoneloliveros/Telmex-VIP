@@ -59,6 +59,12 @@
 
     <div id="total" class="tab-pane fade in active">
         <h3 style="margin-bottom:unset;">OT Padre</h3>
+        <?php
+//        $this->datatables->generate('table_otPadreList');
+//
+//        // Add this line after you load jquery from code.jquery.com
+//        $this->datatables->jquery('table_otPadreList');
+        ?>
         <table id="table_otPadreList" class="table table-hover table-bordered table-striped dataTable_camilo" style="width: 100%;">
             <tfoot>
                 <tr>
@@ -394,6 +400,11 @@
                         <label for="email">Actividad Actual:</label>
                         <select name="actividad_actual" id="actividad_actual" class="form-control" required>
                             <option value="">SELECCIONE...</option>
+                            <option class="optH" value="VISITA OBRA CIVIL">VISITA OBRA CIVIL (VOC)</option>
+                            <option class="optH" value="VISITA EJECUCION OBRA CIVIL">VISITA EJECUCION OBRA CIVIL (EOC)</option>
+                            <option class="optH" value="EMPALMES">EMPALMES (EM)</option>
+                            <option class="optH" value="ENTREGA SERVICIO">ENTREGA SERVICIO</option>
+                            <option class="optH" value="PENDIENTE CLIENTE">PENDIENTE CLIENTE</option>
                         </select>
                     </div>
                     <table class="table table-hover table-bordered  dataTable_camilo table-striped  ">
@@ -408,12 +419,143 @@
                             <tr>
                                 <th></th>
                                 <th>ACTIVIDAD</th>
-                                <th>FECHA COMPROMISO </th>
+                                <th>FECHA</th>
                                 <th>ESTADO</th>
                                 <th>OBSERVACIONES</th>
+                                <th>NO APLICA</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <tr>
+                                <td>
+                                    <ul class="timeline timeline-jhon">
+                                        <li class="timeline-item">
+                                            <div class="timeline-badge" id="act_voc">1</div>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td><span>VISITA OBRA CIVIL</span></td>
+                                <td>
+                                    <input type="date" name="f_compromiso" id="f_voc" class="form-control fechas_hitos">
+                                </td>
+                                <td>
+                                    <select name="estado" id="n_estado_voc" class="form-control" onchange="eventos.onChangeStatusHitos('voc');">
+                                        <option value="">SELECCIONE...</option>
+                                        <option value="EJECUTADA">EJECUTADA</option>
+                                        <option value="ENVIADA">ENVIADA</option>
+                                        <option value="APROBADA">APROBADA</option>
+                                        <option value="CONFIGURADO">CONFIGURADO</option>
+                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="CERRADA">CERRADA</option>
+                                        <option value="NO APLICA">NO APLICA</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <textarea name="observaciones" id="n_observaciones_voc" rows="2"></textarea>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="check_na" id="no_aplica_voc" class="form-control" data-check="f_voc">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <ul class="timeline timeline-jhon">
+                                        <li class="timeline-item">
+                                            <div class="timeline-badge" id="act_eoc">2</div>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td><span>VISITA EJECUCION OBRA CIVIL</span></td>
+                                <td>
+                                    <input type="date" name="f_compromiso" id="f_eoc" class="form-control fechas_hitos">
+                                </td>
+                                <td>
+                                    <select name="estado" id="estado_eoc" class="form-control" onchange="eventos.onChangeStatusHitos('eoc');">
+                                        <option value="">SELECCIONE...</option>
+                                        <option value="EJECUTADA">EJECUTADA</option>
+                                        <option value="ENVIADA">ENVIADA</option>
+                                        <option value="APROBADA">APROBADA</option>
+                                        <option value="CONFIGURADO">CONFIGURADO</option>
+                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="CERRADA">CERRADA</option>
+                                        <option value="NO APLICA">NO APLICA</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <textarea name="observaciones" id="observaciones_eoc" rows="2"></textarea>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="check_na" id="no_aplica_eoc" class="form-control" data-check="f_eoc">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <ul class="timeline timeline-jhon">
+                                        <li class="timeline-item">
+                                            <div class="timeline-badge" id="act_em">3</div>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td><span>EMPALMES</span></td>
+                                <td>
+                                    <input type="date" name="f_compromiso" id="f_em" class="form-control fechas_hitos">
+                                </td>
+                                <td>
+                                    <select name="estado" id="estado_em" class="form-control" onchange="eventos.onChangeStatusHitos('em');">
+                                        <option value="">SELECCIONE...</option>
+                                        <option value="EJECUTADA">EJECUTADA</option>
+                                        <option value="ENVIADA">ENVIADA</option>
+                                        <option value="APROBADA">APROBADA</option>
+                                        <option value="CONFIGURADO">CONFIGURADO</option>
+                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="CERRADA">CERRADA</option>
+                                        <option value="NO APLICA">NO APLICA</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <textarea name="observaciones" id="observaciones_em" rows="2"></textarea>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="check_na" id="no_aplica_em" class="form-control" data-check="f_em">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <ul class="timeline timeline-jhon">
+                                        <li class="timeline-item">
+                                            <div class="timeline-badge" id="act_en_ser">4</div>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td><span>ENTREGA SERVICIO</span></td>
+                                <td>
+                                    <input type="date" name="f_compromiso" id="f_entrega_servicio" class="form-control fechas_hitos">
+                                </td>
+                                <td>
+                                    <select name="estado" id="estado_entrega_servicio" class="form-control" onchange="eventos.onChangeStatusHitos('entrega');">
+                                        <option value="">SELECCIONE...</option>
+                                        <option value="EJECUTADA">EJECUTADA</option>
+                                        <option value="ENVIADA">ENVIADA</option>
+                                        <option value="APROBADA">APROBADA</option>
+                                        <option value="CONFIGURADO">CONFIGURADO</option>
+                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="CERRADA">CERRADA</option>
+                                        <option value="NO APLICA">NO APLICA</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <textarea name="observaciones" id="observaciones_entrega_servicio" rows="2"></textarea>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="check_na" id="no_aplica_entrega" class="form-control" data-check="f_entrega_servicio">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="timeline-badge"><span>OBSERVACIONES</span></td>
+                                <td colspan="4">
+                                    <textarea name="observaciones" id="observaciones_genrales" rows="2" cols="100"></textarea>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </form>
@@ -1143,6 +1285,7 @@
                                                             <option value="22">Cambio de Última Milla</option>
                                                             <option value="23">Cambio de Equipo</option>
                                                             <option value=24>PL ETHERNET</option>
+                                                            <option value=25>Cambio de velocidad – Ampliación y Saturación</option>
                                                             <optgroup label="SIN REPORTE INICIO">
                                                                 <option value="30">PRIVATE LINE</option>
                                                                 <option value="31">LAN ADMINISTRADA</option>

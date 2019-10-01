@@ -185,4 +185,5 @@
             </nav>
         </div>
         <div class="container" style="min-height: 513px;">
-
+<!--<script src="<?= URL::to('assets/plugins/datatables/DataTables-1.10.16/js/jquery.dataTables.min.js') ?>"></script>
+    <script src="<?= URL::to('assets/plugins/datatables/js/dataTables.bootstrap.js?v=1.0') ?>"></script>-->
