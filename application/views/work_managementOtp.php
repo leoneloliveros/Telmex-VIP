@@ -551,7 +551,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2" class="timeline-badge"><span>OBSERVACIONES</span></td>
+                                <td colspan="2" class="timeline-badge"><span>OBSERVACIONES PENDIENTE CLIENTE</span></td>
                                 <td colspan="4">
                                     <textarea name="observaciones" id="observaciones_genrales" rows="2" cols="100"></textarea>
                                 </td>

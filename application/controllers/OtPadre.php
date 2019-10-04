@@ -227,6 +227,9 @@ class OtPadre extends CI_Controller {
             $condicion = " WHERE `user`.n_group = 'GESTION OTS PROYECTOS'";
         }
         
+        date_default_timezone_set("America/Bogota");
+        $fecha_actual = date('Y-m-d');
+        
         $ListOtPadre_table = $this->datatables->init();
         $ListOtPadre_table->query("
             SELECT
@@ -282,7 +285,7 @@ class OtPadre extends CI_Controller {
             otp.ultimo_envio_reporte*
             cant_oths*");
         
-        $ListOtPadre_table->set_options('dom',"'frtiS'")
+        $ListOtPadre_table->set_options('dom',"'Blfrtip'")
                         ->set_options('scrollY','500')
                         ->set_options('scrollX', '0')
                         ->set_options('columnDefs','[
@@ -337,26 +340,54 @@ class OtPadre extends CI_Controller {
                             {
                               "targets": [ 21 ],
                               "visible": false
+                            },
+                            {
+                              "targets": [ 22 ],
+                              "visible": false
                             }
                             ]')
                         ->set_options('bFilter','true')
                         ->set_options('initComplete','function activar(){
                                     scripPlus.init();
                                     $("#table_otPadreList").click(function(){
-                                      $(".btnoths ").off(\'click\');
-                                      $(".hitos-otp").off(\'click\');
-                                      scripPlus.events();
+                                        $(".btnoths ").off(\'click\');
+                                        $(".hitos-otp").off(\'click\');
+                                        scripPlus.events();
                                     });
-                                  }')
+                                }')
                         ->set_options('scroller','{
                             loadingIndicator: true
-                          }')
-                          ->set_options('"createdRow"','function(row, data, dataIndex) {
-                                if (data["cant_oths"] == 0) {
+                        }')
+//                        ->set_options('dom','Blfrtip')
+                        ->set_options('buttons',"[
+                                                {
+                                                    text: 'Excel <span class=\"fa fa-file-excel-o\"></span>',
+                                                    className: 'btn-cami_cool',
+                                                    extend: 'excel',
+                                                    title: 'ZOLID EXCEL',
+                                                    filename: 'zolid - ' + $fecha_actual
+                                                },
+                                                {
+                                                    text: 'Imprimir <span class=\"fa fa-print\"></span>',
+                                                    className: 'btn-cami_cool',
+                                                    extend: 'print',
+                                                    title: 'Reporte Zolid',
+                                                },
+                                                {
+                                                    text: '<span class=\"fa fa-envelope-o\" aria-hidden=\"true\"></span> Reporte Actualización',
+                                                    className: 'btn-cami_cool btn-rpt_act',
+//                                                    action: eventos.otp_seleccionadas,
+                                                }
+                                        ]")
+                        ->set_options('"createdRow"','function(row, data, dataIndex) {
+                                if (data[21] == 0) {
                                     $(row).css("background-color", "#f50e0e69");
                                 }
                             }')
-                          ->set_options('select','true');
+                        ->set_options('"drawCallback"','function( settings, json){
+                                    queryValue = settings["json"]["query"];
+                                }')
+                        ->set_options('select','true');
 
         $ListOtPadre_table->delimitador("where");
         $ListOtPadre_table
@@ -386,71 +417,72 @@ class OtPadre extends CI_Controller {
                 ->column('Ultimo Reporte Enviado', 'ultimo_envio_reporte')//20--
                 ->column('Cantidad OTH', 'cant_oths')//21--
                 ->column('Observaciónes dejadas', 'observacion', function($data, $row){
-                    $observacion = ($row->observacion == null) ? '' : $data->observacion;
+//                    echo '<pre>';var_dump($row['observacion']);echo '</pre>';
+                    $observacion = ($row['observacion'] == null) ? '' : $row['observacion'];
                     $input = "<textarea class=\"obs_cod_resolucion\" spellcheck=\"false\">$observacion</textarea>";
                     return $input;
                 })//22
-//                ->column('ultimo envio', function($data){
-//                    $inicio = strtotime(date('Y-m-d'));
-//                    $fin = strtotime($data->ultimo_envio_reporte);
-//                    $dif = $fin - $inicio;
-//                    $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
-//                    return ceil($diasFalt);
-//                })//23
-//                ->column('No. OTHs', function($data){
-//                    $num = '';
-//                    if ($data->cant_oths != 0) {
-//                        $num += `<span class="styleNum" title="$data->cant_oths OTHs Asociadas" >$data->cant_oths</span>`;
-//                    } else {
-//                        $num += `<span class="styleNum noOTHs" title="sin OTHs">$data->cant_oths</span>`;
-//                    }
-//                    return $num;
-//                })//24
-//                ->column('Opc', function($data){
-//                    $span = '';
-//                    $title = '';
-//                    $cierreKo = '';
-//                    $icon = '';
-//                    $reportInicio = ''; //si tiene reporte de inicio y tiene emails enviados
-//
-//                    //si existe una OTP con contador de reportes enviados, aparecerá, de lo contrario, pondrá el icono del ojo
-//                    if ($data->MAIL_enviados) {
-//                        if ($data->MAIL_enviados != 0) {
-//                            $reportInicio = ($data->cant_mails != 0) ? "<span class='fa fa-fw '>| &nbsp" . $data->cant_mails . "</span> <span style='color: #7eec7c;' class='fa fa-check-circle'  aria-hidden='true'></span>" : '';
-//                            $span = "<span class='fa fa-fw'>" . $data->MAIL_enviados . "</span>";
-//                            $icon = "<span class='fa fa-envelope' aria-hidden='true' style='color: #fff700;'></span>";
-//                            $title = ($data->MAIL_enviados == 1) ? $data->MAIL_enviados . " correo enviado" : $data->MAIL_enviados . " correos enviados";
-//                        } else if ($data->cant_mails != 0) {
-//                            $span = "<span class='fa fa-fw '>" . $data->cant_mails . "</span>";
-//                            $reportInicio = "<span style='color: #7eec7c;' class='fa fa-check-circle' aria-hidden='true'></span>";
-//                            $title = ($data->cant_mails == 1) ? $data->cant_mails . " correo enviado" : $data->cant_mails . " correos enviados";
-//                        } else {
-//                            $span = "<span class='fa fa-fw fa-eye'></span>";
-//                            $title = "ver OT Hijas";
-//                        }
-//                    } else {
-//                        //SI no es reporte de act. entra acá, pero si lo es, entrará arriba
-//                        if ($data->cant_mails != 0) {
-//                            $span = "<span class='fa fa-fw '>" . $data->cant_mails . "</span>";
-//                            $title = ($data->cant_mails == 1) ? $data->cant_mails . " correo enviado" : $data->cant_mails . " correos enviados";
-//                        } else {
-//                            $span = "<span class='fa fa-fw fa-eye'></span>";
-//                            $title = "ver OT Hijas";
-//                        }
-//                    }
-//                    if ($data->finalizo != null) {
-//                        $cierreKo = "<a class='btn btn-default btn-xs product-otp btn_datatable_cami' data-btn='cierreKo' title='Ver Detalle Cierre KO'><span class='fa fa-fw fa-info-circle'></span></a>";
-//                    }
-//
-//                    $color = ($data->id_hitos) ? 'clr_lime' : '';
-//                    $botones = "<div class='btn-group-vertical' style=''>"
-//                            . "<a class='btn btn-default btn-xs btnoths btn_datatable_cami' title='" . $title . "'>" . $icon . $span . $reportInicio . "</a>"
-//                            // + "<a class='btn btn-default btn-xs edit-otp btn_datatable_cami' title='Editar Ots'><span class='glyphicon glyphicon-save'></span></a>"
-//                            . "<a class='btn btn-default btn-xs hitos-otp btn_datatable_cami' data-btn='hito' title='Hitos Ots'><span class='glyphicon glyphicon-header " . $color . "'></span></a>"
-//                            . $cierreKo
-//                            . "</div>";
-//                    return $botones;
-//                })//25
+                ->column('ultimo envio', 'ultimo_envio_reporte', function($data, $row){
+                    $inicio = strtotime(date('Y-m-d'));
+                    $fin = strtotime($row['ultimo_envio_reporte']);
+                    $dif = $inicio - $fin;
+                    $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
+                    return ceil($diasFalt);
+                })//23
+                ->column('No. OTHs', 'cant_oths', function($data, $row){
+                    $num = '';
+                    if ($row['cant_oths'] != 0) {
+                        $num .= "<span class=\"styleNum\" title=\" " . $row['cant_oths'] . " OTHs Asociadas\" style=\"text-align: center;\">" . $row['cant_oths'] . "</span>";
+                    } else {
+                        $num .= "<span class=\"styleNum noOTHs\" title=\"sin OTHs\" style=\"text-align: center;\">" . $row['cant_oths'] . "</span>";
+                    }
+                    return $num;
+                })//24
+                ->column('Opc', 'cant_oths', function($data, $row){
+                    $span = '';
+                    $title = '';
+                    $cierreKo = '';
+                    $icon = '';
+                    $reportInicio = ''; //si tiene reporte de inicio y tiene emails enviados
+
+                    //si existe una OTP con contador de reportes enviados, aparecerá, de lo contrario, pondrá el icono del ojo
+                    if ($row['MAIL_enviados']) {
+                        if ($row['MAIL_enviados'] != 0) {
+                            $reportInicio = ($row['cant_mails'] != 0) ? "<span class='fa fa-fw '>| &nbsp" . $row['cant_mails'] . "</span> <span style='color: #7eec7c;' class='fa fa-check-circle'  aria-hidden='true'></span>" : '';
+                            $span = "<span class='fa fa-fw'>" . $row['MAIL_enviados'] . "</span>";
+                            $icon = "<span class='fa fa-envelope' aria-hidden='true' style='color: #fff700;'></span>";
+                            $title = ($row['MAIL_enviados'] == 1) ? $row['MAIL_enviados'] . " correo enviado" : $row['MAIL_enviados'] . " correos enviados";
+                        } else if ($row['cant_mails'] != 0) {
+                            $span = "<span class='fa fa-fw '>" . $row['cant_mails'] . "</span>";
+                            $reportInicio = "<span style='color: #7eec7c;' class='fa fa-check-circle' aria-hidden='true'></span>";
+                            $title = ($row['cant_mails'] == 1) ? $row['cant_mails'] . " correo enviado" : $row['cant_mails'] . " correos enviados";
+                        } else {
+                            $span = "<span class='fa fa-fw fa-eye'></span>";
+                            $title = "ver OT Hijas";
+                        }
+                    } else {
+                        //SI no es reporte de act. entra acá, pero si lo es, entrará arriba
+                        if ($row['cant_mails'] != 0) {
+                            $span = "<span class='fa fa-fw '>" . $row['cant_mails'] . "</span>";
+                            $title = ($row['cant_mails'] == 1) ? $row['cant_mails'] . " correo enviado" : $row['cant_mails'] . " correos enviados";
+                        } else {
+                            $span = "<span class='fa fa-fw fa-eye'></span>";
+                            $title = "ver OT Hijas";
+                        }
+                    }
+                    if ($row['finalizo'] != null) {
+                        $cierreKo = "<a class='btn btn-default btn-xs product-otp btn_datatable_cami' data-btn='cierreKo' title='Ver Detalle Cierre KO'><span class='fa fa-fw fa-info-circle'></span></a>";
+                    }
+
+                    $color = ($row['id_hitos']) ? 'clr_lime' : '';
+                    $botones = "<div class='btn-group-vertical' style=''>"
+                            . "<a class='btn btn-default btn-xs btnoths btn_datatable_cami' title='" . $title . "'>" . $icon . $span . $reportInicio . "</a>"
+                            // + "<a class='btn btn-default btn-xs edit-otp btn_datatable_cami' title='Editar Ots'><span class='glyphicon glyphicon-save'></span></a>"
+                            . "<a class='btn btn-default btn-xs hitos-otp btn_datatable_cami' data-btn='hito' title='Hitos Ots'><span class='glyphicon glyphicon-header " . $color . "'></span></a>"
+                            . $cierreKo
+                            . "</div>";
+                    return $botones;
+                })//25
                 ;
         $ListOtPadre_table->script("<script type=\"text/javascript\" defer=\"defer\">
                                     scripPlus = {
@@ -1338,6 +1370,10 @@ class OtPadre extends CI_Controller {
                 case 'ENTREGA SERVICIO':
                     $observaciones = $hitosotp[0]->observaciones_entrega_servicio;
                     break;
+                
+                case 'PENDIENTE CLIENTE':
+                    $observaciones = $hitosotp[0]->observaciones_genrales;
+                    break;
             }
            
             $template .= '
@@ -1375,17 +1411,19 @@ class OtPadre extends CI_Controller {
                                 <u></u><u></u></span></p>
                             </td>
                         </tr>';
-//            print_r($hitosotp[0]->estado_entrega_servicio == '');exit();
+//            print_r((($hitosotp[0]->n_estado_voc == '') ? '' : (($hitosotp[0]->n_estado_voc == 'PENDIENTE') ? '<img src="' . URL::base() . "/assets/images/VisitaObraCivil_gris.png" . '"  width="auto" height="110">' : '<img src="' . URL::base() . "/assets/images/VisitaObraCivil_verde.png" . '"  width="auto" height="110">' )));exit();
             $timeline .= '<div dir="ltr">
                             <ul style="font-family:Calibri,Helvetica,sans-serif; margin-bottom:0cm">
-                                <li><span style="font-family:&quot;Berlin Sans FB&quot;,sans-serif; color:black; background:white">OT</span>
-                                <span style="font-size:10.0pt; color:black; border:none windowtext 1.0pt; padding:0cm">
+                                <li style="list-style-type: none; display: flex; flex-wrap: nowrap;">
+                                ' . (($hitosotp[0]->actividad_actual != 'PENDIENTE CLIENTE') ? '' : '<img src="' . URL::base() . "/assets/images/pendienteCliente.png" . '"  width="auto" height="40">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' ) . '
+                                <span style="font-size:15.0pt; font-family:&quot;Berlin Sans FB&quot;,sans-serif; color:black; background:white">OT&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span style="font-size:15.0pt; color:black; border:none windowtext 1.0pt; padding:0cm">
                                 ' . $idOtp . ' – ' . $infOtp->direccion . '</span></li>
                             </ul>
                             <p style="font-family:Calibri,sans-serif; margin:0cm 0cm 0.0001pt 36pt; font-size:11pt; line-height:normal">
                                 <span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif"></span>
                             </p>
-                            <ul style="margin-bottom:0cm">
+                            <!--<ul style="margin-bottom:0cm">
                                 <ul style="font-family:Calibri,Helvetica,sans-serif; margin-bottom:0cm">
                                     ' . (($hitosotp[0]->n_estado_voc == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Visita obra civil<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->n_estado_voc . '</span></li>') . '
                                     ' . (($hitosotp[0]->estado_eoc == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Visita ejecución obra civil<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->estado_eoc . '</span></li>') . '
@@ -1393,7 +1431,14 @@ class OtPadre extends CI_Controller {
                                     ' . (($hitosotp[0]->estado_entrega_servicio == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Entrega servicio<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->estado_entrega_servicio . '</span></li>') . '
                                     <li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Observaciones<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->observaciones_genrales . '</span></li>
                                 </ul>
-                            </ul>
+                            </ul>-->
+                            <br>
+                            <div dir="ltr" style="display: flex; flex-wrap: nowrap;">
+                                ' . (($hitosotp[0]->n_estado_voc == '') ? '' : (($hitosotp[0]->n_estado_voc == 'PENDIENTE') ? '<img src="' . URL::base() . "/assets/images/VisitaObraCivil_gris.png" . '"  width="auto" height="110">' : '<img src="' . URL::base() . "/assets/images/VisitaObraCivil_verde.png" . '"  width="auto" height="110">' )) . '
+                                ' . (($hitosotp[0]->estado_eoc == '') ? '' : (($hitosotp[0]->estado_eoc == 'PENDIENTE') ? '<img src="' . URL::base() . "/assets/images/ejecucionObraCilvil_gris.png" . '"  width="auto" height="110">' : '<img src="' . URL::base() . "/assets/images/ejecucionObraCivil_verde.png" . '"  width="auto" height="110">' )) . '
+                                ' . (($hitosotp[0]->estado_em == '') ? '' : (($hitosotp[0]->estado_em == 'PENDIENTE') ? '<img src="' . URL::base() . "/assets/images/Empalme_gris.png" . '"  width="auto" height="110">' : '<img src="' . URL::base() . "/assets/images/Empalme_verde.png" . '"  width="auto" height="110">' )) . '
+                                ' . (($hitosotp[0]->estado_entrega_servicio == '') ? '' : (($hitosotp[0]->estado_entrega_servicio == 'PENDIENTE') ? '<img src="' . URL::base() . "/assets/images/entregaServicio_gris.png" . '"  width="auto" height="110">' : '<img src="' . URL::base() . "/assets/images/entregaServicio_verde.png" . '"  width="auto" height="110">' )) . '
+                            </div>
                         </div>
                         <br><br>
                         ';
