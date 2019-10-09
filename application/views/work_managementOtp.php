@@ -60,12 +60,12 @@
     <div id="total" class="tab-pane fade in active">
         <h3 style="margin-bottom:unset;">OT Padre</h3>
         <?php
-//        $this->datatables->generate('table_otPadreList');
-//
-//        // Add this line after you load jquery from code.jquery.com
-//        $this->datatables->jquery('table_otPadreList');
+        $this->datatables->generate('table_otPadreList');
+
+        // Add this line after you load jquery from code.jquery.com
+        $this->datatables->jquery('table_otPadreList');
         ?>
-        <table id="table_otPadreList" class="table table-hover table-bordered table-striped dataTable_camilo" style="width: 100%;">
+<!--        <table id="table_otPadreList" class="table table-hover table-bordered table-striped dataTable_camilo" style="width: 100%;">
             <tfoot>
                 <tr>
                     <th></th>
@@ -85,7 +85,7 @@
                     <th id="opciones"></th>
                 </tr>
             </tfoot>
-        </table>
+        </table>-->
     </div>
 
     <div id="hoy" class="tab-pane fade">

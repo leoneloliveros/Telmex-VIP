@@ -186,7 +186,7 @@
         </div>
         <div class="container" style="min-height: 513px;">
   
-<!--<script src="<?= URL::to('assets/plugins/datatables/DataTables-1.10.16/js/jquery.dataTables.min.js') ?>"></script>
+<script src="<?= URL::to('assets/plugins/datatables/DataTables-1.10.16/js/jquery.dataTables.min.js') ?>"></script>
 <script src="<?= URL::to('assets/plugins/datatables/js/dataTables.bootstrap.js?v=1.0') ?>"></script>
 
 <script type="text/javascript" src="<?= URL::to("assets/plugins/datatables/js/dataTables.buttons.min.js") ?>"></script>
@@ -197,4 +197,4 @@
 <script type="text/javascript" src="<?= URL::to("assets/plugins/datatables/js/buttons.print.min.js") ?>"></script>
 
 <script type="text/javascript" src="<?= URL::to("assets/plugins/datatables/js/dataTables.select.min.js") ?>"></script>
-<script type="text/javascript" src="<?= URL::to("assets/plugins/datatables/js/dataTables.scroller.js") ?>"></script>-->
+<script type="text/javascript" src="<?= URL::to("assets/plugins/datatables/js/dataTables.scroller.js") ?>"></script>

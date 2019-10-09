@@ -261,7 +261,7 @@ $(function () {
     vista = {
         init: function () {
             vista.events();
-            vista.getListOtsOtPadre('all');
+//            vista.getListOtsOtPadre('all');
 
         },
         //Eventos de la ventana.
@@ -490,7 +490,7 @@ $(function () {
     hoy = {
         init: function () {
             hoy.events();
-            hoy.getListOtsOtPadreHoy('all');
+//            hoy.getListOtsOtPadreHoy('all');
         },
         //Eventos de la ventana.
         events: function () {
@@ -624,7 +624,7 @@ $(function () {
     vencidas = {
         init: function () {
             vencidas.events();
-            vencidas.getListOtsOtPadreVencidas('all');
+//            vencidas.getListOtsOtPadreVencidas('all');
         },
         //Eventos de la ventana.
         events: function () {
@@ -758,7 +758,7 @@ $(function () {
     lista = {
         init: function () {
             lista.events();
-            lista.getOtpByOpcListJs(null, 'all');
+//            lista.getOtpByOpcListJs(null, 'all');
         },
         //Eventos de la ventana.
         events: function () {
@@ -2753,7 +2753,7 @@ $(function () {
         //Eventos de la ventana.
         events: function () {
             // al darle clic al boton de opciones traiga el modal
-            $('#contenido_tablas').on('click', 'a.btnoths', listoth.onClickShowModal);
+//            $('#contenido_tablas').on('click', 'a.btnoths', listoth.onClickShowModal);
 
         },
 
