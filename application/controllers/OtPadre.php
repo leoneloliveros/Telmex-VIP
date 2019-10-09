@@ -510,7 +510,13 @@ class OtPadre extends CI_Controller {
 //                                                    record = hoy.table_otPadreListHoy.row(trParent).data();
                                                     record = erTable_table_otPadreListHoy.row(trParent).data();
                                                     break;
-                                                case 'table_otPadreListVencidas':
+                                                case 'tabl
+                                                
+
+leonel ehjjksnkfjkds 
+
+
+e_otPadreListVencidas':
 //                                                    record = vencidas.table_otPadreListVencidas.row(trParent).data();
                                                     record = erTable_table_otPadreListVencidas.row(trParent).data();
                                                     break;
