@@ -216,7 +216,7 @@ class OtPadre extends CI_Controller {
         }
         
         /*Datatables server site*/
-        /**/
+        /*
         $this->load->library('Datatables');
         
         $condicion = " ";
@@ -510,13 +510,7 @@ class OtPadre extends CI_Controller {
 //                                                    record = hoy.table_otPadreListHoy.row(trParent).data();
                                                     record = erTable_table_otPadreListHoy.row(trParent).data();
                                                     break;
-                                                case 'tabl
-                                                
-
-leonel ehjjksnkfjkds 
-
-
-e_otPadreListVencidas':
+                                                case 'table_otPadreListVencidas':
 //                                                    record = vencidas.table_otPadreListVencidas.row(trParent).data();
                                                     record = erTable_table_otPadreListVencidas.row(trParent).data();
                                                     break;
@@ -735,7 +729,7 @@ e_otPadreListVencidas':
                             </script>");
                 
         $this->datatables->create('table_otPadreList', $ListOtPadre_table);
-        /**/                  
+        */                  
         /*Fin Datatables server site*/
         
         $data['cantidad'] = $this->Dao_ot_hija_model->getCantUndefined();
