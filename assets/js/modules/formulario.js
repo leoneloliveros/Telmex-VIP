@@ -140,7 +140,7 @@ $(function() {
                     record = emails.table_otPadreListEmails.row(trParent).data();
                     break;
                 case 'table_oths_otp':
-                    record = listoth.table_oths_otp.row(trParent).data();
+                    record = scripPlus.table_oths_otp.row(trParent).data();
                     break;
             }
             // mostrar modal y llenar el formulario de info
