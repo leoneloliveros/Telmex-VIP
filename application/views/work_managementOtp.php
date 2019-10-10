@@ -442,7 +442,7 @@
                                     <select name="estado" id="n_estado_voc" class="form-control" onchange="eventos.onChangeStatusHitos('voc');">
                                         <option value="">SELECCIONE...</option>
                                         <option value="EJECUTADA">EJECUTADA</option>
-                                        <option value="ENVIADA">ENVIADA</option>
+                                        <option value="PROGRAMADA">PROGRAMADA</option>
                                         <option value="APROBADA">APROBADA</option>
                                         <option value="CONFIGURADO">CONFIGURADO</option>
                                         <option value="PENDIENTE">PENDIENTE</option>
@@ -473,7 +473,7 @@
                                     <select name="estado" id="estado_eoc" class="form-control" onchange="eventos.onChangeStatusHitos('eoc');">
                                         <option value="">SELECCIONE...</option>
                                         <option value="EJECUTADA">EJECUTADA</option>
-                                        <option value="ENVIADA">ENVIADA</option>
+                                        <option value="PROGRAMADA">PROGRAMADA</option>
                                         <option value="APROBADA">APROBADA</option>
                                         <option value="CONFIGURADO">CONFIGURADO</option>
                                         <option value="PENDIENTE">PENDIENTE</option>
@@ -504,7 +504,7 @@
                                     <select name="estado" id="estado_em" class="form-control" onchange="eventos.onChangeStatusHitos('em');">
                                         <option value="">SELECCIONE...</option>
                                         <option value="EJECUTADA">EJECUTADA</option>
-                                        <option value="ENVIADA">ENVIADA</option>
+                                        <option value="PROGRAMADA">PROGRAMADA</option>
                                         <option value="APROBADA">APROBADA</option>
                                         <option value="CONFIGURADO">CONFIGURADO</option>
                                         <option value="PENDIENTE">PENDIENTE</option>
@@ -535,7 +535,7 @@
                                     <select name="estado" id="estado_entrega_servicio" class="form-control" onchange="eventos.onChangeStatusHitos('entrega');">
                                         <option value="">SELECCIONE...</option>
                                         <option value="EJECUTADA">EJECUTADA</option>
-                                        <option value="ENVIADA">ENVIADA</option>
+                                        <option value="PROGRAMADA">PROGRAMADA</option>
                                         <option value="APROBADA">APROBADA</option>
                                         <option value="CONFIGURADO">CONFIGURADO</option>
                                         <option value="PENDIENTE">PENDIENTE</option>
