@@ -904,7 +904,7 @@ $(function () {
 
         //Eventos de la ventana.
         events: function () {
-            $('#contenido_tablas').on('click', 'a.product-otp', eventos.onClickBtnCloseOtp);
+//            $('#contenido_tablas').on('click', 'a.product-otp', eventos.onClickBtnCloseOtp);
             $('#contenido_tablas').on('click', 'a.edit-otp', eventos.onClickBtnEditOtp);
             // $('#table_oths_otp').on('click', 'a.ver-log', eventos.onClickShowEmailOth); //fue remplazado por el botón general
             $('#formModalOTHS').on('click', 'div.ver-log-general', eventos.showEmailOthGeneral);
@@ -914,7 +914,7 @@ $(function () {
             $('#Modal_detalle').on("hidden.bs.modal", eventos.modal_sobre_modal);
             $('#ModalHistorialLog').on("hidden.bs.modal", eventos.modal_sobre_modal);
             $('#ModalHistorialLog').on("hidden.bs.modal", eventos.limpiarLogs);
-            $('#contenido_tablas').on('click', 'a.hitos-otp', eventos.onClickBtnCloseOtp);
+//            $('#contenido_tablas').on('click', 'a.hitos-otp', eventos.onClickBtnCloseOtp);
             $('#btnGuardarModalHitos').on('click', eventos.onClickSaveHitosOtp);// ver detalles de correo btn impresora
             $('#table_selected').on('click', 'img.quitar_fila', eventos.quitarFila);
             $('#mdl-enviar-reporte').on('click', eventos.onClickSendReportUpdate);
@@ -939,6 +939,7 @@ $(function () {
             // ***************************************Fin del evento del menu sticky***************************************
 
             $("#filterGroupIng").on('change', eventos.printNewTablesAccordingIngGroup);
+            $(".btn-rpt_act").on('click', eventos.otp_seleccionadas);
         },
 
         // vuelve a pintar todas las tablas según el grupo de ingenieros se tenga filtrado
@@ -1011,8 +1012,6 @@ $(function () {
 
             var btn_clas = e.currentTarget;
 
-
-
             switch (btn_clas.dataset.btn) {
                 case 'cierreKo':
                     eventos.showDetailsCierreKo(record);
@@ -1026,7 +1025,7 @@ $(function () {
         },
 
         showDetailsCierreKo: function (data) {
-            var s = data.finalizo;
+            var s = data[16];
             var flag = false;
             var form = setForm.returnFormularyProduct(s);
             if (s == 3 || s == 4 || s == 5 || s == 6 || s == 7 || s == 8 || s == 9 || s == 10) {
@@ -1038,8 +1037,8 @@ $(function () {
 
             $.post(baseurl + '/OtPadre/c_getProductByOtp',
                     {
-                        id_otp: data.k_id_ot_padre,
-                        num_servicio: data.finalizo
+                        id_otp: data[0],
+                        num_servicio: data[16]
                     },
                     function (data) {
                         var obj = JSON.parse(data);
@@ -1615,9 +1614,11 @@ $(function () {
              }
              */
             reporte_act.resetFormHitos();
+//            console.log(datax);
             $.post(baseurl + '/OtPadre/c_getInfoHitosByOtp',
                     {
-                        idOtp: datax.k_id_ot_padre // parametros que se envian
+//                        idOtp: datax.k_id_ot_padre // parametros que se envian
+                        idOtp: datax[0] // parametros que se envian
                     },
                     function (data) {
                         var obj = JSON.parse(data);
@@ -1634,10 +1635,10 @@ $(function () {
                         }                        
                     });
             //pinta el titulo del modal y cambia dependiendo de la otp seleccionada
-            $('#myModalLabelHitos').html('<strong> Hitos de la OTP N.<span id="otpHIto">' + datax.k_id_ot_padre + '</span></strong>');
-            $('#servivio_hito').html('<strong> OT ' + datax.k_id_ot_padre + ' - ' + datax.servicio + '</strong>');
-            $('#cliente_hito').html('<strong> CLIENTE: ' + datax.n_nombre_cliente + '</strong>');
-            $('#ciudad_hito').html('<strong> CIUDAD: ' + datax.ciudad + ' - ' + datax.direccion + '</strong>');
+            $('#myModalLabelHitos').html('<strong> Hitos de la OTP N.<span id="otpHIto">' + datax[0] + '</span></strong>');
+            $('#servivio_hito').html('<strong> OT ' + datax[0] + ' - ' + datax[3] + '</strong>');
+            $('#cliente_hito').html('<strong> CLIENTE: ' + datax[1] + '</strong>');
+            $('#ciudad_hito').html('<strong> CIUDAD: ' + datax[18] + ' - ' + datax[17] + '</strong>');
             $('#modalHitosOtp').modal('show');
         },
 
@@ -2334,25 +2335,30 @@ $(function () {
             var record;
             switch (tabla) {
                 case 'table_otPadreList':
-                    record = vista.table_otPadreList;
+//                    record = vista.table_otPadreList;
+                    record = erTable_table_otPadreList;
                     break;
                 case 'table_otPadreListHoy':
-                    record = hoy.table_otPadreListHoy;
+//                    record = hoy.table_otPadreListHoy;
+                    record = erTable_table_otPadreListHoy;
                     break;
                 case 'table_otPadreListVencidas':
-                    record = vencidas.table_otPadreListVencidas;
+//                    record = vencidas.table_otPadreListVencidas;
+                    record = erTable_table_otPadreListVencidas;
                     break;
                 case 'table_list_opc':
-                    record = lista.tableOpcList;
+//                    record = lista.tableOpcList;
+                    record = erTable_tableOpcList;
                     break;
                 case 'table_otPadreListEmails':
-                    record = emails.table_otPadreListEmails;
+//                    record = emails.table_otPadreListEmails;
+                    record = erTable_table_otPadreListEmails;
                     break;
                 case 'table_reporte_actualizacion':
                     record = reporte_act.table_reporte_actualizacion;
                     break;
             }
-
+//            console.log(record);
             let hay_sel = record.rows({selected: true}).any();// booleanos q indica si hay algo seleccionado
             var seleccionadas = record.rows({selected: true}).data();// los datos de los elem seleccionados
             if (hay_sel) {
@@ -2364,12 +2370,14 @@ $(function () {
                 var ids = [];
                 if (cuantas > 1) {
                     for (let i = 0; i < cuantas; i++) {
-                        ids.push(seleccionadas[i].k_id_ot_padre);
+//                        ids.push(seleccionadas[i].k_id_ot_padre);
+                        ids.push(seleccionadas[i][0]);
                     }
                 } else {
-                    ids.push(seleccionadas[0].k_id_ot_padre);
+//                    ids.push(seleccionadas[0].k_id_ot_padre);
+                    ids.push(seleccionadas[0][0]);
                 }
-                // console.log(ids);
+//                 console.log(ids);
 
                 $('#mdl-title-cierre').html(`<b>${cuantas}</b> ORDENES SELECCIONADAS`);
                 $('#mdl_cierre').modal('show');
@@ -2553,6 +2561,7 @@ $(function () {
         },
 
         modalSeleccionadas: function (data) {
+            console.log(data);
             if (eventos.table_selected) {
                 var tabla = eventos.table_selected;
                 tabla.clear().draw();
@@ -2562,14 +2571,14 @@ $(function () {
             }
 
             eventos.table_selected = $('#table_selected').DataTable(eventos.configTableSelect(data, [
-                {title: "Ingeniero", data: "ingeniero"},
-                {title: "OTP", data: "k_id_ot_padre"},
-                {title: "Cliente", data: "n_nombre_cliente"},
-                {title: "Tipo", data: "orden_trabajo"},
-                {title: "Servicio", data: "servicio"},
-                {title: "Estado OTP", data: "estado_orden_trabajo"},
-                {title: "Lista", data: "lista_observaciones"},
-                {title: "Observación", data: "observacion"},
+                {title: "Ingeniero", data: "8"},
+                {title: "OTP", data: "0"},
+                {title: "Cliente", data: "1"},
+                {title: "Tipo", data: "2"},
+                {title: "Servicio", data: "3"},
+                {title: "Estado OTP", data: "4"},
+                {title: "Lista", data: "10"},
+                {title: "Observación", data: "19"},
                 {title: "Quitar", data: eventos.getButtonQuitar},
             ]));
 
@@ -2736,7 +2745,7 @@ $(function () {
             } else {
                 $("#" + check).prop( "checked", false);
             }
-        }
+        },
         
         
     };
