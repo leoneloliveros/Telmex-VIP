@@ -750,11 +750,6 @@ class OtPadre extends CI_Controller {
                                                                     }
                                                                 });
 
-
-
-
-
-
                                                                 //LIMPIA TODOS LOS VALORES QUE SEAN REPETIDOS Y SOLO DEJA UNO DE CADA UNO
                                                                 const fseniores = eventos.clean(seniores);
                                                                 const fnomCliente = eventos.clean(nomCliente);
@@ -766,7 +761,6 @@ class OtPadre extends CI_Controller {
                                                                     1: fnomCliente,
                                                                     2: ff_entregaServicio,
                                                                     3: fobsr}
-
 
                                                                 eventos.validarIgualesReporteAct(todo, ids, lineabasearr)
 
@@ -797,6 +791,10 @@ class OtPadre extends CI_Controller {
         $this->datatables->create('table_otPadreList', $ListOtPadre_table);
         /**/                  
         /*Fin Datatables server site*/
+//        $this->dataTablesLibrary('table_otPadreList');
+//        $this->dataTablesLibrary2('table_otPadreListHoy');
+//        $this->dataTablesLibrary('table_otPadreListVencidas');
+//        $this->dataTablesLibrary('table_list_opc');
         
         $data['cantidad'] = $this->Dao_ot_hija_model->getCantUndefined();
         $data['title'] = 'Work Management OTP';
@@ -1659,5 +1657,5 @@ class OtPadre extends CI_Controller {
         $res = $this->Dao_email_model->h_enviarCorreo($encabezado . $template . $encabezado_timeline .$timeline . $contacto, $email, 'REPORTE DE ACTUALIZACION DE ACTIVIDADES ' . strtoupper((isset($detCierreOtp->servicio) ? $detCierreOtp->servicio : $infOtp->servicio)) . ' - ' . $infOtp->n_nombre_cliente . ' / OT ' . substr($asunOtp, 0, -2));
         echo json_encode($res);
     }
-
+    
 }

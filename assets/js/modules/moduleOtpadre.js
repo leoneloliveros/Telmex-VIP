@@ -2561,7 +2561,6 @@ $(function () {
         },
 
         modalSeleccionadas: function (data) {
-            console.log(data);
             if (eventos.table_selected) {
                 var tabla = eventos.table_selected;
                 tabla.clear().draw();
