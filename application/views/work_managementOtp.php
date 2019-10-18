@@ -445,7 +445,7 @@
                                         <option value="PROGRAMADA">PROGRAMADA</option>
                                         <option value="APROBADA">APROBADA</option>
                                         <option value="CONFIGURADO">CONFIGURADO</option>
-                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="FECHA TENTATIVA">FECHA TENTATIVA</option>
                                         <option value="CERRADA">CERRADA</option>
                                         <option value="NO APLICA">NO APLICA</option>
                                     </select>
@@ -476,7 +476,7 @@
                                         <option value="PROGRAMADA">PROGRAMADA</option>
                                         <option value="APROBADA">APROBADA</option>
                                         <option value="CONFIGURADO">CONFIGURADO</option>
-                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="FECHA TENTATIVA">FECHA TENTATIVA</option>
                                         <option value="CERRADA">CERRADA</option>
                                         <option value="NO APLICA">NO APLICA</option>
                                     </select>
@@ -507,7 +507,7 @@
                                         <option value="PROGRAMADA">PROGRAMADA</option>
                                         <option value="APROBADA">APROBADA</option>
                                         <option value="CONFIGURADO">CONFIGURADO</option>
-                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="FECHA TENTATIVA">FECHA TENTATIVA</option>
                                         <option value="CERRADA">CERRADA</option>
                                         <option value="NO APLICA">NO APLICA</option>
                                     </select>
@@ -538,7 +538,7 @@
                                         <option value="PROGRAMADA">PROGRAMADA</option>
                                         <option value="APROBADA">APROBADA</option>
                                         <option value="CONFIGURADO">CONFIGURADO</option>
-                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="FECHA TENTATIVA">FECHA TENTATIVA</option>
                                         <option value="CERRADA">CERRADA</option>
                                         <option value="NO APLICA">NO APLICA</option>
                                     </select>
