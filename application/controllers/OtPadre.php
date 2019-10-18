@@ -347,7 +347,7 @@ class OtPadre extends CI_Controller {
                             }
                             ]')
                         ->set_options('bFilter','true')
-                        ->set_options('initComplete','function activar(){
+                        ->set_options('initComplete','fun(ction activar(){
                                     scripPlus.init();
                                     $("#table_otPadreList").click(function(){
                                         $(".btnoths ").off(\'click\');
@@ -1370,23 +1370,23 @@ class OtPadre extends CI_Controller {
         /* print_r($direccionCierreOtp);exit(); */
 
         $encabezado_timeline = '
-            <p align="center" style="margin-right:0cm; margin-left:0cm; font-size:12pt; font-family:&quot;Times New Roman&quot;,serif; margin:0cm; margin-bottom:.0001pt; text-align:center">
+            <p  style="margin-right:0cm; margin-left:0cm; font-size:12pt; font-family:&quot;Times New Roman&quot;,serif; margin:0cm; margin-bottom:.0001pt; text-align:center">
                 <b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit">
                     <span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">
-                        <img src="' . URL::base() . "/assets/images/linea_roja.png" . '"  width="865" height="10">
+                        <img src="' . URL::base() . "/assets/images/linea_roja.png" . '"  style="width: 100%;" height="10">
                     </span>
                 </b><br>
             </p>
-            <p align="center" style="margin-right:0cm; margin-left:0cm; font-size:12pt; font-family:&quot;Times New Roman&quot;,serif; margin:0cm; margin-bottom:.0001pt; text-align:center">
+            <p  style="margin-right:0cm; margin-left:0cm; font-size:12pt; font-family:&quot;Times New Roman&quot;,serif; margin:0cm; margin-bottom:.0001pt; text-align:center">
                 <span style="z-index:251659264; left:0px; margin-top:29px; width:760px; height:7px"></span>
                 <b>
                     <span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">ACTIVIDADES DE INSTALACION DE SU SERVICIO</span>
                 </b>
             </p>
-            <p align="center" style="margin-right:0cm; margin-left:0cm; font-size:12pt; font-family:&quot;Times New Roman&quot;,serif; margin:0cm; margin-bottom:.0001pt; text-align:center">
+            <p  style="margin-right:0cm; margin-left:0cm; font-size:12pt; font-family:&quot;Times New Roman&quot;,serif; margin:0cm; margin-bottom:.0001pt; text-align:center">
                 <b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit">
                     <span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">
-                        <img src="' . URL::base() . "/assets/images/linea_roja.png" . '"  width="865" height="10">
+                        <img src="' . URL::base() . "/assets/images/linea_roja.png" . '"  style="width: 100%;" height="10">
                     </span>
                 </b><br>
             </p>';
@@ -1476,18 +1476,18 @@ class OtPadre extends CI_Controller {
                                 <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">' . $infOtp->direccion . '<u></u><u></u></span></p>
                             </td>
                             <td width="150" valign="bottom" style="width:75.0pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 3.5pt 0cm 3.5pt; height:60.0pt">
-                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">' . $hitosotp[0]->n_estado_voc . ' <br>' . $hitosotp[0]->f_voc . '<u></u><u></u></span></p>
+                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">' . (($hitosotp[0]->n_estado_voc == '') ? 'NO APLICA VISITA OBRA CIVIL' : $hitosotp[0]->n_estado_voc . ' <br>' . $hitosotp[0]->f_voc) . '<u></u><u></u></span></p>
                             </td>
                             <td width="170" valign="bottom" style="width:85.15pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 3.5pt 0cm 3.5pt; height:60.0pt">
-                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">' . $hitosotp[0]->estado_eoc . ' <br>' . $hitosotp[0]->f_eoc . '
+                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">' . (($hitosotp[0]->estado_eoc == '') ? 'NO APLICA OBRA CIVIL' : $hitosotp[0]->estado_eoc . ' <br>' . $hitosotp[0]->f_eoc) . '
                                 <u></u><u></u></span></p>
                             </td>
                             <td width="150" valign="bottom" style="width:75.0pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 3.5pt 0cm 3.5pt; height:60.0pt">
-                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">&nbsp; ' . $hitosotp[0]->estado_em . ' <br>' . $hitosotp[0]->f_em . '
+                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">&nbsp; ' . (($hitosotp[0]->estado_em == '') ? 'NO APLICA EMPALMES' : $hitosotp[0]->estado_em . ' <br>' . $hitosotp[0]->f_em) . '
                                 <u></u><u></u></span></p>
                             </td>
                             <td width="178" valign="bottom" style="width:89.0pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 3.5pt 0cm 3.5pt; height:60.0pt">
-                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">&nbsp; ' . $hitosotp[0]->estado_entrega_servicio . ' <br>' . $hitosotp[0]->f_entrega_servicio . '
+                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">&nbsp; ' . (($hitosotp[0]->estado_entrega_servicio == '') ? 'NO APLICA ENTREGA SERVICIO' : $hitosotp[0]->estado_entrega_servicio . ' <br>' . $hitosotp[0]->f_entrega_servicio) . '
                                 <u></u><u></u></span></p>
                             </td>
                             <td width="360" valign="bottom" style="width:180.0pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 3.5pt 0cm 3.5pt; height:60.0pt">
@@ -1533,6 +1533,15 @@ class OtPadre extends CI_Controller {
             </div>
             <br>
             <div dir="ltr">
+                <p style="box-sizing:border-box; outline:0px!important; margin:0cm 0cm 0.0001pt 0cm; font-size:12pt; font-family:\'Times New Roman\',serif; min-height:14px; font-weight:normal; orphans:auto; background-color:rgb(255,255,255)">
+                <strong style="box-sizing:border-box; outline:0px!important; font-weight:700"><em style="box-sizing:border-box; outline:0px!important"><span style="box-sizing:border-box; outline:0px!important; font-size:14px; font-family:Arial,sans-serif">Nota: La fecha de
+                entrega del servicio esta&nbsp;</span></em></strong><strong style="box-sizing:border-box; outline:0px!important; font-weight:700"><em style="box-sizing:border-box; outline:0px!important"><span lang="ES" style="box-sizing:border-box; outline:0px!important; font-size:14px; font-family:Arial,sans-serif">sujeta
+                a cambios en caso de tener algún inconveniente o adelantos en el proceso de instalación.</span></em></strong></p>
+                <br>
+                <p style="box-sizing:border-box; outline:0px!important; margin:0cm 0cm 0.0001pt 0cm; font-size:12pt; font-family:\'Times New Roman\',serif; min-height:14px; font-weight:normal; orphans:auto; text-align:justify; background-color:rgb(255,255,255)">
+                <span style="box-sizing:border-box; outline:0px!important; font-family:\'Arial Narrow\',sans-serif">De acuerdo a lo anterior, nos permitimos informar:</span></p>
+            </div>
+            <div dir="ltr">
                 <ul style="font-family:Calibri,Helvetica,sans-serif; margin-bottom:0cm">
                     <li>
                         <span style="font-size:10.0pt; color:black; border:none windowtext 1.0pt; padding:0cm">
@@ -1550,9 +1559,9 @@ class OtPadre extends CI_Controller {
             <!--<p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
             <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Señor(a):</span></p>
             <p class="x_MsoNormal" style="text-align:justify"><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $senior . '</span></strong></p>-->
-            <p class="x_MsoNormal" style="text-align:justify"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>
+            <!--<p class="x_MsoNormal" style="text-align:justify"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>-->
             <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Comprometidos con el servicio y el cumplimiento de sus solicitudes me permito notificar los avances de los asuntos en curso. Es de suma importancia que sea revisado y nos retroalimente con &nbsp;sus comentarios, ya que al término de 2 días hábiles este reporte se dará por aceptado.</span></p>
-            <p class="x_MsoNormal">&nbsp;</p>
+            <!--<p class="x_MsoNormal">&nbsp;</p>-->
             <!--<p class="x_MsoListParagraph" style="text-indent:-18.0pt; text-autospace:none"><span style="font-family: Symbol, serif, EmojiFont;"><span style=""><span style="font: 7pt &quot;Times New Roman&quot;, serif, EmojiFont;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><strong><span lang="EN-US" style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;OT DESTINO &nbsp;</span></strong><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . substr($asunOtp, 0, -2) . '</span></strong><strong><span lang="EN-US" style="font-family: Arial, sans-serif, serif, EmojiFont;">: </span></strong><span lang="EN-US" style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $infOtp->servicio . ' </span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"><strong></strong></span></p>
             <p class="x_MsoNormal" style="text-autospace:none"><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Ciudad: </span></strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $infOtp->ciudad . '</span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"></span></p>
             <p class="x_MsoNormal" style="text-autospace:none"><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Dirección de servicio: </span></strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $direccionCierreOtp . '&nbsp; </span><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;"></span></strong></p>
@@ -1561,31 +1570,30 @@ class OtPadre extends CI_Controller {
             <p class="x_MsoNormal" style="text-align:justify"><span style="text-decoration:underline"><span lang="ES" style="font-family: Arial, sans-serif, serif, EmojiFont;">De acuerdo a lo anterior, solicitamos de su colaboración confirmado la siguiente información:</span></span></p>
             <p class="x_MsoListParagraph" style="text-indent:-18.0pt"><span style="font-family: Symbol, serif, EmojiFont;"><span style="">·<span style="font: 7pt &quot;Times New Roman&quot;, serif, EmojiFont;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"><br><b>Observaciones: </b>&nbsp;' . $observacionesEmail . '</span></p>
             <p class="x_MsoListParagraph"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>-->
-            <br><br>';
+            <!--<br><br>-->';
 
         $contacto = '
             <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Durante todo el Proceso de Instalación puede contactar a:</span></p>
             <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>
-            <p class="x_MsoNormal"><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Nivel de Contacto 1:</span></strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;"> Para cualquier duda o inquietud sobre el proceso.</span></p>
-            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Ingeniero Implementación Responsable Cuenta: &nbsp;' . $ingeniero . '</span></p>
-            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Ingeniero Aprovisionamiento Estándar</span></p>
-            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Celular: </span><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $celIngeniero . '</span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"></span></p>
-            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Correo electrónico: </span><span style="font-family: Arial, sans-serif, serif, EmojiFont; color: rgb(79, 129, 189);"><a href="mailto:' . $email . '" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable"><span style="color:#4F81BD">' . $email . '</span></a></span><span style="font-family: Arial, sans-serif, serif, EmojiFont; color: black;">&nbsp;</span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"></span></p>
-            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>
+            <p class="x_MsoNormal" style="margin: 0px;"><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Nivel de Contacto 1:</span></strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;"> Para cualquier duda o inquietud sobre el proceso.</span></p>
+            <p class="x_MsoNormal" style="margin: 0px;"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Ingeniero Implementación Responsable Cuenta: &nbsp;' . $ingeniero . '</span></p>
+            <p class="x_MsoNormal" style="margin: 0px;"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Ingeniero Aprovisionamiento Estándar</span></p>
+            <p class="x_MsoNormal" style="margin: 0px;"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Celular: </span><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $celIngeniero . '</span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"></span></p>
+            <p class="x_MsoNormal" style="margin: 0px;"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Correo electrónico: </span><span style="font-family: Arial, sans-serif, serif, EmojiFont; color: rgb(79, 129, 189);"><a href="mailto:' . $email . '" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable"><span style="color:#4F81BD">' . $email . '</span></a></span><span style="font-family: Arial, sans-serif, serif, EmojiFont; color: black;">&nbsp;</span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"></span></p>
+            
+            <p class="x_MsoNormal" style="margin: 0px;"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>
+            <p class="m_-5751456617445139844xmsonormal" style="text-align:justify; margin: 0px;"><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Nivel de Contacto 2:</span></strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;"> En caso de que no se obtenga respuesta por parte del Nivel de Contacto &nbsp;1.</span><u></u><u></u></p>
+            <p class="m_-5751456617445139844xmsonormal" style="margin: 0px;"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Coordinador Estándar: <span style="color:#1f497d">&nbsp;</span>Melani Viveros &nbsp;</span><u></u><u></u></p>
+            <p class="MsoNormal" style="margin: 0px;"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Celular:</span> 3102129290<u></u><u></u></p>
+            <p class="m_-5751456617445139844xmsonormal" style="margin: 0px;"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Correo: <span style="color:#4f81bd"> <a href="mailto:melani.viverosm.ext@claro.com" target="_blank"><span style="color:#4f81bd">melani.viverosm.ext@claro.<wbr>com</span></a> </span></span><u></u><u></u></p>
+            <p class="MsoNormal" style="margin: 0px;"><u></u>&nbsp;<u></u></p>
+            
+            <p class="m_-5751456617445139844xmsonormal" style="text-align:justify; margin: 0px;"><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Nivel de Contacto 3:</span></strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;"> En caso de que no se obtenga respuesta por parte del Nivel de Contacto &nbsp;2.</span><u></u><u></u></p>
+            <p class="m_-5751456617445139844xmsonormal" style="margin: 0px;"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Coordinador Estándar: &nbsp;Cristian Camilo Ortiz Arenas<u></u><u></u></span></p>
+            <p class="m_-5751456617445139844xmsonormal" style="margin: 0px;"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Correo: <span style="color:#4f81bd"> <a href="mailto:cristian.ortiza@claro.com.co" target="_blank"><span style="color:#4f81bd">cristian.ortiza@claro.<wbr>com.co</span></a> </span></span><u></u><u></u></p>
+            <p class="MsoNormal" style="margin: 0px;"><u></u>&nbsp;<u></u></p>
 
-
-            <p class="m_-5751456617445139844xmsonormal" style="text-align:justify"><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Nivel de Contacto 2:</span></strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;"> En caso de que no se obtenga respuesta por parte del Nivel de Contacto &nbsp;1.</span><u></u><u></u></p>
-
-            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Coordinador Estándar: <span style="color:#1f497d">&nbsp;</span>Melani Viveros &nbsp;</span><u></u><u></u></p>
-            <p class="MsoNormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Celular:</span> 3102129290<u></u><u></u></p>
-            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Correo: <span style="color:#4f81bd"> <a href="mailto:melani.viverosm.ext@claro.com" target="_blank"><span style="color:#4f81bd">melani.viverosm.ext@claro.<wbr>com</span></a> </span></span><u></u><u></u></p>
-            <p class="MsoNormal"><u></u>&nbsp;<u></u></p>
-            <p class="m_-5751456617445139844xmsonormal" style="text-align:justify"><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Nivel de Contacto 3:</span></strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;"> En caso de que no se obtenga respuesta por parte del Nivel de Contacto &nbsp;2.</span><u></u><u></u></p>
-            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Coordinador Estándar: &nbsp;Cristian Camilo Ortiz Arenas<u></u><u></u></span></p>
-            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Correo: <span style="color:#4f81bd"> <a href="mailto:cristian.ortiza@claro.com.co" target="_blank"><span style="color:#4f81bd">cristian.ortiza@claro.<wbr>com.co</span></a> </span></span><u></u><u></u></p>
-            <p class="MsoNormal"><u></u>&nbsp;<u></u></p>
-
-            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont; color: rgb(31, 73, 125);">&nbsp;</span></p>
+            <p class="x_MsoNormal" style="margin: 0px;"><span style="font-family: Arial, sans-serif, serif, EmojiFont; color: rgb(31, 73, 125);">&nbsp;</span></p>
             <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Gracias por la atención prestada y quedo atento a sus comentarios.</span></p>
             <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>';
 
