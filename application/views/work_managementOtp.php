@@ -1268,7 +1268,7 @@
                                                             <option value="6">MPLS Avanzado Intranet con Backup de Ultima Milla y Router - NDS1</option>
                                                             <option value="7">MPLS Avanzado Extranet</option>
                                                             <option value="8">Backend MPLS </option>
-                                                            <option value="8">MPLS Avanzado con Componente Datacenter Claro</option>
+                                                            <option value="9">MPLS Avanzado con Componente Datacenter Claro</option>
                                                             <option value="10">MPLS Transaccional 3G</option>
                                                             <!-- servicios nuevos -->
                                                             <option value="11">Adición Marquillas Aeropuerto el Dorado Opain</option>

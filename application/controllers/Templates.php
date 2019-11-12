@@ -4167,6 +4167,12 @@ class Templates extends CI_Controller {
           </tbody></table>
 
           <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="color:rgb(31,73,125)"><span>&nbsp;</span></span></b></p>
+          
+          <p class="x_MsoNormal" style="text-align:justify"><span lang="ES" style="font-family:&quot;Arial&quot;,sans-serif;">La
+          <b><i>Fecha de Entrega del Servicio Internet Dedicado Empresarial<span style="color:#1f497d"> </span>
+          </i></b>es <b><i>' . $argumentos['fecha_servicio'] . '</i></b> y está sujeta a cambios derivados del cumplimiento de las actividades necesarias.</span><span lang="ES" style="font-family:&quot;Arial&quot;,sans-serif">&nbsp;
+          
+          <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="color:rgb(31,73,125)"><span>&nbsp;</span></span></b></p>
 
           <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de inicio de Facturación</i></b> corresponde a la fecha
           en que Claro entrega el Servicio y es aceptado a satisfacción.<span></span></span></p>
@@ -4182,7 +4188,99 @@ class Templates extends CI_Controller {
           <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
 
           <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
+          
+          <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif">Nuestro objetivo es
+          hacer el traslado del Servicio contratado a satisfacción de sus necesidades,
+          por eso es fundamental que usted conozca las etapas básicas<span style="color:rgb(31,73,125)">,</span> el impacto y Plan de Mitigación definido para
+          cada una.</span><span lang="ES-CO"></span></p>
 
+          <table class="m_-2942958292281350867gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="718" style="width:538.25pt;border-collapse:collapse">
+             <tbody><tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">RIESGOS</span></b><span lang="ES-CO"></span></p>
+              <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+              <hr size="2" width="100%" align="center">
+              </span></b></div>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">PLAN DE MITIGACIÓN</span></b><span lang="ES-CO"></span></p>
+              <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+              <hr size="2" width="100%" align="center">
+              </span></b></div>
+              </td>
+             </tr>
+             <tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+              Inconvenientes de &nbsp;Acceso al Predio en las Visitas Programadas</span></i></b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">.</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenA.png" width="420" height="110"></span><span lang="ES-CO"></span></p>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Gestión temprana de los permisos de acceso a Zonas Comunes en la sede
+              donde se va a realizar la Instalación.</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">2.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Confirmación de la documentación que debe portar el personal de Claro
+              para efectuar las actividades.</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">3.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Confirmación de horario de trabajos permitidos para Zonas Comunes.</span></i><span lang="ES-CO"></span></p>
+              </td>
+             </tr>
+             <tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+              falta de Aprobación de los Costos de la Cotización de Obra Civil.</span></i></b><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;</span></i><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenB.png" width="251" height="118"></span><span lang="ES-CO"></span></p>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Pre aprobación de <b>Cotización de Obra Civil</b> desde la venta o
+              Kickoff.</span></i><span lang="ES-CO"></span></p>
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">2.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Aprobación de los Costos y el Plano enviado máximo 3 días Calendario
+              después de recibida la cotización de Obra Civil</span></i><span lang="ES-CO"></span></p>
+              </td>
+             </tr>
+             <tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+              falta de &nbsp;confirmación de la información solicitada</span></i></b><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="font-size:10pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<wbr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenC.png" width="187" height="117"></span><span lang="ES-CO"></span></p>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Respuesta a la información solicitada en este correo máximo 8 días
+              después de la fecha reportada como inicio de actividades.</span></i><span lang="ES-CO"></span></p>
+              </td>
+             </tr>
+             <tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en la adecuación de la
+              sede con los requisitos mínimos de condiciones eléctricas y ambientales para
+              instalar los equipos.</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenD.png" width="369" height="126"><span lang="ES-CO"></span></p>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 17.4pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 17.4pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Las condiciones de instalación deben estar listas a más tardar el día
+              de la <b>Visita de habilitación de Medio.</b></span></i><span lang="ES-CO"></span></p>
+              </td>
+             </tr>
+            </tbody></table>
+          
+          <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
+          
           <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:12pt;font-family:Arial,sans-serif">Durante todo el Proceso de Instalación puede
           contactar a:<span></span></span></p>
 
@@ -4576,11 +4674,15 @@ class Templates extends CI_Controller {
 
           <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="color:rgb(31,73,125)"><span>&nbsp;</span></span></b></p>
 
+          <p class="x_MsoNormal" style="text-align:justify"><span lang="ES" style="font-family:&quot;Arial&quot;,sans-serif;">La
+          <b><i>Fecha de Entrega del Servicio Internet Dedicado<span style="color:#1f497d"> </span>
+          </i></b>es <b><i>' . $argumentos['fecha_servicio'] . '</i></b> y está sujeta a cambios derivados del cumplimiento de las actividades necesarias.</span><span lang="ES" style="font-family:&quot;Arial&quot;,sans-serif">&nbsp;
+          
           <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de inicio de Facturación</i></b> corresponde a la fecha
           en que Claro entrega el Servicio y es aceptado a satisfacción.<span></span></span></p>
 
           <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="color:rgb(31,73,125)"><span>&nbsp;</span></span></p>
-
+          
           <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="font-size:12pt;font-family:Arial,sans-serif">Por favor tenga en cuenta las siguientes recomendaciones:<span></span></span></p>
 
           <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="color:rgb(31,73,125)"><span>&nbsp;</span></span></p>
@@ -4588,7 +4690,97 @@ class Templates extends CI_Controller {
           <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span><img width="906" height="609" src="' . URL::base() . '/assets/img/mail_formats/recomendaciones.png"></span></b></p>
 
           <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
+          
+          <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif">Nuestro objetivo es
+          hacer el traslado del Servicio contratado a satisfacción de sus necesidades,
+          por eso es fundamental que usted conozca las etapas básicas<span style="color:rgb(31,73,125)">,</span> el impacto y Plan de Mitigación definido para
+          cada una.</span><span lang="ES-CO"></span></p>
 
+          <table class="m_-2942958292281350867gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="718" style="width:538.25pt;border-collapse:collapse">
+             <tbody><tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">RIESGOS</span></b><span lang="ES-CO"></span></p>
+              <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+              <hr size="2" width="100%" align="center">
+              </span></b></div>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">PLAN DE MITIGACIÓN</span></b><span lang="ES-CO"></span></p>
+              <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+              <hr size="2" width="100%" align="center">
+              </span></b></div>
+              </td>
+             </tr>
+             <tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+              Inconvenientes de &nbsp;Acceso al Predio en las Visitas Programadas</span></i></b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">.</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenA.png" width="420" height="110"></span><span lang="ES-CO"></span></p>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Gestión temprana de los permisos de acceso a Zonas Comunes en la sede
+              donde se va a realizar la Instalación.</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">2.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Confirmación de la documentación que debe portar el personal de Claro
+              para efectuar las actividades.</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">3.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Confirmación de horario de trabajos permitidos para Zonas Comunes.</span></i><span lang="ES-CO"></span></p>
+              </td>
+             </tr>
+             <tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+              falta de Aprobación de los Costos de la Cotización de Obra Civil.</span></i></b><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;</span></i><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenB.png" width="251" height="118"></span><span lang="ES-CO"></span></p>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Pre aprobación de <b>Cotización de Obra Civil</b> desde la venta o
+              Kickoff.</span></i><span lang="ES-CO"></span></p>
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">2.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Aprobación de los Costos y el Plano enviado máximo 3 días Calendario
+              después de recibida la cotización de Obra Civil</span></i><span lang="ES-CO"></span></p>
+              </td>
+             </tr>
+             <tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+              falta de &nbsp;confirmación de la información solicitada</span></i></b><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="font-size:10pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<wbr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenC.png" width="187" height="117"></span><span lang="ES-CO"></span></p>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Respuesta a la información solicitada en este correo máximo 8 días
+              después de la fecha reportada como inicio de actividades.</span></i><span lang="ES-CO"></span></p>
+              </td>
+             </tr>
+             <tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en la adecuación de la
+              sede con los requisitos mínimos de condiciones eléctricas y ambientales para
+              instalar los equipos.</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenD.png" width="369" height="126"><span lang="ES-CO"></span></p>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 17.4pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 17.4pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Las condiciones de instalación deben estar listas a más tardar el día
+              de la <b>Visita de habilitación de Medio.</b></span></i><span lang="ES-CO"></span></p>
+              </td>
+             </tr>
+            </tbody></table>
+          
           <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
 
           <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:12pt;font-family:Arial,sans-serif">Durante todo el Proceso de Instalación puede
@@ -5073,6 +5265,12 @@ class Templates extends CI_Controller {
         </tbody></table>
 
         <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="color:rgb(31,73,125)"><span>&nbsp;</span></span></b></p>
+        
+        <p class="x_MsoNormal" style="text-align:justify"><span lang="ES" style="font-family:&quot;Arial&quot;,sans-serif;">La
+        <b><i>Fecha de Entrega del Servicio MPLS Avanzado Intranet<span style="color:#1f497d"> </span>
+        </i></b>es <b><i>' . $argumentos['fecha_servicio'] . '</i></b> y está sujeta a cambios derivados del cumplimiento de las actividades necesarias.</span><span lang="ES" style="font-family:&quot;Arial&quot;,sans-serif">&nbsp;
+        
+        <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="color:rgb(31,73,125)"><span>&nbsp;</span></span></b></p>
 
         <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de inicio de Facturación</i></b> corresponde a la fecha
         en que Claro entrega el Servicio y es aceptado a satisfacción.<span></span></span></p>
@@ -5087,6 +5285,98 @@ class Templates extends CI_Controller {
 
         <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
 
+        <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
+        
+        <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif">Nuestro objetivo es
+        hacer el traslado del Servicio contratado a satisfacción de sus necesidades,
+        por eso es fundamental que usted conozca las etapas básicas<span style="color:rgb(31,73,125)">,</span> el impacto y Plan de Mitigación definido para
+        cada una.</span><span lang="ES-CO"></span></p>
+
+        <table class="m_-2942958292281350867gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="718" style="width:538.25pt;border-collapse:collapse">
+         <tbody><tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">RIESGOS</span></b><span lang="ES-CO"></span></p>
+          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+          <hr size="2" width="100%" align="center">
+          </span></b></div>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">PLAN DE MITIGACIÓN</span></b><span lang="ES-CO"></span></p>
+          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+          <hr size="2" width="100%" align="center">
+          </span></b></div>
+          </td>
+         </tr>
+         <tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+          Inconvenientes de &nbsp;Acceso al Predio en las Visitas Programadas</span></i></b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">.</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenA.png" width="420" height="110"></span><span lang="ES-CO"></span></p>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Gestión temprana de los permisos de acceso a Zonas Comunes en la sede
+          donde se va a realizar la Instalación.</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">2.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Confirmación de la documentación que debe portar el personal de Claro
+          para efectuar las actividades.</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">3.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Confirmación de horario de trabajos permitidos para Zonas Comunes.</span></i><span lang="ES-CO"></span></p>
+          </td>
+         </tr>
+         <tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+          falta de Aprobación de los Costos de la Cotización de Obra Civil.</span></i></b><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;</span></i><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenB.png" width="251" height="118"></span><span lang="ES-CO"></span></p>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Pre aprobación de <b>Cotización de Obra Civil</b> desde la venta o
+          Kickoff.</span></i><span lang="ES-CO"></span></p>
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">2.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Aprobación de los Costos y el Plano enviado máximo 3 días Calendario
+          después de recibida la cotización de Obra Civil</span></i><span lang="ES-CO"></span></p>
+          </td>
+         </tr>
+         <tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+          falta de &nbsp;confirmación de la información solicitada</span></i></b><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="font-size:10pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<wbr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenC.png" width="187" height="117"></span><span lang="ES-CO"></span></p>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Respuesta a la información solicitada en este correo máximo 8 días
+          después de la fecha reportada como inicio de actividades.</span></i><span lang="ES-CO"></span></p>
+          </td>
+         </tr>
+         <tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en la adecuación de la
+          sede con los requisitos mínimos de condiciones eléctricas y ambientales para
+          instalar los equipos.</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenD.png" width="369" height="126"><span lang="ES-CO"></span></p>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 17.4pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 17.4pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Las condiciones de instalación deben estar listas a más tardar el día
+          de la <b>Visita de habilitación de Medio.</b></span></i><span lang="ES-CO"></span></p>
+          </td>
+         </tr>
+        </tbody></table>
+        
         <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
 
         <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:12pt;font-family:Arial,sans-serif">Durante todo el Proceso de Instalación puede
@@ -5625,6 +5915,12 @@ class Templates extends CI_Controller {
         </tbody></table>
 
         <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="color:rgb(31,73,125)"><span>&nbsp;</span></span></b></p>
+        
+        <p class="x_MsoNormal" style="text-align:justify"><span lang="ES" style="font-family:&quot;Arial&quot;,sans-serif;">La
+        <b><i>Fecha de Entrega del Servicio MPLS Avanzado Intranet - Varios Puntos<span style="color:#1f497d"> </span>
+        </i></b>es <b><i>' . $argumentos['fecha_servicio'] . '</i></b> y está sujeta a cambios derivados del cumplimiento de las actividades necesarias.</span><span lang="ES" style="font-family:&quot;Arial&quot;,sans-serif">&nbsp;
+        
+        <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="color:rgb(31,73,125)"><span>&nbsp;</span></span></b></p>
 
         <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de inicio de Facturación</i></b> corresponde a la fecha
         en que Claro entrega el Servicio y es aceptado a satisfacción.<span></span></span></p>
@@ -5639,6 +5935,98 @@ class Templates extends CI_Controller {
 
         <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
 
+        <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
+        
+        <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif">Nuestro objetivo es
+        hacer el traslado del Servicio contratado a satisfacción de sus necesidades,
+        por eso es fundamental que usted conozca las etapas básicas<span style="color:rgb(31,73,125)">,</span> el impacto y Plan de Mitigación definido para
+        cada una.</span><span lang="ES-CO"></span></p>
+
+        <table class="m_-2942958292281350867gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="718" style="width:538.25pt;border-collapse:collapse">
+         <tbody><tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">RIESGOS</span></b><span lang="ES-CO"></span></p>
+          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+          <hr size="2" width="100%" align="center">
+          </span></b></div>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">PLAN DE MITIGACIÓN</span></b><span lang="ES-CO"></span></p>
+          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+          <hr size="2" width="100%" align="center">
+          </span></b></div>
+          </td>
+         </tr>
+         <tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+          Inconvenientes de &nbsp;Acceso al Predio en las Visitas Programadas</span></i></b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">.</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenA.png" width="420" height="110"></span><span lang="ES-CO"></span></p>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Gestión temprana de los permisos de acceso a Zonas Comunes en la sede
+          donde se va a realizar la Instalación.</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">2.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Confirmación de la documentación que debe portar el personal de Claro
+          para efectuar las actividades.</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">3.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Confirmación de horario de trabajos permitidos para Zonas Comunes.</span></i><span lang="ES-CO"></span></p>
+          </td>
+         </tr>
+         <tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+          falta de Aprobación de los Costos de la Cotización de Obra Civil.</span></i></b><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;</span></i><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenB.png" width="251" height="118"></span><span lang="ES-CO"></span></p>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Pre aprobación de <b>Cotización de Obra Civil</b> desde la venta o
+          Kickoff.</span></i><span lang="ES-CO"></span></p>
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">2.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Aprobación de los Costos y el Plano enviado máximo 3 días Calendario
+          después de recibida la cotización de Obra Civil</span></i><span lang="ES-CO"></span></p>
+          </td>
+         </tr>
+         <tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+          falta de &nbsp;confirmación de la información solicitada</span></i></b><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="font-size:10pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<wbr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenC.png" width="187" height="117"></span><span lang="ES-CO"></span></p>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Respuesta a la información solicitada en este correo máximo 8 días
+          después de la fecha reportada como inicio de actividades.</span></i><span lang="ES-CO"></span></p>
+          </td>
+         </tr>
+         <tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en la adecuación de la
+          sede con los requisitos mínimos de condiciones eléctricas y ambientales para
+          instalar los equipos.</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenD.png" width="369" height="126"><span lang="ES-CO"></span></p>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 17.4pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 17.4pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Las condiciones de instalación deben estar listas a más tardar el día
+          de la <b>Visita de habilitación de Medio.</b></span></i><span lang="ES-CO"></span></p>
+          </td>
+         </tr>
+        </tbody></table>
+        
         <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
 
         <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:12pt;font-family:Arial,sans-serif">Durante todo el Proceso de Instalación puede
@@ -6115,6 +6503,12 @@ class Templates extends CI_Controller {
         </tbody></table>
 
         <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="color:rgb(31,73,125)"><span>&nbsp;</span></span></b></p>
+        
+        <p class="x_MsoNormal" style="text-align:justify"><span lang="ES" style="font-family:&quot;Arial&quot;,sans-serif;">La
+        <b><i>Fecha de Entrega del Servicio MPLS Avanzado Intranet con Backup de Ultima Milla - NDS 2<span style="color:#1f497d"> </span>
+        </i></b>es <b><i>' . $argumentos['fecha_servicio'] . '</i></b> y está sujeta a cambios derivados del cumplimiento de las actividades necesarias.</span><span lang="ES" style="font-family:&quot;Arial&quot;,sans-serif">&nbsp;
+        
+        <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="color:rgb(31,73,125)"><span>&nbsp;</span></span></b></p>
 
         <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de inicio de Facturación</i></b> corresponde a la fecha
         en que Claro entrega el Servicio y es aceptado a satisfacción.<span></span></span></p>
@@ -6129,6 +6523,98 @@ class Templates extends CI_Controller {
 
         <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
 
+        <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
+        
+        <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif">Nuestro objetivo es
+        hacer el traslado del Servicio contratado a satisfacción de sus necesidades,
+        por eso es fundamental que usted conozca las etapas básicas<span style="color:rgb(31,73,125)">,</span> el impacto y Plan de Mitigación definido para
+        cada una.</span><span lang="ES-CO"></span></p>
+
+        <table class="m_-2942958292281350867gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="718" style="width:538.25pt;border-collapse:collapse">
+         <tbody><tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">RIESGOS</span></b><span lang="ES-CO"></span></p>
+          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+          <hr size="2" width="100%" align="center">
+          </span></b></div>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">PLAN DE MITIGACIÓN</span></b><span lang="ES-CO"></span></p>
+          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+          <hr size="2" width="100%" align="center">
+          </span></b></div>
+          </td>
+         </tr>
+         <tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+          Inconvenientes de &nbsp;Acceso al Predio en las Visitas Programadas</span></i></b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">.</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenA.png" width="420" height="110"></span><span lang="ES-CO"></span></p>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Gestión temprana de los permisos de acceso a Zonas Comunes en la sede
+          donde se va a realizar la Instalación.</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">2.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Confirmación de la documentación que debe portar el personal de Claro
+          para efectuar las actividades.</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">3.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Confirmación de horario de trabajos permitidos para Zonas Comunes.</span></i><span lang="ES-CO"></span></p>
+          </td>
+         </tr>
+         <tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+          falta de Aprobación de los Costos de la Cotización de Obra Civil.</span></i></b><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;</span></i><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenB.png" width="251" height="118"></span><span lang="ES-CO"></span></p>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Pre aprobación de <b>Cotización de Obra Civil</b> desde la venta o
+          Kickoff.</span></i><span lang="ES-CO"></span></p>
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">2.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Aprobación de los Costos y el Plano enviado máximo 3 días Calendario
+          después de recibida la cotización de Obra Civil</span></i><span lang="ES-CO"></span></p>
+          </td>
+         </tr>
+         <tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+          falta de &nbsp;confirmación de la información solicitada</span></i></b><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="font-size:10pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<wbr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenC.png" width="187" height="117"></span><span lang="ES-CO"></span></p>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Respuesta a la información solicitada en este correo máximo 8 días
+          después de la fecha reportada como inicio de actividades.</span></i><span lang="ES-CO"></span></p>
+          </td>
+         </tr>
+         <tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en la adecuación de la
+          sede con los requisitos mínimos de condiciones eléctricas y ambientales para
+          instalar los equipos.</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenD.png" width="369" height="126"><span lang="ES-CO"></span></p>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 17.4pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 17.4pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Las condiciones de instalación deben estar listas a más tardar el día
+          de la <b>Visita de habilitación de Medio.</b></span></i><span lang="ES-CO"></span></p>
+          </td>
+         </tr>
+        </tbody></table>
+        
         <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
 
         <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:12pt;font-family:Arial,sans-serif">Durante todo el Proceso de Instalación puede
@@ -6675,6 +7161,12 @@ class Templates extends CI_Controller {
         </tbody></table>
 
         <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="color:rgb(31,73,125)"><span>&nbsp;</span></span></b></p>
+        
+        <p class="x_MsoNormal" style="text-align:justify"><span lang="ES" style="font-family:&quot;Arial&quot;,sans-serif;">La
+        <b><i>Fecha de Entrega del Servicio MPLS Avanzado Intranet con Backup de Ultima Milla y Router - NDS1<span style="color:#1f497d"> </span>
+        </i></b>es <b><i>' . $argumentos['fecha_servicio'] . '</i></b> y está sujeta a cambios derivados del cumplimiento de las actividades necesarias.</span><span lang="ES" style="font-family:&quot;Arial&quot;,sans-serif">&nbsp;
+        
+        <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="color:rgb(31,73,125)"><span>&nbsp;</span></span></b></p>
 
         <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de inicio de Facturación</i></b> corresponde a la fecha
         en que Claro entrega el Servicio y es aceptado a satisfacción.<span></span></span></p>
@@ -6689,6 +7181,98 @@ class Templates extends CI_Controller {
 
         <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
 
+        <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
+        
+        <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif">Nuestro objetivo es
+        hacer el traslado del Servicio contratado a satisfacción de sus necesidades,
+        por eso es fundamental que usted conozca las etapas básicas<span style="color:rgb(31,73,125)">,</span> el impacto y Plan de Mitigación definido para
+        cada una.</span><span lang="ES-CO"></span></p>
+
+        <table class="m_-2942958292281350867gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="718" style="width:538.25pt;border-collapse:collapse">
+         <tbody><tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">RIESGOS</span></b><span lang="ES-CO"></span></p>
+          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+          <hr size="2" width="100%" align="center">
+          </span></b></div>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">PLAN DE MITIGACIÓN</span></b><span lang="ES-CO"></span></p>
+          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+          <hr size="2" width="100%" align="center">
+          </span></b></div>
+          </td>
+         </tr>
+         <tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+          Inconvenientes de &nbsp;Acceso al Predio en las Visitas Programadas</span></i></b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">.</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenA.png" width="420" height="110"></span><span lang="ES-CO"></span></p>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Gestión temprana de los permisos de acceso a Zonas Comunes en la sede
+          donde se va a realizar la Instalación.</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">2.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Confirmación de la documentación que debe portar el personal de Claro
+          para efectuar las actividades.</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">3.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Confirmación de horario de trabajos permitidos para Zonas Comunes.</span></i><span lang="ES-CO"></span></p>
+          </td>
+         </tr>
+         <tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+          falta de Aprobación de los Costos de la Cotización de Obra Civil.</span></i></b><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;</span></i><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenB.png" width="251" height="118"></span><span lang="ES-CO"></span></p>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Pre aprobación de <b>Cotización de Obra Civil</b> desde la venta o
+          Kickoff.</span></i><span lang="ES-CO"></span></p>
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">2.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Aprobación de los Costos y el Plano enviado máximo 3 días Calendario
+          después de recibida la cotización de Obra Civil</span></i><span lang="ES-CO"></span></p>
+          </td>
+         </tr>
+         <tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+          falta de &nbsp;confirmación de la información solicitada</span></i></b><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="font-size:10pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<wbr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenC.png" width="187" height="117"></span><span lang="ES-CO"></span></p>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Respuesta a la información solicitada en este correo máximo 8 días
+          después de la fecha reportada como inicio de actividades.</span></i><span lang="ES-CO"></span></p>
+          </td>
+         </tr>
+         <tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en la adecuación de la
+          sede con los requisitos mínimos de condiciones eléctricas y ambientales para
+          instalar los equipos.</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenD.png" width="369" height="126"><span lang="ES-CO"></span></p>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 17.4pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 17.4pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Las condiciones de instalación deben estar listas a más tardar el día
+          de la <b>Visita de habilitación de Medio.</b></span></i><span lang="ES-CO"></span></p>
+          </td>
+         </tr>
+        </tbody></table>
+        
         <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
 
         <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:12pt;font-family:Arial,sans-serif">Durante todo el Proceso de Instalación puede
@@ -7171,6 +7755,12 @@ class Templates extends CI_Controller {
         </tbody></table>
 
         <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="color:rgb(31,73,125)"><span>&nbsp;</span></span></b></p>
+        
+        <p class="x_MsoNormal" style="text-align:justify"><span lang="ES" style="font-family:&quot;Arial&quot;,sans-serif;">La
+        <b><i>Fecha de Entrega del Servicio MPLS Avanzado Extranet<span style="color:#1f497d"> </span>
+        </i></b>es <b><i>' . $argumentos['fecha_servicio'] . '</i></b> y está sujeta a cambios derivados del cumplimiento de las actividades necesarias.</span><span lang="ES" style="font-family:&quot;Arial&quot;,sans-serif">&nbsp;
+        
+        <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="color:rgb(31,73,125)"><span>&nbsp;</span></span></b></p>
 
         <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de inicio de Facturación</i></b> corresponde a la fecha
         en que Claro entrega el Servicio y es aceptado a satisfacción.<span></span></span></p>
@@ -7185,6 +7775,98 @@ class Templates extends CI_Controller {
 
         <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
 
+        <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
+        
+        <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif">Nuestro objetivo es
+        hacer el traslado del Servicio contratado a satisfacción de sus necesidades,
+        por eso es fundamental que usted conozca las etapas básicas<span style="color:rgb(31,73,125)">,</span> el impacto y Plan de Mitigación definido para
+        cada una.</span><span lang="ES-CO"></span></p>
+
+        <table class="m_-2942958292281350867gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="718" style="width:538.25pt;border-collapse:collapse">
+         <tbody><tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">RIESGOS</span></b><span lang="ES-CO"></span></p>
+          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+          <hr size="2" width="100%" align="center">
+          </span></b></div>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">PLAN DE MITIGACIÓN</span></b><span lang="ES-CO"></span></p>
+          <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+          <hr size="2" width="100%" align="center">
+          </span></b></div>
+          </td>
+         </tr>
+         <tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+          Inconvenientes de &nbsp;Acceso al Predio en las Visitas Programadas</span></i></b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">.</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenA.png" width="420" height="110"></span><span lang="ES-CO"></span></p>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Gestión temprana de los permisos de acceso a Zonas Comunes en la sede
+          donde se va a realizar la Instalación.</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">2.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Confirmación de la documentación que debe portar el personal de Claro
+          para efectuar las actividades.</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">3.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Confirmación de horario de trabajos permitidos para Zonas Comunes.</span></i><span lang="ES-CO"></span></p>
+          </td>
+         </tr>
+         <tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+          falta de Aprobación de los Costos de la Cotización de Obra Civil.</span></i></b><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;</span></i><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenB.png" width="251" height="118"></span><span lang="ES-CO"></span></p>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Pre aprobación de <b>Cotización de Obra Civil</b> desde la venta o
+          Kickoff.</span></i><span lang="ES-CO"></span></p>
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">2.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Aprobación de los Costos y el Plano enviado máximo 3 días Calendario
+          después de recibida la cotización de Obra Civil</span></i><span lang="ES-CO"></span></p>
+          </td>
+         </tr>
+         <tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+          falta de &nbsp;confirmación de la información solicitada</span></i></b><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="font-size:10pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<wbr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenC.png" width="187" height="117"></span><span lang="ES-CO"></span></p>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Respuesta a la información solicitada en este correo máximo 8 días
+          después de la fecha reportada como inicio de actividades.</span></i><span lang="ES-CO"></span></p>
+          </td>
+         </tr>
+         <tr style="height:29.05pt">
+          <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en la adecuación de la
+          sede con los requisitos mínimos de condiciones eléctricas y ambientales para
+          instalar los equipos.</span></i><span lang="ES-CO"></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenD.png" width="369" height="126"><span lang="ES-CO"></span></p>
+          </td>
+          <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 17.4pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+          <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 17.4pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Las condiciones de instalación deben estar listas a más tardar el día
+          de la <b>Visita de habilitación de Medio.</b></span></i><span lang="ES-CO"></span></p>
+          </td>
+         </tr>
+        </tbody></table>
+        
         <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
 
         <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:12pt;font-family:Arial,sans-serif">Durante todo el Proceso de Instalación puede
@@ -7708,6 +8390,12 @@ class Templates extends CI_Controller {
           </tbody></table>
 
           <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="color:rgb(31,73,125)"><span>&nbsp;</span></span></b></p>
+          
+          <p class="x_MsoNormal" style="text-align:justify"><span lang="ES" style="font-family:&quot;Arial&quot;,sans-serif;">La
+          <b><i>Fecha de Entrega del Servicio Backend MPLS<span style="color:#1f497d"> </span>
+          </i></b>es <b><i>' . $argumentos['fecha_servicio'] . '</i></b> y está sujeta a cambios derivados del cumplimiento de las actividades necesarias.</span><span lang="ES" style="font-family:&quot;Arial&quot;,sans-serif">&nbsp;
+          
+          <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="color:rgb(31,73,125)"><span>&nbsp;</span></span></b></p>
 
           <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de inicio de Facturación</i></b> corresponde a la fecha
           en que Claro entrega el Servicio y es aceptado a satisfacción.<span></span></span></p>
@@ -7721,6 +8409,98 @@ class Templates extends CI_Controller {
           <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="color:black"><img width="868" height="531" src="' . URL::base() . '/assets/img/mail_formats/recomendaciones_backend_mpls.png"></span></b></p>
 
           <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
+
+          <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
+          
+          <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif">Nuestro objetivo es
+          hacer el traslado del Servicio contratado a satisfacción de sus necesidades,
+          por eso es fundamental que usted conozca las etapas básicas<span style="color:rgb(31,73,125)">,</span> el impacto y Plan de Mitigación definido para
+          cada una.</span><span lang="ES-CO"></span></p>
+
+          <table class="m_-2942958292281350867gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="718" style="width:538.25pt;border-collapse:collapse">
+             <tbody><tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">RIESGOS</span></b><span lang="ES-CO"></span></p>
+              <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+              <hr size="2" width="100%" align="center">
+              </span></b></div>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">PLAN DE MITIGACIÓN</span></b><span lang="ES-CO"></span></p>
+              <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+              <hr size="2" width="100%" align="center">
+              </span></b></div>
+              </td>
+             </tr>
+             <tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+              Inconvenientes de &nbsp;Acceso al Predio en las Visitas Programadas</span></i></b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">.</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenA.png" width="420" height="110"></span><span lang="ES-CO"></span></p>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Gestión temprana de los permisos de acceso a Zonas Comunes en la sede
+              donde se va a realizar la Instalación.</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">2.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Confirmación de la documentación que debe portar el personal de Claro
+              para efectuar las actividades.</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">3.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Confirmación de horario de trabajos permitidos para Zonas Comunes.</span></i><span lang="ES-CO"></span></p>
+              </td>
+             </tr>
+             <tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+              falta de Aprobación de los Costos de la Cotización de Obra Civil.</span></i></b><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;</span></i><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenB.png" width="251" height="118"></span><span lang="ES-CO"></span></p>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Pre aprobación de <b>Cotización de Obra Civil</b> desde la venta o
+              Kickoff.</span></i><span lang="ES-CO"></span></p>
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">2.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Aprobación de los Costos y el Plano enviado máximo 3 días Calendario
+              después de recibida la cotización de Obra Civil</span></i><span lang="ES-CO"></span></p>
+              </td>
+             </tr>
+             <tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+              falta de &nbsp;confirmación de la información solicitada</span></i></b><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="font-size:10pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<wbr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenC.png" width="187" height="117"></span><span lang="ES-CO"></span></p>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Respuesta a la información solicitada en este correo máximo 8 días
+              después de la fecha reportada como inicio de actividades.</span></i><span lang="ES-CO"></span></p>
+              </td>
+             </tr>
+             <tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en la adecuación de la
+              sede con los requisitos mínimos de condiciones eléctricas y ambientales para
+              instalar los equipos.</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenD.png" width="369" height="126"><span lang="ES-CO"></span></p>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 17.4pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 17.4pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Las condiciones de instalación deben estar listas a más tardar el día
+              de la <b>Visita de habilitación de Medio.</b></span></i><span lang="ES-CO"></span></p>
+              </td>
+             </tr>
+            </tbody></table>
 
           <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
 
@@ -8283,6 +9063,12 @@ class Templates extends CI_Controller {
           </tr>
           </tbody></table>
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="color:rgb(31,73,125)"><span>&nbsp;</span></span></b></p>
+          
+          <p class="x_MsoNormal" style="text-align:justify"><span lang="ES" style="font-family:&quot;Arial&quot;,sans-serif;">La
+          <b><i>Fecha de Entrega del Servicio MPLS Avanzado con Componente Datacenter Claro<span style="color:#1f497d"> </span>
+          </i></b>es <b><i>' . $argumentos['fecha_servicio'] . '</i></b> y está sujeta a cambios derivados del cumplimiento de las actividades necesarias.</span><span lang="ES" style="font-family:&quot;Arial&quot;,sans-serif">&nbsp;
+          
+          <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES" style="color:rgb(31,73,125)"><span>&nbsp;</span></span></b></p>
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de inicio de Facturación</i></b> corresponde a la fecha
           en que Claro entrega el Servicio y es aceptado a satisfacción.<span></span></span></p>
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="color:rgb(31,73,125)"><span>&nbsp;</span></span></p>
@@ -8290,6 +9076,98 @@ class Templates extends CI_Controller {
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="color:rgb(31,73,125)"><span>&nbsp;</span></span></p>
           <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="color:black"><img src="' . URL::base() . '/assets/img/mail_formats/recomendaciones_mpls_avanzado_con_componente_datacenter_claro.png" width="880" height="533"></span><span lang="ES-CO"><span></span></span></p>
           <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
+          <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
+          
+          <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif">Nuestro objetivo es
+          hacer el traslado del Servicio contratado a satisfacción de sus necesidades,
+          por eso es fundamental que usted conozca las etapas básicas<span style="color:rgb(31,73,125)">,</span> el impacto y Plan de Mitigación definido para
+          cada una.</span><span lang="ES-CO"></span></p>
+
+          <table class="m_-2942958292281350867gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="718" style="width:538.25pt;border-collapse:collapse">
+             <tbody><tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">RIESGOS</span></b><span lang="ES-CO"></span></p>
+              <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+              <hr size="2" width="100%" align="center">
+              </span></b></div>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">PLAN DE MITIGACIÓN</span></b><span lang="ES-CO"></span></p>
+              <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+              <hr size="2" width="100%" align="center">
+              </span></b></div>
+              </td>
+             </tr>
+             <tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+              Inconvenientes de &nbsp;Acceso al Predio en las Visitas Programadas</span></i></b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">.</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenA.png" width="420" height="110"></span><span lang="ES-CO"></span></p>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Gestión temprana de los permisos de acceso a Zonas Comunes en la sede
+              donde se va a realizar la Instalación.</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">2.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Confirmación de la documentación que debe portar el personal de Claro
+              para efectuar las actividades.</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">3.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Confirmación de horario de trabajos permitidos para Zonas Comunes.</span></i><span lang="ES-CO"></span></p>
+              </td>
+             </tr>
+             <tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+              falta de Aprobación de los Costos de la Cotización de Obra Civil.</span></i></b><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;</span></i><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenB.png" width="251" height="118"></span><span lang="ES-CO"></span></p>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Pre aprobación de <b>Cotización de Obra Civil</b> desde la venta o
+              Kickoff.</span></i><span lang="ES-CO"></span></p>
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">2.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Aprobación de los Costos y el Plano enviado máximo 3 días Calendario
+              después de recibida la cotización de Obra Civil</span></i><span lang="ES-CO"></span></p>
+              </td>
+             </tr>
+             <tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+              falta de &nbsp;confirmación de la información solicitada</span></i></b><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="font-size:10pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<wbr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenC.png" width="187" height="117"></span><span lang="ES-CO"></span></p>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Respuesta a la información solicitada en este correo máximo 8 días
+              después de la fecha reportada como inicio de actividades.</span></i><span lang="ES-CO"></span></p>
+              </td>
+             </tr>
+             <tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en la adecuación de la
+              sede con los requisitos mínimos de condiciones eléctricas y ambientales para
+              instalar los equipos.</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenD.png" width="369" height="126"><span lang="ES-CO"></span></p>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 17.4pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 17.4pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Las condiciones de instalación deben estar listas a más tardar el día
+              de la <b>Visita de habilitación de Medio.</b></span></i><span lang="ES-CO"></span></p>
+              </td>
+             </tr>
+          </tbody></table>
+          
           <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
           <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:12pt;font-family:Arial,sans-serif">Durante todo el Proceso de Instalación puede
           contactar a:<span></span></span></p>
@@ -8737,6 +9615,12 @@ class Templates extends CI_Controller {
           </tr>
           </tbody></table>
           <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="color:rgb(31,73,125)"><span>&nbsp;</span></span></b></p>
+          
+          <p class="x_MsoNormal" style="text-align:justify"><span lang="ES" style="font-family:&quot;Arial&quot;,sans-serif;">La
+          <b><i>Fecha de Entrega del Servicio MPLS Transaccional 3G<span style="color:#1f497d"> </span>
+          </i></b>es <b><i>' . $argumentos['fecha_servicio'] . '</i></b> y está sujeta a cambios derivados del cumplimiento de las actividades necesarias.</span><span lang="ES" style="font-family:&quot;Arial&quot;,sans-serif">&nbsp;
+          
+          <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span style="color:rgb(31,73,125)"><span>&nbsp;</span></span></b></p>
           <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de inicio de Facturación</i></b> corresponde a la fecha
           en que Claro entrega el Servicio y es aceptado a satisfacción.<span></span></span></p>
           <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="color:rgb(31,73,125)"><span>&nbsp;</span></span></p>
@@ -8744,6 +9628,98 @@ class Templates extends CI_Controller {
           <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="color:rgb(31,73,125)"><span>&nbsp;</span></span></p>
           <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="color:black"><img  src="' . URL::base() . '/assets/img/mail_formats/recomendaciones_mpls_transaccional_3g.png"  width="979" height="546"></span></p>
           <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
+          <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
+          
+          <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif">Nuestro objetivo es
+          hacer el traslado del Servicio contratado a satisfacción de sus necesidades,
+          por eso es fundamental que usted conozca las etapas básicas<span style="color:rgb(31,73,125)">,</span> el impacto y Plan de Mitigación definido para
+          cada una.</span><span lang="ES-CO"></span></p>
+
+          <table class="m_-2942958292281350867gmail-MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="718" style="width:538.25pt;border-collapse:collapse">
+             <tbody><tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border:1pt solid rgb(192,0,0);background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">RIESGOS</span></b><span lang="ES-CO"></span></p>
+              <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+              <hr size="2" width="100%" align="center">
+              </span></b></div>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:none;background:rgb(192,0,0);padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">PLAN DE MITIGACIÓN</span></b><span lang="ES-CO"></span></p>
+              <div class="MsoNormal" align="center" style="text-align:center;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif;color:white">
+              <hr size="2" width="100%" align="center">
+              </span></b></div>
+              </td>
+             </tr>
+             <tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+              Inconvenientes de &nbsp;Acceso al Predio en las Visitas Programadas</span></i></b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">.</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif;color:white">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenA.png" width="420" height="110"></span><span lang="ES-CO"></span></p>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Gestión temprana de los permisos de acceso a Zonas Comunes en la sede
+              donde se va a realizar la Instalación.</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">2.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Confirmación de la documentación que debe portar el personal de Claro
+              para efectuar las actividades.</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">3.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Confirmación de horario de trabajos permitidos para Zonas Comunes.</span></i><span lang="ES-CO"></span></p>
+              </td>
+             </tr>
+             <tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+              falta de Aprobación de los Costos de la Cotización de Obra Civil.</span></i></b><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;color:rgb(31,73,125)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;</span></i><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenB.png" width="251" height="118"></span><span lang="ES-CO"></span></p>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Pre aprobación de <b>Cotización de Obra Civil</b> desde la venta o
+              Kickoff.</span></i><span lang="ES-CO"></span></p>
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">2.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Aprobación de los Costos y el Plano enviado máximo 3 días Calendario
+              después de recibida la cotización de Obra Civil</span></i><span lang="ES-CO"></span></p>
+              </td>
+             </tr>
+             <tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><b><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en el Traslado por
+              falta de &nbsp;confirmación de la información solicitada</span></i></b><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="font-size:10pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<wbr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-size:10pt"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenC.png" width="187" height="117"></span><span lang="ES-CO"></span></p>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 6pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 0.25in;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Respuesta a la información solicitada en este correo máximo 8 días
+              después de la fecha reportada como inicio de actividades.</span></i><span lang="ES-CO"></span></p>
+              </td>
+             </tr>
+             <tr style="height:29.05pt">
+              <td width="444" valign="top" style="width:332.75pt;border-right:1pt solid rgb(192,0,0);border-bottom:1pt solid rgb(192,0,0);border-left:1pt solid rgb(192,0,0);border-top:none;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">&nbsp;</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><i><span lang="ES-CO" style="font-size:10pt;font-family:Arial,sans-serif">Atraso en la adecuación de la
+              sede con los requisitos mínimos de condiciones eléctricas y ambientales para
+              instalar los equipos.</span></i><span lang="ES-CO"></span></p>
+              <p class="MsoNormal" style="margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><img src="' . URL::base() . '/assets/img/proceso_traslado_externo/imagenD.png" width="369" height="126"><span lang="ES-CO"></span></p>
+              </td>
+              <td width="274" valign="top" style="width:205.5pt;border-top:none;border-left:none;border-bottom:1pt solid rgb(192,0,0);border-right:1pt solid rgb(192,0,0);background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;padding:0in 5.4pt;height:29.05pt">
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 17.4pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
+              <p class="m_-2942958292281350867gmail-MsoListParagraph" style="margin:0in 0in 6pt 17.4pt;text-align:justify;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO">1.<span style="font-variant-numeric:normal;font-variant-east-asian:normal;font-stretch:normal;font-size:7pt;line-height:normal;font-family:&quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span></span><i><span lang="ES-MX" style="font-size:9pt;font-family:Arial,sans-serif">Las condiciones de instalación deben estar listas a más tardar el día
+              de la <b>Visita de habilitación de Medio.</b></span></i><span lang="ES-CO"></span></p>
+              </td>
+             </tr>
+          </tbody></table>
+          
           <p class="MsoNormal" style="margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO"><span>&nbsp;</span></span></p>
           <p class="MsoNormal" style="text-align:justify;margin:0cm 0cm 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-MX" style="font-size:12pt;font-family:Arial,sans-serif">Durante todo el Proceso de Instalación puede
           contactar a:<span></span></span></p>
@@ -9359,7 +10335,8 @@ class Templates extends CI_Controller {
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="color:rgb(31,73,125)">&nbsp;</span><span lang="ES-CO"></span></p>
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt">La
-        Fecha de Entrega de su servicio &nbsp;' . $argumentos['campo19'] . ' estas fechas están sujeta<span style="color:black">s</span> a cambios derivados del cumplimiento de las
+        <b><i>Fecha de Entrega del Servicio Adición Marquillas Aeropuerto el Dorado Opain<span style="color:#1f497d"> </span>
+        </i></b>es &nbsp;<b><i>' . $argumentos['campo19'] . '</i></b> y esta fecha está sujeta a cambios derivados del cumplimiento de las
         actividades necesarias para la instalación.&nbsp; </span><span lang="ES-CO"></span></p>
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="color:rgb(31,73,125)">&nbsp;</span><span lang="ES-CO"></span></p>
@@ -10501,7 +11478,7 @@ class Templates extends CI_Controller {
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
 
-        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de Entrega de su servicio</i></b>
+        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de Entrega de su servicio Cambio de Servicio Telefonia Fija Pública Linea Basica a Linea E1</i></b>
         &nbsp;es <b><i>' . $argumentos['campo10'] . '</i></b> y está sujeta a cambios derivados del
         cumplimiento de las actividades necesarias para la ejecución.&nbsp; </span><span lang="ES-CO"></span></p>
 
@@ -11304,7 +12281,7 @@ class Templates extends CI_Controller {
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">&nbsp;</span><span lang="ES-CO"></span></p>
 
-        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de Entrega de su servicio</i></b>
+        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de Entrega de su servicio Cambio de Servicio Telefonia Fija Pública Linea SIP a PBX Distribuida Linea SIP</i></b>
         &nbsp;es <b><i>' . $argumentos['campo11'] . '</i></b> y está sujeta a cambios derivados del
         cumplimiento de las actividades necesarias para la ejecución.&nbsp; </span><span lang="ES-CO"></span></p>
 
@@ -13192,7 +14169,7 @@ class Templates extends CI_Controller {
         </tbody></table>
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="color:rgb(31,73,125)">&nbsp;</span></p>
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="color:rgb(31,73,125)">&nbsp;</span></p>
-        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de Entrega de su servicio</i></b>
+        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de Entrega de su servicio soluciones administrativas - comunicaciones unificadas pbx administrada</i></b>
         &nbsp;es <b><i>' . $argumentos['campo41'] . ' </i></b> y está sujeta a cambios derivados del
         cumplimiento de las actividades necesarias para la instalación.&nbsp; <span style="color:rgb(31,73,125)"></span></span></p>
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="color:rgb(31,73,125)">&nbsp;</span></p>
@@ -14138,7 +15115,7 @@ class Templates extends CI_Controller {
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="font-size:12pt;font-family:Arial,sans-serif">Para hacer uso del Servicio entregado por <b><span style="color:rgb(192,0,0)">Claro
         </span></b>es indispensable que cuente una </span><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">a <b><u>Planta Telefónica E1.</u></b><i><u> </u></i></span></p>
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">&nbsp;</span></p>
-        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de Entrega de su servicio</i></b>
+        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de Entrega de su servicio Instalación Servicio Telefonia Fija PBX Distribuida Linea E1</i></b>
         &nbsp;es <b><i>' . $argumentos['campo8'] . '</i></b> y está sujeta a cambios derivados del
         cumplimiento de las actividades necesarias para la instalación.&nbsp; <span style="color:rgb(31,73,125)"></span></span></p>
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="color:rgb(31,73,125)">&nbsp;</span></p>
@@ -14938,7 +15915,7 @@ class Templates extends CI_Controller {
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">&nbsp;</span></p>
 
-        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de Entrega de su servicio</i></b>
+        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de Entrega de su servicio Instalación Servicio Telefonia Fija PBX Distribuida Linea SIP</i></b>
         &nbsp;es <b><i>' . $argumentos['campo8'] . '</i></b> y está sujeta a cambios derivados del
         cumplimiento de las actividades necesarias para la instalación.&nbsp; <span style="color:rgb(31,73,125)"></span></span></p>
 
@@ -15759,8 +16736,8 @@ class Templates extends CI_Controller {
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">&nbsp;</span></p>
 
-        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de Entrega de su servicio</i></b>
-        &nbsp;es <b><i>' . $argumentos['campo8'] . '</i></b> y está sujeta a cambios derivados del
+        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de Entrega de su servicio Instalación Servicio Telefonia Fija PBX Distribuida Linea SIP con Gateway de Voz</i></b>
+        &nbsp;es <b><i>' . $argumentos['campo23'] . '</i></b> y está sujeta a cambios derivados del
         cumplimiento de las actividades necesarias para la instalación.&nbsp; <span style="color:rgb(31,73,125)"></span></span></p>
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="color:rgb(31,73,125)">&nbsp;</span></p>
@@ -16499,7 +17476,7 @@ class Templates extends CI_Controller {
 
             <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">&nbsp;</span></p>
 
-            <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de Entrega de los servicio</i></b>
+            <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de Entrega del servicio Instalación Telefonía Publica Básica - Internet Dedicado</i></b>
             &nbsp;es <b><i>' . $argumentos['campo11'] . '</i></b> y está sujeta a cambios derivados del
             cumplimiento de las actividades necesarias para la instalación.&nbsp; <span style="color:rgb(31,73,125)"></span></span></p>
 
@@ -17077,8 +18054,7 @@ class Templates extends CI_Controller {
 
         <p class="MsoNormal" style="text-align: justify; margin: 0in 0in 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif;"><span lang="ES-CO" style="color: rgb(31, 73, 125);">&nbsp;</span><span lang="ES-CO"></span></p>
 
-        <p class="MsoNormal" style="text-align: justify; margin: 0in 0in 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif;"><span lang="ES" style="font-size: 12pt; font-family: Arial, sans-serif;">La <b><i>Fecha de Entrega de la Ampliación de su
-        Servicio </i></b>es <b><i>' . $argumentos['campo16'] . '</i></b> <span style="color: rgb(31, 73, 125);">&nbsp;</span>y
+        <p class="MsoNormal" style="text-align: justify; margin: 0in 0in 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif;"><span lang="ES" style="font-size: 12pt; font-family: Arial, sans-serif;">La <b><i>Fecha de Entrega del Servicio Cambio de Última Milla</i></b>es <b><i>' . $argumentos['campo16'] . '</i></b> <span style="color: rgb(31, 73, 125);">&nbsp;</span>y
         está sujeta a cambios derivados del cumplimiento de las actividades necesarias
         para la ejecución.&nbsp; </span><span lang="ES-CO"></span></p>
 
@@ -17618,8 +18594,7 @@ class Templates extends CI_Controller {
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="color:rgb(31,73,125)">&nbsp;</span><span lang="ES-CO"></span></p>
 
-        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de Entrega de la Ampliación de su
-        Servicio </i></b>es <b><i>' . $argumentos['campo14'] . '</i></b> <span style="color:rgb(31,73,125)">&nbsp;</span>y
+        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de Entrega del Servicio Cambio de Equipo </i></b>es <b><i>' . $argumentos['campo14'] . '</i></b> <span style="color:rgb(31,73,125)">&nbsp;</span>y
         está sujeta a cambios derivados del cumplimiento de las actividades necesarias
         para la ejecución.&nbsp; </span><span lang="ES-CO"></span></p>
 
@@ -18163,8 +19138,7 @@ class Templates extends CI_Controller {
 
         <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES-CO" style="color:rgb(31,73,125)">&nbsp;</span><span lang="ES-CO"></span></p>
 
-        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de Entrega de la Ampliación de su
-        Servicio </i></b>es <b><i>' . $argumentos['campo14'] . '</i></b> <span style="color:rgb(31,73,125)">&nbsp;</span>y
+        <p class="MsoNormal" style="text-align:justify;margin:0in 0in 0.0001pt;font-size:11pt;font-family:Calibri,sans-serif"><span lang="ES" style="font-size:12pt;font-family:Arial,sans-serif">La <b><i>Fecha de Entrega del Servicio Cambio de velocidad – Ampliación y Saturación </i></b>es <b><i>' . $argumentos['campo14'] . '</i></b> <span style="color:rgb(31,73,125)">&nbsp;</span>y
         está sujeta a cambios derivados del cumplimiento de las actividades necesarias
         para la ejecución.&nbsp; </span><span lang="ES-CO"></span></p>
 
@@ -18452,7 +19426,7 @@ class Templates extends CI_Controller {
                         <tr style="box-sizing:border-box;height:14.65pt;outline:0px"><td width="434" rowspan="4" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:325.65pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:14.65pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span style="box-sizing:border-box;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-family:Arial,sans-serif;outline:0px">Documentación Necesaria para la realización de las visitas en su sede.<span style="box-sizing:border-box;outline:0px"></span></span></i></p></td><td width="208" colspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:155.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:14.65pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Parafiscales<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="95" valign="top" style="box-sizing:border-box;padding:0cm;width:70.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:14.65pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p></td></tr>
                         <tr style="box-sizing:border-box;height:14.6pt;outline:0px"><td width="208" colspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:155.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:14.6pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Certificación Alturas<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="95" valign="top" style="box-sizing:border-box;padding:0cm;width:70.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:14.6pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p></td></tr><tr style="box-sizing:border-box;height:14.6pt;outline:0px"><td width="208" colspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:155.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:14.6pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Cursos Especiales<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="95" valign="top" style="box-sizing:border-box;padding:0cm;width:70.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:14.6pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p></td></tr><tr style="box-sizing:border-box;height:14.6pt;outline:0px"><td width="208" colspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:155.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:14.6pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">EPP<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="95" valign="top" style="box-sizing:border-box;padding:0cm;width:70.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:14.6pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p></td></tr><tr style="box-sizing:border-box;height:7.15pt;outline:0px"><td width="434" rowspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:325.65pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:7.15pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></i></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-family:Arial,sans-serif;outline:0px">Para la Visita &nbsp;1 y 2 Cotización de obra civil y Ejecución de Obra Civil requiere:<span style="box-sizing:border-box;outline:0px"></span></span></i></p></td><td width="208" colspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:155.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:7.15pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Acompañamiento de Personal de Mantenimiento<span style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span></span>de su sede<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="95" valign="top" style="box-sizing:border-box;padding:0cm;width:70.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:7.15pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p></td></tr><tr style="box-sizing:border-box;height:7.1pt;outline:0px"><td width="208" colspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:155.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:7.1pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Horario Especial<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="95" valign="top" style="box-sizing:border-box;padding:0cm;width:70.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:7.1pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p></td></tr><tr style="box-sizing:border-box;height:9pt;outline:0px"><td width="434" rowspan="3" style="box-sizing:border-box;padding:0cm;width:325.65pt;border-style:none solid solid;border-right-color:rgb(192,0,0);border-bottom-color:rgb(192,0,0);border-left-color:rgb(192,0,0);border-right-width:1pt;border-bottom-width:1pt;border-left-width:1pt;height:9pt;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-family:Arial,sans-serif;outline:0px">Confirme la existencia de las siguientes condiciones:<span style="box-sizing:border-box;outline:0px"></span></span></i></p></td><td width="208" colspan="2" rowspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:155.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:9pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Rack<span style="box-sizing:border-box;outline:0px"></span></span></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px"><span lang="ES" style="box-sizing:border-box;font-family:Arial,sans-serif;outline:0px">(Requiere Bandeja para la instalación de los equipos)<span style="box-sizing:border-box;outline:0px"></span></span></i></span></p></td><td width="95" valign="top" style="box-sizing:border-box;padding:0cm;width:70.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:9pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p></td></tr><tr style="box-sizing:border-box;height:9pt;outline:0px"><td width="95" valign="top" style="box-sizing:border-box;padding:0cm;width:70.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:9pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:9pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p></td></tr><tr style="box-sizing:border-box;height:18pt;outline:0px"><td width="208" colspan="2" valign="top" style="box-sizing:border-box;padding:0cm 5.4pt;width:155.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:18pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">Tomas reguladas<span style="box-sizing:border-box;outline:0px"></span></span></span></p><p class="MsoNormal" style="box-sizing:border-box;min-height:14px;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:10pt;font-family:Arial,sans-serif;outline:0px">(V n-t &lt; 1 V)<span style="box-sizing:border-box;outline:0px"></span></span></span></p></td><td width="95" valign="top" style="box-sizing:border-box;padding:0cm;width:70.9pt;border-style:none solid solid none;border-bottom-color:rgb(192,0,0);border-bottom-width:1pt;border-right-color:rgb(192,0,0);border-right-width:1pt;height:18pt;background-image:initial;background-position:initial;background-size:initial;background-repeat:initial;background-origin:initial;background-clip:initial;outline:0px"><p class="MsoNormal" align="center" style="box-sizing:border-box;min-height:14px;text-align:center;outline:0px"><span style="box-sizing:border-box;font-weight:700;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></span></p></td></tr><tr style="box-sizing:border-box;outline:0px"><td width="434" style="box-sizing:border-box;padding:0cm;width:325.5pt;outline:0px"></td><td width="151" style="box-sizing:border-box;padding:0cm;width:113.25pt;outline:0px"></td><td width="57" style="box-sizing:border-box;padding:0cm;width:42.75pt;outline:0px"></td><td width="95" style="box-sizing:border-box;padding:0cm;width:71.25pt;outline:0px"></td></tr></tbody></table>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p>
-                <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px">La<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px">Fecha de Entrega de su servicio</i></span><span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span>&nbsp;es<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span><span style="box-sizing:border-box;font-weight:700;outline:0px">'.$argumentos['fecha'].'</span><span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span>y está sujeta a cambios derivados del cumplimiento de las actividades necesarias para la instalación.&nbsp; *Dado que se adelantaron labores sobre la pasada OT de MPLS es posible disminuir dicho tiempo de implementación.<span style="box-sizing:border-box;outline:0px"></span></span></p>
+                <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px">La<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px">Fecha de Entrega del Servicio PL ETHERNET</i></span><span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span>&nbsp;es<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span><span style="box-sizing:border-box;font-weight:700;outline:0px">'.$argumentos['fecha'].'</span><span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span>y está sujeta a cambios derivados del cumplimiento de las actividades necesarias para la instalación.&nbsp; *Dado que se adelantaron labores sobre la pasada OT de MPLS es posible disminuir dicho tiempo de implementación.<span style="box-sizing:border-box;outline:0px"></span></span></p>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;font-size:12pt;font-family:Arial,sans-serif;outline:0px">La<span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span><span style="box-sizing:border-box;font-weight:700;outline:0px"><i style="box-sizing:border-box;outline:0px">Fecha de inicio de Facturación</i></span><span class="m_731751854839756828gmail-Apple-converted-space">&nbsp;</span>corresponde a la fecha en que Claro entrega el Servicio y es aceptado a satisfacción.<span style="box-sizing:border-box;outline:0px"></span></span></p>
                 <p class="MsoNormal" style="box-sizing:border-box;min-height:14px;color:rgb(0,0,0);font-family:Arial,宋体,&quot;Microsoft Yahei&quot;,&quot;Lucida Grande&quot;,Verdana,Lucida,Helvetica,sans-serif;font-size:12px;font-variant-numeric:normal;font-variant-east-asian:normal;line-height:17.1429px;text-align:justify;outline:0px"><span lang="ES" style="box-sizing:border-box;color:rgb(31,73,125);outline:0px"><span style="box-sizing:border-box;outline:0px">&nbsp;</span></span></p>
