@@ -442,10 +442,10 @@
                                     <select name="estado" id="n_estado_voc" class="form-control" onchange="eventos.onChangeStatusHitos('voc');">
                                         <option value="">SELECCIONE...</option>
                                         <option value="EJECUTADA">EJECUTADA</option>
-                                        <option value="ENVIADA">ENVIADA</option>
+                                        <option value="PROGRAMADA">PROGRAMADA</option>
                                         <option value="APROBADA">APROBADA</option>
                                         <option value="CONFIGURADO">CONFIGURADO</option>
-                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="FECHA TENTATIVA">FECHA TENTATIVA</option>
                                         <option value="CERRADA">CERRADA</option>
                                         <option value="NO APLICA">NO APLICA</option>
                                     </select>
@@ -473,10 +473,10 @@
                                     <select name="estado" id="estado_eoc" class="form-control" onchange="eventos.onChangeStatusHitos('eoc');">
                                         <option value="">SELECCIONE...</option>
                                         <option value="EJECUTADA">EJECUTADA</option>
-                                        <option value="ENVIADA">ENVIADA</option>
+                                        <option value="PROGRAMADA">PROGRAMADA</option>
                                         <option value="APROBADA">APROBADA</option>
                                         <option value="CONFIGURADO">CONFIGURADO</option>
-                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="FECHA TENTATIVA">FECHA TENTATIVA</option>
                                         <option value="CERRADA">CERRADA</option>
                                         <option value="NO APLICA">NO APLICA</option>
                                     </select>
@@ -504,10 +504,10 @@
                                     <select name="estado" id="estado_em" class="form-control" onchange="eventos.onChangeStatusHitos('em');">
                                         <option value="">SELECCIONE...</option>
                                         <option value="EJECUTADA">EJECUTADA</option>
-                                        <option value="ENVIADA">ENVIADA</option>
+                                        <option value="PROGRAMADA">PROGRAMADA</option>
                                         <option value="APROBADA">APROBADA</option>
                                         <option value="CONFIGURADO">CONFIGURADO</option>
-                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="FECHA TENTATIVA">FECHA TENTATIVA</option>
                                         <option value="CERRADA">CERRADA</option>
                                         <option value="NO APLICA">NO APLICA</option>
                                     </select>
@@ -535,10 +535,10 @@
                                     <select name="estado" id="estado_entrega_servicio" class="form-control" onchange="eventos.onChangeStatusHitos('entrega');">
                                         <option value="">SELECCIONE...</option>
                                         <option value="EJECUTADA">EJECUTADA</option>
-                                        <option value="ENVIADA">ENVIADA</option>
+                                        <option value="PROGRAMADA">PROGRAMADA</option>
                                         <option value="APROBADA">APROBADA</option>
                                         <option value="CONFIGURADO">CONFIGURADO</option>
-                                        <option value="PENDIENTE">PENDIENTE</option>
+                                        <option value="FECHA TENTATIVA">FECHA TENTATIVA</option>
                                         <option value="CERRADA">CERRADA</option>
                                         <option value="NO APLICA">NO APLICA</option>
                                     </select>
@@ -551,7 +551,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2" class="timeline-badge"><span>OBSERVACIONES</span></td>
+                                <td colspan="2" class="timeline-badge"><span>OBSERVACIONES PENDIENTE CLIENTE</span></td>
                                 <td colspan="4">
                                     <textarea name="observaciones" id="observaciones_genrales" rows="2" cols="100"></textarea>
                                 </td>
@@ -1268,7 +1268,7 @@
                                                             <option value="6">MPLS Avanzado Intranet con Backup de Ultima Milla y Router - NDS1</option>
                                                             <option value="7">MPLS Avanzado Extranet</option>
                                                             <option value="8">Backend MPLS </option>
-                                                            <option value="8">MPLS Avanzado con Componente Datacenter Claro</option>
+                                                            <option value="9">MPLS Avanzado con Componente Datacenter Claro</option>
                                                             <option value="10">MPLS Transaccional 3G</option>
                                                             <!-- servicios nuevos -->
                                                             <option value="11">Adición Marquillas Aeropuerto el Dorado Opain</option>

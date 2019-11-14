@@ -227,6 +227,9 @@ class OtPadre extends CI_Controller {
             $condicion = " WHERE `user`.n_group = 'GESTION OTS PROYECTOS'";
         }
         
+        date_default_timezone_set("America/Bogota");
+        $fecha_actual = date('Y-m-d');
+        
         $ListOtPadre_table = $this->datatables->init();
         $ListOtPadre_table->query("
             SELECT
@@ -282,7 +285,7 @@ class OtPadre extends CI_Controller {
             otp.ultimo_envio_reporte*
             cant_oths*");
         
-        $ListOtPadre_table->set_options('dom',"'frtiS'")
+        $ListOtPadre_table->set_options('dom',"'Blfrtip'")
                         ->set_options('scrollY','500')
                         ->set_options('scrollX', '0')
                         ->set_options('columnDefs','[
@@ -337,26 +340,54 @@ class OtPadre extends CI_Controller {
                             {
                               "targets": [ 21 ],
                               "visible": false
+                            },
+                            {
+                              "targets": [ 22 ],
+                              "visible": false
                             }
                             ]')
                         ->set_options('bFilter','true')
-                        ->set_options('initComplete','function activar(){
+                        ->set_options('initComplete','fun(ction activar(){
                                     scripPlus.init();
                                     $("#table_otPadreList").click(function(){
-                                      $(".btnoths ").off(\'click\');
-                                      $(".hitos-otp").off(\'click\');
-                                      scripPlus.events();
+                                        $(".btnoths ").off(\'click\');
+                                        $(".hitos-otp").off(\'click\');
+                                        scripPlus.events();
                                     });
-                                  }')
+                                }')
                         ->set_options('scroller','{
                             loadingIndicator: true
-                          }')
-                          ->set_options('"createdRow"','function(row, data, dataIndex) {
-                                if (data["cant_oths"] == 0) {
+                        }')
+//                        ->set_options('dom','Blfrtip')
+                        ->set_options('buttons',"[
+                                                {
+                                                    text: 'Excel <span class=\"fa fa-file-excel-o\"></span>',
+                                                    className: 'btn-cami_cool',
+                                                    extend: 'excel',
+                                                    title: 'ZOLID EXCEL',
+                                                    filename: 'zolid - ' + $fecha_actual
+                                                },
+                                                {
+                                                    text: 'Imprimir <span class=\"fa fa-print\"></span>',
+                                                    className: 'btn-cami_cool',
+                                                    extend: 'print',
+                                                    title: 'Reporte Zolid',
+                                                },
+                                                {
+                                                    text: '<span class=\"fa fa-envelope-o\" aria-hidden=\"true\"></span> Reporte Actualización',
+                                                    className: 'btn-cami_cool btn-rpt_act',
+//                                                    action: eventos.otp_seleccionadas,
+                                                }
+                                        ]")
+                        ->set_options('"createdRow"','function(row, data, dataIndex) {
+                                if (data[21] == 0) {
                                     $(row).css("background-color", "#f50e0e69");
                                 }
                             }')
-                          ->set_options('select','true');
+                        ->set_options('"drawCallback"','function( settings, json){
+                                    queryValue = settings["json"]["query"];
+                                }')
+                        ->set_options('select','true');
 
         $ListOtPadre_table->delimitador("where");
         $ListOtPadre_table
@@ -386,73 +417,76 @@ class OtPadre extends CI_Controller {
                 ->column('Ultimo Reporte Enviado', 'ultimo_envio_reporte')//20--
                 ->column('Cantidad OTH', 'cant_oths')//21--
                 ->column('Observaciónes dejadas', 'observacion', function($data, $row){
-                    $observacion = ($data->observacion == null) ? '' : $data->observacion;
+//                    echo '<pre>';var_dump($row['observacion']);echo '</pre>';
+                    $observacion = ($row['observacion'] == null) ? '' : $row['observacion'];
                     $input = "<textarea class=\"obs_cod_resolucion\" spellcheck=\"false\">$observacion</textarea>";
                     return $input;
                 })//22
-//                ->column('ultimo envio', function($data){
-//                    $inicio = strtotime(date('Y-m-d'));
-//                    $fin = strtotime($data->ultimo_envio_reporte);
-//                    $dif = $fin - $inicio;
-//                    $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
-//                    return ceil($diasFalt);
-//                })//23
-//                ->column('No. OTHs', function($data){
-//                    $num = '';
-//                    if ($data->cant_oths != 0) {
-//                        $num += `<span class="styleNum" title="$data->cant_oths OTHs Asociadas" >$data->cant_oths</span>`;
-//                    } else {
-//                        $num += `<span class="styleNum noOTHs" title="sin OTHs">$data->cant_oths</span>`;
-//                    }
-//                    return $num;
-//                })//24
-//                ->column('Opc', function($data){
-//                    $span = '';
-//                    $title = '';
-//                    $cierreKo = '';
-//                    $icon = '';
-//                    $reportInicio = ''; //si tiene reporte de inicio y tiene emails enviados
-//
-//                    //si existe una OTP con contador de reportes enviados, aparecerá, de lo contrario, pondrá el icono del ojo
-//                    if ($data->MAIL_enviados) {
-//                        if ($data->MAIL_enviados != 0) {
-//                            $reportInicio = ($data->cant_mails != 0) ? "<span class='fa fa-fw '>| &nbsp" . $data->cant_mails . "</span> <span style='color: #7eec7c;' class='fa fa-check-circle'  aria-hidden='true'></span>" : '';
-//                            $span = "<span class='fa fa-fw'>" . $data->MAIL_enviados . "</span>";
-//                            $icon = "<span class='fa fa-envelope' aria-hidden='true' style='color: #fff700;'></span>";
-//                            $title = ($data->MAIL_enviados == 1) ? $data->MAIL_enviados . " correo enviado" : $data->MAIL_enviados . " correos enviados";
-//                        } else if ($data->cant_mails != 0) {
-//                            $span = "<span class='fa fa-fw '>" . $data->cant_mails . "</span>";
-//                            $reportInicio = "<span style='color: #7eec7c;' class='fa fa-check-circle' aria-hidden='true'></span>";
-//                            $title = ($data->cant_mails == 1) ? $data->cant_mails . " correo enviado" : $data->cant_mails . " correos enviados";
-//                        } else {
-//                            $span = "<span class='fa fa-fw fa-eye'></span>";
-//                            $title = "ver OT Hijas";
-//                        }
-//                    } else {
-//                        //SI no es reporte de act. entra acá, pero si lo es, entrará arriba
-//                        if ($data->cant_mails != 0) {
-//                            $span = "<span class='fa fa-fw '>" . $data->cant_mails . "</span>";
-//                            $title = ($data->cant_mails == 1) ? $data->cant_mails . " correo enviado" : $data->cant_mails . " correos enviados";
-//                        } else {
-//                            $span = "<span class='fa fa-fw fa-eye'></span>";
-//                            $title = "ver OT Hijas";
-//                        }
-//                    }
-//                    if ($data->finalizo != null) {
-//                        $cierreKo = "<a class='btn btn-default btn-xs product-otp btn_datatable_cami' data-btn='cierreKo' title='Ver Detalle Cierre KO'><span class='fa fa-fw fa-info-circle'></span></a>";
-//                    }
-//
-//                    $color = ($data->id_hitos) ? 'clr_lime' : '';
-//                    $botones = "<div class='btn-group-vertical' style=''>"
-//                            . "<a class='btn btn-default btn-xs btnoths btn_datatable_cami' title='" . $title . "'>" . $icon . $span . $reportInicio . "</a>"
-//                            // + "<a class='btn btn-default btn-xs edit-otp btn_datatable_cami' title='Editar Ots'><span class='glyphicon glyphicon-save'></span></a>"
-//                            . "<a class='btn btn-default btn-xs hitos-otp btn_datatable_cami' data-btn='hito' title='Hitos Ots'><span class='glyphicon glyphicon-header " . $color . "'></span></a>"
-//                            . $cierreKo
-//                            . "</div>";
-//                    return $botones;
-//                })//25
+                ->column('ultimo envio', 'ultimo_envio_reporte', function($data, $row){
+                    $inicio = strtotime(date('Y-m-d'));
+                    $fin = strtotime($row['ultimo_envio_reporte']);
+                    $dif = $inicio - $fin;
+                    $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
+                    return ceil($diasFalt);
+                })//23
+                ->column('No. OTHs', 'cant_oths', function($data, $row){
+                    $num = '';
+                    if ($row['cant_oths'] != 0) {
+                        $num .= "<span class=\"styleNum\" title=\" " . $row['cant_oths'] . " OTHs Asociadas\" style=\"text-align: center;\">" . $row['cant_oths'] . "</span>";
+                    } else {
+                        $num .= "<span class=\"styleNum noOTHs\" title=\"sin OTHs\" style=\"text-align: center;\">" . $row['cant_oths'] . "</span>";
+                    }
+                    return $num;
+                })//24
+                ->column('Opc', 'cant_oths', function($data, $row){
+                    $span = '';
+                    $title = '';
+                    $cierreKo = '';
+                    $icon = '';
+                    $reportInicio = ''; //si tiene reporte de inicio y tiene emails enviados
+
+                    //si existe una OTP con contador de reportes enviados, aparecerá, de lo contrario, pondrá el icono del ojo
+                    if ($row['MAIL_enviados']) {
+                        if ($row['MAIL_enviados'] != 0) {
+                            $reportInicio = ($row['cant_mails'] != 0) ? "<span class='fa fa-fw '>| &nbsp" . $row['cant_mails'] . "</span> <span style='color: #7eec7c;' class='fa fa-check-circle'  aria-hidden='true'></span>" : '';
+                            $span = "<span class='fa fa-fw'>" . $row['MAIL_enviados'] . "</span>";
+                            $icon = "<span class='fa fa-envelope' aria-hidden='true' style='color: #fff700;'></span>";
+                            $title = ($row['MAIL_enviados'] == 1) ? $row['MAIL_enviados'] . " correo enviado" : $row['MAIL_enviados'] . " correos enviados";
+                        } else if ($row['cant_mails'] != 0) {
+                            $span = "<span class='fa fa-fw '>" . $row['cant_mails'] . "</span>";
+                            $reportInicio = "<span style='color: #7eec7c;' class='fa fa-check-circle' aria-hidden='true'></span>";
+                            $title = ($row['cant_mails'] == 1) ? $row['cant_mails'] . " correo enviado" : $row['cant_mails'] . " correos enviados";
+                        } else {
+                            $span = "<span class='fa fa-fw fa-eye'></span>";
+                            $title = "ver OT Hijas";
+                        }
+                    } else {
+                        //SI no es reporte de act. entra acá, pero si lo es, entrará arriba
+                        if ($row['cant_mails'] != 0) {
+                            $span = "<span class='fa fa-fw '>" . $row['cant_mails'] . "</span>";
+                            $title = ($row['cant_mails'] == 1) ? $row['cant_mails'] . " correo enviado" : $row['cant_mails'] . " correos enviados";
+                        } else {
+                            $span = "<span class='fa fa-fw fa-eye'></span>";
+                            $title = "ver OT Hijas";
+                        }
+                    }
+                    if ($row['finalizo'] != null) {
+                        $cierreKo = "<a class='btn btn-default btn-xs product-otp btn_datatable_cami' data-btn='cierreKo' title='Ver Detalle Cierre KO'><span class='fa fa-fw fa-info-circle'></span></a>";
+                    }
+
+                    $color = ($row['id_hitos']) ? 'clr_lime' : '';
+                    $botones = "<div class='btn-group-vertical' style=''>"
+                            . "<a class='btn btn-default btn-xs btnoths btn_datatable_cami' title='" . $title . "'>" . $icon . $span . $reportInicio . "</a>"
+                            // + "<a class='btn btn-default btn-xs edit-otp btn_datatable_cami' title='Editar Ots'><span class='glyphicon glyphicon-save'></span></a>"
+                            . "<a class='btn btn-default btn-xs hitos-otp btn_datatable_cami' data-btn='hito' title='Hitos Ots'><span class='glyphicon glyphicon-header " . $color . "'></span></a>"
+                            . $cierreKo
+                            . "</div>";
+                    return $botones;
+                })//25
                 ;
-        $ListOtPadre_table->script("<script type=\"text/javascript\" defer=\"defer\">
+        $ListOtPadre_table->script("
+                            <script type=\"text/javascript\" defer=\"defer\">
+                                $(function () {
                                     scripPlus = {
                                         init: function() {
                                             scripPlus.events();
@@ -463,52 +497,58 @@ class OtPadre extends CI_Controller {
                                             $('#contenido_tablas').on('click', 'a.product-otp', scripPlus.onClickBtnCloseOtp);
                                         },
                                         onClickShowModal: function () {
-                                                var aLinkLog = $(this);
-                                                var trParent = aLinkLog.parents('tr');
-                                                var tabla = aLinkLog.parents('table').attr('id');
-                                                var record;
-                                                switch (tabla) {
-                                                    case 'table_otPadreList':
-                                                        record = vista.table_otPadreList.row(trParent).data();
-                                                        break;
-                                                    case 'table_otPadreListHoy':
-                                                        record = hoy.table_otPadreListHoy.row(trParent).data();
-                                                        break;
-                                                    case 'table_otPadreListVencidas':
-                                                        record = vencidas.table_otPadreListVencidas.row(trParent).data();
-                                                        break;
-                                                    case 'table_list_opc':
-                                                        record = lista.tableOpcList.row(trParent).data();
-                                                        break;
-                                                    case 'table_otPadreListEmails':
-                                                        record = emails.table_otPadreListEmails.row(trParent).data();
-                                                        break;
-                                                    case 'table_reporte_actualizacion':
-                                                        record = reporte_act.table_reporte_actualizacion.row(trParent).data();
-                                                        break;
-                                                }
+                                            var aLinkLog = $(this);
+                                            var trParent = aLinkLog.parents('tr');
+                                            var tabla = aLinkLog.parents('table').attr('id');
+                                            var record;
+                                            switch (tabla) {
+                                                case 'table_otPadreList':
+//                                                    record = vista.table_otPadreList.row(trParent).data();
+                                                    record = erTable_table_otPadreList.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListHoy':
+//                                                    record = hoy.table_otPadreListHoy.row(trParent).data();
+                                                    record = erTable_table_otPadreListHoy.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListVencidas':
+//                                                    record = vencidas.table_otPadreListVencidas.row(trParent).data();
+                                                    record = erTable_table_otPadreListVencidas.row(trParent).data();
+                                                    break;
+                                                case 'table_list_opc':
+//                                                    record = lista.tableOpcList.row(trParent).data();
+                                                    record = erTable_tableOpcList.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListEmails':
+//                                                    record = emails.table_otPadreListEmails.row(trParent).data();
+                                                    record = erTable_table_otPadreListEmails.row(trParent).data();
+                                                    break;
+                                                case 'table_reporte_actualizacion':
+//                                                    record = reporte_act.table_reporte_actualizacion.row(trParent).data();
+                                                    record = erTable_table_reporte_actualizacion.row(trParent).data();
+                                                    break;
+                                            }
 
-                                                scripPlus.showModalOthDeOthp(record);
+                                            scripPlus.showModalOthDeOthp(record);
                                         },
                                         showModalOthDeOthp: function (data) {
-                                            listoth.getothofothp(data);
+                                            scripPlus.getothofothp(data);
                                             // resetea el formulario y lo deja vacio
                                             document.getElementById(\"formModalOTHS\").reset();
                                             //pinta el titulo del modal y cambia dependiendo de la otp seleccionada
-                                            $('#myModalLabel').html('<strong> Lista OTH de la OTP N.<span id=\"NroOTPSelect\">' + data.k_id_ot_padre + '</span></strong>');
+                                            $('#myModalLabel').html('<strong> Lista OTH de la OTP N.<span id=\"NroOTPSelect\">' + data[0] + '</span></strong>');
                                             $('#modalOthDeOtp').modal('show');
                                         },
                                         getothofothp: function (obj) {
                                             //metodo ajax (post)
                                             $.post(baseurl + '/OtPadre/c_getOthOfOtp',
                                                     {
-                                                        idOtp: obj.k_id_ot_padre
+                                                        idOtp: obj[0]
                                                     },
                                                     // funcion que recibe los datos
                                                             function (data) {
                                                                 // convertir el json a objeto de javascript
                                                                 var obj = JSON.parse(data);
-                                                                listoth.printTable(obj);
+                                                                scripPlus.printTable(obj);
                                                             }
                                                     );
                                                 },
@@ -628,11 +668,65 @@ class OtPadre extends CI_Controller {
                                             $('#modalHitosOtp').modal('show');
                                         },
                                         
+                                        //pintar tabla
+                                        printTable: function (data) {
+                                            //funcion para limpiar el modal
+                                            if (scripPlus.table_oths_otp) {
+                                                var tabla = scripPlus.table_oths_otp;
+                                                tabla.clear().draw();
+                                                tabla.rows.add(data);
+                                                tabla.columns.adjust().draw();
+                                                return;
+                                            }
+
+                                            // nombramos la variable para la tabla y llamamos la configuiracion
+                                            scripPlus.table_oths_otp = $('#table_oths_otp').DataTable(scripPlus.configTable(data, [
+
+                                                {title: 'OTH', data: 'id_orden_trabajo_hija'},
+                                                {title: 'Tipo OTH', data: 'ot_hija'},
+                                                {title: 'Estado OTH', data: 'estado_orden_trabajo_hija'},
+                                                {title: 'Recurrente', data: 'MRC'},
+                                                {title: 'Fecha Compromiso', data: 'fecha_compromiso'},
+                                                {title: 'Fecha Programacion', data: 'fecha_programacion'},
+                                                {title: 'Opc', data: scripPlus.getButtonsOth},
+                                            ]));
+                                        },
+                                        // Datos de configuracion del datatable
+                                        configTable: function (data, columns, onDraw) {
+                                            return {
+                                                data: data,
+                                                columns: columns,
+                                                //lenguaje del plugin
+                                                columnDefs: [{
+                                                        defaultContent: \"\",
+                                                        targets: -1,
+                                                        orderable: false,
+                                                    }],
+                                                order: [[0, 'asc']],
+                                                drawCallback: onDraw
+                                            }
+                                        },
+                                        getButtonsOth: function (obj) {
+                                            var botones = '<div class=\"btn-group\" style=\"display: inline-flex;\">';
+                                            botones += '<a class=\"btn btn-default btn-xs ver-det btn_datatable_cami\" title=\"Editar Oth\"><span class=\"fa fa-fw fa-edit\"></span></a>';
+                                            // este era el botón privado de cada oth
+                                            // if (obj.function != 0) {
+                                            //     if (obj.c_email > 0) {
+                                            //         botones += '<a class=\"btn btn-default btn-xs ver-log btn_datatable_cami\" title=\"Historial\"><span class=\"fa fa-fw\">' + obj.c_email + '</span></a>';
+                                            //     } else {
+                                            //         botones += '<a class=\"btn btn-default btn-xs ver-log btn_datatable_cami\" title=\"Historial\"><span class=\"fa fa-fw fa-info\"></span></a>';
+                                            //     }
+                                            // }
+
+                                            botones += '</div>';
+                                            return botones;
+                                        }
+                                        
                                     };
 
                                     scripPlus.init();
-
-                                </script>");
+                                });
+                            </script>");
                 
         $this->datatables->create('table_otPadreList', $ListOtPadre_table);
         */                  
@@ -1275,6 +1369,28 @@ class OtPadre extends CI_Controller {
 
         /* print_r($direccionCierreOtp);exit(); */
 
+        $encabezado_timeline = '
+            <p  style="margin-right:0cm; margin-left:0cm; font-size:12pt; font-family:&quot;Times New Roman&quot;,serif; margin:0cm; margin-bottom:.0001pt; text-align:left">
+                <b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit">
+                    <span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">
+                        <img src="' . URL::base() . "/assets/images/linea_roja.png" . '"  style="width: 100%;" height="10">
+                    </span>
+                </b><br>
+            </p>
+            <p  style="margin-right:0cm; margin-left:0cm; font-size:12pt; font-family:&quot;Times New Roman&quot;,serif; margin:0cm; margin-bottom:.0001pt; margin-left:25%; text-align:left">
+                <span style="z-index:251659264; left:0px; margin-top:29px; width:760px; height:7px"></span>
+                <b>
+                    <span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">ACTIVIDADES DE INSTALACION DE SU SERVICIO</span>
+                </b>
+            </p>
+            <p  style="margin-right:0cm; margin-left:0cm; font-size:12pt; font-family:&quot;Times New Roman&quot;,serif; margin:0cm; margin-bottom:.0001pt; text-align:left">
+                <b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit">
+                    <span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">
+                        <img src="' . URL::base() . "/assets/images/linea_roja.png" . '"  style="width: 100%;" height="10">
+                    </span>
+                </b><br>
+            </p>';
+        
         $template .= '
                 <div dir="ltr">
                     <table class="x_m_-1360814042998563018MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="1660" style="width: 829.95pt; border-collapse: collapse; transform: scale(0.779982, 0.779982); transform-origin: left top;" min-scale="0.7799819657348963">
@@ -1338,6 +1454,10 @@ class OtPadre extends CI_Controller {
                 case 'ENTREGA SERVICIO':
                     $observaciones = $hitosotp[0]->observaciones_entrega_servicio;
                     break;
+                
+                case 'PENDIENTE CLIENTE':
+                    $observaciones = $hitosotp[0]->observaciones_genrales;
+                    break;
             }
            
             $template .= '
@@ -1356,18 +1476,18 @@ class OtPadre extends CI_Controller {
                                 <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">' . $infOtp->direccion . '<u></u><u></u></span></p>
                             </td>
                             <td width="150" valign="bottom" style="width:75.0pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 3.5pt 0cm 3.5pt; height:60.0pt">
-                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">' . $hitosotp[0]->n_estado_voc . ' <br>' . $hitosotp[0]->f_voc . '<u></u><u></u></span></p>
+                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">' . (($hitosotp[0]->n_estado_voc == '') ? 'NO APLICA VISITA OBRA CIVIL' : $hitosotp[0]->n_estado_voc . ' <br>' . $hitosotp[0]->f_voc) . '<u></u><u></u></span></p>
                             </td>
                             <td width="170" valign="bottom" style="width:85.15pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 3.5pt 0cm 3.5pt; height:60.0pt">
-                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">' . $hitosotp[0]->estado_eoc . ' <br>' . $hitosotp[0]->f_eoc . '
+                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">' . (($hitosotp[0]->estado_eoc == '') ? 'NO APLICA OBRA CIVIL' : $hitosotp[0]->estado_eoc . ' <br>' . $hitosotp[0]->f_eoc) . '
                                 <u></u><u></u></span></p>
                             </td>
                             <td width="150" valign="bottom" style="width:75.0pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 3.5pt 0cm 3.5pt; height:60.0pt">
-                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">&nbsp; ' . $hitosotp[0]->estado_em . ' <br>' . $hitosotp[0]->f_em . '
+                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">&nbsp; ' . (($hitosotp[0]->estado_em == '') ? 'NO APLICA EMPALMES' : $hitosotp[0]->estado_em . ' <br>' . $hitosotp[0]->f_em) . '
                                 <u></u><u></u></span></p>
                             </td>
                             <td width="178" valign="bottom" style="width:89.0pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 3.5pt 0cm 3.5pt; height:60.0pt">
-                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">&nbsp; ' . $hitosotp[0]->estado_entrega_servicio . ' <br>' . $hitosotp[0]->f_entrega_servicio . '
+                                <p class="x_MsoNormal"><span style="font-size:10.0pt; font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;; color:black">&nbsp; ' . (($hitosotp[0]->estado_entrega_servicio == '') ? 'NO APLICA ENTREGA SERVICIO' : $hitosotp[0]->estado_entrega_servicio . ' <br>' . $hitosotp[0]->f_entrega_servicio) . '
                                 <u></u><u></u></span></p>
                             </td>
                             <td width="360" valign="bottom" style="width:180.0pt; border-top:none; border-left:none; border-bottom:solid windowtext 1.0pt; border-right:solid windowtext 1.0pt; padding:0cm 3.5pt 0cm 3.5pt; height:60.0pt">
@@ -1375,25 +1495,33 @@ class OtPadre extends CI_Controller {
                                 <u></u><u></u></span></p>
                             </td>
                         </tr>';
-//            print_r($hitosotp[0]->estado_entrega_servicio == '');exit();
+//            print_r((($hitosotp[0]->n_estado_voc == '') ? '' : (($hitosotp[0]->n_estado_voc == 'PENDIENTE') ? '<img src="' . URL::base() . "/assets/images/VisitaObraCivil_gris.png" . '"  width="auto" height="110">' : '<img src="' . URL::base() . "/assets/images/VisitaObraCivil_verde.png" . '"  width="auto" height="110">' )));exit();
             $timeline .= '<div dir="ltr">
                             <ul style="font-family:Calibri,Helvetica,sans-serif; margin-bottom:0cm">
-                                <li><span style="font-family:&quot;Berlin Sans FB&quot;,sans-serif; color:black; background:white">OT</span>
-                                <span style="font-size:10.0pt; color:black; border:none windowtext 1.0pt; padding:0cm">
+                                <li style="list-style-type: none; display: flex; flex-wrap: nowrap;">
+                                ' . (($hitosotp[0]->actividad_actual != 'PENDIENTE CLIENTE') ? '' : '<img src="' . URL::base() . "/assets/images/pendienteCliente.png" . '"  width="auto" height="40">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' ) . '
+                                <span style="font-size:15.0pt; font-family:&quot;Berlin Sans FB&quot;,sans-serif; color:black; background:white">OT&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span style="font-size:15.0pt; color:black; border:none windowtext 1.0pt; padding:0cm">
                                 ' . $idOtp . ' – ' . $infOtp->direccion . '</span></li>
                             </ul>
                             <p style="font-family:Calibri,sans-serif; margin:0cm 0cm 0.0001pt 36pt; font-size:11pt; line-height:normal">
                                 <span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif"></span>
                             </p>
-                            <ul style="margin-bottom:0cm">
-                                <ul style="font-family:Calibri,Helvetica,sans-serif; margin-bottom:0cm">
-                                    ' . (($hitosotp[0]->n_estado_voc == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Visita obra civil<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->n_estado_voc . '</span></li>') . '
-                                    ' . (($hitosotp[0]->estado_eoc == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Visita ejecución obra civil<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->estado_eoc . '</span></li>') . '
-                                    ' . (($hitosotp[0]->estado_em == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Empalmes<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->estado_em . '</span></li>') . '
-                                    ' . (($hitosotp[0]->estado_entrega_servicio == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Entrega servicio<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->estado_entrega_servicio . '</span></li>') . '
-                                    <li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Observaciones<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->observaciones_genrales . '</span></li>
-                                </ul>
-                            </ul>
+                            <!--<div dir="ltr" style="display: flex; flex-wrap: nowrap; flex-direction: row;">
+                                ' . (($hitosotp[0]->n_estado_voc == '') ? '' : (($hitosotp[0]->n_estado_voc == 'PENDIENTE') ? '<div><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Visita Obra Civil</span></b><br><img src="' . URL::base() . "/assets/images/VisitaObraCivil_gris.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_voc . '</span></b></div>' : '<div><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Visita Obra Civil</span></b><br><img src="' . URL::base() . "/assets/images/VisitaObraCivil_verde.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_voc . '</span></b></div>' )) . '
+                                ' . (($hitosotp[0]->estado_eoc == '') ? '' : (($hitosotp[0]->estado_eoc == 'PENDIENTE') ? '<div><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Ejecución Obra Civil</span></b><br><img src="' . URL::base() . "/assets/images/ejecucionObraCilvil_gris.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_eoc . '</span></b></div>' : '<div><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Ejecución Obra Civil</span></b><br><img src="' . URL::base() . "/assets/images/ejecucionObraCivil_verde.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_eoc . '</span></b></div>' )) . '
+                                ' . (($hitosotp[0]->estado_em == '') ? '' : (($hitosotp[0]->estado_em == 'PENDIENTE') ? '<div><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Empalmes</span></b><br><img src="' . URL::base() . "/assets/images/Empalme_gris.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_em . '</span></b></div>' : '<div><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Empalmes</span></b><br><img src="' . URL::base() . "/assets/images/Empalme_verde.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_em . '</span></b></div>' )) . '
+                                ' . (($hitosotp[0]->estado_entrega_servicio == '') ? '' : (($hitosotp[0]->estado_entrega_servicio == 'PENDIENTE') ? '<div><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Entrega Servicio</span></b><br><img src="' . URL::base() . "/assets/images/entregaServicio_gris.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_entrega_servicio . '</span></b></div>' : '<div><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Entrega Servicio</span></b><br><img src="' . URL::base() . "/assets/images/entregaServicio_verde.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_entrega_servicio . '</span></b></div>' )) . '
+                            </div>-->
+                            <br>
+                            <table>
+                                <tr>
+                                    ' . (($hitosotp[0]->n_estado_voc == '') ? '' : (($hitosotp[0]->n_estado_voc == 'FECHA TENTATIVA') ? '<td align="center"><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Visita Obra Civil</span></b><br><img src="' . URL::base() . "/assets/images/VisitaObraCivil_gris.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_voc . '</span></b></td>' : '<td align="center"><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Visita Obra Civil</span></b><br><img src="' . URL::base() . "/assets/images/VisitaObraCivil_verde.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_voc . '</span></b></td>' )) . '
+                                    ' . (($hitosotp[0]->estado_eoc == '') ? '' : (($hitosotp[0]->estado_eoc == 'FECHA TENTATIVA') ? '<td align="center"><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Ejecución Obra Civil</span></b><br><img src="' . URL::base() . "/assets/images/ejecucionObraCilvil_gris.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_eoc . '</span></b></td>' : '<td align="center"><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Ejecución Obra Civil</span></b><br><img src="' . URL::base() . "/assets/images/ejecucionObraCivil_verde.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_eoc . '</span></b></td>' )) . '
+                                    ' . (($hitosotp[0]->estado_em == '') ? '' : (($hitosotp[0]->estado_em == 'FECHA TENTATIVA') ? '<td align="center"><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Empalmes</span></b><br><img src="' . URL::base() . "/assets/images/Empalme_gris.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_em . '</span></b></td>' : '<td align="center"><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Empalmes</span></b><br><img src="' . URL::base() . "/assets/images/Empalme_verde.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_em . '</span></b></td>' )) . '
+                                    ' . (($hitosotp[0]->estado_entrega_servicio == '') ? '' : (($hitosotp[0]->estado_entrega_servicio == 'FECHA TENTATIVA') ? '<td align="center"><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Entrega Servicio</span></b><br><img src="' . URL::base() . "/assets/images/entregaServicio_gris.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_entrega_servicio . '</span></b></td>' : '<td align="center"><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Entrega Servicio</span></b><br><img src="' . URL::base() . "/assets/images/entregaServicio_verde.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_entrega_servicio . '</span></b></td>' )) . '
+                                </tr>
+                            </table>
                         </div>
                         <br><br>
                         ';
@@ -1404,6 +1532,15 @@ class OtPadre extends CI_Controller {
                 </table>
             </div>
             <br>
+            <div dir="ltr">
+                <p style="box-sizing:border-box; outline:0px!important; margin:0cm 0cm 0.0001pt 0cm; font-size:12pt; font-family:\'Times New Roman\',serif; min-height:14px; font-weight:normal; orphans:auto; background-color:rgb(255,255,255)">
+                <strong style="box-sizing:border-box; outline:0px!important; font-weight:700"><em style="box-sizing:border-box; outline:0px!important"><span style="box-sizing:border-box; outline:0px!important; font-size:14px; font-family:Arial,sans-serif">Nota: La fecha de
+                entrega del servicio esta&nbsp;</span></em></strong><strong style="box-sizing:border-box; outline:0px!important; font-weight:700"><em style="box-sizing:border-box; outline:0px!important"><span lang="ES" style="box-sizing:border-box; outline:0px!important; font-size:14px; font-family:Arial,sans-serif">sujeta
+                a cambios en caso de tener algún inconveniente o adelantos en el proceso de instalación.</span></em></strong></p>
+                <br>
+                <p style="box-sizing:border-box; outline:0px!important; margin:0cm 0cm 0.0001pt 0cm; font-size:12pt; font-family:\'Times New Roman\',serif; min-height:14px; font-weight:normal; orphans:auto; text-align:justify; background-color:rgb(255,255,255)">
+                <span style="box-sizing:border-box; outline:0px!important; font-family:\'Arial Narrow\',sans-serif">De acuerdo a lo anterior, nos permitimos informar:</span></p>
+            </div>
             <div dir="ltr">
                 <ul style="font-family:Calibri,Helvetica,sans-serif; margin-bottom:0cm">
                     <li>
@@ -1422,9 +1559,9 @@ class OtPadre extends CI_Controller {
             <!--<p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
             <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Señor(a):</span></p>
             <p class="x_MsoNormal" style="text-align:justify"><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $senior . '</span></strong></p>-->
-            <p class="x_MsoNormal" style="text-align:justify"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>
+            <!--<p class="x_MsoNormal" style="text-align:justify"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>-->
             <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Comprometidos con el servicio y el cumplimiento de sus solicitudes me permito notificar los avances de los asuntos en curso. Es de suma importancia que sea revisado y nos retroalimente con &nbsp;sus comentarios, ya que al término de 2 días hábiles este reporte se dará por aceptado.</span></p>
-            <p class="x_MsoNormal">&nbsp;</p>
+            <!--<p class="x_MsoNormal">&nbsp;</p>-->
             <!--<p class="x_MsoListParagraph" style="text-indent:-18.0pt; text-autospace:none"><span style="font-family: Symbol, serif, EmojiFont;"><span style=""><span style="font: 7pt &quot;Times New Roman&quot;, serif, EmojiFont;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><strong><span lang="EN-US" style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;OT DESTINO &nbsp;</span></strong><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . substr($asunOtp, 0, -2) . '</span></strong><strong><span lang="EN-US" style="font-family: Arial, sans-serif, serif, EmojiFont;">: </span></strong><span lang="EN-US" style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $infOtp->servicio . ' </span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"><strong></strong></span></p>
             <p class="x_MsoNormal" style="text-autospace:none"><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Ciudad: </span></strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $infOtp->ciudad . '</span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"></span></p>
             <p class="x_MsoNormal" style="text-autospace:none"><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Dirección de servicio: </span></strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $direccionCierreOtp . '&nbsp; </span><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;"></span></strong></p>
@@ -1433,35 +1570,34 @@ class OtPadre extends CI_Controller {
             <p class="x_MsoNormal" style="text-align:justify"><span style="text-decoration:underline"><span lang="ES" style="font-family: Arial, sans-serif, serif, EmojiFont;">De acuerdo a lo anterior, solicitamos de su colaboración confirmado la siguiente información:</span></span></p>
             <p class="x_MsoListParagraph" style="text-indent:-18.0pt"><span style="font-family: Symbol, serif, EmojiFont;"><span style="">·<span style="font: 7pt &quot;Times New Roman&quot;, serif, EmojiFont;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"><br><b>Observaciones: </b>&nbsp;' . $observacionesEmail . '</span></p>
             <p class="x_MsoListParagraph"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>-->
-            <br><br>';
+            <!--<br><br>-->';
 
         $contacto = '
             <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Durante todo el Proceso de Instalación puede contactar a:</span></p>
             <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>
-            <p class="x_MsoNormal"><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Nivel de Contacto 1:</span></strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;"> Para cualquier duda o inquietud sobre el proceso.</span></p>
-            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Ingeniero Implementación Responsable Cuenta: &nbsp;' . $ingeniero . '</span></p>
-            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Ingeniero Aprovisionamiento Estándar</span></p>
-            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Celular: </span><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $celIngeniero . '</span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"></span></p>
-            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Correo electrónico: </span><span style="font-family: Arial, sans-serif, serif, EmojiFont; color: rgb(79, 129, 189);"><a href="mailto:' . $email . '" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable"><span style="color:#4F81BD">' . $email . '</span></a></span><span style="font-family: Arial, sans-serif, serif, EmojiFont; color: black;">&nbsp;</span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"></span></p>
-            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>
+            <p class="x_MsoNormal" style="margin: 0px;"><strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Nivel de Contacto 1:</span></strong><span style="font-family: Arial, sans-serif, serif, EmojiFont;"> Para cualquier duda o inquietud sobre el proceso.</span></p>
+            <p class="x_MsoNormal" style="margin: 0px;"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Ingeniero Implementación Responsable Cuenta: &nbsp;' . $ingeniero . '</span></p>
+            <p class="x_MsoNormal" style="margin: 0px;"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Ingeniero Aprovisionamiento Estándar</span></p>
+            <p class="x_MsoNormal" style="margin: 0px;"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Celular: </span><span style="font-family: Arial, sans-serif, serif, EmojiFont;">' . $celIngeniero . '</span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"></span></p>
+            <p class="x_MsoNormal" style="margin: 0px;"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Correo electrónico: </span><span style="font-family: Arial, sans-serif, serif, EmojiFont; color: rgb(79, 129, 189);"><a href="mailto:' . $email . '" target="_blank" rel="noopener noreferrer" data-auth="NotApplicable"><span style="color:#4F81BD">' . $email . '</span></a></span><span style="font-family: Arial, sans-serif, serif, EmojiFont; color: black;">&nbsp;</span><span style="font-family: Arial, sans-serif, serif, EmojiFont;"></span></p>
+            
+            <p class="x_MsoNormal" style="margin: 0px;"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>
+            <p class="m_-5751456617445139844xmsonormal" style="text-align:justify; margin: 0px;"><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Nivel de Contacto 2:</span></strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;"> En caso de que no se obtenga respuesta por parte del Nivel de Contacto &nbsp;1.</span><u></u><u></u></p>
+            <p class="m_-5751456617445139844xmsonormal" style="margin: 0px;"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Coordinador Estándar: <span style="color:#1f497d">&nbsp;</span>Melani Viveros &nbsp;</span><u></u><u></u></p>
+            <p class="MsoNormal" style="margin: 0px;"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Celular:</span> 3102129290<u></u><u></u></p>
+            <p class="m_-5751456617445139844xmsonormal" style="margin: 0px;"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Correo: <span style="color:#4f81bd"> <a href="mailto:melani.viverosm.ext@claro.com.co" target="_blank"><span style="color:#4f81bd">melani.viverosm.ext@claro.<wbr>com.co</span></a> </span></span><u></u><u></u></p>
+            <p class="MsoNormal" style="margin: 0px;"><u></u>&nbsp;<u></u></p>
+            
+            <p class="m_-5751456617445139844xmsonormal" style="text-align:justify; margin: 0px;"><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Nivel de Contacto 3:</span></strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;"> En caso de que no se obtenga respuesta por parte del Nivel de Contacto &nbsp;2.</span><u></u><u></u></p>
+            <p class="m_-5751456617445139844xmsonormal" style="margin: 0px;"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Coordinador Estándar: &nbsp;Cristian Camilo Ortiz Arenas<u></u><u></u></span></p>
+            <p class="m_-5751456617445139844xmsonormal" style="margin: 0px;"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Correo: <span style="color:#4f81bd"> <a href="mailto:cristian.ortiza@claro.com.co" target="_blank"><span style="color:#4f81bd">cristian.ortiza@claro.<wbr>com.co</span></a> </span></span><u></u><u></u></p>
+            <p class="MsoNormal" style="margin: 0px;"><u></u>&nbsp;<u></u></p>
 
-
-            <p class="m_-5751456617445139844xmsonormal" style="text-align:justify"><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Nivel de Contacto 2:</span></strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;"> En caso de que no se obtenga respuesta por parte del Nivel de Contacto &nbsp;1.</span><u></u><u></u></p>
-
-            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Coordinador Estándar: <span style="color:#1f497d">&nbsp;</span>Gustavo Gonzalez &nbsp;</span><u></u><u></u></p>
-            <p class="MsoNormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Celular:</span> 3142197626 - 3203278451<u></u><u></u></p>
-            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Correo: <span style="color:#4f81bd"> <a href="mailto:gustavo.gonzalez.ext@claro.com.co" target="_blank"><span style="color:#4f81bd">gustavo.gonzalez.ext@claro.<wbr>com.co</span></a> </span></span><u></u><u></u></p>
-            <p class="MsoNormal"><u></u>&nbsp;<u></u></p>
-            <p class="m_-5751456617445139844xmsonormal" style="text-align:justify"><strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Nivel de Contacto 3:</span></strong><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;"> En caso de que no se obtenga respuesta por parte del Nivel de Contacto &nbsp;1.</span><u></u><u></u></p>
-            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Coordinador Estándar: &nbsp;Alejandra Rendon Calderon<u></u><u></u></span></p>
-            <p class="m_-5751456617445139844xmsonormal"><span style="font-family:&quot;Arial&quot;,&quot;sans-serif&quot;">Correo: <span style="color:#4f81bd"> <a href="mailto:alejandra.rendon.ext@claro.com.co" target="_blank"><span style="color:#4f81bd">alejandra.rendon.ext@claro.<wbr>com.co</span></a> </span></span><u></u><u></u></p>
-            <p class="MsoNormal"><u></u>&nbsp;<u></u></p>
-
-            <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont; color: rgb(31, 73, 125);">&nbsp;</span></p>
+            <p class="x_MsoNormal" style="margin: 0px;"><span style="font-family: Arial, sans-serif, serif, EmojiFont; color: rgb(31, 73, 125);">&nbsp;</span></p>
             <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Gracias por la atención prestada y quedo atento a sus comentarios.</span></p>
             <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>';
 
-        $res = $this->Dao_email_model->h_enviarCorreo($encabezado . $template . $timeline . $contacto, $email, 'REPORTE DE ACTUALIZACION DE ACTIVIDADES ' . strtoupper((isset($detCierreOtp->servicio) ? $detCierreOtp->servicio : $infOtp->servicio)) . ' - ' . $infOtp->n_nombre_cliente . ' / OT ' . substr($asunOtp, 0, -2));
+        $res = $this->Dao_email_model->h_enviarCorreo($encabezado . $template . $encabezado_timeline .$timeline . $contacto, $email, 'REPORTE DE ACTUALIZACION DE ACTIVIDADES ' . strtoupper((isset($detCierreOtp->servicio) ? $detCierreOtp->servicio : $infOtp->servicio)) . ' - ' . $infOtp->n_nombre_cliente . ' / OT ' . substr($asunOtp, 0, -2));
         echo json_encode($res);
     }
 
