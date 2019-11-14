@@ -659,10 +659,10 @@ class Dao_ot_padre_model extends CI_Model {
                     AND otp1.n_nombre_cliente NOT IN ('BANCO COLPATRIA RED MULTIBANCA COLPATRIA S.A', 'BANCO DAVIVIENDA S.A', 'SERVIBANCA S.A.')
                     AND otp1.orden_trabajo != 'Caso de Seguimiento'
                     -- si solo se quiere mostrar otp que tengan oth descomentariar esta seccion
-                    AND EXISTS(
-                        SELECT nro_ot_onyx FROM ot_hija AS oth1
-                        WHERE otp1.k_id_ot_padre = oth1.nro_ot_onyx
-                    )
+                    -- AND EXISTS(
+                    --     SELECT nro_ot_onyx FROM ot_hija AS oth1
+                    --     WHERE otp1.k_id_ot_padre = oth1.nro_ot_onyx
+                    -- )
 
                 ) AS menor_7,
                 (

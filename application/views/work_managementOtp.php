@@ -240,6 +240,7 @@
     </div>
 
 
+    
     <div id="reporte_actualizacion" class="tab-pane fade">
         <h3>Reportes de Actualización</h3>
         <div class="container m-b-40">

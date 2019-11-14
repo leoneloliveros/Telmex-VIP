@@ -294,6 +294,7 @@ $(function () {
                 return;
             }
 
+
             // nombramos la variable para la tabla y llamamos la configuiracion
             vista.table_otPadreList = $('#table_otPadreList').DataTable(vista.configTable(data, [
 
@@ -589,6 +590,11 @@ $(function () {
                         className: 'btn-cami_cool',
                         extend: 'excel',
                         title: 'ZOLID EXCEL',
+                        exportOptions: {
+                            modifier: {
+                                page: 'current'
+                            }
+                        },
                         filename: 'zolid ' + fecha_actual
                     },
                     {
