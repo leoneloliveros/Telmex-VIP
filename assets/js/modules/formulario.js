@@ -127,21 +127,48 @@ $(function() {
                 case 'table_otPadreList':
                     record = vista.table_otPadreList.row(trParent).data();
                     break;
+                    
                 case 'table_otPadreListHoy':
                     record = hoy.table_otPadreListHoy.row(trParent).data();
                     break;
+                    
                 case 'table_otPadreListVencidas':
                     record = vencidas.table_otPadreListVencidas.row(trParent).data();
                     break;
+                    
                 case 'table_list_opc':
                     record = lista.tableOpcList.row(trParent).data();
                     break;
+                    
                 case 'table_otPadreListEmails':
                     record = emails.table_otPadreListEmails.row(trParent).data();
                     break;
+                    
                 case 'table_oths_otp':
-                    record = scripPlus.table_oths_otp.row(trParent).data();
-                    break;
+                    var pestania = $('ul#pestania').find('li.active').attr('tabla');
+                    if (pestania == 'table_reporte_actualizacion') {
+                        record = listoth.table_oths_otp.row(trParent).data();
+                    } else {
+                        var script = $('ul#pestania').find('li.active').attr('script');
+                        switch (script) {
+                            case 'scripPlus':
+                                record = scripPlus.table_oths_otp.row(trParent).data();
+                                break;
+                            
+                            case 'scripPlus2':
+                                record = scripPlus2.table_oths_otp.row(trParent).data();
+                                break;
+                            
+                            case 'scripPlus3':
+                                record = scripPlus3.table_oths_otp.row(trParent).data();
+                                break;
+                            
+                            case 'scripPlus4':
+                                record = scripPlus4.table_oths_otp.row(trParent).data();
+                                break;   
+                        }
+                    }
+                break;
             }
             // mostrar modal y llenar el formulario de info
             formulario.fillFormModalForm(record);

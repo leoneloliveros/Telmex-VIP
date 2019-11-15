@@ -524,7 +524,7 @@ class OtPadre extends CI_Controller {
                                                     break;
                                                 case 'table_reporte_actualizacion':
 //                                                    record = reporte_act.table_reporte_actualizacion.row(trParent).data();
-                                                    record = erTable_table_reporte_actualizacion.row(trParent).data();
+                                                    reporte_act.table_reporte_actualizacion.row(trParent).data();
                                                     break;
                                             }
 
@@ -579,7 +579,7 @@ class OtPadre extends CI_Controller {
                                                     record = erTable_table_otPadreListEmails.row(trParent).data();
                                                     break;
                                                 case 'table_reporte_actualizacion':
-                                                    record = erTable_table_reporte_actualizacion.row(trParent).data();
+                                                    reporte_act.table_reporte_actualizacion.row(trParent).data();
                                                     break;
                                             }
 
@@ -1654,11 +1654,10 @@ class OtPadre extends CI_Controller {
         echo json_encode($res);
     }
     
-    public function vistaTablaHoy(){
+    public function vistaTablaHoy($n_group){
         /*Datatables server site*/
         /**/
         $this->load->library('Datatables');
-        $n_group = $this->input->post('n_group');
         $condicion = " ";
         
         if (Auth::user()->n_role_user == 'ingeniero') {
@@ -1666,12 +1665,12 @@ class OtPadre extends CI_Controller {
             $condicion = " AND otp.k_id_user = $usuario_session ";
         } else {
             if ($n_group != 'all') {
-                $condicion = " AND `user`.n_group = '$n_group'";
+                $condicion = " AND `user`.n_group = '" . str_replace("_"," ",$n_group) . "'";
             } else {
                 $condicion = " AND 1 = 1";
             }
         }
-        print_r($condicion);
+//        print_r($n_group);
         date_default_timezone_set("America/Bogota");
         $fecha_actual = date('Y-m-d');
         
@@ -1817,11 +1816,6 @@ class OtPadre extends CI_Controller {
                                                     className: 'btn-cami_cool',
                                                     extend: 'print',
                                                     title: 'Reporte Zolid',
-                                                },
-                                                {
-                                                    text: '<span class=\"fa fa-envelope-o\" aria-hidden=\"true\"></span> Reporte Actualización',
-                                                    className: 'btn-cami_cool btn-rpt_act',
-//                                                    action: eventos.otp_seleccionadas,
                                                 }
                                         ]")
                         ->set_options('"createdRow"','function(row, data, dataIndex) {
@@ -1969,7 +1963,7 @@ class OtPadre extends CI_Controller {
                                                     break;
                                                 case 'table_reporte_actualizacion':
 //                                                    record = reporte_act.table_reporte_actualizacion.row(trParent).data();
-                                                    record = erTable_table_reporte_actualizacion.row(trParent).data();
+                                                    reporte_act.table_reporte_actualizacion.row(trParent).data();
                                                     break;
                                             }
 
@@ -2024,7 +2018,7 @@ class OtPadre extends CI_Controller {
                                                     record = erTable_table_otPadreListEmails.row(trParent).data();
                                                     break;
                                                 case 'table_reporte_actualizacion':
-                                                    record = erTable_table_reporte_actualizacion.row(trParent).data();
+                                                    reporte_act.table_reporte_actualizacion.row(trParent).data();
                                                     break;
                                             }
 
@@ -2087,7 +2081,6 @@ class OtPadre extends CI_Controller {
                                         },
                                         otp_seleccionadas: function () {
                                             var tabla = $('ul#pestania').find('li.active').attr('tabla');
-                                            ;
                                             var record;
                                             switch (tabla) {
                                                 case 'table_otPadreList':
@@ -2241,18 +2234,21 @@ class OtPadre extends CI_Controller {
         $this->load->view("vistaTablaHoy",$data);
     }
     
-    public function vistaTablaVencidas(){
+    public function vistaTablaVencidas($n_group){
         /*Datatables server site*/
         /**/
         $this->load->library('Datatables');
-        $n_group = $this->input->post('n_group');
         $condicion = " ";
         
         if (Auth::user()->n_role_user == 'ingeniero') {
             $usuario_session = Auth::user()->k_id_user;
             $condicion = " AND otp.k_id_user = $usuario_session ";
         } else {
-            $condicion = " AND `user`.n_group = '$n_group'";
+            if ($n_group != 'all') {
+                $condicion = " AND `user`.n_group = '" . str_replace("_"," ",$n_group) . "'";
+            } else {
+                $condicion = " AND 1 = 1";
+            }
         }
         
         date_default_timezone_set("America/Bogota");
@@ -2400,11 +2396,6 @@ class OtPadre extends CI_Controller {
                                                     className: 'btn-cami_cool',
                                                     extend: 'print',
                                                     title: 'Reporte Zolid',
-                                                },
-                                                {
-                                                    text: '<span class=\"fa fa-envelope-o\" aria-hidden=\"true\"></span> Reporte Actualización',
-                                                    className: 'btn-cami_cool btn-rpt_act',
-//                                                    action: eventos.otp_seleccionadas,
                                                 }
                                         ]")
                         ->set_options('"createdRow"','function(row, data, dataIndex) {
@@ -2552,7 +2543,7 @@ class OtPadre extends CI_Controller {
                                                     break;
                                                 case 'table_reporte_actualizacion':
 //                                                    record = reporte_act.table_reporte_actualizacion.row(trParent).data();
-                                                    record = erTable_table_reporte_actualizacion.row(trParent).data();
+                                                    reporte_act.table_reporte_actualizacion.row(trParent).data();
                                                     break;
                                             }
 
@@ -2607,7 +2598,7 @@ class OtPadre extends CI_Controller {
                                                     record = erTable_table_otPadreListEmails.row(trParent).data();
                                                     break;
                                                 case 'table_reporte_actualizacion':
-                                                    record = erTable_table_reporte_actualizacion.row(trParent).data();
+                                                    reporte_act.table_reporte_actualizacion.row(trParent).data();
                                                     break;
                                             }
 
@@ -2670,7 +2661,6 @@ class OtPadre extends CI_Controller {
                                         },
                                         otp_seleccionadas: function () {
                                             var tabla = $('ul#pestania').find('li.active').attr('tabla');
-                                            ;
                                             var record;
                                             switch (tabla) {
                                                 case 'table_otPadreList':
@@ -2824,22 +2814,23 @@ class OtPadre extends CI_Controller {
         $this->load->view("vistaTablaHoy",$data);
     }
     
-    public function vistaTablaOpciones(){
+    public function vistaTablaOpciones($n_group, $opcion){
         /*Datatables server site*/
         /**/
         $this->load->library('Datatables');
-        
-        $opcion = $this->input->post('opcion');
-        $n_group = $this->input->post('n_group');
         $condicion = " ";
         
         if (Auth::user()->n_role_user == 'ingeniero') {
             $usuario_session = Auth::user()->k_id_user;
             $condicion = " AND otp.k_id_user = $usuario_session ";
         } else {
-            $condicion = " AND `user`.n_group = '$n_group'";
+            if ($n_group != 'all') {
+                $condicion = " AND `user`.n_group = '" . str_replace("_"," ",$n_group) . "'";
+            } else {
+                $condicion = " AND 1 = 1";
+            }
         }
-        
+
         date_default_timezone_set("America/Bogota");
         $fecha_actual = date('Y-m-d');
         
@@ -2872,7 +2863,7 @@ class OtPadre extends CI_Controller {
             INNER JOIN ot_padre otp ON oth.nro_ot_onyx = otp.k_id_ot_padre
             INNER JOIN user ON otp.k_id_user = user.k_id_user
             LEFT JOIN hitos ON hitos.id_ot_padre = otp.k_id_ot_padre
-            WHERE lista_observaciones = '$opcion'
+            WHERE lista_observaciones = '" . base64_decode($opcion) . "'
             $condicion
             GROUP BY oth.nro_ot_onyx ",
             "otp.k_id_ot_padre*
@@ -2961,11 +2952,11 @@ class OtPadre extends CI_Controller {
                             ]')
                         ->set_options('bFilter','true')
                         ->set_options('initComplete','function activar(){
-                                    scripPlus3.init();
-                                    $("#table_otPadreListVencidas").click(function(){
+                                    scripPlus4.init();
+                                    $("#tableOpcList").click(function(){
                                         $(".btnoths ").off(\'click\');
                                         $(".hitos-otp").off(\'click\');
-                                        scripPlus3.events();
+                                        scripPlus4.events();
                                     });
                                 }')
                         ->set_options('scroller','{
@@ -2985,11 +2976,6 @@ class OtPadre extends CI_Controller {
                                                     className: 'btn-cami_cool',
                                                     extend: 'print',
                                                     title: 'Reporte Zolid',
-                                                },
-                                                {
-                                                    text: '<span class=\"fa fa-envelope-o\" aria-hidden=\"true\"></span> Reporte Actualización',
-                                                    className: 'btn-cami_cool btn-rpt_act',
-//                                                    action: eventos.otp_seleccionadas,
                                                 }
                                         ]")
                         ->set_options('"createdRow"','function(row, data, dataIndex) {
@@ -3084,14 +3070,14 @@ class OtPadre extends CI_Controller {
                         }
                     }
                     if ($row['finalizo'] != null) {
-                        $cierreKo = "<a class='btn btn-default btn-xs product-otp btn_datatable_cami' data-btn='cierreKo' title='Ver Detalle Cierre KO'><span class='fa fa-fw fa-info-circle'></span></a>";
+                        $cierreKo = "<a class='btn btn-default btn-xs product-otp-4 btn_datatable_cami' data-btn='cierreKo' title='Ver Detalle Cierre KO'><span class='fa fa-fw fa-info-circle'></span></a>";
                     }
 
                     $color = ($row['id_hitos']) ? 'clr_lime' : '';
                     $botones = "<div class='btn-group-vertical' style=''>"
-                            . "<a class='btn btn-default btn-xs btnoths btn_datatable_cami' title='" . $title . "'>" . $icon . $span . $reportInicio . "</a>"
+                            . "<a class='btn btn-default btn-xs btnoths-4 btn_datatable_cami' title='" . $title . "'>" . $icon . $span . $reportInicio . "</a>"
                             // + "<a class='btn btn-default btn-xs edit-otp btn_datatable_cami' title='Editar Ots'><span class='glyphicon glyphicon-save'></span></a>"
-                            . "<a class='btn btn-default btn-xs hitos-otp btn_datatable_cami' data-btn='hito' title='Hitos Ots'><span class='glyphicon glyphicon-header " . $color . "'></span></a>"
+                            . "<a class='btn btn-default btn-xs hitos-otp-4 btn_datatable_cami' data-btn='hito' title='Hitos Ots'><span class='glyphicon glyphicon-header " . $color . "'></span></a>"
                             . $cierreKo
                             . "</div>";
                     return $botones;
@@ -3100,14 +3086,14 @@ class OtPadre extends CI_Controller {
         $listOtPadreLista_table->script("
                             <script type=\"text/javascript\" defer=\"defer\">
                                 $(function () {
-                                    scripPlus3 = {
+                                    scripPlus4 = {
                                         init: function() {
-                                            scripPlus3.events();
+                                            scripPlus4.events();
                                         },
                                         events: function() {
-                                            $('#contenido_tablas').on('click', 'a.btnoths', scripPlus3.onClickShowModal);
-                                            $('#contenido_tablas').on('click', 'a.hitos-otp', scripPlus3.onClickBtnCloseOtp);
-                                            $('#contenido_tablas').on('click', 'a.product-otp', scripPlus3.onClickBtnCloseOtp);
+                                            $('#contenido_tablas').on('click', 'a.btnoths-4', scripPlus4.onClickShowModal);
+                                            $('#contenido_tablas').on('click', 'a.hitos-otp-4', scripPlus4.onClickBtnCloseOtp);
+                                            $('#contenido_tablas').on('click', 'a.product-otp-4', scripPlus4.onClickBtnCloseOtp);
                                         },
                                         onClickShowModal: function () {
                                             var aLinkLog = $(this);
@@ -3127,7 +3113,7 @@ class OtPadre extends CI_Controller {
 //                                                    record = vencidas.table_otPadreListVencidas.row(trParent).data();
                                                     record = erTable_table_otPadreListVencidas.row(trParent).data();
                                                     break;
-                                                case 'table_list_opc':
+                                                case 'tableOpcList':
 //                                                    record = lista.tableOpcList.row(trParent).data();
                                                     record = erTable_tableOpcList.row(trParent).data();
                                                     break;
@@ -3137,14 +3123,14 @@ class OtPadre extends CI_Controller {
                                                     break;
                                                 case 'table_reporte_actualizacion':
 //                                                    record = reporte_act.table_reporte_actualizacion.row(trParent).data();
-                                                    record = erTable_table_reporte_actualizacion.row(trParent).data();
+                                                    reporte_act.table_reporte_actualizacion.row(trParent).data();
                                                     break;
                                             }
 
-                                            scripPlus3.showModalOthDeOthp(record);
+                                            scripPlus4.showModalOthDeOthp(record);
                                         },
                                         showModalOthDeOthp: function (data) {
-                                            scripPlus3.getothofothp(data);
+                                            scripPlus4.getothofothp(data);
                                             // resetea el formulario y lo deja vacio
                                             document.getElementById(\"formModalOTHS\").reset();
                                             //pinta el titulo del modal y cambia dependiendo de la otp seleccionada
@@ -3161,7 +3147,7 @@ class OtPadre extends CI_Controller {
                                                             function (data) {
                                                                 // convertir el json a objeto de javascript
                                                                 var obj = JSON.parse(data);
-                                                                scripPlus3.printTable(obj);
+                                                                scripPlus4.printTable(obj);
                                                             }
                                                     );
                                                 },
@@ -3184,7 +3170,7 @@ class OtPadre extends CI_Controller {
 //                                                    record = vencidas.table_otPadreListVencidas.row(trParent).data();
                                                     record = erTable_table_otPadreListVencidas.row(trParent).data();
                                                     break;
-                                                case 'table_list_opc':
+                                                case 'tableOpcList':
 //                                                    record = lista.tableOpcList.row(trParent).data();
                                                     record = erTable_tableOpcList.row(trParent).data();
                                                     break;
@@ -3192,7 +3178,7 @@ class OtPadre extends CI_Controller {
                                                     record = erTable_table_otPadreListEmails.row(trParent).data();
                                                     break;
                                                 case 'table_reporte_actualizacion':
-                                                    record = erTable_table_reporte_actualizacion.row(trParent).data();
+                                                    reporte_act.table_reporte_actualizacion.row(trParent).data();
                                                     break;
                                             }
 
@@ -3212,8 +3198,8 @@ class OtPadre extends CI_Controller {
                                         //pintar tabla
                                         printTable: function (data) {
                                             //funcion para limpiar el modal
-                                            if (scripPlus3.table_oths_otp) {
-                                                var tabla = scripPlus3.table_oths_otp;
+                                            if (scripPlus4.table_oths_otp) {
+                                                var tabla = scripPlus4.table_oths_otp;
                                                 tabla.clear().draw();
                                                 tabla.rows.add(data);
                                                 tabla.columns.adjust().draw();
@@ -3221,7 +3207,7 @@ class OtPadre extends CI_Controller {
                                             }
 
                                             // nombramos la variable para la tabla y llamamos la configuiracion
-                                            scripPlus3.table_oths_otp = $('#table_oths_otp').DataTable(scripPlus3.configTable(data, [
+                                            scripPlus4.table_oths_otp = $('#table_oths_otp').DataTable(scripPlus4.configTable(data, [
 
                                                 {title: 'OTH', data: 'id_orden_trabajo_hija'},
                                                 {title: 'Tipo OTH', data: 'ot_hija'},
@@ -3229,7 +3215,7 @@ class OtPadre extends CI_Controller {
                                                 {title: 'Recurrente', data: 'MRC'},
                                                 {title: 'Fecha Compromiso', data: 'fecha_compromiso'},
                                                 {title: 'Fecha Programacion', data: 'fecha_programacion'},
-                                                {title: 'Opc', data: scripPlus3.getButtonsOth},
+                                                {title: 'Opc', data: scripPlus4.getButtonsOth},
                                             ]));
                                         },
                                         // Datos de configuracion del datatable
@@ -3255,7 +3241,6 @@ class OtPadre extends CI_Controller {
                                         },
                                         otp_seleccionadas: function () {
                                             var tabla = $('ul#pestania').find('li.active').attr('tabla');
-                                            ;
                                             var record;
                                             switch (tabla) {
                                                 case 'table_otPadreList':
@@ -3397,15 +3382,15 @@ class OtPadre extends CI_Controller {
                                         
                                     };
 
-                                    scripPlus3.init();
+                                    scripPlus4.init();
                                 });
                             </script>");
                 
-        $this->datatables->create('table_list_opc', $listOtPadreLista_table);
+        $this->datatables->create('tableOpcList', $listOtPadreLista_table);
         /**/
 
         $data['title'] = ' ';
-        $data['idTabla'] = 'table_list_opc';
+        $data['idTabla'] = 'tableOpcList';
         $this->load->view("vistaTablaHoy",$data);
     }
 }

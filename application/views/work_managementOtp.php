@@ -37,11 +37,11 @@
 <a class="btn btn_datatable_cami" id="reload" title="Guardar Código de Resolución" style="float: right;"><span class="glyphicon glyphicon-save"></span></a>
 <!--*********************  MODULO PESTAÑAS  *********************-->
 <ul class="nav nav-tabs" id="pestania">
-    <li id="otPadreList" tabla="table_otPadreList" class="active"><a id="pestana_cant_total" data-toggle="tab" href="#total">Total <span class="badge" style="background: white;color: #7a00ff;border: 1.2px solid #7a00ff;" id="badge_cant_total_OTP"></span></a></li>
-    <li id="otPadreListHoy" tabla="table_otPadreListHoy" class=""><a data-toggle="tab" href="#hoy">Hoy</a></li>
-    <li id="otPadreListVencidas" tabla="table_otPadreListVencidas" class=""><a data-toggle="tab" href="#vencidas">Vencida</a></li>
-    <li id="list_opc" tabla="table_list_opc" class=""><a data-toggle="tab" href="#por_lista">Por Lista</a></li>
-    <li id="otReporteActualizacion" tabla="table_reporte_actualizacion" class=""><a class="clr_red" data-toggle="tab" href="#reporte_actualizacion" id="pestana_cant_report"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Enviar Reporte <span class="badge border_red bg-white" id="badge_cant_report"></span></a></li>
+    <li id="otPadreList" tabla="table_otPadreList" script="scripPlus" class="active"><a id="pestana_cant_total" data-toggle="tab" href="#total">Total <span class="badge" style="background: white;color: #7a00ff;border: 1.2px solid #7a00ff;" id="badge_cant_total_OTP"></span></a></li>
+    <li id="otPadreListHoy" tabla="table_otPadreListHoy" script="scripPlus2" class=""><a data-toggle="tab" href="#hoy">Hoy</a></li>
+    <li id="otPadreListVencidas" tabla="table_otPadreListVencidas" script="scripPlus3" class=""><a data-toggle="tab" href="#vencidas">Vencida</a></li>
+    <li id="list_opc" tabla="table_list_opc" script="scripPlus4" class=""><a data-toggle="tab" href="#por_lista">Por Lista</a></li>
+    <li id="otReporteActualizacion" tabla="table_reporte_actualizacion" script="scripPlus5" class=""><a class="clr_red" data-toggle="tab" href="#reporte_actualizacion" id="pestana_cant_report"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Enviar Reporte <span class="badge border_red bg-white" id="badge_cant_report"></span></a></li>
 </ul>
 <!--*********************  CONTENIDO PESTAÑAS  *********************-->
 <div class="tab-content" id="contenido_tablas">

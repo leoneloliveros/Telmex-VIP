@@ -471,14 +471,14 @@ $(function () {
                 }
             }
             if (obj.finalizo != null) {
-                cierreKo = "<a class='btn btn-default btn-xs product-otp btn_datatable_cami' data-btn='cierreKo' title='Ver Detalle Cierre KO'><span class='fa fa-fw fa-info-circle'></span></a>";
+                cierreKo = "<a class='btn btn-default btn-xs product-otp-2 btn_datatable_cami' data-btn='cierreKo' title='Ver Detalle Cierre KO'><span class='fa fa-fw fa-info-circle'></span></a>";
             }
 
             const color = (obj.id_hitos) ? 'clr_lime' : '';
             var botones = "<div class='btn-group-vertical' style=''>"
-                    + "<a class='btn btn-default btn-xs btnoths btn_datatable_cami' title='" + title + "'>" + icon + span + reportInicio + "</a>"
+                    + "<a class='btn btn-default btn-xs btnoths-2 btn_datatable_cami' title='" + title + "'>" + icon + span + reportInicio + "</a>"
                     // + "<a class='btn btn-default btn-xs edit-otp btn_datatable_cami' title='Editar Ots'><span class='glyphicon glyphicon-save'></span></a>"
-                    + "<a class='btn btn-default btn-xs hitos-otp btn_datatable_cami' data-btn='hito' title='Hitos Ots'><span class='glyphicon glyphicon-header " + color + "'></span></a>"
+                    + "<a class='btn btn-default btn-xs hitos-otp-2 btn_datatable_cami' data-btn='hito' title='Hitos Ots'><span class='glyphicon glyphicon-header " + color + "'></span></a>"
                     + cierreKo
                     + "</div>";
             return botones;
@@ -890,8 +890,10 @@ $(function () {
 
         // cuando se cambia de opcion
         cambio_opc: function () {
-            var opcion = $('#select_filter').val();
-            lista.getOtpByOpcListJs(opcion, $("#filterGroupIng").val());
+//            var opcion = $('#select_filter').val();
+//            lista.getOtpByOpcListJs(opcion, $("#filterGroupIng").val());
+            $('#por_lista_2').data('carga', 'cargarTabla');
+            eventos.loadTablaPrincipal(baseurl + "/OtPadre/vistaTablaOpciones", 'por_lista_2');
         },
     };
     lista.init();
@@ -904,7 +906,7 @@ $(function () {
 
         //Eventos de la ventana.
         events: function () {
-//            $('#contenido_tablas').on('click', 'a.product-otp', eventos.onClickBtnCloseOtp);
+            $('#contenido_tablas').on('click', 'a.product-otp-2', eventos.onClickBtnCloseOtp);
             $('#contenido_tablas').on('click', 'a.edit-otp', eventos.onClickBtnEditOtp);
             // $('#table_oths_otp').on('click', 'a.ver-log', eventos.onClickShowEmailOth); //fue remplazado por el botón general
             $('#formModalOTHS').on('click', 'div.ver-log-general', eventos.showEmailOthGeneral);
@@ -914,7 +916,7 @@ $(function () {
             $('#Modal_detalle').on("hidden.bs.modal", eventos.modal_sobre_modal);
             $('#ModalHistorialLog').on("hidden.bs.modal", eventos.modal_sobre_modal);
             $('#ModalHistorialLog').on("hidden.bs.modal", eventos.limpiarLogs);
-//            $('#contenido_tablas').on('click', 'a.hitos-otp', eventos.onClickBtnCloseOtp);
+            $('#contenido_tablas').on('click', 'a.hitos-otp-2', eventos.onClickBtnCloseOtp);
             $('#btnGuardarModalHitos').on('click', eventos.onClickSaveHitosOtp);// ver detalles de correo btn impresora
             $('#table_selected').on('click', 'img.quitar_fila', eventos.quitarFila);
             $('#mdl-enviar-reporte').on('click', eventos.onClickSendReportUpdate);
@@ -964,14 +966,38 @@ $(function () {
         // vuelve a pintar todas las tablas según el grupo de ingenieros se tenga filtrado
         printNewTablesAccordingIngGroup: function () {
             // $('#filterGroupIng').attr('disabled', true);
-            var filtro = $("#filterGroupIng").val();
-            vista.getListOtsOtPadre(filtro);
-            hoy.getListOtsOtPadreHoy(filtro);
-            vencidas.getListOtsOtPadreVencidas(filtro);
-            lista.getOtpByOpcListJs($('#select_filter').val(), filtro);
-            reporte_act.getOtsPtesPorEnvio(filtro);
-            reporte_act.getCountPtesPorEnvio(filtro);
-            // $('#filterGroupIng').attr('disabled', false);
+//            var filtro = $("#filterGroupIng").val();
+//            vista.getListOtsOtPadre(filtro);
+//            hoy.getListOtsOtPadreHoy(filtro);
+//            vencidas.getListOtsOtPadreVencidas(filtro);
+//            lista.getOtpByOpcListJs($('#select_filter').val(), filtro);
+//            reporte_act.getOtsPtesPorEnvio(filtro);
+//            reporte_act.getCountPtesPorEnvio(filtro);
+//            // $('#filterGroupIng').attr('disabled', false);
+            var tabla = $('ul#pestania').find('li.active').attr('tabla');
+
+            switch (tabla) {
+                case 'table_otPadreList':
+                    //
+                    break;
+                case 'table_otPadreListHoy':
+                    $('#hoy').data('carga', 'cargarTabla');
+                    eventos.loadTablaPrincipal(baseurl + "/OtPadre/vistaTablaHoy", 'hoy');
+                    break;
+                case 'table_otPadreListVencidas':
+                    $('#vencidas').data('carga', 'cargarTabla');
+                    eventos.loadTablaPrincipal(baseurl + "/OtPadre/vistaTablaVencidas", 'vencidas');
+                    break;
+                case 'table_list_opc':
+                    $('#por_lista_2').data('carga', 'cargarTabla');
+                    eventos.loadTablaPrincipal(baseurl + "/OtPadre/vistaTablaOpciones", 'por_lista_2');
+                    break;
+                case 'table_reporte_actualizacion':
+                    var filtro = $("#filterGroupIng").val();
+                    reporte_act.getOtsPtesPorEnvio(filtro);
+                    reporte_act.getCountPtesPorEnvio(filtro);
+                    break;
+            }
         },
 
         // dar mostrar o ocultar la columna en la sesion work managment por medio del menu stick segun el id de la tabla
@@ -1033,11 +1059,11 @@ $(function () {
 
             switch (btn_clas.dataset.btn) {
                 case 'cierreKo':
-                    eventos.showDetailsCierreKo(record);
+                    eventos.showDetailsCierreKoV2(record);
                     break;
 
                 case 'hito':
-                    eventos.showModalHitosOthp(record, aLinkLog.children());
+                    eventos.showModalHitosOthpV2(record, aLinkLog.children());
                     break;
             }
 
@@ -1058,6 +1084,54 @@ $(function () {
                     {
                         id_otp: data[0],
                         num_servicio: data[16]
+                    },
+                    function (data) {
+                        var obj = JSON.parse(data);
+                        $.each(obj, function (i, item) {
+
+                            var $el = $('#pr_' + i);
+                            $el.replaceWith($('<input />').attr({
+                                type: 'text',
+                                id: $el.attr('id'),
+                                name: $el.attr('name'),
+                                class: $el.attr('class'),
+                                value: $el.val(),
+                                readonly: true,
+                                style: 'font-size: 12px;'
+                            }));
+                            $('#pr_' + i).val(item);
+                        });
+
+                        if (flag && obj.ciudad_ori == null) {
+                            $('#seccion_mpls_ori').remove();
+                        }
+
+                        $("#mdl_cierreKo #id_ot_padre").val(obj.id_ot_padre);
+                        $("#mdl_cierreKo #id_ot_padre_ori").val(obj.id_ot_padre);
+                        $("#mdl_cierreKo #id_ot_padre_des").val(obj.id_ot_padre);
+                        $("#mdl_cierreKo").css("font-size", "12px");
+                        $("#mdl_cierreKo label").css("width", "150px");
+                        $("#mdl_cierreKo .selectContainer").css("margin-bottom", "5px");
+                    });
+
+            $('#mdl_cierreKo').modal('show');
+        },
+        
+        showDetailsCierreKoV2: function (data) {
+            var s = data.finalizo;
+            var flag = false;
+            var form = setForm.returnFormularyProduct(s);
+            if (s == 3 || s == 4 || s == 5 || s == 6 || s == 7 || s == 8 || s == 9 || s == 10) {
+                form += setForm.formProduct_mpls_form_origen();
+                flag = true;
+            }
+            $("#form_cierreKo").html(form);
+            $('.max-w_border-n').remove();
+
+            $.post(baseurl + '/OtPadre/c_getProductByOtp',
+                    {
+                        id_otp: data.k_id_ot_padre,
+                        num_servicio: data.finalizo
                     },
                     function (data) {
                         var obj = JSON.parse(data);
@@ -1658,6 +1732,34 @@ $(function () {
             $('#servivio_hito').html('<strong> OT ' + datax[0] + ' - ' + datax[3] + '</strong>');
             $('#cliente_hito').html('<strong> CLIENTE: ' + datax[1] + '</strong>');
             $('#ciudad_hito').html('<strong> CIUDAD: ' + datax[18] + ' - ' + datax[17] + '</strong>');
+            $('#modalHitosOtp').modal('show');
+        },
+        
+        showModalHitosOthpV2: function (datax, x) {
+            reporte_act.resetFormHitos();
+            $.post(baseurl + '/OtPadre/c_getInfoHitosByOtp',
+                    {
+                        idOtp: datax.k_id_ot_padre // parametros que se envian
+                    },
+                    function (data) {
+                        var obj = JSON.parse(data);
+                        if (obj.length > 0) {
+                            $.each(obj, function (i, item) {
+                                $.each(item, function (i2, item2) {
+                                    if ($('#' + i2).attr('type') == 'checkbox' && item2 == 'no aplica') {
+                                        $('#' + i2).prop( "checked", true );
+                                    } else {
+                                        $('#' + i2).val(item2);
+                                    }
+                                });
+                            });
+                        }                        
+                    });
+            //pinta el titulo del modal y cambia dependiendo de la otp seleccionada
+            $('#myModalLabelHitos').html('<strong> Hitos de la OTP N.<span id="otpHIto">' + datax.k_id_ot_padre + '</span></strong>');
+            $('#servivio_hito').html('<strong> OT ' + datax.k_id_ot_padre + ' - ' + datax.servicio + '</strong>');
+            $('#cliente_hito').html('<strong> CLIENTE: ' + datax.n_nombre_cliente + '</strong>');
+            $('#ciudad_hito').html('<strong> CIUDAD: ' + datax.ciudad + ' - ' + datax.direccion + '</strong>');
             $('#modalHitosOtp').modal('show');
         },
 
@@ -2350,7 +2452,6 @@ $(function () {
         // muestra las otp seleccionadas dependiendo la tabla
         otp_seleccionadas: function () {
             var tabla = $('ul#pestania').find('li.active').attr('tabla');
-            ;
             var record;
             switch (tabla) {
                 case 'table_otPadreList':
@@ -2381,7 +2482,7 @@ $(function () {
             let hay_sel = record.rows({selected: true}).any();// booleanos q indica si hay algo seleccionado
             var seleccionadas = record.rows({selected: true}).data();// los datos de los elem seleccionados
             if (hay_sel) {
-                eventos.modalSeleccionadas(seleccionadas);
+                eventos.modalSeleccionadas(seleccionadas, tabla);
                 // console.log(seleccionadas[0].k_id_ot_padre);
                 // console.log("==================");
                 // console.log(seleccionadas);
@@ -2389,17 +2490,24 @@ $(function () {
                 var ids = [];
                 if (cuantas > 1) {
                     for (let i = 0; i < cuantas; i++) {
-//                        ids.push(seleccionadas[i].k_id_ot_padre);
-                        ids.push(seleccionadas[i][0]);
+                        if (tabla == 'table_reporte_actualizacion') {
+                            ids.push(seleccionadas[i].k_id_ot_padre);
+                        } else {
+                            ids.push(seleccionadas[i][0]);
+                        }
                     }
                 } else {
-//                    ids.push(seleccionadas[0].k_id_ot_padre);
-                    ids.push(seleccionadas[0][0]);
+                    if (tabla == 'table_reporte_actualizacion') {
+                            ids.push(seleccionadas[i].k_id_ot_padre);
+                        } else {
+                            ids.push(seleccionadas[i][0]);
+                        }
                 }
 //                 console.log(ids);
 
                 $('#mdl-title-cierre').html(`<b>${cuantas}</b> ORDENES SELECCIONADAS`);
                 $('#mdl_cierre').modal('show');
+
                 $.post(baseurl + '/OtPadre/c_getInfoEmailreport', {idsOtp: ids},
                         function (data) {
                             data = JSON.parse(data);
@@ -2579,7 +2687,7 @@ $(function () {
             $(vall).val(valor);
         },
 
-        modalSeleccionadas: function (data) {
+        modalSeleccionadas: function (data, tabla) {
             if (eventos.table_selected) {
                 var tabla = eventos.table_selected;
                 tabla.clear().draw();
@@ -2587,18 +2695,31 @@ $(function () {
                 tabla.columns.adjust().draw();
                 return;
             }
-
-            eventos.table_selected = $('#table_selected').DataTable(eventos.configTableSelect(data, [
-                {title: "Ingeniero", data: "8"},
-                {title: "OTP", data: "0"},
-                {title: "Cliente", data: "1"},
-                {title: "Tipo", data: "2"},
-                {title: "Servicio", data: "3"},
-                {title: "Estado OTP", data: "4"},
-                {title: "Lista", data: "10"},
-                {title: "Observación", data: "19"},
-                {title: "Quitar", data: eventos.getButtonQuitar},
-            ]));
+            if (tabla == 'table_reporte_actualizacion') {
+                eventos.table_selected = $('#table_selected').DataTable(eventos.configTableSelect(data, [
+                    {title: "Ingeniero", data: "ingeniero"},
+                    {title: "OTP", data: "k_id_ot_padre"},
+                    {title: "Cliente", data: "n_nombre_cliente"},
+                    {title: "Tipo", data: "orden_trabajo"},
+                    {title: "Servicio", data: "servicio"},
+                    {title: "Estado OTP", data: "estado_orden_trabajo"},
+                    {title: "Lista", data: "lista_observaciones"},
+                    {title: "Observación", data: "observacion"},
+                    {title: "Quitar", data: eventos.getButtonQuitar},
+                ]));
+            } else {
+                eventos.table_selected = $('#table_selected').DataTable(eventos.configTableSelect(data, [
+                    {title: "Ingeniero", data: "8"},
+                    {title: "OTP", data: "0"},
+                    {title: "Cliente", data: "1"},
+                    {title: "Tipo", data: "2"},
+                    {title: "Servicio", data: "3"},
+                    {title: "Estado OTP", data: "4"},
+                    {title: "Lista", data: "10"},
+                    {title: "Observación", data: "19"},
+                    {title: "Quitar", data: eventos.getButtonQuitar},
+                ]));
+            }
 
         },
 
@@ -2769,12 +2890,12 @@ $(function () {
             if ($('#' + idElemento).data('carga') == 'cargarTabla') {
                 scroll();
                 Select();
-                let n_group = $('#filterGroupIng').val();
+                let n_group = $('#filterGroupIng').val().replace(/\s/g, "_");
                 if (idElemento != 'por_lista_2') {
-                    $("#" + idElemento).load(url, {n_group: n_group});
+                    $("#" + idElemento).load(url + '/' + n_group);
                 } else {
-                    let opcion = $('#select_filter').val();
-                    $("#" + idElemento).load(url, {n_group: n_group, opcion: opcion});
+                    let opcion = helper.encode($('#select_filter').val());
+                    $("#" + idElemento).load(url + '/' + n_group + '/' + opcion);
                 }
                 $('#' + idElemento).data('carga', 'noCargarTabla');
             }
@@ -2795,7 +2916,7 @@ $(function () {
         //Eventos de la ventana.
         events: function () {
             // al darle clic al boton de opciones traiga el modal
-//            $('#contenido_tablas').on('click', 'a.btnoths', listoth.onClickShowModal);
+            $('#contenido_tablas').on('click', 'a.btnoths-2', listoth.onClickShowModal);
 
         },
 
