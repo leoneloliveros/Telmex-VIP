@@ -216,7 +216,7 @@ class OtPadre extends CI_Controller {
         }
         
         /*Datatables server site*/
-        /*
+        /**/
         $this->load->library('Datatables');
         
         $condicion = " ";
@@ -226,6 +226,9 @@ class OtPadre extends CI_Controller {
         } else {
             $condicion = " WHERE `user`.n_group = 'GESTION OTS PROYECTOS'";
         }
+        
+        date_default_timezone_set("America/Bogota");
+        $fecha_actual = date('Y-m-d');
         
         $ListOtPadre_table = $this->datatables->init();
         $ListOtPadre_table->query("
@@ -282,81 +285,109 @@ class OtPadre extends CI_Controller {
             otp.ultimo_envio_reporte*
             cant_oths*");
         
-        $ListOtPadre_table->set_options('dom',"'frtiS'")
+        $ListOtPadre_table->set_options('dom',"'Blfrtip'")
                         ->set_options('scrollY','500')
                         ->set_options('scrollX', '0')
                         ->set_options('columnDefs','[
                             {
-                              "targets": [ 9 ],
-                              "visible": false
+                                "targets": [ 9 ],
+                                "visible": false
                             },
                             {
-                              "targets": [ 10 ],
-                              "visible": false
+                                "targets": [ 10 ],
+                                "visible": false
                             },
                             {
-                              "targets": [ 11 ],
-                              "visible": false
+                                "targets": [ 11 ],
+                                "visible": false
                             },
                             {
-                              "targets": [ 12 ],
-                              "visible": false
+                                "targets": [ 12 ],
+                                "visible": false
                             },
                             {
-                              "targets": [ 13 ],
-                              "visible": false
+                                "targets": [ 13 ],
+                                "visible": false
                             },
                             {
-                              "targets": [ 14 ],
-                              "visible": false
+                                "targets": [ 14 ],
+                                "visible": false
                             },
                             {
-                              "targets": [ 15 ],
-                              "visible": false
+                                "targets": [ 15 ],
+                                "visible": false
                             },
                             {
-                              "targets": [ 16 ],
-                              "visible": false
+                                "targets": [ 16 ],
+                                "visible": false
                             },
                             {
-                              "targets": [ 17 ],
-                              "visible": false
+                                "targets": [ 17 ],
+                                "visible": false
                             },
                             {
-                              "targets": [ 18 ],
-                              "visible": false
+                                "targets": [ 18 ],
+                                "visible": false
                             },
                             {
-                              "targets": [ 19 ],
-                              "visible": false
+                                "targets": [ 19 ],
+                                "visible": false
                             },
                             {
-                              "targets": [ 20 ],
-                              "visible": false
+                                "targets": [ 20 ],
+                                "visible": false
                             },
                             {
-                              "targets": [ 21 ],
-                              "visible": false
+                                "targets": [ 21 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 22 ],
+                                "visible": false
                             }
                             ]')
                         ->set_options('bFilter','true')
                         ->set_options('initComplete','function activar(){
                                     scripPlus.init();
                                     $("#table_otPadreList").click(function(){
-                                      $(".btnoths ").off(\'click\');
-                                      $(".hitos-otp").off(\'click\');
-                                      scripPlus.events();
+                                        $(".btnoths ").off(\'click\');
+                                        $(".hitos-otp").off(\'click\');
+                                        scripPlus.events();
                                     });
-                                  }')
+                                }')
                         ->set_options('scroller','{
                             loadingIndicator: true
-                          }')
-                          ->set_options('"createdRow"','function(row, data, dataIndex) {
-                                if (data["cant_oths"] == 0) {
+                        }')
+//                        ->set_options('dom','Blfrtip')
+                        ->set_options('buttons',"[
+                                                {
+                                                    text: 'Excel <span class=\"fa fa-file-excel-o\"></span>',
+                                                    className: 'btn-cami_cool',
+                                                    extend: 'excel',
+                                                    title: 'ZOLID EXCEL',
+                                                    filename: 'zolid - ' + $fecha_actual
+                                                },
+                                                {
+                                                    text: 'Imprimir <span class=\"fa fa-print\"></span>',
+                                                    className: 'btn-cami_cool',
+                                                    extend: 'print',
+                                                    title: 'Reporte Zolid',
+                                                },
+                                                {
+                                                    text: '<span class=\"fa fa-envelope-o\" aria-hidden=\"true\"></span> Reporte Actualización',
+                                                    className: 'btn-cami_cool btn-rpt_act',
+//                                                    action: eventos.otp_seleccionadas,
+                                                }
+                                        ]")
+                        ->set_options('"createdRow"','function(row, data, dataIndex) {
+                                if (data[21] == 0) {
                                     $(row).css("background-color", "#f50e0e69");
                                 }
                             }')
-                          ->set_options('select','true');
+                        ->set_options('"drawCallback"','function( settings, json){
+                                    queryValue = settings["json"]["query"];
+                                }')
+                        ->set_options('select','true');
 
         $ListOtPadre_table->delimitador("where");
         $ListOtPadre_table
@@ -386,73 +417,76 @@ class OtPadre extends CI_Controller {
                 ->column('Ultimo Reporte Enviado', 'ultimo_envio_reporte')//20--
                 ->column('Cantidad OTH', 'cant_oths')//21--
                 ->column('Observaciónes dejadas', 'observacion', function($data, $row){
-                    $observacion = ($data->observacion == null) ? '' : $data->observacion;
+//                    echo '<pre>';var_dump($row['observacion']);echo '</pre>';
+                    $observacion = ($row['observacion'] == null) ? '' : $row['observacion'];
                     $input = "<textarea class=\"obs_cod_resolucion\" spellcheck=\"false\">$observacion</textarea>";
                     return $input;
                 })//22
-//                ->column('ultimo envio', function($data){
-//                    $inicio = strtotime(date('Y-m-d'));
-//                    $fin = strtotime($data->ultimo_envio_reporte);
-//                    $dif = $fin - $inicio;
-//                    $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
-//                    return ceil($diasFalt);
-//                })//23
-//                ->column('No. OTHs', function($data){
-//                    $num = '';
-//                    if ($data->cant_oths != 0) {
-//                        $num += `<span class="styleNum" title="$data->cant_oths OTHs Asociadas" >$data->cant_oths</span>`;
-//                    } else {
-//                        $num += `<span class="styleNum noOTHs" title="sin OTHs">$data->cant_oths</span>`;
-//                    }
-//                    return $num;
-//                })//24
-//                ->column('Opc', function($data){
-//                    $span = '';
-//                    $title = '';
-//                    $cierreKo = '';
-//                    $icon = '';
-//                    $reportInicio = ''; //si tiene reporte de inicio y tiene emails enviados
-//
-//                    //si existe una OTP con contador de reportes enviados, aparecerá, de lo contrario, pondrá el icono del ojo
-//                    if ($data->MAIL_enviados) {
-//                        if ($data->MAIL_enviados != 0) {
-//                            $reportInicio = ($data->cant_mails != 0) ? "<span class='fa fa-fw '>| &nbsp" . $data->cant_mails . "</span> <span style='color: #7eec7c;' class='fa fa-check-circle'  aria-hidden='true'></span>" : '';
-//                            $span = "<span class='fa fa-fw'>" . $data->MAIL_enviados . "</span>";
-//                            $icon = "<span class='fa fa-envelope' aria-hidden='true' style='color: #fff700;'></span>";
-//                            $title = ($data->MAIL_enviados == 1) ? $data->MAIL_enviados . " correo enviado" : $data->MAIL_enviados . " correos enviados";
-//                        } else if ($data->cant_mails != 0) {
-//                            $span = "<span class='fa fa-fw '>" . $data->cant_mails . "</span>";
-//                            $reportInicio = "<span style='color: #7eec7c;' class='fa fa-check-circle' aria-hidden='true'></span>";
-//                            $title = ($data->cant_mails == 1) ? $data->cant_mails . " correo enviado" : $data->cant_mails . " correos enviados";
-//                        } else {
-//                            $span = "<span class='fa fa-fw fa-eye'></span>";
-//                            $title = "ver OT Hijas";
-//                        }
-//                    } else {
-//                        //SI no es reporte de act. entra acá, pero si lo es, entrará arriba
-//                        if ($data->cant_mails != 0) {
-//                            $span = "<span class='fa fa-fw '>" . $data->cant_mails . "</span>";
-//                            $title = ($data->cant_mails == 1) ? $data->cant_mails . " correo enviado" : $data->cant_mails . " correos enviados";
-//                        } else {
-//                            $span = "<span class='fa fa-fw fa-eye'></span>";
-//                            $title = "ver OT Hijas";
-//                        }
-//                    }
-//                    if ($data->finalizo != null) {
-//                        $cierreKo = "<a class='btn btn-default btn-xs product-otp btn_datatable_cami' data-btn='cierreKo' title='Ver Detalle Cierre KO'><span class='fa fa-fw fa-info-circle'></span></a>";
-//                    }
-//
-//                    $color = ($data->id_hitos) ? 'clr_lime' : '';
-//                    $botones = "<div class='btn-group-vertical' style=''>"
-//                            . "<a class='btn btn-default btn-xs btnoths btn_datatable_cami' title='" . $title . "'>" . $icon . $span . $reportInicio . "</a>"
-//                            // + "<a class='btn btn-default btn-xs edit-otp btn_datatable_cami' title='Editar Ots'><span class='glyphicon glyphicon-save'></span></a>"
-//                            . "<a class='btn btn-default btn-xs hitos-otp btn_datatable_cami' data-btn='hito' title='Hitos Ots'><span class='glyphicon glyphicon-header " . $color . "'></span></a>"
-//                            . $cierreKo
-//                            . "</div>";
-//                    return $botones;
-//                })//25
+                ->column('ultimo envio', 'ultimo_envio_reporte', function($data, $row){
+                    $inicio = strtotime(date('Y-m-d'));
+                    $fin = strtotime($row['ultimo_envio_reporte']);
+                    $dif = $inicio - $fin;
+                    $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
+                    return ceil($diasFalt);
+                })//23
+                ->column('No. OTHs', 'cant_oths', function($data, $row){
+                    $num = '';
+                    if ($row['cant_oths'] != 0) {
+                        $num .= "<span class=\"styleNum\" title=\" " . $row['cant_oths'] . " OTHs Asociadas\" style=\"text-align: center;\">" . $row['cant_oths'] . "</span>";
+                    } else {
+                        $num .= "<span class=\"styleNum noOTHs\" title=\"sin OTHs\" style=\"text-align: center;\">" . $row['cant_oths'] . "</span>";
+                    }
+                    return $num;
+                })//24
+                ->column('Opc', 'cant_oths', function($data, $row){
+                    $span = '';
+                    $title = '';
+                    $cierreKo = '';
+                    $icon = '';
+                    $reportInicio = ''; //si tiene reporte de inicio y tiene emails enviados
+
+                    //si existe una OTP con contador de reportes enviados, aparecerá, de lo contrario, pondrá el icono del ojo
+                    if ($row['MAIL_enviados']) {
+                        if ($row['MAIL_enviados'] != 0) {
+                            $reportInicio = ($row['cant_mails'] != 0) ? "<span class='fa fa-fw '>| &nbsp" . $row['cant_mails'] . "</span> <span style='color: #7eec7c;' class='fa fa-check-circle'  aria-hidden='true'></span>" : '';
+                            $span = "<span class='fa fa-fw'>" . $row['MAIL_enviados'] . "</span>";
+                            $icon = "<span class='fa fa-envelope' aria-hidden='true' style='color: #fff700;'></span>";
+                            $title = ($row['MAIL_enviados'] == 1) ? $row['MAIL_enviados'] . " correo enviado" : $row['MAIL_enviados'] . " correos enviados";
+                        } else if ($row['cant_mails'] != 0) {
+                            $span = "<span class='fa fa-fw '>" . $row['cant_mails'] . "</span>";
+                            $reportInicio = "<span style='color: #7eec7c;' class='fa fa-check-circle' aria-hidden='true'></span>";
+                            $title = ($row['cant_mails'] == 1) ? $row['cant_mails'] . " correo enviado" : $row['cant_mails'] . " correos enviados";
+                        } else {
+                            $span = "<span class='fa fa-fw fa-eye'></span>";
+                            $title = "ver OT Hijas";
+                        }
+                    } else {
+                        //SI no es reporte de act. entra acá, pero si lo es, entrará arriba
+                        if ($row['cant_mails'] != 0) {
+                            $span = "<span class='fa fa-fw '>" . $row['cant_mails'] . "</span>";
+                            $title = ($row['cant_mails'] == 1) ? $row['cant_mails'] . " correo enviado" : $row['cant_mails'] . " correos enviados";
+                        } else {
+                            $span = "<span class='fa fa-fw fa-eye'></span>";
+                            $title = "ver OT Hijas";
+                        }
+                    }
+                    if ($row['finalizo'] != null) {
+                        $cierreKo = "<a class='btn btn-default btn-xs product-otp btn_datatable_cami' data-btn='cierreKo' title='Ver Detalle Cierre KO'><span class='fa fa-fw fa-info-circle'></span></a>";
+                    }
+
+                    $color = ($row['id_hitos']) ? 'clr_lime' : '';
+                    $botones = "<div class='btn-group-vertical' style=''>"
+                            . "<a class='btn btn-default btn-xs btnoths btn_datatable_cami' title='" . $title . "'>" . $icon . $span . $reportInicio . "</a>"
+                            // + "<a class='btn btn-default btn-xs edit-otp btn_datatable_cami' title='Editar Ots'><span class='glyphicon glyphicon-save'></span></a>"
+                            . "<a class='btn btn-default btn-xs hitos-otp btn_datatable_cami' data-btn='hito' title='Hitos Ots'><span class='glyphicon glyphicon-header " . $color . "'></span></a>"
+                            . $cierreKo
+                            . "</div>";
+                    return $botones;
+                })//25
                 ;
-        $ListOtPadre_table->script("<script type=\"text/javascript\" defer=\"defer\">
+        $ListOtPadre_table->script("
+                            <script type=\"text/javascript\" defer=\"defer\">
+                                $(function () {
                                     scripPlus = {
                                         init: function() {
                                             scripPlus.events();
@@ -463,52 +497,58 @@ class OtPadre extends CI_Controller {
                                             $('#contenido_tablas').on('click', 'a.product-otp', scripPlus.onClickBtnCloseOtp);
                                         },
                                         onClickShowModal: function () {
-                                                var aLinkLog = $(this);
-                                                var trParent = aLinkLog.parents('tr');
-                                                var tabla = aLinkLog.parents('table').attr('id');
-                                                var record;
-                                                switch (tabla) {
-                                                    case 'table_otPadreList':
-                                                        record = vista.table_otPadreList.row(trParent).data();
-                                                        break;
-                                                    case 'table_otPadreListHoy':
-                                                        record = hoy.table_otPadreListHoy.row(trParent).data();
-                                                        break;
-                                                    case 'table_otPadreListVencidas':
-                                                        record = vencidas.table_otPadreListVencidas.row(trParent).data();
-                                                        break;
-                                                    case 'table_list_opc':
-                                                        record = lista.tableOpcList.row(trParent).data();
-                                                        break;
-                                                    case 'table_otPadreListEmails':
-                                                        record = emails.table_otPadreListEmails.row(trParent).data();
-                                                        break;
-                                                    case 'table_reporte_actualizacion':
-                                                        record = reporte_act.table_reporte_actualizacion.row(trParent).data();
-                                                        break;
-                                                }
+                                            var aLinkLog = $(this);
+                                            var trParent = aLinkLog.parents('tr');
+                                            var tabla = aLinkLog.parents('table').attr('id');
+                                            var record;
+                                            switch (tabla) {
+                                                case 'table_otPadreList':
+//                                                    record = vista.table_otPadreList.row(trParent).data();
+                                                    record = erTable_table_otPadreList.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListHoy':
+//                                                    record = hoy.table_otPadreListHoy.row(trParent).data();
+                                                    record = erTable_table_otPadreListHoy.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListVencidas':
+//                                                    record = vencidas.table_otPadreListVencidas.row(trParent).data();
+                                                    record = erTable_table_otPadreListVencidas.row(trParent).data();
+                                                    break;
+                                                case 'table_list_opc':
+//                                                    record = lista.tableOpcList.row(trParent).data();
+                                                    record = erTable_tableOpcList.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListEmails':
+//                                                    record = emails.table_otPadreListEmails.row(trParent).data();
+                                                    record = erTable_table_otPadreListEmails.row(trParent).data();
+                                                    break;
+                                                case 'table_reporte_actualizacion':
+//                                                    record = reporte_act.table_reporte_actualizacion.row(trParent).data();
+                                                    reporte_act.table_reporte_actualizacion.row(trParent).data();
+                                                    break;
+                                            }
 
-                                                scripPlus.showModalOthDeOthp(record);
+                                            scripPlus.showModalOthDeOthp(record);
                                         },
                                         showModalOthDeOthp: function (data) {
-                                            listoth.getothofothp(data);
+                                            scripPlus.getothofothp(data);
                                             // resetea el formulario y lo deja vacio
                                             document.getElementById(\"formModalOTHS\").reset();
                                             //pinta el titulo del modal y cambia dependiendo de la otp seleccionada
-                                            $('#myModalLabel').html('<strong> Lista OTH de la OTP N.<span id=\"NroOTPSelect\">' + data.k_id_ot_padre + '</span></strong>');
+                                            $('#myModalLabel').html('<strong> Lista OTH de la OTP N.<span id=\"NroOTPSelect\">' + data[0] + '</span></strong>');
                                             $('#modalOthDeOtp').modal('show');
                                         },
                                         getothofothp: function (obj) {
                                             //metodo ajax (post)
                                             $.post(baseurl + '/OtPadre/c_getOthOfOtp',
                                                     {
-                                                        idOtp: obj.k_id_ot_padre
+                                                        idOtp: obj[0]
                                                     },
                                                     // funcion que recibe los datos
                                                             function (data) {
                                                                 // convertir el json a objeto de javascript
                                                                 var obj = JSON.parse(data);
-                                                                listoth.printTable(obj);
+                                                                scripPlus.printTable(obj);
                                                             }
                                                     );
                                                 },
@@ -520,22 +560,26 @@ class OtPadre extends CI_Controller {
 
                                             switch (tabla) {
                                                 case 'table_otPadreList':
-                                                    record = vista.table_otPadreList.row(trParent).data();
+//                                                    record = vista.table_otPadreList.row(trParent).data();
+                                                    record = erTable_table_otPadreList.row(trParent).data();
                                                     break;
                                                 case 'table_otPadreListHoy':
-                                                    record = hoy.table_otPadreListHoy.row(trParent).data();
+//                                                    record = hoy.table_otPadreListHoy.row(trParent).data();
+                                                    record = erTable_table_otPadreListHoy.row(trParent).data();
                                                     break;
                                                 case 'table_otPadreListVencidas':
-                                                    record = vencidas.table_otPadreListVencidas.row(trParent).data();
+//                                                    record = vencidas.table_otPadreListVencidas.row(trParent).data();
+                                                    record = erTable_table_otPadreListVencidas.row(trParent).data();
                                                     break;
                                                 case 'table_list_opc':
-                                                    record = lista.tableOpcList.row(trParent).data();
+//                                                    record = lista.tableOpcList.row(trParent).data();
+                                                    record = erTable_tableOpcList.row(trParent).data();
                                                     break;
                                                 case 'table_otPadreListEmails':
-                                                    record = emails.table_otPadreListEmails.row(trParent).data();
+                                                    record = erTable_table_otPadreListEmails.row(trParent).data();
                                                     break;
                                                 case 'table_reporte_actualizacion':
-                                                    record = reporte_act.table_reporte_actualizacion.row(trParent).data();
+                                                    reporte_act.table_reporte_actualizacion.row(trParent).data();
                                                     break;
                                             }
 
@@ -551,91 +595,201 @@ class OtPadre extends CI_Controller {
                                                     break;
                                             }
                                         },
-                                        showDetailsCierreKo: function (data) {
-                                            var s = data.finalizo;
-                                            var flag = false;
-                                            var form = setForm.returnFormularyProduct(s);
-                                            if (s == 3 || s == 4 || s == 5 || s == 6 || s == 7 || s == 8 || s == 9 || s == 10) {
-                                                form += setForm.formProduct_mpls_form_origen();
-                                                flag = true;
-                                            }
-                                            $(\"#form_cierreKo\").html(form);
-                                            $('.max-w_border-n').remove();
-
-                                            $.post(baseurl + '/OtPadre/c_getProductByOtp',
-                                                    {
-                                                        id_otp: data.k_id_ot_padre,
-                                                        num_servicio: data.finalizo
-                                                    },
-                                                    function (data) {
-                                                        var obj = JSON.parse(data);
-                                                        $.each(obj, function (i, item) {
-
-                                                            var el = $('#pr_' + i);
-                                                            el.replaceWith($('<input />').attr({
-                                                                type: 'text',
-                                                                id: el.attr('id'),
-                                                                name: el.attr('name'),
-                                                                class: el.attr('class'),
-                                                                value: el.val(),
-                                                                readonly: true,
-                                                                style: 'font-size: 12px;'
-                                                            }));
-                                                            $('#pr_' + i).val(item);
-                                                        });
-
-                                                        if (flag && obj.ciudad_ori == null) {
-                                                            $('#seccion_mpls_ori').remove();
-                                                        }
-
-                                                        $(\"#mdl_cierreKo #id_ot_padre\").val(obj.id_ot_padre);
-                                                        $(\"#mdl_cierreKo #id_ot_padre_ori\").val(obj.id_ot_padre);
-                                                        $(\"#mdl_cierreKo #id_ot_padre_des\").val(obj.id_ot_padre);
-                                                        $(\"#mdl_cierreKo\").css(\"font-size\", \"12px\");
-                                                        $(\"#mdl_cierreKo label\").css(\"width\", \"150px\");
-                                                        $(\"#mdl_cierreKo .selectContainer\").css(\"margin-bottom\", \"5px\");
-                                                    });
-
-                                            $('#mdl_cierreKo').modal('show');
-                                        },
                                         
-                                        // Muestra los hitos de la ot padre seleccionada
-                                        showModalHitosOthp: function (datax, x) {
-                                            reporte_act.resetFormHitos();
-                                            $.post(baseurl + '/OtPadre/c_getInfoHitosByOtp',
-                                                    {
-                                                        idOtp: datax.k_id_ot_padre // parametros que se envian
-                                                    },
-                                                    function (data) {
-                                                        var obj = JSON.parse(data);
-                                                        if (obj.length > 0) {
-                                                            $.each(obj, function (i, item) {
-                                                                $.each(item, function (i2, item2) {
-                                                                    if ($('#' + i2).attr('type') == 'checkbox' && item2 == 'no aplica') {
-                                                                        $('#' + i2).prop( \"checked\", true );
+                                        //pintar tabla
+                                        printTable: function (data) {
+                                            //funcion para limpiar el modal
+                                            if (scripPlus.table_oths_otp) {
+                                                var tabla = scripPlus.table_oths_otp;
+                                                tabla.clear().draw();
+                                                tabla.rows.add(data);
+                                                tabla.columns.adjust().draw();
+                                                return;
+                                            }
+
+                                            // nombramos la variable para la tabla y llamamos la configuiracion
+                                            scripPlus.table_oths_otp = $('#table_oths_otp').DataTable(scripPlus.configTable(data, [
+
+                                                {title: 'OTH', data: 'id_orden_trabajo_hija'},
+                                                {title: 'Tipo OTH', data: 'ot_hija'},
+                                                {title: 'Estado OTH', data: 'estado_orden_trabajo_hija'},
+                                                {title: 'Recurrente', data: 'MRC'},
+                                                {title: 'Fecha Compromiso', data: 'fecha_compromiso'},
+                                                {title: 'Fecha Programacion', data: 'fecha_programacion'},
+                                                {title: 'Opc', data: scripPlus.getButtonsOth},
+                                            ]));
+                                        },
+                                        // Datos de configuracion del datatable
+                                        configTable: function (data, columns, onDraw) {
+                                            return {
+                                                data: data,
+                                                columns: columns,
+                                                //lenguaje del plugin
+                                                columnDefs: [{
+                                                        defaultContent: \"\",
+                                                        targets: -1,
+                                                        orderable: false,
+                                                    }],
+                                                order: [[0, 'asc']],
+                                                drawCallback: onDraw
+                                            }
+                                        },
+                                        getButtonsOth: function (obj) {
+                                            var botones = '<div class=\"btn-group\" style=\"display: inline-flex;\">';
+                                            botones += '<a class=\"btn btn-default btn-xs ver-det btn_datatable_cami\" title=\"Editar Oth\"><span class=\"fa fa-fw fa-edit\"></span></a>';
+                                            botones += '</div>';
+                                            return botones;
+                                        },
+                                        otp_seleccionadas: function () {
+                                            var tabla = $('ul#pestania').find('li.active').attr('tabla');
+                                            ;
+                                            var record;
+                                            switch (tabla) {
+                                                case 'table_otPadreList':
+                                                    record = vista.table_otPadreList;
+                                                    break;
+                                                case 'table_otPadreListHoy':
+                                                    record = hoy.table_otPadreListHoy;
+                                                    break;
+                                                case 'table_otPadreListVencidas':
+                                                    record = vencidas.table_otPadreListVencidas;
+                                                    break;
+                                                case 'table_list_opc':
+                                                    record = lista.tableOpcList;
+                                                    break;
+                                                case 'table_otPadreListEmails':
+                                                    record = emails.table_otPadreListEmails;
+                                                    break;
+                                                case 'table_reporte_actualizacion':
+                                                    record = reporte_act.table_reporte_actualizacion;
+                                                    break;
+                                            }
+
+                                            let hay_sel = record.rows({selected: true}).any();// booleanos q indica si hay algo seleccionado
+                                            var seleccionadas = record.rows({selected: true}).data();// los datos de los elem seleccionados
+                                            if (hay_sel) {
+                                                eventos.modalSeleccionadas(seleccionadas);
+                                                // console.log(seleccionadas[0].k_id_ot_padre);
+                                                // console.log(\"==================\");
+                                                // console.log(seleccionadas);
+                                                var cuantas = record.rows({selected: true}).count();
+                                                var ids = [];
+                                                if (cuantas > 1) {
+                                                    for (let i = 0; i < cuantas; i++) {
+                                                        ids.push(seleccionadas[i].k_id_ot_padre);
+                                                    }
+                                                } else {
+                                                    ids.push(seleccionadas[0].k_id_ot_padre);
+                                                }
+                                                // console.log(ids);
+
+                                                $('#mdl-title-cierre').html('<b>' + cuantas + '</b> ORDENES SELECCIONADAS');
+                                                $('#mdl_cierre').modal('show');
+                                                $.post(baseurl + '/OtPadre/c_getInfoEmailreport', {idsOtp: ids},
+                                                        function (data) {
+                                                            data = JSON.parse(data);
+                                                            // console.log('data:',data);
+
+                                                            var ids = ['seniorHitos', 'configuracionHitos', 'entregaServicioHitos', 'observacionesHitos'];
+                                                            if (cuantas == 1) {
+                                                                //significa que hay una seleccion
+                                                                if (data != \"sin data\") {
+                                                                    //si entra aca es porque tiene la fecha de compromiso de linea base o datos en la tabla reporte_info
+                                                                    if (data['fecha_compromiso']) {
+                                                                        //si entra acá es porque la información viene de la linea base
+                                                                        $('#entregaServicioHitos').val(data.fecha_compromiso);
+                                                                        $('#entregaServicioHitos').parents(\"div.col-sm-10\").append(`<b class='vieneDeLineaBase'>Fecha extraída de la fecha de compromiso en línea base</b>`);
                                                                     } else {
-                                                                        $('#' + i2).val(item2);
+                                                                        //si entra acá es porque la info viene de la tabla reporte_indo
+                                                                        $('#seniorHitos').val(data['senior']);
+                                                                        $('#configuracionHitos').val(data['nombre_cliente']);
+                                                                        $('#entregaServicioHitos').val(data['f_entrega_servicio']);
+                                                                        $('#observacionesHitos').val(data['observaciones']);
+                                                                    }
+
+                                                                }//si no entra a ninguno no hace nada porque no tiene nada de info.
+                                                            } else {
+                                                                //entra si hay más de una seleccion
+
+                                                                //creamos los arrays para almacenar toda la info. de la bd
+                                                                const seniores = [];
+                                                                const nomCliente = [];
+                                                                const f_entregaServicio = [];
+                                                                const obsr = [];
+                                                                const lineabasearr = [];
+
+                                                                //ESTE EACH LLENA LA INFORMACION A VALIDAR Y LOS PONE EN DISTINTOS ARREGLOS
+                                                                $.each(data, function (i, item) {
+
+                                                                    if (item['fecha_compromiso']) {
+                                                                        //entra si los datos es igual a la fehca de compromiso de la linea base
+                                                                        lineabasearr.push(item['fecha_compromiso']);
+
+                                                                        f_entregaServicio.push(\"se debe eliminar\"); // este se debe eliminar es para que entre a la condicional para crear el select
+
+                                                                        //si es igual a sin data significa que no existe en base de datos
+                                                                    } else if (item != \"sin data\") {
+                                                                        //si entra acá significa que son datos de la tabla
+
+
+                                                                        //estos ifs validan si algún campo está vacío, porque puede que algún campo no esté lleno, pero exista en la tabla reporte_info, es para que no se vayan en null
+
+                                                                        //crean los arreglos para llenar la informacion del select
+                                                                        if (item['senior'] != null || item['senior'] != undefined) {
+                                                                            seniores.push(item['senior']);
+                                                                        }
+                                                                        if (item['nombre_cliente'] != null || item['nombre_cliente'] != undefined) {
+                                                                            nomCliente.push(item['nombre_cliente']);
+                                                                        }
+                                                                        if (item['f_entrega_servicio'] != null || item['f_entrega_servicio'] != undefined) {
+                                                                            f_entregaServicio.push(item['f_entrega_servicio']);
+                                                                        }
+                                                                        if (item['observaciones'] != null || item['observaciones'] != undefined) {
+                                                                            obsr.push(item['observaciones']);
+                                                                        }
                                                                     }
                                                                 });
-                                                            });
-                                                        }                        
-                                                    });
-                                            //pinta el titulo del modal y cambia dependiendo de la otp seleccionada
-                                            $('#myModalLabelHitos').html('<strong> Hitos de la OTP N.<span id=\"otpHIto\">' + datax.k_id_ot_padre + '</span></strong>');
-                                            $('#servivio_hito').html('<strong> OT ' + datax.k_id_ot_padre + ' - ' + datax.servicio + '</strong>');
-                                            $('#cliente_hito').html('<strong> CLIENTE: ' + datax.n_nombre_cliente + '</strong>');
-                                            $('#ciudad_hito').html('<strong> CIUDAD: ' + datax.ciudad + ' - ' + datax.direccion + '</strong>');
-                                            $('#modalHitosOtp').modal('show');
+
+                                                                //LIMPIA TODOS LOS VALORES QUE SEAN REPETIDOS Y SOLO DEJA UNO DE CADA UNO
+                                                                const fseniores = eventos.clean(seniores);
+                                                                const fnomCliente = eventos.clean(nomCliente);
+                                                                const ff_entregaServicio = eventos.clean(f_entregaServicio);
+                                                                const fobsr = eventos.clean(obsr);
+
+                                                                //ARMAMOS EL OBJETO PARA ENVIARLO A LA FUCNIÓN DE VALIDACIÓN
+                                                                const todo = {0: fseniores,
+                                                                    1: fnomCliente,
+                                                                    2: ff_entregaServicio,
+                                                                    3: fobsr}
+
+                                                                eventos.validarIgualesReporteAct(todo, ids, lineabasearr)
+
+                                                            }
+                                                        });
+
+                                            } else {
+                                                const toast = swal.mixin({
+                                                    toast: true,
+                                                    position: 'top',
+                                                    showConfirmButton: false,
+                                                    timer: 3000
+                                                });
+                                                toast({
+                                                    type: 'error',
+                                                    title: 'No seleccionaste ninguna fila!'
+                                                });
+                                            }
+
                                         },
                                         
                                     };
 
                                     scripPlus.init();
-
-                                </script>");
+                                });
+                            </script>");
                 
         $this->datatables->create('table_otPadreList', $ListOtPadre_table);
-        */                  
+        /**/                  
         /*Fin Datatables server site*/
         
         $data['cantidad'] = $this->Dao_ot_hija_model->getCantUndefined();
@@ -1275,6 +1429,28 @@ class OtPadre extends CI_Controller {
 
         /* print_r($direccionCierreOtp);exit(); */
 
+        $encabezado_timeline = '
+            <p align="center" style="margin-right:0cm; margin-left:0cm; font-size:12pt; font-family:&quot;Times New Roman&quot;,serif; margin:0cm; margin-bottom:.0001pt; text-align:center">
+                <b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit">
+                    <span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">
+                        <img src="' . URL::base() . "/assets/images/linea_roja.png" . '"  width="865" height="10">
+                    </span>
+                </b><br>
+            </p>
+            <p align="center" style="margin-right:0cm; margin-left:0cm; font-size:12pt; font-family:&quot;Times New Roman&quot;,serif; margin:0cm; margin-bottom:.0001pt; text-align:center">
+                <span style="z-index:251659264; left:0px; margin-top:29px; width:760px; height:7px"></span>
+                <b>
+                    <span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">ACTIVIDADES DE INSTALACION DE SU SERVICIO</span>
+                </b>
+            </p>
+            <p align="center" style="margin-right:0cm; margin-left:0cm; font-size:12pt; font-family:&quot;Times New Roman&quot;,serif; margin:0cm; margin-bottom:.0001pt; text-align:center">
+                <b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit">
+                    <span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">
+                        <img src="' . URL::base() . "/assets/images/linea_roja.png" . '"  width="865" height="10">
+                    </span>
+                </b><br>
+            </p>';
+        
         $template .= '
                 <div dir="ltr">
                     <table class="x_m_-1360814042998563018MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="1660" style="width: 829.95pt; border-collapse: collapse; transform: scale(0.779982, 0.779982); transform-origin: left top;" min-scale="0.7799819657348963">
@@ -1338,6 +1514,10 @@ class OtPadre extends CI_Controller {
                 case 'ENTREGA SERVICIO':
                     $observaciones = $hitosotp[0]->observaciones_entrega_servicio;
                     break;
+                
+                case 'PENDIENTE CLIENTE':
+                    $observaciones = $hitosotp[0]->observaciones_genrales;
+                    break;
             }
            
             $template .= '
@@ -1375,17 +1555,19 @@ class OtPadre extends CI_Controller {
                                 <u></u><u></u></span></p>
                             </td>
                         </tr>';
-//            print_r($hitosotp[0]->estado_entrega_servicio == '');exit();
+//            print_r((($hitosotp[0]->n_estado_voc == '') ? '' : (($hitosotp[0]->n_estado_voc == 'PENDIENTE') ? '<img src="' . URL::base() . "/assets/images/VisitaObraCivil_gris.png" . '"  width="auto" height="110">' : '<img src="' . URL::base() . "/assets/images/VisitaObraCivil_verde.png" . '"  width="auto" height="110">' )));exit();
             $timeline .= '<div dir="ltr">
                             <ul style="font-family:Calibri,Helvetica,sans-serif; margin-bottom:0cm">
-                                <li><span style="font-family:&quot;Berlin Sans FB&quot;,sans-serif; color:black; background:white">OT</span>
-                                <span style="font-size:10.0pt; color:black; border:none windowtext 1.0pt; padding:0cm">
+                                <li style="list-style-type: none; display: flex; flex-wrap: nowrap;">
+                                ' . (($hitosotp[0]->actividad_actual != 'PENDIENTE CLIENTE') ? '' : '<img src="' . URL::base() . "/assets/images/pendienteCliente.png" . '"  width="auto" height="40">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' ) . '
+                                <span style="font-size:15.0pt; font-family:&quot;Berlin Sans FB&quot;,sans-serif; color:black; background:white">OT&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span style="font-size:15.0pt; color:black; border:none windowtext 1.0pt; padding:0cm">
                                 ' . $idOtp . ' – ' . $infOtp->direccion . '</span></li>
                             </ul>
                             <p style="font-family:Calibri,sans-serif; margin:0cm 0cm 0.0001pt 36pt; font-size:11pt; line-height:normal">
                                 <span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif"></span>
                             </p>
-                            <ul style="margin-bottom:0cm">
+                            <!--<ul style="margin-bottom:0cm">
                                 <ul style="font-family:Calibri,Helvetica,sans-serif; margin-bottom:0cm">
                                     ' . (($hitosotp[0]->n_estado_voc == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Visita obra civil<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->n_estado_voc . '</span></li>') . '
                                     ' . (($hitosotp[0]->estado_eoc == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Visita ejecución obra civil<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->estado_eoc . '</span></li>') . '
@@ -1393,7 +1575,14 @@ class OtPadre extends CI_Controller {
                                     ' . (($hitosotp[0]->estado_entrega_servicio == '') ? '' : '<li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Entrega servicio<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->estado_entrega_servicio . '</span></li>') . '
                                     <li><span style="font-size:12.0pt; font-family:&quot;Times New Roman&quot;,serif">Observaciones<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>' . $hitosotp[0]->observaciones_genrales . '</span></li>
                                 </ul>
-                            </ul>
+                            </ul>-->
+                            <br>
+                            <div dir="ltr" style="display: flex; flex-wrap: nowrap; text-align: center;">
+                                ' . (($hitosotp[0]->n_estado_voc == '') ? '' : (($hitosotp[0]->n_estado_voc == 'PENDIENTE') ? '<div><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Visita Obra Civil</span></b><br><img src="' . URL::base() . "/assets/images/VisitaObraCivil_gris.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_voc . '</span></b></div>' : '<div><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Visita Obra Civil</span></b><br><img src="' . URL::base() . "/assets/images/VisitaObraCivil_verde.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_voc . '</span></b></div>' )) . '
+                                ' . (($hitosotp[0]->estado_eoc == '') ? '' : (($hitosotp[0]->estado_eoc == 'PENDIENTE') ? '<div><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Ejecución Obra Civil</span></b><br><img src="' . URL::base() . "/assets/images/ejecucionObraCilvil_gris.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_eoc . '</span></b></div>' : '<div><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Ejecución Obra Civil</span></b><br><img src="' . URL::base() . "/assets/images/ejecucionObraCivil_verde.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_eoc . '</span></b></div>' )) . '
+                                ' . (($hitosotp[0]->estado_em == '') ? '' : (($hitosotp[0]->estado_em == 'PENDIENTE') ? '<div><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Empalmes</span></b><br><img src="' . URL::base() . "/assets/images/Empalme_gris.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_em . '</span></b></div>' : '<div><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Empalmes</span></b><br><img src="' . URL::base() . "/assets/images/Empalme_verde.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_em . '</span></b></div>' )) . '
+                                ' . (($hitosotp[0]->estado_entrega_servicio == '') ? '' : (($hitosotp[0]->estado_entrega_servicio == 'PENDIENTE') ? '<div><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Entrega Servicio</span></b><br><img src="' . URL::base() . "/assets/images/entregaServicio_gris.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_entrega_servicio . '</span></b></div>' : '<div><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">Entrega Servicio</span></b><br><img src="' . URL::base() . "/assets/images/entregaServicio_verde.png" . '"  width="auto" height="110"><br><b style="font-size:12pt; font-style:inherit; font-variant-ligatures:inherit; font-variant-caps:inherit"><span style="font-size:14.0pt; font-family:&quot;Arial Narrow&quot;,sans-serif">' . $hitosotp[0]->f_entrega_servicio . '</span></b></div>' )) . '
+                            </div>
                         </div>
                         <br><br>
                         ';
@@ -1461,8 +1650,1747 @@ class OtPadre extends CI_Controller {
             <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">Gracias por la atención prestada y quedo atento a sus comentarios.</span></p>
             <p class="x_MsoNormal"><span style="font-family: Arial, sans-serif, serif, EmojiFont;">&nbsp;</span></p>';
 
-        $res = $this->Dao_email_model->h_enviarCorreo($encabezado . $template . $timeline . $contacto, $email, 'REPORTE DE ACTUALIZACION DE ACTIVIDADES ' . strtoupper((isset($detCierreOtp->servicio) ? $detCierreOtp->servicio : $infOtp->servicio)) . ' - ' . $infOtp->n_nombre_cliente . ' / OT ' . substr($asunOtp, 0, -2));
+        $res = $this->Dao_email_model->h_enviarCorreo($encabezado . $template . $encabezado_timeline .$timeline . $contacto, $email, 'REPORTE DE ACTUALIZACION DE ACTIVIDADES ' . strtoupper((isset($detCierreOtp->servicio) ? $detCierreOtp->servicio : $infOtp->servicio)) . ' - ' . $infOtp->n_nombre_cliente . ' / OT ' . substr($asunOtp, 0, -2));
         echo json_encode($res);
     }
+    
+    public function vistaTablaHoy($n_group){
+        /*Datatables server site*/
+        /**/
+        $this->load->library('Datatables');
+        $condicion = " ";
+        
+        if (Auth::user()->n_role_user == 'ingeniero') {
+            $usuario_session = Auth::user()->k_id_user;
+            $condicion = " AND otp.k_id_user = $usuario_session ";
+        } else {
+            if ($n_group != 'all') {
+                $condicion = " AND `user`.n_group = '" . str_replace("_"," ",$n_group) . "'";
+            } else {
+                $condicion = " AND 1 = 1";
+            }
+        }
+//        print_r($n_group);
+        date_default_timezone_set("America/Bogota");
+        $fecha_actual = date('Y-m-d');
+        
+        $ListOtPadreHoy_table = $this->datatables->init();
+        $ListOtPadreHoy_table->query("
+            SELECT
+                otp.k_id_ot_padre,
+                otp.n_nombre_cliente,
+                otp.orden_trabajo,
+                (SELECT COUNT(id_ot_padre) FROM reporte_info WHERE id_ot_padre = otp.k_id_ot_padre) AS MAIL_enviados,
+                otp.servicio,
+                REPLACE (otp.estado_orden_trabajo, 'otp_cerrada', 'Cerrada') AS estado_orden_trabajo,
+                otp.fecha_programacion,
+                otp.fecha_compromiso,
+                otp.fecha_creacion,
+                otp.k_id_user,
+                `user`.n_name_user,
+                CONCAT( `user`.n_name_user, ' ', `user`.n_last_name_user ) AS ingeniero,
+                otp.lista_observaciones,
+                otp.observacion,
+                IFNULL(SUM( oth.c_email ),0) AS cant_mails,
+                hitos.id_hitos,
+                otp.finalizo,
+                otp.ultimo_envio_reporte,
+                CONCAT('$ ', FORMAT(oth.monto_moneda_local_arriendo + oth.monto_moneda_local_cargo_mensual, 2)) AS MRC,
+                (SELECT COUNT(oth2.nro_ot_onyx) FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx) AS cant_oths,
+                (SELECT IF(oth2.direccion_origen = '', oth2.alias_enlace, oth2.direccion_origen) FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx limit 1) AS direccion,
+                (SELECT oth2.ciudad FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx limit 1) AS ciudad
+            FROM ot_hija oth
+            INNER JOIN ot_padre otp ON oth.nro_ot_onyx = otp.k_id_ot_padre
+            INNER JOIN user ON otp.k_id_user = user.k_id_user
+            LEFT JOIN hitos ON hitos.id_ot_padre = otp.k_id_ot_padre
+            WHERE otp.fecha_compromiso = CURDATE()
+            $condicion
+            GROUP BY nro_ot_onyx ",
+            "otp.k_id_ot_padre*
+            otp.n_nombre_cliente*
+            otp.orden_trabajo*
+            otp.servicio*
+            estado_orden_trabajo*
+            otp.fecha_programacion*
+            otp.fecha_compromiso*
+            otp.fecha_creacion*
+            ingeniero*
+            MRC*
+            otp.lista_observaciones*
+            MAIL_enviados*
+            otp.k_id_user*
+            n_name_user*
+            cant_mails*
+            hitos.id_hitos*
+            otp.finalizo*
+            direccion*
+            ciudad*
+            otp.observacion*
+            otp.ultimo_envio_reporte*
+            cant_oths*");
+        
+        $ListOtPadreHoy_table->set_options('dom',"'Blfrtip'")
+                        ->set_options('scrollY','500')
+                        ->set_options('scrollX', '0')
+                        ->set_options('columnDefs','[
+                            {
+                                "targets": [ 9 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 10 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 11 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 12 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 13 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 14 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 15 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 16 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 17 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 18 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 19 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 20 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 21 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 22 ],
+                                "visible": false
+                            }
+                            ]')
+                        ->set_options('bFilter','true')
+                        ->set_options('initComplete','function activar(){
+                                    scripPlus2.init();
+                                    $("#table_otPadreListHoy").click(function(){
+                                        $(".btnoths ").off(\'click\');
+                                        $(".hitos-otp").off(\'click\');
+                                        scripPlus2.events();
+                                    });
+                                }')
+                        ->set_options('scroller','{
+                            loadingIndicator: true
+                        }')
+//                        ->set_options('dom','Blfrtip')
+                        ->set_options('buttons',"[
+                                                {
+                                                    text: 'Excel <span class=\"fa fa-file-excel-o\"></span>',
+                                                    className: 'btn-cami_cool',
+                                                    extend: 'excel',
+                                                    title: 'ZOLID EXCEL',
+                                                    filename: 'zolid - ' + $fecha_actual
+                                                },
+                                                {
+                                                    text: 'Imprimir <span class=\"fa fa-print\"></span>',
+                                                    className: 'btn-cami_cool',
+                                                    extend: 'print',
+                                                    title: 'Reporte Zolid',
+                                                }
+                                        ]")
+                        ->set_options('"createdRow"','function(row, data, dataIndex) {
+                                if (data[21] == 0) {
+                                    $(row).css("background-color", "#f50e0e69");
+                                }
+                            }')
+                        ->set_options('"drawCallback"','function( settings, json){
+                                    queryValue2 = settings["json"]["query"];
+                                }')
+                        ->set_options('select','true');
 
+        $ListOtPadreHoy_table->delimitador("where");
+        $ListOtPadreHoy_table
+                ->style(array(
+                    'class' => 'table table-striped table-bordered dataTable_camilo',
+                ))
+                ->column('Ot Padre', 'k_id_ot_padre')//0
+                ->column('Nombre Cliente', 'n_nombre_cliente')//1
+                ->column('Tipo', 'orden_trabajo')//2
+                ->column('Servicio', 'servicio')//3
+                ->column('Estado OT Padre', 'estado_orden_trabajo')//4
+                ->column('Fecha Programación', 'fecha_programacion')//5
+                ->column('Fecha Compromiso', 'fecha_compromiso')//6
+                ->column('Fecha Creación', 'fecha_creacion')//7
+                ->column('Ingeniero', 'ingeniero')//8
+                ->column('Recurrente', 'MRC')//9--
+                ->column('Lista', 'lista_observaciones')//10--
+                ->column('Mails Enviados', 'MAIL_enviados')//11--
+                ->column('Id Usuario', 'k_id_user')//12--
+                ->column('Nombre Usuario', 'n_name_user')//13--
+                ->column('Cantidad Mails', 'cant_mails')//14--
+                ->column('Id Hitos', 'id_hitos')//15--
+                ->column('Finalización', 'finalizo')//16--
+                ->column('Dirección', 'direccion')//17--
+                ->column('Ciudad', 'ciudad')//18--
+                ->column('Observacion', 'observacion')//19--
+                ->column('Ultimo Reporte Enviado', 'ultimo_envio_reporte')//20--
+                ->column('Cantidad OTH', 'cant_oths')//21--
+                ->column('Observaciónes dejadas', 'observacion', function($data, $row){
+//                    echo '<pre>';var_dump($row['observacion']);echo '</pre>';
+                    $observacion = ($row['observacion'] == null) ? '' : $row['observacion'];
+                    $input = "<textarea class=\"obs_cod_resolucion\" spellcheck=\"false\">$observacion</textarea>";
+                    return $input;
+                })//22
+                ->column('ultimo envio', 'ultimo_envio_reporte', function($data, $row){
+                    $inicio = strtotime(date('Y-m-d'));
+                    $fin = strtotime($row['ultimo_envio_reporte']);
+                    $dif = $inicio - $fin;
+                    $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
+                    return ceil($diasFalt);
+                })//23
+                ->column('No. OTHs', 'cant_oths', function($data, $row){
+                    $num = '';
+                    if ($row['cant_oths'] != 0) {
+                        $num .= "<span class=\"styleNum\" title=\" " . $row['cant_oths'] . " OTHs Asociadas\" style=\"text-align: center;\">" . $row['cant_oths'] . "</span>";
+                    } else {
+                        $num .= "<span class=\"styleNum noOTHs\" title=\"sin OTHs\" style=\"text-align: center;\">" . $row['cant_oths'] . "</span>";
+                    }
+                    return $num;
+                })//24
+                ->column('Opc', 'cant_oths', function($data, $row){
+                    $span = '';
+                    $title = '';
+                    $cierreKo = '';
+                    $icon = '';
+                    $reportInicio = ''; //si tiene reporte de inicio y tiene emails enviados
+
+                    //si existe una OTP con contador de reportes enviados, aparecerá, de lo contrario, pondrá el icono del ojo
+                    if ($row['MAIL_enviados']) {
+                        if ($row['MAIL_enviados'] != 0) {
+                            $reportInicio = ($row['cant_mails'] != 0) ? "<span class='fa fa-fw '>| &nbsp" . $row['cant_mails'] . "</span> <span style='color: #7eec7c;' class='fa fa-check-circle'  aria-hidden='true'></span>" : '';
+                            $span = "<span class='fa fa-fw'>" . $row['MAIL_enviados'] . "</span>";
+                            $icon = "<span class='fa fa-envelope' aria-hidden='true' style='color: #fff700;'></span>";
+                            $title = ($row['MAIL_enviados'] == 1) ? $row['MAIL_enviados'] . " correo enviado" : $row['MAIL_enviados'] . " correos enviados";
+                        } else if ($row['cant_mails'] != 0) {
+                            $span = "<span class='fa fa-fw '>" . $row['cant_mails'] . "</span>";
+                            $reportInicio = "<span style='color: #7eec7c;' class='fa fa-check-circle' aria-hidden='true'></span>";
+                            $title = ($row['cant_mails'] == 1) ? $row['cant_mails'] . " correo enviado" : $row['cant_mails'] . " correos enviados";
+                        } else {
+                            $span = "<span class='fa fa-fw fa-eye'></span>";
+                            $title = "ver OT Hijas";
+                        }
+                    } else {
+                        //SI no es reporte de act. entra acá, pero si lo es, entrará arriba
+                        if ($row['cant_mails'] != 0) {
+                            $span = "<span class='fa fa-fw '>" . $row['cant_mails'] . "</span>";
+                            $title = ($row['cant_mails'] == 1) ? $row['cant_mails'] . " correo enviado" : $row['cant_mails'] . " correos enviados";
+                        } else {
+                            $span = "<span class='fa fa-fw fa-eye'></span>";
+                            $title = "ver OT Hijas";
+                        }
+                    }
+                    if ($row['finalizo'] != null) {
+                        $cierreKo = "<a class='btn btn-default btn-xs product-otp btn_datatable_cami' data-btn='cierreKo' title='Ver Detalle Cierre KO'><span class='fa fa-fw fa-info-circle'></span></a>";
+                    }
+
+                    $color = ($row['id_hitos']) ? 'clr_lime' : '';
+                    $botones = "<div class='btn-group-vertical' style=''>"
+                            . "<a class='btn btn-default btn-xs btnoths btn_datatable_cami' title='" . $title . "'>" . $icon . $span . $reportInicio . "</a>"
+                            // + "<a class='btn btn-default btn-xs edit-otp btn_datatable_cami' title='Editar Ots'><span class='glyphicon glyphicon-save'></span></a>"
+                            . "<a class='btn btn-default btn-xs hitos-otp btn_datatable_cami' data-btn='hito' title='Hitos Ots'><span class='glyphicon glyphicon-header " . $color . "'></span></a>"
+                            . $cierreKo
+                            . "</div>";
+                    return $botones;
+                })//25
+                ;
+        $ListOtPadreHoy_table->script("
+                            <script type=\"text/javascript\" defer=\"defer\">
+                                $(function () {
+                                    scripPlus2 = {
+                                        init: function() {
+                                            scripPlus2.events();
+                                        },
+                                        events: function() {
+                                            $('#contenido_tablas').on('click', 'a.btnoths', scripPlus2.onClickShowModal);
+                                            $('#contenido_tablas').on('click', 'a.hitos-otp', scripPlus2.onClickBtnCloseOtp);
+                                            $('#contenido_tablas').on('click', 'a.product-otp', scripPlus2.onClickBtnCloseOtp);
+                                        },
+                                        onClickShowModal: function () {
+                                            var aLinkLog = $(this);
+                                            var trParent = aLinkLog.parents('tr');
+                                            var tabla = aLinkLog.parents('table').attr('id');
+                                            var record;
+                                            switch (tabla) {
+                                                case 'table_otPadreList':
+//                                                    record = vista.table_otPadreList.row(trParent).data();
+                                                    record = erTable_table_otPadreList.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListHoy':
+//                                                    record = hoy.table_otPadreListHoy.row(trParent).data();
+                                                    record = erTable_table_otPadreListHoy.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListVencidas':
+//                                                    record = vencidas.table_otPadreListVencidas.row(trParent).data();
+                                                    record = erTable_table_otPadreListVencidas.row(trParent).data();
+                                                    break;
+                                                case 'table_list_opc':
+//                                                    record = lista.tableOpcList.row(trParent).data();
+                                                    record = erTable_tableOpcList.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListEmails':
+//                                                    record = emails.table_otPadreListEmails.row(trParent).data();
+                                                    record = erTable_table_otPadreListEmails.row(trParent).data();
+                                                    break;
+                                                case 'table_reporte_actualizacion':
+//                                                    record = reporte_act.table_reporte_actualizacion.row(trParent).data();
+                                                    reporte_act.table_reporte_actualizacion.row(trParent).data();
+                                                    break;
+                                            }
+
+                                            scripPlus2.showModalOthDeOthp(record);
+                                        },
+                                        showModalOthDeOthp: function (data) {
+                                            scripPlus2.getothofothp(data);
+                                            // resetea el formulario y lo deja vacio
+                                            document.getElementById(\"formModalOTHS\").reset();
+                                            //pinta el titulo del modal y cambia dependiendo de la otp seleccionada
+                                            $('#myModalLabel').html('<strong> Lista OTH de la OTP N.<span id=\"NroOTPSelect\">' + data[0] + '</span></strong>');
+                                            $('#modalOthDeOtp').modal('show');
+                                        },
+                                        getothofothp: function (obj) {
+                                            //metodo ajax (post)
+                                            $.post(baseurl + '/OtPadre/c_getOthOfOtp',
+                                                    {
+                                                        idOtp: obj[0]
+                                                    },
+                                                    // funcion que recibe los datos
+                                                            function (data) {
+                                                                // convertir el json a objeto de javascript
+                                                                var obj = JSON.parse(data);
+                                                                scripPlus2.printTable(obj);
+                                                            }
+                                                    );
+                                                },
+                                        onClickBtnCloseOtp: function (e) {
+                                            var aLinkLog = $(this);
+                                            var trParent = aLinkLog.parents('tr');
+                                            var tabla = aLinkLog.parents('table').attr('id');
+                                            var record;
+
+                                            switch (tabla) {
+                                                case 'table_otPadreList':
+//                                                    record = vista.table_otPadreList.row(trParent).data();
+                                                    record = erTable_table_otPadreList.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListHoy':
+//                                                    record = hoy.table_otPadreListHoy.row(trParent).data();
+                                                    record = erTable_table_otPadreListHoy.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListVencidas':
+//                                                    record = vencidas.table_otPadreListVencidas.row(trParent).data();
+                                                    record = erTable_table_otPadreListVencidas.row(trParent).data();
+                                                    break;
+                                                case 'table_list_opc':
+//                                                    record = lista.tableOpcList.row(trParent).data();
+                                                    record = erTable_tableOpcList.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListEmails':
+                                                    record = erTable_table_otPadreListEmails.row(trParent).data();
+                                                    break;
+                                                case 'table_reporte_actualizacion':
+                                                    reporte_act.table_reporte_actualizacion.row(trParent).data();
+                                                    break;
+                                            }
+
+                                            var btn_clas = e.currentTarget;
+
+                                            switch (btn_clas.dataset.btn) {
+                                                case 'cierreKo':
+                                                    eventos.showDetailsCierreKo(record);
+                                                    break;
+
+                                                case 'hito':
+                                                    eventos.showModalHitosOthp(record, aLinkLog.children());
+                                                    break;
+                                            }
+                                        },
+                                        
+                                        //pintar tabla
+                                        printTable: function (data) {
+                                            //funcion para limpiar el modal
+                                            if (scripPlus2.table_oths_otp) {
+                                                var tabla = scripPlus2.table_oths_otp;
+                                                tabla.clear().draw();
+                                                tabla.rows.add(data);
+                                                tabla.columns.adjust().draw();
+                                                return;
+                                            }
+
+                                            // nombramos la variable para la tabla y llamamos la configuiracion
+                                            scripPlus2.table_oths_otp = $('#table_oths_otp').DataTable(scripPlus2.configTable(data, [
+
+                                                {title: 'OTH', data: 'id_orden_trabajo_hija'},
+                                                {title: 'Tipo OTH', data: 'ot_hija'},
+                                                {title: 'Estado OTH', data: 'estado_orden_trabajo_hija'},
+                                                {title: 'Recurrente', data: 'MRC'},
+                                                {title: 'Fecha Compromiso', data: 'fecha_compromiso'},
+                                                {title: 'Fecha Programacion', data: 'fecha_programacion'},
+                                                {title: 'Opc', data: scripPlus2.getButtonsOth},
+                                            ]));
+                                        },
+                                        // Datos de configuracion del datatable
+                                        configTable: function (data, columns, onDraw) {
+                                            return {
+                                                data: data,
+                                                columns: columns,
+                                                //lenguaje del plugin
+                                                columnDefs: [{
+                                                        defaultContent: \"\",
+                                                        targets: -1,
+                                                        orderable: false,
+                                                    }],
+                                                order: [[0, 'asc']],
+                                                drawCallback: onDraw
+                                            }
+                                        },
+                                        getButtonsOth: function (obj) {
+                                            var botones = '<div class=\"btn-group\" style=\"display: inline-flex;\">';
+                                            botones += '<a class=\"btn btn-default btn-xs ver-det btn_datatable_cami\" title=\"Editar Oth\"><span class=\"fa fa-fw fa-edit\"></span></a>';
+                                            botones += '</div>';
+                                            return botones;
+                                        },
+                                        otp_seleccionadas: function () {
+                                            var tabla = $('ul#pestania').find('li.active').attr('tabla');
+                                            var record;
+                                            switch (tabla) {
+                                                case 'table_otPadreList':
+                                                    record = vista.table_otPadreList;
+                                                    break;
+                                                case 'table_otPadreListHoy':
+                                                    record = hoy.table_otPadreListHoy;
+                                                    break;
+                                                case 'table_otPadreListVencidas':
+                                                    record = vencidas.table_otPadreListVencidas;
+                                                    break;
+                                                case 'table_list_opc':
+                                                    record = lista.tableOpcList;
+                                                    break;
+                                                case 'table_otPadreListEmails':
+                                                    record = emails.table_otPadreListEmails;
+                                                    break;
+                                                case 'table_reporte_actualizacion':
+                                                    record = reporte_act.table_reporte_actualizacion;
+                                                    break;
+                                            }
+
+                                            let hay_sel = record.rows({selected: true}).any();// booleanos q indica si hay algo seleccionado
+                                            var seleccionadas = record.rows({selected: true}).data();// los datos de los elem seleccionados
+                                            if (hay_sel) {
+                                                eventos.modalSeleccionadas(seleccionadas);
+                                                // console.log(seleccionadas[0].k_id_ot_padre);
+                                                // console.log(\"==================\");
+                                                // console.log(seleccionadas);
+                                                var cuantas = record.rows({selected: true}).count();
+                                                var ids = [];
+                                                if (cuantas > 1) {
+                                                    for (let i = 0; i < cuantas; i++) {
+                                                        ids.push(seleccionadas[i].k_id_ot_padre);
+                                                    }
+                                                } else {
+                                                    ids.push(seleccionadas[0].k_id_ot_padre);
+                                                }
+                                                // console.log(ids);
+
+                                                $('#mdl-title-cierre').html('<b>' + cuantas + '</b> ORDENES SELECCIONADAS');
+                                                $('#mdl_cierre').modal('show');
+                                                $.post(baseurl + '/OtPadre/c_getInfoEmailreport', {idsOtp: ids},
+                                                        function (data) {
+                                                            data = JSON.parse(data);
+                                                            // console.log('data:',data);
+
+                                                            var ids = ['seniorHitos', 'configuracionHitos', 'entregaServicioHitos', 'observacionesHitos'];
+                                                            if (cuantas == 1) {
+                                                                //significa que hay una seleccion
+                                                                if (data != \"sin data\") {
+                                                                    //si entra aca es porque tiene la fecha de compromiso de linea base o datos en la tabla reporte_info
+                                                                    if (data['fecha_compromiso']) {
+                                                                        //si entra acá es porque la información viene de la linea base
+                                                                        $('#entregaServicioHitos').val(data.fecha_compromiso);
+                                                                        $('#entregaServicioHitos').parents(\"div.col-sm-10\").append(`<b class='vieneDeLineaBase'>Fecha extraída de la fecha de compromiso en línea base</b>`);
+                                                                    } else {
+                                                                        //si entra acá es porque la info viene de la tabla reporte_indo
+                                                                        $('#seniorHitos').val(data['senior']);
+                                                                        $('#configuracionHitos').val(data['nombre_cliente']);
+                                                                        $('#entregaServicioHitos').val(data['f_entrega_servicio']);
+                                                                        $('#observacionesHitos').val(data['observaciones']);
+                                                                    }
+
+                                                                }//si no entra a ninguno no hace nada porque no tiene nada de info.
+                                                            } else {
+                                                                //entra si hay más de una seleccion
+
+                                                                //creamos los arrays para almacenar toda la info. de la bd
+                                                                const seniores = [];
+                                                                const nomCliente = [];
+                                                                const f_entregaServicio = [];
+                                                                const obsr = [];
+                                                                const lineabasearr = [];
+
+                                                                //ESTE EACH LLENA LA INFORMACION A VALIDAR Y LOS PONE EN DISTINTOS ARREGLOS
+                                                                $.each(data, function (i, item) {
+
+                                                                    if (item['fecha_compromiso']) {
+                                                                        //entra si los datos es igual a la fehca de compromiso de la linea base
+                                                                        lineabasearr.push(item['fecha_compromiso']);
+
+                                                                        f_entregaServicio.push(\"se debe eliminar\"); // este se debe eliminar es para que entre a la condicional para crear el select
+
+                                                                        //si es igual a sin data significa que no existe en base de datos
+                                                                    } else if (item != \"sin data\") {
+                                                                        //si entra acá significa que son datos de la tabla
+
+
+                                                                        //estos ifs validan si algún campo está vacío, porque puede que algún campo no esté lleno, pero exista en la tabla reporte_info, es para que no se vayan en null
+
+                                                                        //crean los arreglos para llenar la informacion del select
+                                                                        if (item['senior'] != null || item['senior'] != undefined) {
+                                                                            seniores.push(item['senior']);
+                                                                        }
+                                                                        if (item['nombre_cliente'] != null || item['nombre_cliente'] != undefined) {
+                                                                            nomCliente.push(item['nombre_cliente']);
+                                                                        }
+                                                                        if (item['f_entrega_servicio'] != null || item['f_entrega_servicio'] != undefined) {
+                                                                            f_entregaServicio.push(item['f_entrega_servicio']);
+                                                                        }
+                                                                        if (item['observaciones'] != null || item['observaciones'] != undefined) {
+                                                                            obsr.push(item['observaciones']);
+                                                                        }
+                                                                    }
+                                                                });
+
+                                                                //LIMPIA TODOS LOS VALORES QUE SEAN REPETIDOS Y SOLO DEJA UNO DE CADA UNO
+                                                                const fseniores = eventos.clean(seniores);
+                                                                const fnomCliente = eventos.clean(nomCliente);
+                                                                const ff_entregaServicio = eventos.clean(f_entregaServicio);
+                                                                const fobsr = eventos.clean(obsr);
+
+                                                                //ARMAMOS EL OBJETO PARA ENVIARLO A LA FUCNIÓN DE VALIDACIÓN
+                                                                const todo = {0: fseniores,
+                                                                    1: fnomCliente,
+                                                                    2: ff_entregaServicio,
+                                                                    3: fobsr}
+
+                                                                eventos.validarIgualesReporteAct(todo, ids, lineabasearr)
+
+                                                            }
+                                                        });
+
+                                            } else {
+                                                const toast = swal.mixin({
+                                                    toast: true,
+                                                    position: 'top',
+                                                    showConfirmButton: false,
+                                                    timer: 3000
+                                                });
+                                                toast({
+                                                    type: 'error',
+                                                    title: 'No seleccionaste ninguna fila!'
+                                                });
+                                            }
+
+                                        },
+                                        
+                                    };
+
+                                    scripPlus2.init();
+                                });
+                            </script>");
+                
+        $this->datatables->create('table_otPadreListHoy', $ListOtPadreHoy_table);
+        /**/
+
+        $data['title'] = 'Hoy';
+        $data['idTabla'] = 'table_otPadreListHoy';
+        $this->load->view("vistaTablaHoy",$data);
+    }
+    
+    public function vistaTablaVencidas($n_group){
+        /*Datatables server site*/
+        /**/
+        $this->load->library('Datatables');
+        $condicion = " ";
+        
+        if (Auth::user()->n_role_user == 'ingeniero') {
+            $usuario_session = Auth::user()->k_id_user;
+            $condicion = " AND otp.k_id_user = $usuario_session ";
+        } else {
+            if ($n_group != 'all') {
+                $condicion = " AND `user`.n_group = '" . str_replace("_"," ",$n_group) . "'";
+            } else {
+                $condicion = " AND 1 = 1";
+            }
+        }
+        
+        date_default_timezone_set("America/Bogota");
+        $fecha_actual = date('Y-m-d');
+        
+        $listOtPadreVencidas_table = $this->datatables->init();
+        $listOtPadreVencidas_table->query("
+            SELECT
+                otp.k_id_ot_padre,
+                otp.n_nombre_cliente,
+                otp.orden_trabajo,
+                (SELECT COUNT(id_ot_padre) FROM reporte_info WHERE id_ot_padre = otp.k_id_ot_padre) AS MAIL_enviados,
+                otp.servicio,
+                REPLACE (otp.estado_orden_trabajo, 'otp_cerrada', 'Cerrada') AS estado_orden_trabajo,
+                otp.fecha_programacion,
+                otp.fecha_compromiso,
+                otp.fecha_creacion,
+                otp.k_id_user,
+                `user`.n_name_user,
+                CONCAT( `user`.n_name_user, ' ', `user`.n_last_name_user ) AS ingeniero,
+                otp.lista_observaciones,
+                otp.observacion,
+                IFNULL(SUM( oth.c_email ),0) AS cant_mails,
+                hitos.id_hitos,
+                otp.finalizo,
+                otp.ultimo_envio_reporte,
+                CONCAT('$ ', FORMAT(oth.monto_moneda_local_arriendo + oth.monto_moneda_local_cargo_mensual, 2)) AS MRC,
+                (SELECT COUNT(oth2.nro_ot_onyx) FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx) AS cant_oths,
+                (SELECT IF(oth2.direccion_origen = '', oth2.alias_enlace, oth2.direccion_origen) FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx limit 1) AS direccion,
+                (SELECT oth2.ciudad FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx limit 1) AS ciudad
+            FROM ot_hija oth
+            INNER JOIN ot_padre otp ON oth.nro_ot_onyx = otp.k_id_ot_padre
+            INNER JOIN user ON otp.k_id_user = user.k_id_user
+            LEFT JOIN hitos ON hitos.id_ot_padre = otp.k_id_ot_padre
+            WHERE otp.fecha_compromiso < CURDATE()
+            $condicion
+            GROUP BY nro_ot_onyx ",
+            "otp.k_id_ot_padre*
+            otp.n_nombre_cliente*
+            otp.orden_trabajo*
+            otp.servicio*
+            estado_orden_trabajo*
+            otp.fecha_programacion*
+            otp.fecha_compromiso*
+            otp.fecha_creacion*
+            ingeniero*
+            MRC*
+            otp.lista_observaciones*
+            MAIL_enviados*
+            otp.k_id_user*
+            n_name_user*
+            cant_mails*
+            hitos.id_hitos*
+            otp.finalizo*
+            direccion*
+            ciudad*
+            otp.observacion*
+            otp.ultimo_envio_reporte*
+            cant_oths*");
+        
+        $listOtPadreVencidas_table->set_options('dom',"'Blfrtip'")
+                        ->set_options('scrollY','500')
+                        ->set_options('scrollX', '0')
+                        ->set_options('columnDefs','[
+                            {
+                                "targets": [ 9 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 10 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 11 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 12 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 13 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 14 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 15 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 16 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 17 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 18 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 19 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 20 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 21 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 22 ],
+                                "visible": false
+                            }
+                            ]')
+                        ->set_options('bFilter','true')
+                        ->set_options('initComplete','function activar(){
+                                    scripPlus3.init();
+                                    $("#table_otPadreListVencidas").click(function(){
+                                        $(".btnoths ").off(\'click\');
+                                        $(".hitos-otp").off(\'click\');
+                                        scripPlus3.events();
+                                    });
+                                }')
+                        ->set_options('scroller','{
+                            loadingIndicator: true
+                        }')
+//                        ->set_options('dom','Blfrtip')
+                        ->set_options('buttons',"[
+                                                {
+                                                    text: 'Excel <span class=\"fa fa-file-excel-o\"></span>',
+                                                    className: 'btn-cami_cool',
+                                                    extend: 'excel',
+                                                    title: 'ZOLID EXCEL',
+                                                    filename: 'zolid - ' + $fecha_actual
+                                                },
+                                                {
+                                                    text: 'Imprimir <span class=\"fa fa-print\"></span>',
+                                                    className: 'btn-cami_cool',
+                                                    extend: 'print',
+                                                    title: 'Reporte Zolid',
+                                                }
+                                        ]")
+                        ->set_options('"createdRow"','function(row, data, dataIndex) {
+                                if (data[21] == 0) {
+                                    $(row).css("background-color", "#f50e0e69");
+                                }
+                            }')
+                        ->set_options('"drawCallback"','function( settings, json){
+                                    queryValue2 = settings["json"]["query"];
+                                }')
+                        ->set_options('select','true');
+
+        $listOtPadreVencidas_table->delimitador("where");
+        $listOtPadreVencidas_table
+                ->style(array(
+                    'class' => 'table table-striped table-bordered dataTable_camilo',
+                ))
+                ->column('Ot Padre', 'k_id_ot_padre')//0
+                ->column('Nombre Cliente', 'n_nombre_cliente')//1
+                ->column('Tipo', 'orden_trabajo')//2
+                ->column('Servicio', 'servicio')//3
+                ->column('Estado OT Padre', 'estado_orden_trabajo')//4
+                ->column('Fecha Programación', 'fecha_programacion')//5
+                ->column('Fecha Compromiso', 'fecha_compromiso')//6
+                ->column('Fecha Creación', 'fecha_creacion')//7
+                ->column('Ingeniero', 'ingeniero')//8
+                ->column('Recurrente', 'MRC')//9--
+                ->column('Lista', 'lista_observaciones')//10--
+                ->column('Mails Enviados', 'MAIL_enviados')//11--
+                ->column('Id Usuario', 'k_id_user')//12--
+                ->column('Nombre Usuario', 'n_name_user')//13--
+                ->column('Cantidad Mails', 'cant_mails')//14--
+                ->column('Id Hitos', 'id_hitos')//15--
+                ->column('Finalización', 'finalizo')//16--
+                ->column('Dirección', 'direccion')//17--
+                ->column('Ciudad', 'ciudad')//18--
+                ->column('Observacion', 'observacion')//19--
+                ->column('Ultimo Reporte Enviado', 'ultimo_envio_reporte')//20--
+                ->column('Cantidad OTH', 'cant_oths')//21--
+                ->column('Observaciónes dejadas', 'observacion', function($data, $row){
+//                    echo '<pre>';var_dump($row['observacion']);echo '</pre>';
+                    $observacion = ($row['observacion'] == null) ? '' : $row['observacion'];
+                    $input = "<textarea class=\"obs_cod_resolucion\" spellcheck=\"false\">$observacion</textarea>";
+                    return $input;
+                })//22
+                ->column('ultimo envio', 'ultimo_envio_reporte', function($data, $row){
+                    $inicio = strtotime(date('Y-m-d'));
+                    $fin = strtotime($row['ultimo_envio_reporte']);
+                    $dif = $inicio - $fin;
+                    $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
+                    return ceil($diasFalt);
+                })//23
+                ->column('No. OTHs', 'cant_oths', function($data, $row){
+                    $num = '';
+                    if ($row['cant_oths'] != 0) {
+                        $num .= "<span class=\"styleNum\" title=\" " . $row['cant_oths'] . " OTHs Asociadas\" style=\"text-align: center;\">" . $row['cant_oths'] . "</span>";
+                    } else {
+                        $num .= "<span class=\"styleNum noOTHs\" title=\"sin OTHs\" style=\"text-align: center;\">" . $row['cant_oths'] . "</span>";
+                    }
+                    return $num;
+                })//24
+                ->column('Opc', 'cant_oths', function($data, $row){
+                    $span = '';
+                    $title = '';
+                    $cierreKo = '';
+                    $icon = '';
+                    $reportInicio = ''; //si tiene reporte de inicio y tiene emails enviados
+
+                    //si existe una OTP con contador de reportes enviados, aparecerá, de lo contrario, pondrá el icono del ojo
+                    if ($row['MAIL_enviados']) {
+                        if ($row['MAIL_enviados'] != 0) {
+                            $reportInicio = ($row['cant_mails'] != 0) ? "<span class='fa fa-fw '>| &nbsp" . $row['cant_mails'] . "</span> <span style='color: #7eec7c;' class='fa fa-check-circle'  aria-hidden='true'></span>" : '';
+                            $span = "<span class='fa fa-fw'>" . $row['MAIL_enviados'] . "</span>";
+                            $icon = "<span class='fa fa-envelope' aria-hidden='true' style='color: #fff700;'></span>";
+                            $title = ($row['MAIL_enviados'] == 1) ? $row['MAIL_enviados'] . " correo enviado" : $row['MAIL_enviados'] . " correos enviados";
+                        } else if ($row['cant_mails'] != 0) {
+                            $span = "<span class='fa fa-fw '>" . $row['cant_mails'] . "</span>";
+                            $reportInicio = "<span style='color: #7eec7c;' class='fa fa-check-circle' aria-hidden='true'></span>";
+                            $title = ($row['cant_mails'] == 1) ? $row['cant_mails'] . " correo enviado" : $row['cant_mails'] . " correos enviados";
+                        } else {
+                            $span = "<span class='fa fa-fw fa-eye'></span>";
+                            $title = "ver OT Hijas";
+                        }
+                    } else {
+                        //SI no es reporte de act. entra acá, pero si lo es, entrará arriba
+                        if ($row['cant_mails'] != 0) {
+                            $span = "<span class='fa fa-fw '>" . $row['cant_mails'] . "</span>";
+                            $title = ($row['cant_mails'] == 1) ? $row['cant_mails'] . " correo enviado" : $row['cant_mails'] . " correos enviados";
+                        } else {
+                            $span = "<span class='fa fa-fw fa-eye'></span>";
+                            $title = "ver OT Hijas";
+                        }
+                    }
+                    if ($row['finalizo'] != null) {
+                        $cierreKo = "<a class='btn btn-default btn-xs product-otp btn_datatable_cami' data-btn='cierreKo' title='Ver Detalle Cierre KO'><span class='fa fa-fw fa-info-circle'></span></a>";
+                    }
+
+                    $color = ($row['id_hitos']) ? 'clr_lime' : '';
+                    $botones = "<div class='btn-group-vertical' style=''>"
+                            . "<a class='btn btn-default btn-xs btnoths btn_datatable_cami' title='" . $title . "'>" . $icon . $span . $reportInicio . "</a>"
+                            // + "<a class='btn btn-default btn-xs edit-otp btn_datatable_cami' title='Editar Ots'><span class='glyphicon glyphicon-save'></span></a>"
+                            . "<a class='btn btn-default btn-xs hitos-otp btn_datatable_cami' data-btn='hito' title='Hitos Ots'><span class='glyphicon glyphicon-header " . $color . "'></span></a>"
+                            . $cierreKo
+                            . "</div>";
+                    return $botones;
+                })//25
+                ;
+        $listOtPadreVencidas_table->script("
+                            <script type=\"text/javascript\" defer=\"defer\">
+                                $(function () {
+                                    scripPlus3 = {
+                                        init: function() {
+                                            scripPlus3.events();
+                                        },
+                                        events: function() {
+                                            $('#contenido_tablas').on('click', 'a.btnoths', scripPlus3.onClickShowModal);
+                                            $('#contenido_tablas').on('click', 'a.hitos-otp', scripPlus3.onClickBtnCloseOtp);
+                                            $('#contenido_tablas').on('click', 'a.product-otp', scripPlus3.onClickBtnCloseOtp);
+                                        },
+                                        onClickShowModal: function () {
+                                            var aLinkLog = $(this);
+                                            var trParent = aLinkLog.parents('tr');
+                                            var tabla = aLinkLog.parents('table').attr('id');
+                                            var record;
+                                            switch (tabla) {
+                                                case 'table_otPadreList':
+//                                                    record = vista.table_otPadreList.row(trParent).data();
+                                                    record = erTable_table_otPadreList.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListHoy':
+//                                                    record = hoy.table_otPadreListHoy.row(trParent).data();
+                                                    record = erTable_table_otPadreListHoy.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListVencidas':
+//                                                    record = vencidas.table_otPadreListVencidas.row(trParent).data();
+                                                    record = erTable_table_otPadreListVencidas.row(trParent).data();
+                                                    break;
+                                                case 'table_list_opc':
+//                                                    record = lista.tableOpcList.row(trParent).data();
+                                                    record = erTable_tableOpcList.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListEmails':
+//                                                    record = emails.table_otPadreListEmails.row(trParent).data();
+                                                    record = erTable_table_otPadreListEmails.row(trParent).data();
+                                                    break;
+                                                case 'table_reporte_actualizacion':
+//                                                    record = reporte_act.table_reporte_actualizacion.row(trParent).data();
+                                                    reporte_act.table_reporte_actualizacion.row(trParent).data();
+                                                    break;
+                                            }
+
+                                            scripPlus3.showModalOthDeOthp(record);
+                                        },
+                                        showModalOthDeOthp: function (data) {
+                                            scripPlus3.getothofothp(data);
+                                            // resetea el formulario y lo deja vacio
+                                            document.getElementById(\"formModalOTHS\").reset();
+                                            //pinta el titulo del modal y cambia dependiendo de la otp seleccionada
+                                            $('#myModalLabel').html('<strong> Lista OTH de la OTP N.<span id=\"NroOTPSelect\">' + data[0] + '</span></strong>');
+                                            $('#modalOthDeOtp').modal('show');
+                                        },
+                                        getothofothp: function (obj) {
+                                            //metodo ajax (post)
+                                            $.post(baseurl + '/OtPadre/c_getOthOfOtp',
+                                                    {
+                                                        idOtp: obj[0]
+                                                    },
+                                                    // funcion que recibe los datos
+                                                            function (data) {
+                                                                // convertir el json a objeto de javascript
+                                                                var obj = JSON.parse(data);
+                                                                scripPlus3.printTable(obj);
+                                                            }
+                                                    );
+                                                },
+                                        onClickBtnCloseOtp: function (e) {
+                                            var aLinkLog = $(this);
+                                            var trParent = aLinkLog.parents('tr');
+                                            var tabla = aLinkLog.parents('table').attr('id');
+                                            var record;
+
+                                            switch (tabla) {
+                                                case 'table_otPadreList':
+//                                                    record = vista.table_otPadreList.row(trParent).data();
+                                                    record = erTable_table_otPadreList.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListHoy':
+//                                                    record = hoy.table_otPadreListHoy.row(trParent).data();
+                                                    record = erTable_table_otPadreListHoy.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListVencidas':
+//                                                    record = vencidas.table_otPadreListVencidas.row(trParent).data();
+                                                    record = erTable_table_otPadreListVencidas.row(trParent).data();
+                                                    break;
+                                                case 'table_list_opc':
+//                                                    record = lista.tableOpcList.row(trParent).data();
+                                                    record = erTable_tableOpcList.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListEmails':
+                                                    record = erTable_table_otPadreListEmails.row(trParent).data();
+                                                    break;
+                                                case 'table_reporte_actualizacion':
+                                                    reporte_act.table_reporte_actualizacion.row(trParent).data();
+                                                    break;
+                                            }
+
+                                            var btn_clas = e.currentTarget;
+
+                                            switch (btn_clas.dataset.btn) {
+                                                case 'cierreKo':
+                                                    eventos.showDetailsCierreKo(record);
+                                                    break;
+
+                                                case 'hito':
+                                                    eventos.showModalHitosOthp(record, aLinkLog.children());
+                                                    break;
+                                            }
+                                        },
+                                        
+                                        //pintar tabla
+                                        printTable: function (data) {
+                                            //funcion para limpiar el modal
+                                            if (scripPlus3.table_oths_otp) {
+                                                var tabla = scripPlus3.table_oths_otp;
+                                                tabla.clear().draw();
+                                                tabla.rows.add(data);
+                                                tabla.columns.adjust().draw();
+                                                return;
+                                            }
+
+                                            // nombramos la variable para la tabla y llamamos la configuiracion
+                                            scripPlus3.table_oths_otp = $('#table_oths_otp').DataTable(scripPlus3.configTable(data, [
+
+                                                {title: 'OTH', data: 'id_orden_trabajo_hija'},
+                                                {title: 'Tipo OTH', data: 'ot_hija'},
+                                                {title: 'Estado OTH', data: 'estado_orden_trabajo_hija'},
+                                                {title: 'Recurrente', data: 'MRC'},
+                                                {title: 'Fecha Compromiso', data: 'fecha_compromiso'},
+                                                {title: 'Fecha Programacion', data: 'fecha_programacion'},
+                                                {title: 'Opc', data: scripPlus3.getButtonsOth},
+                                            ]));
+                                        },
+                                        // Datos de configuracion del datatable
+                                        configTable: function (data, columns, onDraw) {
+                                            return {
+                                                data: data,
+                                                columns: columns,
+                                                //lenguaje del plugin
+                                                columnDefs: [{
+                                                        defaultContent: \"\",
+                                                        targets: -1,
+                                                        orderable: false,
+                                                    }],
+                                                order: [[0, 'asc']],
+                                                drawCallback: onDraw
+                                            }
+                                        },
+                                        getButtonsOth: function (obj) {
+                                            var botones = '<div class=\"btn-group\" style=\"display: inline-flex;\">';
+                                            botones += '<a class=\"btn btn-default btn-xs ver-det btn_datatable_cami\" title=\"Editar Oth\"><span class=\"fa fa-fw fa-edit\"></span></a>';
+                                            botones += '</div>';
+                                            return botones;
+                                        },
+                                        otp_seleccionadas: function () {
+                                            var tabla = $('ul#pestania').find('li.active').attr('tabla');
+                                            var record;
+                                            switch (tabla) {
+                                                case 'table_otPadreList':
+                                                    record = vista.table_otPadreList;
+                                                    break;
+                                                case 'table_otPadreListHoy':
+                                                    record = hoy.table_otPadreListHoy;
+                                                    break;
+                                                case 'table_otPadreListVencidas':
+                                                    record = vencidas.table_otPadreListVencidas;
+                                                    break;
+                                                case 'table_list_opc':
+                                                    record = lista.tableOpcList;
+                                                    break;
+                                                case 'table_otPadreListEmails':
+                                                    record = emails.table_otPadreListEmails;
+                                                    break;
+                                                case 'table_reporte_actualizacion':
+                                                    record = reporte_act.table_reporte_actualizacion;
+                                                    break;
+                                            }
+
+                                            let hay_sel = record.rows({selected: true}).any();// booleanos q indica si hay algo seleccionado
+                                            var seleccionadas = record.rows({selected: true}).data();// los datos de los elem seleccionados
+                                            if (hay_sel) {
+                                                eventos.modalSeleccionadas(seleccionadas);
+                                                // console.log(seleccionadas[0].k_id_ot_padre);
+                                                // console.log(\"==================\");
+                                                // console.log(seleccionadas);
+                                                var cuantas = record.rows({selected: true}).count();
+                                                var ids = [];
+                                                if (cuantas > 1) {
+                                                    for (let i = 0; i < cuantas; i++) {
+                                                        ids.push(seleccionadas[i].k_id_ot_padre);
+                                                    }
+                                                } else {
+                                                    ids.push(seleccionadas[0].k_id_ot_padre);
+                                                }
+                                                // console.log(ids);
+
+                                                $('#mdl-title-cierre').html('<b>' + cuantas + '</b> ORDENES SELECCIONADAS');
+                                                $('#mdl_cierre').modal('show');
+                                                $.post(baseurl + '/OtPadre/c_getInfoEmailreport', {idsOtp: ids},
+                                                        function (data) {
+                                                            data = JSON.parse(data);
+                                                            // console.log('data:',data);
+
+                                                            var ids = ['seniorHitos', 'configuracionHitos', 'entregaServicioHitos', 'observacionesHitos'];
+                                                            if (cuantas == 1) {
+                                                                //significa que hay una seleccion
+                                                                if (data != \"sin data\") {
+                                                                    //si entra aca es porque tiene la fecha de compromiso de linea base o datos en la tabla reporte_info
+                                                                    if (data['fecha_compromiso']) {
+                                                                        //si entra acá es porque la información viene de la linea base
+                                                                        $('#entregaServicioHitos').val(data.fecha_compromiso);
+                                                                        $('#entregaServicioHitos').parents(\"div.col-sm-10\").append(`<b class='vieneDeLineaBase'>Fecha extraída de la fecha de compromiso en línea base</b>`);
+                                                                    } else {
+                                                                        //si entra acá es porque la info viene de la tabla reporte_indo
+                                                                        $('#seniorHitos').val(data['senior']);
+                                                                        $('#configuracionHitos').val(data['nombre_cliente']);
+                                                                        $('#entregaServicioHitos').val(data['f_entrega_servicio']);
+                                                                        $('#observacionesHitos').val(data['observaciones']);
+                                                                    }
+
+                                                                }//si no entra a ninguno no hace nada porque no tiene nada de info.
+                                                            } else {
+                                                                //entra si hay más de una seleccion
+
+                                                                //creamos los arrays para almacenar toda la info. de la bd
+                                                                const seniores = [];
+                                                                const nomCliente = [];
+                                                                const f_entregaServicio = [];
+                                                                const obsr = [];
+                                                                const lineabasearr = [];
+
+                                                                //ESTE EACH LLENA LA INFORMACION A VALIDAR Y LOS PONE EN DISTINTOS ARREGLOS
+                                                                $.each(data, function (i, item) {
+
+                                                                    if (item['fecha_compromiso']) {
+                                                                        //entra si los datos es igual a la fehca de compromiso de la linea base
+                                                                        lineabasearr.push(item['fecha_compromiso']);
+
+                                                                        f_entregaServicio.push(\"se debe eliminar\"); // este se debe eliminar es para que entre a la condicional para crear el select
+
+                                                                        //si es igual a sin data significa que no existe en base de datos
+                                                                    } else if (item != \"sin data\") {
+                                                                        //si entra acá significa que son datos de la tabla
+
+
+                                                                        //estos ifs validan si algún campo está vacío, porque puede que algún campo no esté lleno, pero exista en la tabla reporte_info, es para que no se vayan en null
+
+                                                                        //crean los arreglos para llenar la informacion del select
+                                                                        if (item['senior'] != null || item['senior'] != undefined) {
+                                                                            seniores.push(item['senior']);
+                                                                        }
+                                                                        if (item['nombre_cliente'] != null || item['nombre_cliente'] != undefined) {
+                                                                            nomCliente.push(item['nombre_cliente']);
+                                                                        }
+                                                                        if (item['f_entrega_servicio'] != null || item['f_entrega_servicio'] != undefined) {
+                                                                            f_entregaServicio.push(item['f_entrega_servicio']);
+                                                                        }
+                                                                        if (item['observaciones'] != null || item['observaciones'] != undefined) {
+                                                                            obsr.push(item['observaciones']);
+                                                                        }
+                                                                    }
+                                                                });
+
+                                                                //LIMPIA TODOS LOS VALORES QUE SEAN REPETIDOS Y SOLO DEJA UNO DE CADA UNO
+                                                                const fseniores = eventos.clean(seniores);
+                                                                const fnomCliente = eventos.clean(nomCliente);
+                                                                const ff_entregaServicio = eventos.clean(f_entregaServicio);
+                                                                const fobsr = eventos.clean(obsr);
+
+                                                                //ARMAMOS EL OBJETO PARA ENVIARLO A LA FUCNIÓN DE VALIDACIÓN
+                                                                const todo = {0: fseniores,
+                                                                    1: fnomCliente,
+                                                                    2: ff_entregaServicio,
+                                                                    3: fobsr}
+
+                                                                eventos.validarIgualesReporteAct(todo, ids, lineabasearr)
+
+                                                            }
+                                                        });
+
+                                            } else {
+                                                const toast = swal.mixin({
+                                                    toast: true,
+                                                    position: 'top',
+                                                    showConfirmButton: false,
+                                                    timer: 3000
+                                                });
+                                                toast({
+                                                    type: 'error',
+                                                    title: 'No seleccionaste ninguna fila!'
+                                                });
+                                            }
+
+                                        },
+                                        
+                                    };
+
+                                    scripPlus3.init();
+                                });
+                            </script>");
+                
+        $this->datatables->create('table_otPadreListVencidas', $listOtPadreVencidas_table);
+        /**/
+
+        $data['title'] = 'Vencidas';
+        $data['idTabla'] = 'table_otPadreListVencidas';
+        $this->load->view("vistaTablaHoy",$data);
+    }
+    
+    public function vistaTablaOpciones($n_group, $opcion){
+        /*Datatables server site*/
+        /**/
+        $this->load->library('Datatables');
+        $condicion = " ";
+        
+        if (Auth::user()->n_role_user == 'ingeniero') {
+            $usuario_session = Auth::user()->k_id_user;
+            $condicion = " AND otp.k_id_user = $usuario_session ";
+        } else {
+            if ($n_group != 'all') {
+                $condicion = " AND `user`.n_group = '" . str_replace("_"," ",$n_group) . "'";
+            } else {
+                $condicion = " AND 1 = 1";
+            }
+        }
+
+        date_default_timezone_set("America/Bogota");
+        $fecha_actual = date('Y-m-d');
+        
+        $listOtPadreLista_table = $this->datatables->init();
+        $listOtPadreLista_table->query("
+            SELECT
+                otp.k_id_ot_padre,
+                otp.n_nombre_cliente,
+                otp.orden_trabajo,
+                (SELECT COUNT(id_ot_padre) FROM reporte_info WHERE id_ot_padre = otp.k_id_ot_padre) AS MAIL_enviados,
+                otp.servicio,
+                REPLACE (otp.estado_orden_trabajo, 'otp_cerrada', 'Cerrada') AS estado_orden_trabajo,
+                otp.fecha_programacion,
+                otp.fecha_compromiso,
+                otp.fecha_creacion,
+                otp.k_id_user,
+                `user`.n_name_user,
+                CONCAT( `user`.n_name_user, ' ', `user`.n_last_name_user ) AS ingeniero,
+                otp.lista_observaciones,
+                otp.observacion,
+                IFNULL(SUM( oth.c_email ),0) AS cant_mails,
+                hitos.id_hitos,
+                otp.finalizo,
+                otp.ultimo_envio_reporte,
+                CONCAT('$ ', FORMAT(oth.monto_moneda_local_arriendo + oth.monto_moneda_local_cargo_mensual, 2)) AS MRC,
+                (SELECT COUNT(oth2.nro_ot_onyx) FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx) AS cant_oths,
+                (SELECT IF(oth2.direccion_origen = '', oth2.alias_enlace, oth2.direccion_origen) FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx limit 1) AS direccion,
+                (SELECT oth2.ciudad FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx limit 1) AS ciudad
+            FROM ot_hija oth
+            INNER JOIN ot_padre otp ON oth.nro_ot_onyx = otp.k_id_ot_padre
+            INNER JOIN user ON otp.k_id_user = user.k_id_user
+            LEFT JOIN hitos ON hitos.id_ot_padre = otp.k_id_ot_padre
+            WHERE lista_observaciones = '" . base64_decode($opcion) . "'
+            $condicion
+            GROUP BY oth.nro_ot_onyx ",
+            "otp.k_id_ot_padre*
+            otp.n_nombre_cliente*
+            otp.orden_trabajo*
+            otp.servicio*
+            estado_orden_trabajo*
+            otp.fecha_programacion*
+            otp.fecha_compromiso*
+            otp.fecha_creacion*
+            ingeniero*
+            MRC*
+            otp.lista_observaciones*
+            MAIL_enviados*
+            otp.k_id_user*
+            n_name_user*
+            cant_mails*
+            hitos.id_hitos*
+            otp.finalizo*
+            direccion*
+            ciudad*
+            otp.observacion*
+            otp.ultimo_envio_reporte*
+            cant_oths*");
+        
+        $listOtPadreLista_table->set_options('dom',"'Blfrtip'")
+                        ->set_options('scrollY','500')
+                        ->set_options('scrollX', '0')
+                        ->set_options('columnDefs','[
+                            {
+                                "targets": [ 9 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 10 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 11 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 12 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 13 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 14 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 15 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 16 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 17 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 18 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 19 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 20 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 21 ],
+                                "visible": false
+                            },
+                            {
+                                "targets": [ 22 ],
+                                "visible": false
+                            }
+                            ]')
+                        ->set_options('bFilter','true')
+                        ->set_options('initComplete','function activar(){
+                                    scripPlus4.init();
+                                    $("#tableOpcList").click(function(){
+                                        $(".btnoths ").off(\'click\');
+                                        $(".hitos-otp").off(\'click\');
+                                        scripPlus4.events();
+                                    });
+                                }')
+                        ->set_options('scroller','{
+                            loadingIndicator: true
+                        }')
+//                        ->set_options('dom','Blfrtip')
+                        ->set_options('buttons',"[
+                                                {
+                                                    text: 'Excel <span class=\"fa fa-file-excel-o\"></span>',
+                                                    className: 'btn-cami_cool',
+                                                    extend: 'excel',
+                                                    title: 'ZOLID EXCEL',
+                                                    filename: 'zolid - ' + $fecha_actual
+                                                },
+                                                {
+                                                    text: 'Imprimir <span class=\"fa fa-print\"></span>',
+                                                    className: 'btn-cami_cool',
+                                                    extend: 'print',
+                                                    title: 'Reporte Zolid',
+                                                }
+                                        ]")
+                        ->set_options('"createdRow"','function(row, data, dataIndex) {
+                                if (data[21] == 0) {
+                                    $(row).css("background-color", "#f50e0e69");
+                                }
+                            }')
+                        ->set_options('"drawCallback"','function( settings, json){
+                                    queryValue2 = settings["json"]["query"];
+                                }')
+                        ->set_options('select','true');
+
+        $listOtPadreLista_table->delimitador("where");
+        $listOtPadreLista_table
+                ->style(array(
+                    'class' => 'table table-striped table-bordered dataTable_camilo',
+                ))
+                ->column('Ot Padre', 'k_id_ot_padre')//0
+                ->column('Nombre Cliente', 'n_nombre_cliente')//1
+                ->column('Tipo', 'orden_trabajo')//2
+                ->column('Servicio', 'servicio')//3
+                ->column('Estado OT Padre', 'estado_orden_trabajo')//4
+                ->column('Fecha Programación', 'fecha_programacion')//5
+                ->column('Fecha Compromiso', 'fecha_compromiso')//6
+                ->column('Fecha Creación', 'fecha_creacion')//7
+                ->column('Ingeniero', 'ingeniero')//8
+                ->column('Recurrente', 'MRC')//9--
+                ->column('Lista', 'lista_observaciones')//10--
+                ->column('Mails Enviados', 'MAIL_enviados')//11--
+                ->column('Id Usuario', 'k_id_user')//12--
+                ->column('Nombre Usuario', 'n_name_user')//13--
+                ->column('Cantidad Mails', 'cant_mails')//14--
+                ->column('Id Hitos', 'id_hitos')//15--
+                ->column('Finalización', 'finalizo')//16--
+                ->column('Dirección', 'direccion')//17--
+                ->column('Ciudad', 'ciudad')//18--
+                ->column('Observacion', 'observacion')//19--
+                ->column('Ultimo Reporte Enviado', 'ultimo_envio_reporte')//20--
+                ->column('Cantidad OTH', 'cant_oths')//21--
+                ->column('Observaciónes dejadas', 'observacion', function($data, $row){
+//                    echo '<pre>';var_dump($row['observacion']);echo '</pre>';
+                    $observacion = ($row['observacion'] == null) ? '' : $row['observacion'];
+                    $input = "<textarea class=\"obs_cod_resolucion\" spellcheck=\"false\">$observacion</textarea>";
+                    return $input;
+                })//22
+                ->column('ultimo envio', 'ultimo_envio_reporte', function($data, $row){
+                    $inicio = strtotime(date('Y-m-d'));
+                    $fin = strtotime($row['ultimo_envio_reporte']);
+                    $dif = $inicio - $fin;
+                    $diasFalt = (( ( $dif / 60 ) / 60 ) / 24);
+                    return ceil($diasFalt);
+                })//23
+                ->column('No. OTHs', 'cant_oths', function($data, $row){
+                    $num = '';
+                    if ($row['cant_oths'] != 0) {
+                        $num .= "<span class=\"styleNum\" title=\" " . $row['cant_oths'] . " OTHs Asociadas\" style=\"text-align: center;\">" . $row['cant_oths'] . "</span>";
+                    } else {
+                        $num .= "<span class=\"styleNum noOTHs\" title=\"sin OTHs\" style=\"text-align: center;\">" . $row['cant_oths'] . "</span>";
+                    }
+                    return $num;
+                })//24
+                ->column('Opc', 'cant_oths', function($data, $row){
+                    $span = '';
+                    $title = '';
+                    $cierreKo = '';
+                    $icon = '';
+                    $reportInicio = ''; //si tiene reporte de inicio y tiene emails enviados
+
+                    //si existe una OTP con contador de reportes enviados, aparecerá, de lo contrario, pondrá el icono del ojo
+                    if ($row['MAIL_enviados']) {
+                        if ($row['MAIL_enviados'] != 0) {
+                            $reportInicio = ($row['cant_mails'] != 0) ? "<span class='fa fa-fw '>| &nbsp" . $row['cant_mails'] . "</span> <span style='color: #7eec7c;' class='fa fa-check-circle'  aria-hidden='true'></span>" : '';
+                            $span = "<span class='fa fa-fw'>" . $row['MAIL_enviados'] . "</span>";
+                            $icon = "<span class='fa fa-envelope' aria-hidden='true' style='color: #fff700;'></span>";
+                            $title = ($row['MAIL_enviados'] == 1) ? $row['MAIL_enviados'] . " correo enviado" : $row['MAIL_enviados'] . " correos enviados";
+                        } else if ($row['cant_mails'] != 0) {
+                            $span = "<span class='fa fa-fw '>" . $row['cant_mails'] . "</span>";
+                            $reportInicio = "<span style='color: #7eec7c;' class='fa fa-check-circle' aria-hidden='true'></span>";
+                            $title = ($row['cant_mails'] == 1) ? $row['cant_mails'] . " correo enviado" : $row['cant_mails'] . " correos enviados";
+                        } else {
+                            $span = "<span class='fa fa-fw fa-eye'></span>";
+                            $title = "ver OT Hijas";
+                        }
+                    } else {
+                        //SI no es reporte de act. entra acá, pero si lo es, entrará arriba
+                        if ($row['cant_mails'] != 0) {
+                            $span = "<span class='fa fa-fw '>" . $row['cant_mails'] . "</span>";
+                            $title = ($row['cant_mails'] == 1) ? $row['cant_mails'] . " correo enviado" : $row['cant_mails'] . " correos enviados";
+                        } else {
+                            $span = "<span class='fa fa-fw fa-eye'></span>";
+                            $title = "ver OT Hijas";
+                        }
+                    }
+                    if ($row['finalizo'] != null) {
+                        $cierreKo = "<a class='btn btn-default btn-xs product-otp-4 btn_datatable_cami' data-btn='cierreKo' title='Ver Detalle Cierre KO'><span class='fa fa-fw fa-info-circle'></span></a>";
+                    }
+
+                    $color = ($row['id_hitos']) ? 'clr_lime' : '';
+                    $botones = "<div class='btn-group-vertical' style=''>"
+                            . "<a class='btn btn-default btn-xs btnoths-4 btn_datatable_cami' title='" . $title . "'>" . $icon . $span . $reportInicio . "</a>"
+                            // + "<a class='btn btn-default btn-xs edit-otp btn_datatable_cami' title='Editar Ots'><span class='glyphicon glyphicon-save'></span></a>"
+                            . "<a class='btn btn-default btn-xs hitos-otp-4 btn_datatable_cami' data-btn='hito' title='Hitos Ots'><span class='glyphicon glyphicon-header " . $color . "'></span></a>"
+                            . $cierreKo
+                            . "</div>";
+                    return $botones;
+                })//25
+                ;
+        $listOtPadreLista_table->script("
+                            <script type=\"text/javascript\" defer=\"defer\">
+                                $(function () {
+                                    scripPlus4 = {
+                                        init: function() {
+                                            scripPlus4.events();
+                                        },
+                                        events: function() {
+                                            $('#contenido_tablas').on('click', 'a.btnoths-4', scripPlus4.onClickShowModal);
+                                            $('#contenido_tablas').on('click', 'a.hitos-otp-4', scripPlus4.onClickBtnCloseOtp);
+                                            $('#contenido_tablas').on('click', 'a.product-otp-4', scripPlus4.onClickBtnCloseOtp);
+                                        },
+                                        onClickShowModal: function () {
+                                            var aLinkLog = $(this);
+                                            var trParent = aLinkLog.parents('tr');
+                                            var tabla = aLinkLog.parents('table').attr('id');
+                                            var record;
+                                            switch (tabla) {
+                                                case 'table_otPadreList':
+//                                                    record = vista.table_otPadreList.row(trParent).data();
+                                                    record = erTable_table_otPadreList.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListHoy':
+//                                                    record = hoy.table_otPadreListHoy.row(trParent).data();
+                                                    record = erTable_table_otPadreListHoy.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListVencidas':
+//                                                    record = vencidas.table_otPadreListVencidas.row(trParent).data();
+                                                    record = erTable_table_otPadreListVencidas.row(trParent).data();
+                                                    break;
+                                                case 'tableOpcList':
+//                                                    record = lista.tableOpcList.row(trParent).data();
+                                                    record = erTable_tableOpcList.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListEmails':
+//                                                    record = emails.table_otPadreListEmails.row(trParent).data();
+                                                    record = erTable_table_otPadreListEmails.row(trParent).data();
+                                                    break;
+                                                case 'table_reporte_actualizacion':
+//                                                    record = reporte_act.table_reporte_actualizacion.row(trParent).data();
+                                                    reporte_act.table_reporte_actualizacion.row(trParent).data();
+                                                    break;
+                                            }
+
+                                            scripPlus4.showModalOthDeOthp(record);
+                                        },
+                                        showModalOthDeOthp: function (data) {
+                                            scripPlus4.getothofothp(data);
+                                            // resetea el formulario y lo deja vacio
+                                            document.getElementById(\"formModalOTHS\").reset();
+                                            //pinta el titulo del modal y cambia dependiendo de la otp seleccionada
+                                            $('#myModalLabel').html('<strong> Lista OTH de la OTP N.<span id=\"NroOTPSelect\">' + data[0] + '</span></strong>');
+                                            $('#modalOthDeOtp').modal('show');
+                                        },
+                                        getothofothp: function (obj) {
+                                            //metodo ajax (post)
+                                            $.post(baseurl + '/OtPadre/c_getOthOfOtp',
+                                                    {
+                                                        idOtp: obj[0]
+                                                    },
+                                                    // funcion que recibe los datos
+                                                            function (data) {
+                                                                // convertir el json a objeto de javascript
+                                                                var obj = JSON.parse(data);
+                                                                scripPlus4.printTable(obj);
+                                                            }
+                                                    );
+                                                },
+                                        onClickBtnCloseOtp: function (e) {
+                                            var aLinkLog = $(this);
+                                            var trParent = aLinkLog.parents('tr');
+                                            var tabla = aLinkLog.parents('table').attr('id');
+                                            var record;
+
+                                            switch (tabla) {
+                                                case 'table_otPadreList':
+//                                                    record = vista.table_otPadreList.row(trParent).data();
+                                                    record = erTable_table_otPadreList.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListHoy':
+//                                                    record = hoy.table_otPadreListHoy.row(trParent).data();
+                                                    record = erTable_table_otPadreListHoy.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListVencidas':
+//                                                    record = vencidas.table_otPadreListVencidas.row(trParent).data();
+                                                    record = erTable_table_otPadreListVencidas.row(trParent).data();
+                                                    break;
+                                                case 'tableOpcList':
+//                                                    record = lista.tableOpcList.row(trParent).data();
+                                                    record = erTable_tableOpcList.row(trParent).data();
+                                                    break;
+                                                case 'table_otPadreListEmails':
+                                                    record = erTable_table_otPadreListEmails.row(trParent).data();
+                                                    break;
+                                                case 'table_reporte_actualizacion':
+                                                    reporte_act.table_reporte_actualizacion.row(trParent).data();
+                                                    break;
+                                            }
+
+                                            var btn_clas = e.currentTarget;
+
+                                            switch (btn_clas.dataset.btn) {
+                                                case 'cierreKo':
+                                                    eventos.showDetailsCierreKo(record);
+                                                    break;
+
+                                                case 'hito':
+                                                    eventos.showModalHitosOthp(record, aLinkLog.children());
+                                                    break;
+                                            }
+                                        },
+                                        
+                                        //pintar tabla
+                                        printTable: function (data) {
+                                            //funcion para limpiar el modal
+                                            if (scripPlus4.table_oths_otp) {
+                                                var tabla = scripPlus4.table_oths_otp;
+                                                tabla.clear().draw();
+                                                tabla.rows.add(data);
+                                                tabla.columns.adjust().draw();
+                                                return;
+                                            }
+
+                                            // nombramos la variable para la tabla y llamamos la configuiracion
+                                            scripPlus4.table_oths_otp = $('#table_oths_otp').DataTable(scripPlus4.configTable(data, [
+
+                                                {title: 'OTH', data: 'id_orden_trabajo_hija'},
+                                                {title: 'Tipo OTH', data: 'ot_hija'},
+                                                {title: 'Estado OTH', data: 'estado_orden_trabajo_hija'},
+                                                {title: 'Recurrente', data: 'MRC'},
+                                                {title: 'Fecha Compromiso', data: 'fecha_compromiso'},
+                                                {title: 'Fecha Programacion', data: 'fecha_programacion'},
+                                                {title: 'Opc', data: scripPlus4.getButtonsOth},
+                                            ]));
+                                        },
+                                        // Datos de configuracion del datatable
+                                        configTable: function (data, columns, onDraw) {
+                                            return {
+                                                data: data,
+                                                columns: columns,
+                                                //lenguaje del plugin
+                                                columnDefs: [{
+                                                        defaultContent: \"\",
+                                                        targets: -1,
+                                                        orderable: false,
+                                                    }],
+                                                order: [[0, 'asc']],
+                                                drawCallback: onDraw
+                                            }
+                                        },
+                                        getButtonsOth: function (obj) {
+                                            var botones = '<div class=\"btn-group\" style=\"display: inline-flex;\">';
+                                            botones += '<a class=\"btn btn-default btn-xs ver-det btn_datatable_cami\" title=\"Editar Oth\"><span class=\"fa fa-fw fa-edit\"></span></a>';
+                                            botones += '</div>';
+                                            return botones;
+                                        },
+                                        otp_seleccionadas: function () {
+                                            var tabla = $('ul#pestania').find('li.active').attr('tabla');
+                                            var record;
+                                            switch (tabla) {
+                                                case 'table_otPadreList':
+                                                    record = vista.table_otPadreList;
+                                                    break;
+                                                case 'table_otPadreListHoy':
+                                                    record = hoy.table_otPadreListHoy;
+                                                    break;
+                                                case 'table_otPadreListVencidas':
+                                                    record = vencidas.table_otPadreListVencidas;
+                                                    break;
+                                                case 'table_list_opc':
+                                                    record = lista.tableOpcList;
+                                                    break;
+                                                case 'table_otPadreListEmails':
+                                                    record = emails.table_otPadreListEmails;
+                                                    break;
+                                                case 'table_reporte_actualizacion':
+                                                    record = reporte_act.table_reporte_actualizacion;
+                                                    break;
+                                            }
+
+                                            let hay_sel = record.rows({selected: true}).any();// booleanos q indica si hay algo seleccionado
+                                            var seleccionadas = record.rows({selected: true}).data();// los datos de los elem seleccionados
+                                            if (hay_sel) {
+                                                eventos.modalSeleccionadas(seleccionadas);
+                                                // console.log(seleccionadas[0].k_id_ot_padre);
+                                                // console.log(\"==================\");
+                                                // console.log(seleccionadas);
+                                                var cuantas = record.rows({selected: true}).count();
+                                                var ids = [];
+                                                if (cuantas > 1) {
+                                                    for (let i = 0; i < cuantas; i++) {
+                                                        ids.push(seleccionadas[i].k_id_ot_padre);
+                                                    }
+                                                } else {
+                                                    ids.push(seleccionadas[0].k_id_ot_padre);
+                                                }
+                                                // console.log(ids);
+
+                                                $('#mdl-title-cierre').html('<b>' + cuantas + '</b> ORDENES SELECCIONADAS');
+                                                $('#mdl_cierre').modal('show');
+                                                $.post(baseurl + '/OtPadre/c_getInfoEmailreport', {idsOtp: ids},
+                                                        function (data) {
+                                                            data = JSON.parse(data);
+                                                            // console.log('data:',data);
+
+                                                            var ids = ['seniorHitos', 'configuracionHitos', 'entregaServicioHitos', 'observacionesHitos'];
+                                                            if (cuantas == 1) {
+                                                                //significa que hay una seleccion
+                                                                if (data != \"sin data\") {
+                                                                    //si entra aca es porque tiene la fecha de compromiso de linea base o datos en la tabla reporte_info
+                                                                    if (data['fecha_compromiso']) {
+                                                                        //si entra acá es porque la información viene de la linea base
+                                                                        $('#entregaServicioHitos').val(data.fecha_compromiso);
+                                                                        $('#entregaServicioHitos').parents(\"div.col-sm-10\").append(`<b class='vieneDeLineaBase'>Fecha extraída de la fecha de compromiso en línea base</b>`);
+                                                                    } else {
+                                                                        //si entra acá es porque la info viene de la tabla reporte_indo
+                                                                        $('#seniorHitos').val(data['senior']);
+                                                                        $('#configuracionHitos').val(data['nombre_cliente']);
+                                                                        $('#entregaServicioHitos').val(data['f_entrega_servicio']);
+                                                                        $('#observacionesHitos').val(data['observaciones']);
+                                                                    }
+
+                                                                }//si no entra a ninguno no hace nada porque no tiene nada de info.
+                                                            } else {
+                                                                //entra si hay más de una seleccion
+
+                                                                //creamos los arrays para almacenar toda la info. de la bd
+                                                                const seniores = [];
+                                                                const nomCliente = [];
+                                                                const f_entregaServicio = [];
+                                                                const obsr = [];
+                                                                const lineabasearr = [];
+
+                                                                //ESTE EACH LLENA LA INFORMACION A VALIDAR Y LOS PONE EN DISTINTOS ARREGLOS
+                                                                $.each(data, function (i, item) {
+
+                                                                    if (item['fecha_compromiso']) {
+                                                                        //entra si los datos es igual a la fehca de compromiso de la linea base
+                                                                        lineabasearr.push(item['fecha_compromiso']);
+
+                                                                        f_entregaServicio.push(\"se debe eliminar\"); // este se debe eliminar es para que entre a la condicional para crear el select
+
+                                                                        //si es igual a sin data significa que no existe en base de datos
+                                                                    } else if (item != \"sin data\") {
+                                                                        //si entra acá significa que son datos de la tabla
+
+
+                                                                        //estos ifs validan si algún campo está vacío, porque puede que algún campo no esté lleno, pero exista en la tabla reporte_info, es para que no se vayan en null
+
+                                                                        //crean los arreglos para llenar la informacion del select
+                                                                        if (item['senior'] != null || item['senior'] != undefined) {
+                                                                            seniores.push(item['senior']);
+                                                                        }
+                                                                        if (item['nombre_cliente'] != null || item['nombre_cliente'] != undefined) {
+                                                                            nomCliente.push(item['nombre_cliente']);
+                                                                        }
+                                                                        if (item['f_entrega_servicio'] != null || item['f_entrega_servicio'] != undefined) {
+                                                                            f_entregaServicio.push(item['f_entrega_servicio']);
+                                                                        }
+                                                                        if (item['observaciones'] != null || item['observaciones'] != undefined) {
+                                                                            obsr.push(item['observaciones']);
+                                                                        }
+                                                                    }
+                                                                });
+
+                                                                //LIMPIA TODOS LOS VALORES QUE SEAN REPETIDOS Y SOLO DEJA UNO DE CADA UNO
+                                                                const fseniores = eventos.clean(seniores);
+                                                                const fnomCliente = eventos.clean(nomCliente);
+                                                                const ff_entregaServicio = eventos.clean(f_entregaServicio);
+                                                                const fobsr = eventos.clean(obsr);
+
+                                                                //ARMAMOS EL OBJETO PARA ENVIARLO A LA FUCNIÓN DE VALIDACIÓN
+                                                                const todo = {0: fseniores,
+                                                                    1: fnomCliente,
+                                                                    2: ff_entregaServicio,
+                                                                    3: fobsr}
+
+                                                                eventos.validarIgualesReporteAct(todo, ids, lineabasearr)
+
+                                                            }
+                                                        });
+
+                                            } else {
+                                                const toast = swal.mixin({
+                                                    toast: true,
+                                                    position: 'top',
+                                                    showConfirmButton: false,
+                                                    timer: 3000
+                                                });
+                                                toast({
+                                                    type: 'error',
+                                                    title: 'No seleccionaste ninguna fila!'
+                                                });
+                                            }
+
+                                        },
+                                        
+                                    };
+
+                                    scripPlus4.init();
+                                });
+                            </script>");
+                
+        $this->datatables->create('tableOpcList', $listOtPadreLista_table);
+        /**/
+
+        $data['title'] = ' ';
+        $data['idTabla'] = 'tableOpcList';
+        $this->load->view("vistaTablaHoy",$data);
+    }
 }

@@ -562,13 +562,10 @@ class Dao_ot_padre_model extends CI_Model {
     public function getDetailsHitosOTP($idOtp) {
         $query = $this->db->query("
             SELECT otp.n_nombre_cliente, otp.servicio, oth.ciudad,
-                CASE
-                        WHEN oth.direccion_origen = '' THEN oth.direccion_destino
-                        ELSE ''
-                END AS 'direccion'
+                (SELECT IF(oth2.direccion_origen = '', oth2.alias_enlace, oth2.direccion_origen) FROM ot_hija oth2 WHERE otp.k_id_ot_padre = oth2.nro_ot_onyx limit 1) AS  'direccion'
             FROM ot_padre otp
             INNER JOIN ot_hija oth ON oth.nro_ot_onyx = otp.k_id_ot_padre
-            WHERE otp.k_id_ot_padre = $idOtp
+            WHERE otp.k_id_ot_padre =$idOtp
             LIMIT 1
         ");
         return $query->row();

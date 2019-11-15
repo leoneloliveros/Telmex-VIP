@@ -1,14 +1,14 @@
-$(function() {
+$(function () {
     helper = {
-        init: function() {
+        init: function () {
             helper.events();
         },
         //Eventos de la ventana.
-        events: function() {
+        events: function () {
 
         },
         // Muestra un pequeño mensaje (alert) en la parte superior derecha comunicando que se canceló la accion
-        miniAlert: function(title = 'Acción Cancelada', tipo = 'error') {
+        miniAlert: function (title = 'Acción Cancelada', tipo = 'error') {
             const toast = swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -22,7 +22,7 @@ $(function() {
         },
 
         // Alerta de cargando gif, PARA SER CERRADO DEBE USARSE EL METODO swal.close()
-        alertLoading: function(title = 'Por favor!', msj = 'No cierre ni actualice esta ventana hasta que termine el proceso'){
+        alertLoading: function (title = 'Por favor!', msj = 'No cierre ni actualice esta ventana hasta que termine el proceso') {
             swal({
                 title: title,
                 html: `<h4>${msj}</h4>
@@ -35,22 +35,18 @@ $(function() {
             });
         },
 
-
-
-
-
         // Función que permite pintar la tabla con los campos de busqueda
         // Los parametros son: Data que recibe los datos, columns: los números de columns en la tabla, IdTabke: Es el id de la tabla a pintar
         // ordenColumn:posicion para organizar las columnas y el ordenBy: la informacion se va a organizar de forma ascendente
-        configTableSearchColumn: function(data, columns, idTable, ordenColumn, ordenBy = "asc", numeric = 0) {
+        configTableSearchColumn: function (data, columns, idTable, ordenColumn, ordenBy = "asc", numeric = 0) {
 
             return {
-                initComplete: function() {
-                    $('#' + idTable + ' tfoot th').each(function() {
+                initComplete: function () {
+                    $('#' + idTable + ' tfoot th').each(function () {
                         $(this).html('<input type="text" placeholder="Buscar" />');
                     });
                     var r = $('#' + idTable + ' tfoot tr');
-                    r.find('th').each(function() {
+                    r.find('th').each(function () {
                         $(this).css('padding', 8);
                     });
                     $('#' + idTable + ' thead').append(r);
@@ -58,9 +54,9 @@ $(function() {
                     // DataTable
                     var table = $('#' + idTable).DataTable();
                     // Apply the search
-                    table.columns().every(function() {
+                    table.columns().every(function () {
                         var that = this;
-                        $('input', this.footer()).on('keyup change', function() {
+                        $('input', this.footer()).on('keyup change', function () {
                             if (that.search() !== this.value) {
                                 that.search(this.value).draw();
                             }
@@ -107,28 +103,28 @@ $(function() {
         // funcion para clonar una seccion
         // recibe que quiere clonar y que quiere añadirlo
         // al clonarlo adiciona un boton menos, por si se quiere usar para remover
-        duplicar_seccion: function(que, donde) {
+        duplicar_seccion: function (que, donde) {
             const seccion = que.clone().appendTo(donde);
             seccion.prepend(`<hr>
                     <span class="btn btn-danger f-r remover_seccion" style="margin-top:-40px"><i class="fa fa-minus"></i></span>`);
         },
         // funcion para remover una seccion
         // el elemento q dispara la funcion debe estar contenida en el div a remover
-        remover_seccion: function() {
+        remover_seccion: function () {
             const padre = $(this).parent('div');
             padre.remove();
         },
         // funcion que retona los datos del usuario que está en session
         // recibe el atributo de la session que se desea retornar
         // si no se le envia un argumento retorna todos los valores
-        inSession: function(clave = false) {
+        inSession: function (clave = false) {
             let retornar;
             $.post(baseurl + '/User/getSessionValues',
                     {
                         clave: clave
                     }
             ,
-                    function(data) {
+                    function (data) {
                         const res = JSON.parse(data);
                         retornar = res;
                     });
@@ -136,7 +132,7 @@ $(function() {
         },
         //llenar automaticamente un formulario
         // se le debe pasar el id del formulario a llenar
-        llenar_form: function(id_form) {
+        llenar_form: function (id_form) {
             let day;
             let mes;
             let flag = 1;
@@ -195,7 +191,7 @@ $(function() {
             );
         },
         // convierte una fecha al formato yyy-mm-dd
-        formatDate: function(date) {
+        formatDate: function (date) {
             var d = new Date(date),
                     month = '' + (d.getMonth() + 1),
                     day = '' + d.getDate(),
@@ -220,7 +216,7 @@ $(function() {
             return [year, month, day].join('-');
         },
         // muestra un alert y al confirmar se refresca la pantalla
-        alert_refresh: function(title = 'ok', text = 'Se realizó con exito', type = 'success') {
+        alert_refresh: function (title = 'ok', text = 'Se realizó con exito', type = 'success') {
             swal({
                 title: title,
                 html: text,
@@ -233,7 +229,7 @@ $(function() {
             })
         },
         // yyyy-mm-dd
-        sumar_o_restar_dias_a_fecha: function(fecha, dias = 1) {
+        sumar_o_restar_dias_a_fecha: function (fecha, dias = 1) {
             const cant_dias = dias * 86400000;
             const separado = fecha.split('-');
             const fecha_base = new Date(separado[0], separado[1] - 1, separado[2]);
@@ -242,7 +238,7 @@ $(function() {
         // valida si la una fecha pasada por parametro es un domingo o un festivo
         // de ser asi le suma un dia a la fecha pasada por parametro
         // retorna la fecha habil mas cercana
-        validar_domingo_festivo: function(fecha) {
+        validar_domingo_festivo: function (fecha) {
             var festivos = {
                 '2019-01-01': '2019-01-01', // Año Nuevo
                 '2019-01-07': '2019-01-07', // Reyes magos
@@ -290,7 +286,7 @@ $(function() {
             } else {
                 var miliseg = segundos * 1000;
             }
-            $(".loadingInfo").css({ 'animation': segundos + 's ocultar ease', 'border-top-left-radius': '5px', 'border-top': '1px solid black' });
+            $(".loadingInfo").css({'animation': segundos + 's ocultar ease', 'border-top-left-radius': '5px', 'border-top': '1px solid black'});
             $(".loadingInfo span").css('border-top-left-radius', '5px');
             setTimeout(() => {
                 $(".loadingInfo").remove();
@@ -311,8 +307,134 @@ $(function() {
                 $(".loadingInfo span").html(msj)
             } else {
                 alert("se está intentando abrir más de una ventana emergente de animación de carga");
-            }
+        }
         },
+
+        // private property
+        _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+
+        // public method for encoding
+        encode: function (input) {
+            var output = "";
+            var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+            var i = 0;
+
+            input = helper._utf8_encode(input);
+
+            while (i < input.length) {
+
+                chr1 = input.charCodeAt(i++);
+                chr2 = input.charCodeAt(i++);
+                chr3 = input.charCodeAt(i++);
+
+                enc1 = chr1 >> 2;
+                enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+                enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+                enc4 = chr3 & 63;
+
+                if (isNaN(chr2)) {
+                    enc3 = enc4 = 64;
+                } else if (isNaN(chr3)) {
+                    enc4 = 64;
+                }
+
+                output = output +
+                        this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) +
+                        this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+
+            }
+
+            return output;
+        },
+
+        // public method for decoding
+        decode: function (input) {
+            var output = "";
+            var chr1, chr2, chr3;
+            var enc1, enc2, enc3, enc4;
+            var i = 0;
+
+            input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+
+            while (i < input.length) {
+
+                enc1 = this._keyStr.indexOf(input.charAt(i++));
+                enc2 = this._keyStr.indexOf(input.charAt(i++));
+                enc3 = this._keyStr.indexOf(input.charAt(i++));
+                enc4 = this._keyStr.indexOf(input.charAt(i++));
+
+                chr1 = (enc1 << 2) | (enc2 >> 4);
+                chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+                chr3 = ((enc3 & 3) << 6) | enc4;
+
+                output = output + String.fromCharCode(chr1);
+
+                if (enc3 != 64) {
+                    output = output + String.fromCharCode(chr2);
+                }
+                if (enc4 != 64) {
+                    output = output + String.fromCharCode(chr3);
+                }
+
+            }
+
+            output = helper._utf8_decode(output);
+
+            return output;
+
+        },
+
+        // private method for UTF-8 encoding
+        _utf8_encode: function (string) {
+            string = string.replace(/\r\n/g, "\n");
+            var utftext = "";
+
+            for (var n = 0; n < string.length; n++) {
+
+                var c = string.charCodeAt(n);
+
+                if (c < 128) {
+                    utftext += String.fromCharCode(c);
+                } else if ((c > 127) && (c < 2048)) {
+                    utftext += String.fromCharCode((c >> 6) | 192);
+                    utftext += String.fromCharCode((c & 63) | 128);
+                } else {
+                    utftext += String.fromCharCode((c >> 12) | 224);
+                    utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+                    utftext += String.fromCharCode((c & 63) | 128);
+                }
+
+            }
+
+            return utftext;
+        },
+
+        // private method for UTF-8 decoding
+        _utf8_decode: function (utftext) {
+            var string = "";
+            var i = 0;
+            while (i < utftext.length) {
+
+                c = utftext.charCodeAt(i);
+
+                if (c < 128) {
+                    string += String.fromCharCode(c);
+                    i++;
+                } else if ((c > 191) && (c < 224)) {
+                    c2 = utftext.charCodeAt(i + 1);
+                    string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+                    i += 2;
+                } else {
+                    c2 = utftext.charCodeAt(i + 1);
+                    c3 = utftext.charCodeAt(i + 2);
+                    string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+                    i += 3;
+                }
+
+            }
+
+            return string;
+        }
 
     };
     helper.init();

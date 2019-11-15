@@ -37,11 +37,11 @@
 <a class="btn btn_datatable_cami" id="reload" title="Guardar Código de Resolución" style="float: right;"><span class="glyphicon glyphicon-save"></span></a>
 <!--*********************  MODULO PESTAÑAS  *********************-->
 <ul class="nav nav-tabs" id="pestania">
-    <li tabla="table_otPadreList" class="active"><a id="pestana_cant_total" data-toggle="tab" href="#total">Total <span class="badge" style="background: white;color: #7a00ff;border: 1.2px solid #7a00ff;" id="badge_cant_total_OTP"></span></a></li>
-    <li tabla="table_otPadreListHoy" class=""><a data-toggle="tab" href="#hoy">Hoy</a></li>
-    <li tabla="table_otPadreListVencidas" class=""><a data-toggle="tab" href="#vencidas">Vencida</a></li>
-    <li tabla="table_list_opc" class=""><a data-toggle="tab" href="#por_lista">Por Lista</a></li>
-    <li tabla="table_reporte_actualizacion" class=""><a class="clr_red" data-toggle="tab" href="#reporte_actualizacion" id="pestana_cant_report"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Enviar Reporte <span class="badge border_red bg-white" id="badge_cant_report"></span></a></li>
+    <li id="otPadreList" tabla="table_otPadreList" script="scripPlus" class="active"><a id="pestana_cant_total" data-toggle="tab" href="#total">Total <span class="badge" style="background: white;color: #7a00ff;border: 1.2px solid #7a00ff;" id="badge_cant_total_OTP"></span></a></li>
+    <li id="otPadreListHoy" tabla="table_otPadreListHoy" script="scripPlus2" class=""><a data-toggle="tab" href="#hoy">Hoy</a></li>
+    <li id="otPadreListVencidas" tabla="table_otPadreListVencidas" script="scripPlus3" class=""><a data-toggle="tab" href="#vencidas">Vencida</a></li>
+    <li id="list_opc" tabla="table_list_opc" script="scripPlus4" class=""><a data-toggle="tab" href="#por_lista">Por Lista</a></li>
+    <li id="otReporteActualizacion" tabla="table_reporte_actualizacion" script="scripPlus5" class=""><a class="clr_red" data-toggle="tab" href="#reporte_actualizacion" id="pestana_cant_report"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Enviar Reporte <span class="badge border_red bg-white" id="badge_cant_report"></span></a></li>
 </ul>
 <!--*********************  CONTENIDO PESTAÑAS  *********************-->
 <div class="tab-content" id="contenido_tablas">
@@ -60,12 +60,12 @@
     <div id="total" class="tab-pane fade in active">
         <h3 style="margin-bottom:unset;">OT Padre</h3>
         <?php
-//        $this->datatables->generate('table_otPadreList');
-//
-//        // Add this line after you load jquery from code.jquery.com
-//        $this->datatables->jquery('table_otPadreList');
+        $this->datatables->generate('table_otPadreList');
+
+        // Add this line after you load jquery from code.jquery.com
+        $this->datatables->jquery('table_otPadreList');
         ?>
-        <table id="table_otPadreList" class="table table-hover table-bordered table-striped dataTable_camilo" style="width: 100%;">
+<!--        <table id="table_otPadreList" class="table table-hover table-bordered table-striped dataTable_camilo" style="width: 100%;">
             <tfoot>
                 <tr>
                     <th></th>
@@ -85,11 +85,11 @@
                     <th id="opciones"></th>
                 </tr>
             </tfoot>
-        </table>
+        </table>-->
     </div>
 
-    <div id="hoy" class="tab-pane fade">
-        <h3>Hoy</h3>
+    <div id="hoy" class="tab-pane fade" data-carga="cargarTabla">
+<!--        <h3>Hoy</h3>
         <table id="table_otPadreListHoy" class="table table-hover table-bordered table-striped dataTable_camilo" style="width: 100%;">
             <tfoot>
                 <tr>
@@ -109,11 +109,11 @@
                     <th></th>
                 </tr>
             </tfoot>
-        </table>
+        </table>-->
     </div>
 
-    <div id="vencidas" class="tab-pane fade">
-        <h3>Vencidas</h3>
+    <div id="vencidas" class="tab-pane fade" data-carga="cargarTabla">
+<!--        <h3>Vencidas</h3>
         <table id="table_otPadreListVencidas" class="table table-hover table-bordered table-striped dataTable_camilo" style="width: 100%;">
             <tfoot>
                 <tr>
@@ -133,10 +133,10 @@
                     <th></th>
                 </tr>
             </tfoot>
-        </table>
+        </table>-->
     </div>
 
-    <div id="por_lista" class="tab-pane fade">
+    <div id="por_lista" class="tab-pane fade" data-carga="cargarTabla">
 
         <div align="center">
             <select class='btn-cami_cool' name='opc_lista' id="select_filter">
@@ -217,7 +217,8 @@
                 </optgroup>
             </select>
         </div>
-        <table id="table_list_opc" class="table table-hover table-bordered table-striped dataTable_camilo" style="width: 100%;">
+        <div id="por_lista_2" data-carga="cargarTabla"></div>
+<!--        <table id="table_list_opc" class="table table-hover table-bordered table-striped dataTable_camilo" style="width: 100%;">
             <tfoot>
                 <tr>
                     <th></th>
@@ -236,11 +237,11 @@
                     <th></th>
                 </tr>
             </tfoot>
-        </table>
+        </table>-->
     </div>
 
 
-    <div id="reporte_actualizacion" class="tab-pane fade">
+    <div id="reporte_actualizacion" class="tab-pane fade" data-carga="cargarTabla">
         <h3>Reportes de Actualización</h3>
         <div class="container m-b-40">
             <table id="tableCountReporteActualizacion" class="table table-hover table-bordered table-striped dataTable_camilo fs-10">
@@ -551,7 +552,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2" class="timeline-badge"><span>OBSERVACIONES</span></td>
+                                <td colspan="2" class="timeline-badge"><span>OBSERVACIONES PENDIENTE CLIENTE</span></td>
                                 <td colspan="4">
                                     <textarea name="observaciones" id="observaciones_genrales" rows="2" cols="100"></textarea>
                                 </td>
